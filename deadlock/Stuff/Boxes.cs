@@ -31,12 +31,12 @@ namespace deadlock.Stuff
 
             if (Program.enable_boxes)
             {
-                if (hpPerc <= 60)
-                    Resources.Share.Color = new Color(253, 184, 88);
+                if (hpPerc <= 15)
+                    Resources.Share.Color = new Color(75, 192, 117);
                 else if (hpPerc <= 35)
                     Resources.Share.Color = new Color(234, 103, 109);
-                else if (hpPerc <= 15)
-                    Resources.Share.Color = new Color(75, 192, 117);
+                else if (hpPerc <= 60)
+                    Resources.Share.Color = new Color(253, 184, 88);
                 else
                     Resources.Share.Color = new Color(75, 192, 117);
                 //g.DrawRectangleEdges(Resources.Share2, box, 3);

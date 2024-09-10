@@ -21,7 +21,7 @@ namespace deadlock.Stuff
             if (v2Top == Vector3.Zero || v2Bottom == Vector3.Zero)
                 return;
 
-            Resources.Share2.Color = new Color(0, 255, 0, 255);
+            Resources.Share2.Color = new Color(0, 0, 0, 255);
 
             float boxHeight = v2Bottom.Y - v2Top.Y;
             float boxWidth = (boxHeight / 2) * 1.25f;
@@ -32,15 +32,16 @@ namespace deadlock.Stuff
             if (Program.enable_boxes)
             {
                 if (hpPerc <= 15)
-                    Resources.Share.Color = new Color(75, 192, 117);
-                else if (hpPerc <= 35)
                     Resources.Share.Color = new Color(234, 103, 109);
-                else if (hpPerc <= 60)
+                else if (hpPerc <= 30)
                     Resources.Share.Color = new Color(253, 184, 88);
+                else if (hpPerc <= 50)
+                    Resources.Share.Color = new Color(253, 239, 88);
                 else
                     Resources.Share.Color = new Color(75, 192, 117);
                 //g.DrawRectangleEdges(Resources.Share2, box, 3);
-                g.DrawRectangleEdges(Resources.Share, box, 2);
+                g.DrawRectangleEdges(Resources.Share2, box.Left, box.Top, box.Right, box.Bottom, 4);
+                g.DrawRectangleEdges(Resources.Share, box.Left, box.Top, box.Right, box.Bottom, 2);
             }
 
             Resources.Share.Color = new Color(0, 0, 0, 100);

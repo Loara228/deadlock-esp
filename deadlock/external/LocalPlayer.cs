@@ -39,10 +39,12 @@ namespace deadlock.external
             MaxHealth = Memory.Read<int>(ControllerBase + Offsets.m_iMaxHealth);
             TeamNum = Memory.Read<int>(ControllerBase + Offsets.m_iTeamNum);
             HeroID = Memory.Read<int>(ControllerBase + Offsets.m_heroid);
-            ViewAngles = Memory.Read<Vector3>(ControllerBase + Offsets.v_angle);
 
             GameSceneNode = Memory.Read<IntPtr>(Pawn + Offsets.m_pGameSceneNode);
             Position = Memory.Read<Vector3>(GameSceneNode + Offsets.m_vecAbsOrigin);
+
+            IntPtr camera = Memory.Read<IntPtr>(Memory.ClientPtr + Offsets.CCitadelCameraManager + 0x28);
+            ViewAngles = Memory.Read<Vector3>(camera + 0x44);
 
             MatrixViewProjection = Matrix.Transpose(Memory.Read<Matrix>(Memory.ClientPtr + Offsets.ViewMatrix));
             MatrixViewport = Matrix.GetMatrixViewport(new System.Drawing.Size((int)Overlay.Current.Bounds.Width, (int)Overlay.Current.Bounds.Height));

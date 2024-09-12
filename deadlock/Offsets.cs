@@ -11,7 +11,7 @@ namespace deadlock
         internal static IntPtr dwEntityList = 0x2380A28;
         internal static IntPtr ViewMatrix = 0x253C3D0;
         internal static IntPtr LocalPlayer = 0x252B4E0;
-
+        internal static IntPtr CCitadelCameraManager = 0x23A1CC0;
 
         internal static IntPtr m_pGameSceneNode = 0x328;
         internal static IntPtr m_ihealth = 0x790;

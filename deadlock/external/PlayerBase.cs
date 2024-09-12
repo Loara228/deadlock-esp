@@ -18,6 +18,11 @@ namespace deadlock.external
         {
             ControllerBase = Memory.Read<IntPtr>(AddressBase + 120 * (Index & 0x1FF));
 
+            if (ControllerBase == Deadlock.LocalPlayer.ControllerBase)
+            {
+                Deadlock.LocalPlayer.Index = Index;
+            }
+
             var pawnHandle = Memory.Read<IntPtr>(ControllerBase + Offsets.m_hPawn);
             var listEntry = Memory.Read<IntPtr>(Deadlock.EntityList + 0x8 * ((pawnHandle & 0x7FFF) >> 0x9) + 0x10);
             Pawn = Memory.Read<IntPtr>(listEntry + 0x78 * (pawnHandle & 0x1FF));

@@ -15,18 +15,26 @@ namespace deadlock.Stuff
     {
         public static void Init()
         {
-            const float offset_left = 20, offset_bottom = 20, size = 150;
-            _radar = new Rectangle(offset_left, Overlay.Current.Bounds.Bottom - offset_bottom - 150, offset_left + size, Overlay.Current.Bounds.Bottom - offset_bottom);
-            Vector2 radarCenter = new Vector2(_radar.Left + _radar.Width / 2, _radar.Top + _radar.Height / 2);
+            const float offset_left = 550, offset_bottom = 20, size = 200;
+            _radar = new Rectangle(offset_left, Overlay.Current.Bounds.Bottom - offset_bottom - size, offset_left + size, Overlay.Current.Bounds.Bottom - offset_bottom);
+            _center = new Vector2(_radar.Left + _radar.Width / 2, _radar.Top + _radar.Height / 2);
         }
 
         public static void Draw(Graphics g)
         {
             Resources.Share.Color = new Color(0, 0, 0, 150);
             g.FillRectangle(Resources.Share, _radar);
+            Resources.Share.Color = new Color(255, 255, 255, 150);
+            g.DrawRectangle(Resources.Share, _radar, 1);
+
 
             foreach (Player player in Deadlock.Players)
             {
+                if (player.Index == Deadlock.LocalPlayer.Index)
+                    continue;
+
+                bool enemy = player.TeamNum != Deadlock.LocalPlayer.TeamNum;
+
                 Vector3 localPos = Deadlock.LocalPlayer.Position;
                 Vector2 entityWorldPos = new Vector2(localPos.X - player.Position.X, localPos.Y - player.Position.Y);
                 entityWorldPos /= _scale + 1;
@@ -37,9 +45,15 @@ namespace deadlock.Stuff
                 if (entityRadarPos == Vector2.Zero)
                     return;
 
-
-                g.FillCircle(Resources.Share, entityRadarPos.X, entityRadarPos.Y, 4);
+                Resources.Share.Color = !enemy ? new Color(75, 192, 117) : new Color(235, 103, 110, 255);
+                g.FillCircle(Resources.Share, entityRadarPos.X, entityRadarPos.Y, enemy ? 4 : 3);
             }
+
+
+            Resources.Share.Color = new Color(255, 255, 255, 150);
+            g.FillCircle(Resources.Share, _center.X, _center.Y, 2);
+            g.DrawLine(Resources.Share, _center.X, _center.Y, _radar.Left, _radar.Top, 1);
+            g.DrawLine(Resources.Share, _center.X, _center.Y, _radar.Right, _radar.Top, 1);
         }
 
         private static Vector2 TransformPosToRadar(Vector2 pointToRotate, Vector2 radarCenter, Rectangle radarRect, float angle)
@@ -72,7 +86,7 @@ namespace deadlock.Stuff
             return rotatedPoint;
         }
 
-        private static float _scale = 5f;
+        private static float _scale = 29f;
         private static Rectangle _radar = new Rectangle();
         private static Vector2 _center = new Vector2();
     }

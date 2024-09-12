@@ -2,6 +2,8 @@
 # external esp overlay
 
 ![](images/preview.gif)![](preview)
+![](images/preview.png)![](preview)
+![](images/radar.png)![](preview)
 
 ## Консоль
 
@@ -20,9 +22,11 @@
 
 ## Изменения
 
-1.0.1
+1.1.0
 
 - Теперь цвет прямоугольника завасит от здоровья игрока
+- Добавлен радар
+
 
 1.0.0
 

@@ -30,6 +30,7 @@ namespace deadlock.external
         protected override void UpdateProperties()
         {
             ControllerBase = Memory.Read<IntPtr>(Memory.ClientPtr + Offsets.LocalPlayer);
+            //UpdateProperties();
 
             var pawnHandle = Memory.Read<IntPtr>(ControllerBase + Offsets.m_hPawn);
             var listEntry = Memory.Read<IntPtr>(Deadlock.EntityList + 0x8 * ((pawnHandle & 0x7FFF) >> 0x9) + 0x10);

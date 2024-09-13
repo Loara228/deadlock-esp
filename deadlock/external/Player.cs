@@ -33,12 +33,12 @@ namespace deadlock.external
                 return;
             }
 
-            UpdateProperties();
+            UpdateProperties(false);
         }
 
-        protected override void UpdateProperties()
+        protected override void UpdateProperties(bool local)
         {
-            base.UpdateProperties();
+            base.UpdateProperties(local);
             if (Health <= 0 || TeamNum == Deadlock.LocalPlayer.TeamNum)
                 return;
             Skeleton.Update(GameSceneNode);

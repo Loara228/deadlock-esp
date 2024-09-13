@@ -14,9 +14,12 @@ namespace deadlock.external
 
         public abstract void Draw(Graphics g);
 
-        protected virtual void UpdateProperties()
+        protected virtual void UpdateProperties(bool local = false)
         {
-            ControllerBase = Memory.Read<IntPtr>(AddressBase + 120 * (Index & 0x1FF));
+            if (local)
+                ControllerBase = Memory.Read<IntPtr>(Memory.ClientPtr + Offsets.LocalPlayerController);
+            else
+                ControllerBase = Memory.Read<IntPtr>(AddressBase + 120 * (Index & 0x1FF));
 
             if (ControllerBase == Deadlock.LocalPlayer.ControllerBase)
             {

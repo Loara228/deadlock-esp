@@ -1,4 +1,5 @@
-﻿using deadlock.Stuff;
+﻿using deadlock.Drawing;
+using deadlock.Stuff;
 using GameOverlay.Drawing;
 using System;
 using System.Collections.Generic;
@@ -25,13 +26,13 @@ namespace deadlock.external
             EntityList = Memory.Read<IntPtr>(Memory.ClientPtr + Offsets.dwEntityList);
             LocalPlayer.Update();
             Players.ForEach(x => x.Update());
-            LocalPlayer.Update();
         }
 
         public static void Draw(Graphics g)
         {
             Players.ForEach(x => x.Draw(g));
             Radar.Draw(g);
+            Resources.Share.Color = new Color(255, 255, 255);
         }
 
         public static IntPtr EntityList

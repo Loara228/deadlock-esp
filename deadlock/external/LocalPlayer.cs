@@ -19,30 +19,16 @@ namespace deadlock.external
 
         public override void Update()
         {
-            AddressBase = Memory.Read<IntPtr>(Memory.ClientPtr + Offsets.LocalPlayer);
-            UpdateProperties();
+            UpdateProperties(true);
         }
 
         public override void Draw(Graphics g)
         {
         }
 
-        protected override void UpdateProperties()
+        protected override void UpdateProperties(bool local)
         {
-            ControllerBase = Memory.Read<IntPtr>(Memory.ClientPtr + Offsets.LocalPlayer);
-            //UpdateProperties();
-
-            var pawnHandle = Memory.Read<IntPtr>(ControllerBase + Offsets.m_hPawn);
-            var listEntry = Memory.Read<IntPtr>(Deadlock.EntityList + 0x8 * ((pawnHandle & 0x7FFF) >> 0x9) + 0x10);
-            Pawn = Memory.Read<IntPtr>(listEntry + 0x78 * (pawnHandle & 0x1FF));
-
-            Health = Memory.Read<int>(ControllerBase + Offsets.m_ihealth);
-            MaxHealth = Memory.Read<int>(ControllerBase + Offsets.m_iMaxHealth);
-            TeamNum = Memory.Read<int>(ControllerBase + Offsets.m_iTeamNum);
-            HeroID = Memory.Read<int>(ControllerBase + Offsets.m_heroid);
-
-            GameSceneNode = Memory.Read<IntPtr>(Pawn + Offsets.m_pGameSceneNode);
-            Position = Memory.Read<Vector3>(GameSceneNode + Offsets.m_vecAbsOrigin);
+            base.UpdateProperties(local);
 
             IntPtr camera = Memory.Read<IntPtr>(Memory.ClientPtr + Offsets.CCitadelCameraManager + 0x28);
             ViewAngles = Memory.Read<Vector3>(camera + 0x44);

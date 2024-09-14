@@ -18,7 +18,7 @@ namespace deadlock
                 Console.Beep();
             new Thread(() =>
             {
-                while(true)
+                while (true)
                 {
                     PrintInfo();
                     var key = Console.ReadKey().Key;

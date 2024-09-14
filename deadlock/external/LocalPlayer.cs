@@ -14,7 +14,6 @@ namespace deadlock.external
     {
         public LocalPlayer()
         {
-
         }
 
         public override void Update()
@@ -38,9 +37,21 @@ namespace deadlock.external
             MatrixViewProjectionViewport = MatrixViewProjection * MatrixViewport;
         }
 
+        public Matrix MatrixViewport
+        {
+            get; private set;
+        }
+
+        public Matrix MatrixViewProjectionViewport
+        {
+            get; private set;
+        }
+
+        private Matrix MatrixViewProjection
+        {
+            get; set;
+        }
+
         public Vector3 ViewAngles = new Vector3();
-        private Matrix MatrixViewProjection { get; set; }
-        public Matrix MatrixViewport { get; private set; }
-        public Matrix MatrixViewProjectionViewport { get; private set; }
     }
 }

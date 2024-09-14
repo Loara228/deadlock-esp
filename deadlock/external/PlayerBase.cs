@@ -10,6 +10,11 @@ namespace deadlock.external
 {
     internal abstract class PlayerBase
     {
+        public PlayerBase()
+        {
+            Data = new PlayerData();
+        }
+
         public abstract void Update();
 
         public abstract void Draw(Graphics g);
@@ -21,10 +26,12 @@ namespace deadlock.external
             else
                 ControllerBase = Memory.Read<IntPtr>(AddressBase + 120 * (Index & 0x1FF));
 
-            if (ControllerBase == Deadlock.LocalPlayer.ControllerBase)
-            {
+            if (ControllerBase == IntPtr.Zero)
+                return;
+            else if (ControllerBase == Deadlock.LocalPlayer.ControllerBase)
                 Deadlock.LocalPlayer.Index = Index;
-            }
+
+            Data.Update(ControllerBase);
 
             var pawnHandle = Memory.Read<IntPtr>(ControllerBase + Offsets.m_hPawn);
             var listEntry = Memory.Read<IntPtr>(Deadlock.EntityList + 0x8 * ((pawnHandle & 0x7FFF) >> 0x9) + 0x10);
@@ -37,6 +44,11 @@ namespace deadlock.external
 
             GameSceneNode = Memory.Read<IntPtr>(Pawn + Offsets.m_pGameSceneNode);
             Position = Memory.Read<Vector3>(GameSceneNode + Offsets.m_vecAbsOrigin);
+        }
+
+        public PlayerData Data
+        {
+            get; set;
         }
 
         public IntPtr AddressBase

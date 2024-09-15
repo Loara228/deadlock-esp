@@ -7,8 +7,8 @@
 
 ## Status
 
-offsets <span style="color:yellow">**15.09.2024 09:43 (Moscow)**</span>.<br>
-undetected <span style="color:lime">*yes*</span>.
+offsets: **15.09.2024 09:43 (Moscow)**
+undetected: **yes**
 
 ## Как запустить
 

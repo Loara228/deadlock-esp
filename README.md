@@ -1,13 +1,13 @@
 
 # external esp overlay
 
-![](images/preview.gif)![](preview)
 ![](images/preview.png)![](preview)
 ![](images/radar.png)![](preview)
 
-## Консоль
+## Status
 
-![](images/cmd.png)![](cmd)
+offsets <span style="color:yellow">**15.09.2024 09:43 (Moscow)**</span>.
+undetected <span style="color:lime">**yes**</span>.
 
 ## Как запустить
 
@@ -16,27 +16,7 @@
 
 ## Больше не работает?
 
-Обновите указатели [в этом файле](https://github.com/Loara228/deadlock-esp/blob/master/deadlock/Offsets.cs) и скомпилируйте
-Если самому лень, то можете добавить репозиторий в избранное и ждать обновления
-
-
-## Изменения
-
-1.1.2
-
-- Обновил указатели
-
-1.1.1
-
-- Немного улучшил код
-- Обновил указатели под большое обновление
-
-1.1.0
-
-- Теперь цвет прямоугольника завасит от здоровья игрока
-- Добавлен радар
-
-
-1.0.0
-
-- Релиз
+Скорее всего игра обновилась и смещения больше не актуальны.
+Обновите их [в этом файле](https://github.com/Loara228/deadlock-esp/blob/master/deadlock/Offsets.cs) и скомпилируйте. Для компиляции можно использовать [сканер]().
+Если самому лень, то можете добавить репозиторий в избранное и ждать обновления.
+![](images/offsets.png)![](offsets)

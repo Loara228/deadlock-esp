@@ -8,9 +8,9 @@ namespace deadlock
 {
     internal static class Offsets
     {
-        internal static IntPtr dwEntityList = 0x1f220c8;
-        internal static IntPtr ViewMatrix = 0x20dfa20;
-        internal static IntPtr LocalPlayerController = 0x20cdec0;
+        internal static IntPtr dwEntityList = 0x1f23838;
+        internal static IntPtr ViewMatrix = 0x20e11b0;
+        internal static IntPtr LocalPlayerController = 0x20cf650;
         internal static IntPtr CCitadelCameraManager = 0x23D8930;
 
         internal static IntPtr m_pGameSceneNode = 0x328;

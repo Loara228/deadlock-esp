@@ -1,0 +1,17 @@
+[package]
+name = "scanner"
+version = "0.1.0"
+edition = "2021"
+
+# See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
+
+[dependencies]
+sysinfo = "0.31.2"
+
+[dependencies.windows]
+windows = "0.55.0"
+features = [
+    "Win32_Foundation",
+    "System",
+    "Win32_System_Kernel"
+]

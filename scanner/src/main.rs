@@ -79,7 +79,7 @@ fn main() {
         let module_info = get_module_info(proc_handle, "client.dll").expect("client.dll не найден");
         let module_info_2 = get_module_info(proc_handle, "schemasystem.dll").expect("schemasystem.dll не найден");
         let client_memory = read_memory_bytes(proc_handle, module_info.lpBaseOfDll as usize, module_info.SizeOfImage as usize);
-        let chemas_memory = read_memory_bytes(proc_handle, module_info_2.lpBaseOfDll as usize, module_info_2.SizeOfImage as usize);
+        let chema_sys_memory = read_memory_bytes(proc_handle, module_info_2.lpBaseOfDll as usize, module_info_2.SizeOfImage as usize);
 
         println!("LocalPlayerController:");
         local_player_sig.find(&client_memory, proc_handle, module_info.lpBaseOfDll);
@@ -87,8 +87,8 @@ fn main() {
         view_matrix_sig.find(&client_memory, proc_handle, module_info.lpBaseOfDll);
         println!("EntityList:");
         entity_list_sig.find(&client_memory, proc_handle, module_info.lpBaseOfDll);
-        println!("chemas:");
-        chemas_sig.find(&chemas_memory, proc_handle, module_info_2.lpBaseOfDll);
+        println!("SchemaSystemInterface :");
+        chemas_sig.find(&chema_sys_memory, proc_handle, module_info_2.lpBaseOfDll);
     }
 }
 

@@ -37,8 +37,8 @@ namespace deadlock.external
             var listEntry = Memory.Read<IntPtr>(Deadlock.EntityList + 0x8 * ((pawnHandle & 0x7FFF) >> 0x9) + 0x10);
             Pawn = Memory.Read<IntPtr>(listEntry + 0x78 * (pawnHandle & 0x1FF));
 
-            Health = Memory.Read<int>(ControllerBase + Offsets.m_ihealth);
-            MaxHealth = Memory.Read<int>(ControllerBase + Offsets.m_iMaxHealth);
+            Health = Memory.Read<int>(Pawn + Offsets.m_ihealth);
+            MaxHealth = Memory.Read<int>(Pawn + Offsets.m_iMaxHealth);
             TeamNum = Memory.Read<int>(ControllerBase + Offsets.m_iTeamNum);
             HeroID = Memory.Read<int>(ControllerBase + Offsets.m_heroid);
 

@@ -25,7 +25,7 @@ impl Signature
     pub unsafe fn find(&self, memory: &Vec<u8>, proccess_handle: HANDLE, module_ptr: *mut c_void)
     {
         let pattern: Vec<u8> = self.parse_pattern();
-        for i in 1000000..memory.len()
+        for i in 0..memory.len()
         {
             let mut pattern_match = true;
             for j in 0..pattern.len()
@@ -73,17 +73,22 @@ fn main() {
         let local_player_sig = Signature::new("48 8B 0D ? ? ? ? 48 85 C9 74 65 83 FF FF", 3, 7);
         let view_matrix_sig = Signature::new("48 8D 0D ? ? ? ? 48 C1 E0", 3, 7);
         let entity_list_sig = Signature::new("48 8B 0D ? ? ? ? 8B C5 48 C1 E8", 3, 7);
+        let chemas_sig = Signature::new("48 89 05 ? ? ? ? 4C 8D 0D ? ? ? ? 0F B6 45 E8 4C 8D 45 E0 33 F6", 3, 7);
 
         let proc_handle = get_process_handle().expect("Процесс игры не найден");
-        let module_info = get_module_info(proc_handle).expect("client.dll не найден");
-        let memory = read_memory_bytes(proc_handle, module_info.lpBaseOfDll as usize, module_info.SizeOfImage as usize);
+        let module_info = get_module_info(proc_handle, "client.dll").expect("client.dll не найден");
+        let module_info_2 = get_module_info(proc_handle, "schemasystem.dll").expect("schemasystem.dll не найден");
+        let client_memory = read_memory_bytes(proc_handle, module_info.lpBaseOfDll as usize, module_info.SizeOfImage as usize);
+        let chemas_memory = read_memory_bytes(proc_handle, module_info_2.lpBaseOfDll as usize, module_info_2.SizeOfImage as usize);
 
         println!("LocalPlayerController:");
-        local_player_sig.find(&memory, proc_handle, module_info.lpBaseOfDll);
+        local_player_sig.find(&client_memory, proc_handle, module_info.lpBaseOfDll);
         println!("ViewMatrix:");
-        view_matrix_sig.find(&memory, proc_handle, module_info.lpBaseOfDll);
+        view_matrix_sig.find(&client_memory, proc_handle, module_info.lpBaseOfDll);
         println!("EntityList:");
-        entity_list_sig.find(&memory, proc_handle, module_info.lpBaseOfDll);
+        entity_list_sig.find(&client_memory, proc_handle, module_info.lpBaseOfDll);
+        println!("chemas:");
+        chemas_sig.find(&chemas_memory, proc_handle, module_info_2.lpBaseOfDll);
     }
 }
 
@@ -104,7 +109,7 @@ pub unsafe fn get_process_handle() -> Option<HANDLE>
     }
 }
 
-pub unsafe fn get_module_info(proccess_handle: HANDLE) -> Option<MODULEINFO>
+pub unsafe fn get_module_info(proccess_handle: HANDLE, module_name: &str) -> Option<MODULEINFO>
 {
     let mut h_mods: [HMODULE; 256] = [HMODULE::default(); 256];
     let mut cb_needed = 0u32;
@@ -115,7 +120,7 @@ pub unsafe fn get_module_info(proccess_handle: HANDLE) -> Option<MODULEINFO>
         let mut file_name: [u8; 32] = [0u8; 32];
         GetModuleBaseNameA(proccess_handle, h_mods[i], &mut file_name);
         let file_name_str = str::from_utf8(&file_name).unwrap();
-        if file_name_str.starts_with("client.dll")
+        if file_name_str.starts_with(module_name)
         {
             let mut module_info = MODULEINFO::default();
             GetModuleInformation(proccess_handle, h_mods[i], &mut module_info, std::mem::size_of::<MODULEINFO>() as u32).unwrap();

@@ -7,8 +7,8 @@
 
 ## Offsets and status
 
-- [offsets](?): **15.09.2024**
-- [C++ format](?)
+- [offsets](https://github.com/Loara228/deadlock-esp/blob/master/deadlock/Dump/client_dll.cs): **15.09.2024**
+- [C++ format](https://github.com/Loara228/deadlock-esp/blob/master/deadlock/Dump/client_dll.hpp)
 - undetected: **yes**
 
 ## Как запустить

@@ -9,6 +9,7 @@ using System.Linq;
 using System.Numerics;
 using System.Text;
 using System.Threading.Tasks;
+using static Dumper.Schemas.ClientDll;
 
 namespace deadlock.Stuff
 {
@@ -55,7 +56,7 @@ namespace deadlock.Stuff
                 g.DrawVerticalProgressBar(Resources.Share2, Resources.Share, progressBar, 1, hpPerc);
             }
 
-            string text = $"{p.Health}/{p.MaxHealth}\n{((HeroIds)p.HeroID).ToString()}";
+            string text = $"{p.Health}/{p.MaxHealth}\n{((HeroIds)p.Data.HeroID).ToString()}";
 
             if (Program.enable_text)
             {

@@ -7,6 +7,7 @@ using System.Linq;
 using System.Numerics;
 using System.Text;
 using System.Threading.Tasks;
+using static Dumper.Schemas.ClientDll;
 
 namespace deadlock.external
 {
@@ -21,7 +22,7 @@ namespace deadlock.external
         {
             UpperBone = new Vector3(0, 0, -100);
             Bones.Clear();
-            BoneArray = Memory.Read<IntPtr>(gameSceneNode + Offsets.m_modelState + Offsets.m_boneArray);
+            BoneArray = Memory.Read<IntPtr>(gameSceneNode + CSkeletonInstance.m_modelState + Offsets.m_boneArray);
             for (int i = 0; i < 64; i++)
             {
                 IntPtr boneAddress = BoneArray + i * 32;

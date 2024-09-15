@@ -5,9 +5,10 @@
 
 ![](images/radar.png)![](preview)
 
-## Status
+## Offsets and status
 
-- offsets: **15.09.2024 09:43 (Moscow)**
+- [offsets](?): **15.09.2024**
+- [C++ format](?)
 - undetected: **yes**
 
 ## Как запустить
@@ -15,10 +16,12 @@
 1. Запустите игру
 2. Запустите программу
 
-## Больше не работает?
+## Как обновить
 
-Скорее всего игра обновилась и смещения больше не актуальны.
-Обновите их [в этом файле](https://github.com/Loara228/deadlock-esp/blob/master/deadlock/Offsets.cs) и скомпилируйте. Для поиска можно использовать [сканер](https://github.com/Loara228/deadlock-esp/blob/master/scanner/src/main.rs).
-Если самому лень, то можете добавить репозиторий в избранное и ждать обновления.
+Если хотите обновить самостоятельно, то используйте это.
+
+1. Найдите указатели по сигнатурам [тут](https://github.com/Loara228/deadlock-esp/blob/master/scanner/src/main.rs).
+
+2. Замените указатели [в этом файле](https://github.com/Loara228/deadlock-esp/blob/master/deadlock/Offsets.cs).
 
 ![](images/offsets.png)![](offsets)

@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using static Dumper.Schemas.ClientDll;
 
 namespace deadlock.external
 {
@@ -10,9 +11,8 @@ namespace deadlock.external
     {
         public void Update(IntPtr ControllerBase)
         {
-            //IntPtr playerDataGlobal = ControllerBase + Offsets.m_PlayerDataGlobal + 12;
-            //Level = Memory.Read<int>(playerDataGlobal + 4);
-            //MaxAmmo = Memory.Read<int>(playerDataGlobal + 8);
+            IntPtr playerDataGlobal = ControllerBase + CCitadelPlayerController.m_PlayerDataGlobal;
+            HeroID = Memory.Read<short>(playerDataGlobal + PlayerDataGlobal_t.m_nHeroID);
         }
 
         public int Level
@@ -20,7 +20,7 @@ namespace deadlock.external
             get; set;
         }
 
-        public int MaxAmmo
+        public int HeroID
         {
             get; set;
         }

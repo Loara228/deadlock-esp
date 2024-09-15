@@ -5,6 +5,7 @@ using System.Linq;
 using System.Numerics;
 using System.Text;
 using System.Threading.Tasks;
+using static Dumper.Schemas.ClientDll;
 
 namespace deadlock.external
 {
@@ -33,17 +34,16 @@ namespace deadlock.external
 
             Data.Update(ControllerBase);
 
-            var pawnHandle = Memory.Read<IntPtr>(ControllerBase + Offsets.m_hPawn);
+            var pawnHandle = Memory.Read<IntPtr>(ControllerBase + CBasePlayerController.m_hPawn);
             var listEntry = Memory.Read<IntPtr>(Deadlock.EntityList + 0x8 * ((pawnHandle & 0x7FFF) >> 0x9) + 0x10);
             Pawn = Memory.Read<IntPtr>(listEntry + 0x78 * (pawnHandle & 0x1FF));
 
-            Health = Memory.Read<int>(Pawn + Offsets.m_ihealth);
-            MaxHealth = Memory.Read<int>(Pawn + Offsets.m_iMaxHealth);
-            TeamNum = Memory.Read<int>(ControllerBase + Offsets.m_iTeamNum);
-            HeroID = Memory.Read<int>(ControllerBase + Offsets.m_heroid);
+            Health = Memory.Read<int>(Pawn + C_BaseEntity.m_iHealth);
+            MaxHealth = Memory.Read<int>(Pawn + C_BaseEntity.m_iMaxHealth);
+            TeamNum = Memory.Read<int>(ControllerBase + C_BaseEntity.m_iTeamNum);
 
-            GameSceneNode = Memory.Read<IntPtr>(Pawn + Offsets.m_pGameSceneNode);
-            Position = Memory.Read<Vector3>(GameSceneNode + Offsets.m_vecAbsOrigin);
+            GameSceneNode = Memory.Read<IntPtr>(Pawn + C_BaseEntity.m_pGameSceneNode);
+            Position = Memory.Read<Vector3>(GameSceneNode + CGameSceneNode.m_vecAbsOrigin);
         }
 
         public PlayerData Data
@@ -92,11 +92,6 @@ namespace deadlock.external
         }
 
         public int TeamNum
-        {
-            get; set;
-        }
-
-        public int HeroID
         {
             get; set;
         }

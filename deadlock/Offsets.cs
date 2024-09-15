@@ -14,19 +14,19 @@ namespace deadlock
         internal static IntPtr CCitadelCameraManager = 0x23D8930;
 
         //C_BaseEntity
-        internal static IntPtr m_pGameSceneNode = 0x328;
-        internal static IntPtr m_ihealth = 0x34c;
-        internal static IntPtr m_iMaxHealth = 0x348;
-        internal static IntPtr m_iTeamNum = 0x3eb;
+        //internal static IntPtr m_pGameSceneNode = 0x328;
+        //internal static IntPtr m_ihealth = 0x34c;
+        //internal static IntPtr m_iMaxHealth = 0x348;
+        //internal static IntPtr m_iTeamNum = 0x3eb;
 
         //CGameSceneNode
-        internal static IntPtr m_vecAbsOrigin = 0xd0;
+        //internal static IntPtr m_vecAbsOrigin = 0xd0;
         internal static IntPtr m_boneArray = 0x80;
-        internal static IntPtr m_modelState = 0x170;
+        //internal static IntPtr m_modelState = 0x170;
 
         //Controller
-        internal static IntPtr m_heroid = 0x764 + 16;
-        internal static IntPtr m_PlayerDataGlobal = 0x758; // PlayerDataGlobal_t
-        internal static IntPtr m_hPawn = 0x60c;
+        //internal static IntPtr m_heroid = 0x764 + 16;
+        //internal static IntPtr m_PlayerDataGlobal = 0x758; // PlayerDataGlobal_t
+        //internal static IntPtr m_hPawn = 0x60c;
     }
 }

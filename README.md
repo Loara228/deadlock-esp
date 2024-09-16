@@ -5,6 +5,9 @@
 
 ![](images/radar.png)![](preview)
 
+Video: https://youtu.be/NXYFQsxMNl8
+(видео немного улучшенной версии)
+
 ## Offsets and status
 
 - [offsets](https://github.com/Loara228/deadlock-esp/blob/master/deadlock/Dump/client_dll.cs): **16.09.2024**

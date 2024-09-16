@@ -10,7 +10,7 @@ Video: https://youtu.be/NXYFQsxMNl8
 
 ## Offsets and status
 
-- [offsets](https://github.com/Loara228/deadlock-esp/blob/master/deadlock/Dump/client_dll.cs): **16.09.2024**
+- [offsets](https://github.com/Loara228/deadlock-esp/blob/master/deadlock/Dump/client_dll.cs): **17.09.2024**
 - [C++ format](https://github.com/Loara228/deadlock-esp/blob/master/deadlock/Dump/client_dll.hpp)
 - undetected: **yes**
 

@@ -30,6 +30,8 @@ namespace deadlock
                         enable_healthbar = !enable_healthbar;
                     else if (key == ConsoleKey.D4)
                         enable_text = !enable_text;
+                    else if (key == ConsoleKey.D5)
+                        enable_radar = !enable_radar;
                     else
                         continue;
                 }
@@ -44,6 +46,7 @@ namespace deadlock
             PrintField("2. bones", enable_bones);
             PrintField("3. healthbar", enable_healthbar);
             PrintField("4. hero info", enable_text);
+            PrintField("5. radar", enable_radar);
         }
 
         static void PrintField(string name, bool enabled)
@@ -59,5 +62,6 @@ namespace deadlock
         public static bool enable_bones = false;
         public static bool enable_healthbar = true;
         public static bool enable_text = true;
+        public static bool enable_radar = true;
     }
 }

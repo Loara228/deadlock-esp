@@ -1,4 +1,5 @@
-﻿using System;
+﻿using deadlock.external.Structs;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -12,15 +13,16 @@ namespace deadlock.external
         public void Update(IntPtr ControllerBase)
         {
             IntPtr playerDataGlobal = ControllerBase + CCitadelPlayerController.m_PlayerDataGlobal;
-            HeroID = Memory.Read<short>(playerDataGlobal + PlayerDataGlobal_t.m_nHeroID);
+            HeroID = (HeroIds)Memory.Read<short>(playerDataGlobal + PlayerDataGlobal_t.m_nHeroID);
+            Alive = Memory.Read<bool>(playerDataGlobal + PlayerDataGlobal_t.m_bAlive);
         }
 
-        public int Level
+        public HeroIds HeroID
         {
             get; set;
         }
 
-        public int HeroID
+        public bool Alive
         {
             get; set;
         }

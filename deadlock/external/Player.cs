@@ -9,6 +9,7 @@ using System.Linq;
 using System.Numerics;
 using System.Text;
 using System.Threading.Tasks;
+using static Dumper.Schemas.ClientDll;
 
 namespace deadlock.external
 {
@@ -17,7 +18,7 @@ namespace deadlock.external
         public Player(int index)
         {
             this.Index = index;
-            Skeleton = new Skeleton();
+            Skeleton = new Skeleton(this);
         }
 
         public override void Update()

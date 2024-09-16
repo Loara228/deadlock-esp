@@ -22,6 +22,8 @@ namespace deadlock.Stuff
 
         public static void Draw(Graphics g)
         {
+            if (!Program.enable_radar)
+                return;
             Resources.Share.Color = new Color(0, 0, 0, 150);
             g.FillRectangle(Resources.Share, _radar);
             Resources.Share.Color = new Color(255, 255, 255, 150);
@@ -51,7 +53,7 @@ namespace deadlock.Stuff
 
 
             Resources.Share.Color = new Color(255, 255, 255, 150);
-            g.FillCircle(Resources.Share, _center.X, _center.Y, 2);
+            g.FillCircle(Resources.Share, _center.X, _center.Y, 3);
             g.DrawLine(Resources.Share, _center.X, _center.Y, _radar.Left, _radar.Top, 1);
             g.DrawLine(Resources.Share, _center.X, _center.Y, _radar.Right, _radar.Top, 1);
         }

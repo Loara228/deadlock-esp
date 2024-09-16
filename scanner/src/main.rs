@@ -71,9 +71,10 @@ fn main() {
     unsafe
     {
         let local_player_sig = Signature::new("48 8B 0D ? ? ? ? 48 85 C9 74 65 83 FF FF", 3, 7);
-        let view_matrix_sig = Signature::new("48 8D 0D ? ? ? ? 48 C1 E0", 3, 7);
+        let view_matrix_sig = Signature::new("48 63 C2 48 8D 0D ? ? ? ? 48 C1 E0", 6, 10);
         let entity_list_sig = Signature::new("48 8B 0D ? ? ? ? 8B C5 48 C1 E8", 3, 7);
-        let chemas_sig = Signature::new("48 89 05 ? ? ? ? 4C 8D 0D ? ? ? ? 0F B6 45 E8 4C 8D 45 E0 33 F6", 3, 7);
+        let camera_sig = Signature::new("48 8D 3D ? ? ? ? 8B D9", 3, 7);
+        let schema_sig = Signature::new("48 89 05 ? ? ? ? 4C 8D 0D ? ? ? ? 0F B6 45 E8 4C 8D 45 E0 33 F6", 3, 7);
 
         let proc_handle = get_process_handle().expect("Процесс игры не найден");
         let module_info = get_module_info(proc_handle, "client.dll").expect("client.dll не найден");
@@ -87,8 +88,10 @@ fn main() {
         view_matrix_sig.find(&client_memory, proc_handle, module_info.lpBaseOfDll);
         println!("EntityList:");
         entity_list_sig.find(&client_memory, proc_handle, module_info.lpBaseOfDll);
+        println!("Camera:");
+        camera_sig.find(&client_memory, proc_handle, module_info.lpBaseOfDll);
         println!("SchemaSystemInterface :");
-        chemas_sig.find(&chema_sys_memory, proc_handle, module_info_2.lpBaseOfDll);
+        schema_sig.find(&chema_sys_memory, proc_handle, module_info_2.lpBaseOfDll);
     }
 }
 

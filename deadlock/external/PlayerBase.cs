@@ -44,6 +44,7 @@ namespace deadlock.external
 
             GameSceneNode = Memory.Read<IntPtr>(Pawn + C_BaseEntity.m_pGameSceneNode);
             Position = Memory.Read<Vector3>(GameSceneNode + CGameSceneNode.m_vecAbsOrigin);
+            Dormant = Memory.Read<bool>(GameSceneNode + CGameSceneNode.m_bDormant);
         }
 
         public PlayerData Data
@@ -92,6 +93,11 @@ namespace deadlock.external
         }
 
         public int TeamNum
+        {
+            get; set;
+        }
+
+        public bool Dormant
         {
             get; set;
         }

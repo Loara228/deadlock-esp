@@ -31,7 +31,7 @@ namespace deadlock.external
         public static void Draw(Graphics g)
         {
             Players.ForEach(x => x.Draw(g));
-            //Radar.Draw(g);
+            Radar.Draw(g);
             Resources.Share.Color = new Color(255, 255, 255);
         }
 

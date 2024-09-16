@@ -18,12 +18,13 @@ namespace deadlock.Stuff
             if (!Program.enable_bones)
                 return;
             Resources.Share.Color = new Color(255, 0, 0, 100);
+            Resources.Share2.Color = new Color(0, 0, 0, 100);
             foreach (var pos in player.Skeleton.Bones)
             {
                 var v2 = g.GetWorldPos(pos);
                 if (v2 == Vector3.Zero)
                     continue;
-                g.FillCircle(Resources.Share, v2.X, v2.Y, 2);
+                g.OutlineCircle(Resources.Share2, Resources.Share, new Circle(v2.X, v2.Y, 2), 2);
             }
         }
     }

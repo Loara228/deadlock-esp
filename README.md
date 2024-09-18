@@ -5,12 +5,12 @@
 
 ![](images/radar.png)![](preview)
 
-Video: https://youtu.be/NXYFQsxMNl8
-(видео немного улучшенной версии)
+aimbot (mb later): https://youtu.be/NXYFQsxMNl8
+auto farm (mb later) https://youtu.be/uOCpxAk8sOg
 
 ## Offsets and status
 
-- [offsets](https://github.com/Loara228/deadlock-esp/blob/master/deadlock/Dump/client_dll.cs): **17.09.2024**
+- [offsets](https://github.com/Loara228/deadlock-esp/blob/master/deadlock/Dump/client_dll.cs): **18.09.2024**
 - [C++ format](https://github.com/Loara228/deadlock-esp/blob/master/deadlock/Dump/client_dll.hpp)
 - undetected: **yes**
 

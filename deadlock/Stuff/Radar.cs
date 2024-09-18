@@ -32,7 +32,7 @@ namespace deadlock.Stuff
 
             foreach (Player player in Deadlock.Players)
             {
-                if (player.Index == Deadlock.LocalPlayer.Index)
+                if (player.Index == Deadlock.LocalPlayer.Index || !player.Data.Alive)
                     continue;
 
                 bool enemy = player.TeamNum != Deadlock.LocalPlayer.TeamNum;

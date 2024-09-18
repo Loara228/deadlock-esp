@@ -40,7 +40,7 @@ namespace deadlock.external
         protected override void UpdateProperties(bool local)
         {
             base.UpdateProperties(local);
-            if (Health <= 0 || TeamNum == Deadlock.LocalPlayer.TeamNum)
+            if (Health <= 0 || TeamNum == Deadlock.LocalPlayer.TeamNum || !Data.Alive)
                 return;
             Skeleton.Update(GameSceneNode);
         }

@@ -17,6 +17,8 @@ namespace deadlock.Stuff
     {
         public static void Draw(Graphics g, Player p)
         {
+            if (!p.Data.Alive || p.Health <= 0)
+                return;
             var v2Top = g.GetWorldPos(p.Skeleton.HeadPos);
             var v2Bottom = g.GetWorldPos(p.Position);
             if (v2Top == Vector3.Zero || v2Bottom == Vector3.Zero)

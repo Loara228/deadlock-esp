@@ -1,6 +1,6 @@
 // Thanks for https://github.com/a2x/ <3
 // Чуть-чуть изменил и оптимизировал для deadlock
-// 2024-09-15 14:52:39.870211900 UTC
+// 2024-09-20 08:27:16.576600700 UTC
 
 namespace Dumper.Schemas {
     public static class ClientDll {
@@ -45,6 +45,30 @@ namespace Dumper.Schemas {
             public const IntPtr m_pClientAlphaProperty = 0x800; // CClientAlphaProperty*
             public const IntPtr m_ClientOverrideTint = 0x808; // Color
             public const IntPtr m_bUseClientOverrideTint = 0x80C; // bool
+        }
+        // Parent: CPlayerPawnComponent
+        public static class CPlayer_CameraServices {
+            public const IntPtr m_vecPunchAngle = 0x40; // QAngle
+            public const IntPtr m_vecPunchAngleVel = 0x58; // QAngle
+            public const IntPtr m_nPunchAngleJoltTickClientSide = 0x70; // GameTick_t
+            public const IntPtr m_nPunchAngleJoltTick = 0x74; // GameTick_t
+            public const IntPtr m_PlayerFog = 0x78; // C_fogplayerparams_t
+            public const IntPtr m_hColorCorrectionCtrl = 0xB8; // CHandle<C_ColorCorrection>
+            public const IntPtr m_hViewEntity = 0xBC; // CHandle<C_BaseEntity>
+            public const IntPtr m_hTonemapController = 0xC0; // CHandle<C_TonemapController2>
+            public const IntPtr m_audio = 0xC8; // audioparams_t
+            public const IntPtr m_PostProcessingVolumes = 0x140; // C_NetworkUtlVectorBase<CHandle<C_PostProcessingVolume>>
+            public const IntPtr m_flOldPlayerZ = 0x158; // float32
+            public const IntPtr m_flOldPlayerViewOffsetZ = 0x15C; // float32
+            public const IntPtr m_CurrentFog = 0x160; // fogparams_t
+            public const IntPtr m_hOldFogController = 0x1C8; // CHandle<C_FogController>
+            public const IntPtr m_bOverrideFogColor = 0x1CC; // bool[5]
+            public const IntPtr m_OverrideFogColor = 0x1D1; // Color[5]
+            public const IntPtr m_bOverrideFogStartEnd = 0x1E5; // bool[5]
+            public const IntPtr m_fOverrideFogStart = 0x1EC; // float32[5]
+            public const IntPtr m_fOverrideFogEnd = 0x200; // float32[5]
+            public const IntPtr m_hActivePostProcessingVolume = 0x214; // CHandle<C_PostProcessingVolume>
+            public const IntPtr m_angDemoViewAngles = 0x218; // QAngle
         }
         // Parent: CEntityComponent
         public static class CBodyComponent {
@@ -105,80 +129,80 @@ namespace Dumper.Schemas {
         }
         // Parent: C_BaseCombatCharacter
         public static class C_BasePlayerPawn {
-            public const IntPtr m_pWeaponServices = 0xD60; // CPlayer_WeaponServices*
-            public const IntPtr m_pItemServices = 0xD68; // CPlayer_ItemServices*
-            public const IntPtr m_pAutoaimServices = 0xD70; // CPlayer_AutoaimServices*
-            public const IntPtr m_pObserverServices = 0xD78; // CPlayer_ObserverServices*
-            public const IntPtr m_pWaterServices = 0xD80; // CPlayer_WaterServices*
-            public const IntPtr m_pUseServices = 0xD88; // CPlayer_UseServices*
-            public const IntPtr m_pFlashlightServices = 0xD90; // CPlayer_FlashlightServices*
-            public const IntPtr m_pCameraServices = 0xD98; // CPlayer_CameraServices*
-            public const IntPtr m_pMovementServices = 0xDA0; // CPlayer_MovementServices*
-            public const IntPtr m_ServerViewAngleChanges = 0xDB0; // C_UtlVectorEmbeddedNetworkVar<ViewAngleServerChange_t>
-            public const IntPtr m_nHighestConsumedServerViewAngleChangeIndex = 0xE00; // uint32
-            public const IntPtr v_angle = 0xE04; // QAngle
-            public const IntPtr v_anglePrevious = 0xE10; // QAngle
-            public const IntPtr m_iHideHUD = 0xE1C; // uint32
-            public const IntPtr m_skybox3d = 0xE20; // sky3dparams_t
-            public const IntPtr m_flDeathTime = 0xEB0; // GameTime_t
-            public const IntPtr m_vecPredictionError = 0xEB4; // Vector
-            public const IntPtr m_flPredictionErrorTime = 0xEC0; // GameTime_t
-            public const IntPtr m_vecLastCameraSetupLocalOrigin = 0xEC4; // Vector
-            public const IntPtr m_flLastCameraSetupTime = 0xED0; // GameTime_t
-            public const IntPtr m_flFOVSensitivityAdjust = 0xED4; // float32
-            public const IntPtr m_flMouseSensitivity = 0xED8; // float32
-            public const IntPtr m_vOldOrigin = 0xEDC; // Vector
-            public const IntPtr m_flOldSimulationTime = 0xEE8; // float32
-            public const IntPtr m_nLastExecutedCommandNumber = 0xEEC; // int32
-            public const IntPtr m_nLastExecutedCommandTick = 0xEF0; // int32
-            public const IntPtr m_hController = 0xEF4; // CHandle<CBasePlayerController>
-            public const IntPtr m_bIsSwappingToPredictableController = 0xEF8; // bool
+            public const IntPtr m_pWeaponServices = 0xD68; // CPlayer_WeaponServices*
+            public const IntPtr m_pItemServices = 0xD70; // CPlayer_ItemServices*
+            public const IntPtr m_pAutoaimServices = 0xD78; // CPlayer_AutoaimServices*
+            public const IntPtr m_pObserverServices = 0xD80; // CPlayer_ObserverServices*
+            public const IntPtr m_pWaterServices = 0xD88; // CPlayer_WaterServices*
+            public const IntPtr m_pUseServices = 0xD90; // CPlayer_UseServices*
+            public const IntPtr m_pFlashlightServices = 0xD98; // CPlayer_FlashlightServices*
+            public const IntPtr m_pCameraServices = 0xDA0; // CPlayer_CameraServices*
+            public const IntPtr m_pMovementServices = 0xDA8; // CPlayer_MovementServices*
+            public const IntPtr m_ServerViewAngleChanges = 0xDB8; // C_UtlVectorEmbeddedNetworkVar<ViewAngleServerChange_t>
+            public const IntPtr m_nHighestConsumedServerViewAngleChangeIndex = 0xE08; // uint32
+            public const IntPtr v_angle = 0xE0C; // QAngle
+            public const IntPtr v_anglePrevious = 0xE18; // QAngle
+            public const IntPtr m_iHideHUD = 0xE24; // uint32
+            public const IntPtr m_skybox3d = 0xE28; // sky3dparams_t
+            public const IntPtr m_flDeathTime = 0xEB8; // GameTime_t
+            public const IntPtr m_vecPredictionError = 0xEBC; // Vector
+            public const IntPtr m_flPredictionErrorTime = 0xEC8; // GameTime_t
+            public const IntPtr m_vecLastCameraSetupLocalOrigin = 0xECC; // Vector
+            public const IntPtr m_flLastCameraSetupTime = 0xED8; // GameTime_t
+            public const IntPtr m_flFOVSensitivityAdjust = 0xEDC; // float32
+            public const IntPtr m_flMouseSensitivity = 0xEE0; // float32
+            public const IntPtr m_vOldOrigin = 0xEE4; // Vector
+            public const IntPtr m_flOldSimulationTime = 0xEF0; // float32
+            public const IntPtr m_nLastExecutedCommandNumber = 0xEF4; // int32
+            public const IntPtr m_nLastExecutedCommandTick = 0xEF8; // int32
+            public const IntPtr m_hController = 0xEFC; // CHandle<CBasePlayerController>
+            public const IntPtr m_bIsSwappingToPredictableController = 0xF00; // bool
         }
         // Parent: CCitadelPlayerPawnBase
         public static class C_CitadelPlayerPawn {
-            public const IntPtr m_angEyeAngles = 0xF78; // QAngle
-            public const IntPtr m_angClientCamera = 0xF90; // QAngle
-            public const IntPtr m_eZipLineLaneColor = 0xF9C; // CMsgLaneColor
-            public const IntPtr m_nLevel = 0xFA0; // int32
-            public const IntPtr m_nCurrencies = 0xFA4; // int32[4]
-            public const IntPtr m_nSpentCurrencies = 0xFB4; // int32[4]
-            public const IntPtr m_flLastSpawnTime = 0xFC4; // GameTime_t
-            public const IntPtr m_flRespawnTime = 0xFC8; // GameTime_t
-            public const IntPtr m_bInRegenerationZone = 0xFCC; // bool
-            public const IntPtr m_bInItemShopZone = 0xFCD; // bool
-            public const IntPtr m_timeRevealedOnMinimapByNPC = 0xFD0; // GameTime_t
-            public const IntPtr m_vecFullSellPriceItems = 0xFD8; // C_NetworkUtlVectorBase<CUtlStringToken>
-            public const IntPtr m_vecFullSellPriceAbilityUpgrades = 0xFF0; // C_NetworkUtlVectorBase<FullSellPriceAbilityUpgrades_t>
-            public const IntPtr m_bNetworkDisconnected = 0x1008; // bool
-            public const IntPtr m_bHasIncomingThreats = 0x1009; // bool
-            public const IntPtr m_bLearningAbility = 0x100A; // bool
-            public const IntPtr m_nFlashStartTick = 0x100C; // int32
-            public const IntPtr m_nFlashMaxStartTick = 0x1010; // int32
-            public const IntPtr m_nFlashFadeStartTick = 0x1014; // int32
-            public const IntPtr m_nFlashEndTick = 0x1018; // int32
-            public const IntPtr m_nFlashMaxAlpha = 0x101C; // int8
-            public const IntPtr m_nDeducedLane = 0x1020; // int32
-            public const IntPtr m_bDismissedReportCard = 0x1024; // bool
-            public const IntPtr m_flCurrentHealingAmount = 0x1028; // float32
-            public const IntPtr m_angLockedEyeAngles = 0x102C; // QAngle
-            public const IntPtr m_CCitadelAbilityComponent = 0x1038; // CCitadelAbilityComponent
-            public const IntPtr m_CCitadelHeroComponent = 0x11D8; // CCitadelHeroComponent
-            public const IntPtr m_flRichPresenceUpdateInterval = 0x1298; // float32
-            public const IntPtr m_bAnimGraphMovementClipped = 0x1390; // bool
-            public const IntPtr m_bAnimGraphMovementDisableGravity = 0x1391; // bool
-            public const IntPtr m_bAnimGraphMovementDirectAirControl = 0x1392; // bool
-            public const IntPtr m_bLastMoveWasAnimGraph = 0x1393; // bool
-            public const IntPtr m_flPredTimeSlowedStart = 0x1394; // GameTime_t
-            public const IntPtr m_flPredTimeSlowedEnd = 0x1398; // GameTime_t
-            public const IntPtr m_flPredSlowSpeed = 0x139C; // float32
-            public const IntPtr m_flTimeSlowedStart = 0x13A0; // GameTime_t[4]
-            public const IntPtr m_flTimeSlowedEnd = 0x13B0; // GameTime_t[4]
-            public const IntPtr m_flSlowSpeed = 0x13C0; // float32[4]
-            public const IntPtr m_flSprintAnimSuppressEndTime = 0x13D0; // GameTime_t
-            public const IntPtr m_iCurSlowSlot = 0x13D4; // int32
-            public const IntPtr m_vShootTestOffsetStanding = 0x13D8; // Vector
-            public const IntPtr m_vShootTestOffsetCrouching = 0x13E4; // Vector
-            public const IntPtr m_leanStartTime = 0x13F0; // GameTime_t
+            public const IntPtr m_angEyeAngles = 0xF80; // QAngle
+            public const IntPtr m_angClientCamera = 0xF98; // QAngle
+            public const IntPtr m_eZipLineLaneColor = 0xFA4; // CMsgLaneColor
+            public const IntPtr m_nLevel = 0xFA8; // int32
+            public const IntPtr m_nCurrencies = 0xFAC; // int32[4]
+            public const IntPtr m_nSpentCurrencies = 0xFBC; // int32[4]
+            public const IntPtr m_flLastSpawnTime = 0xFCC; // GameTime_t
+            public const IntPtr m_flRespawnTime = 0xFD0; // GameTime_t
+            public const IntPtr m_bInRegenerationZone = 0xFD4; // bool
+            public const IntPtr m_bInItemShopZone = 0xFD5; // bool
+            public const IntPtr m_timeRevealedOnMinimapByNPC = 0xFD8; // GameTime_t
+            public const IntPtr m_vecFullSellPriceItems = 0xFE0; // C_NetworkUtlVectorBase<CUtlStringToken>
+            public const IntPtr m_vecFullSellPriceAbilityUpgrades = 0xFF8; // C_NetworkUtlVectorBase<FullSellPriceAbilityUpgrades_t>
+            public const IntPtr m_bNetworkDisconnected = 0x1010; // bool
+            public const IntPtr m_bHasIncomingThreats = 0x1011; // bool
+            public const IntPtr m_bLearningAbility = 0x1012; // bool
+            public const IntPtr m_nFlashStartTick = 0x1014; // int32
+            public const IntPtr m_nFlashMaxStartTick = 0x1018; // int32
+            public const IntPtr m_nFlashFadeStartTick = 0x101C; // int32
+            public const IntPtr m_nFlashEndTick = 0x1020; // int32
+            public const IntPtr m_nFlashMaxAlpha = 0x1024; // int8
+            public const IntPtr m_nDeducedLane = 0x1028; // int32
+            public const IntPtr m_bDismissedReportCard = 0x102C; // bool
+            public const IntPtr m_flCurrentHealingAmount = 0x1030; // float32
+            public const IntPtr m_angLockedEyeAngles = 0x1034; // QAngle
+            public const IntPtr m_CCitadelAbilityComponent = 0x1040; // CCitadelAbilityComponent
+            public const IntPtr m_CCitadelHeroComponent = 0x11E0; // CCitadelHeroComponent
+            public const IntPtr m_flRichPresenceUpdateInterval = 0x12A0; // float32
+            public const IntPtr m_bAnimGraphMovementClipped = 0x1398; // bool
+            public const IntPtr m_bAnimGraphMovementDisableGravity = 0x1399; // bool
+            public const IntPtr m_bAnimGraphMovementDirectAirControl = 0x139A; // bool
+            public const IntPtr m_bLastMoveWasAnimGraph = 0x139B; // bool
+            public const IntPtr m_flPredTimeSlowedStart = 0x139C; // GameTime_t
+            public const IntPtr m_flPredTimeSlowedEnd = 0x13A0; // GameTime_t
+            public const IntPtr m_flPredSlowSpeed = 0x13A4; // float32
+            public const IntPtr m_flTimeSlowedStart = 0x13A8; // GameTime_t[4]
+            public const IntPtr m_flTimeSlowedEnd = 0x13B8; // GameTime_t[4]
+            public const IntPtr m_flSlowSpeed = 0x13C8; // float32[4]
+            public const IntPtr m_flSprintAnimSuppressEndTime = 0x13D8; // GameTime_t
+            public const IntPtr m_iCurSlowSlot = 0x13DC; // int32
+            public const IntPtr m_vShootTestOffsetStanding = 0x13E0; // Vector
+            public const IntPtr m_vShootTestOffsetCrouching = 0x13EC; // Vector
+            public const IntPtr m_leanStartTime = 0x13F8; // GameTime_t
         }
         // Parent: None
         public static class PlayerDataGlobal_t {

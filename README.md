@@ -7,7 +7,7 @@
 
 
 > [!WARNING]
-> ВАЖНО: Текущий репозиторий будет полностью переписан, а старый будет размешен в другой ветке
+> ВАЖНО: Текущий репозиторий будет полностью переписан, а старый будет размещен в другой ветке
 
 > [!WARNING]
 > IMPORTANT: The current repository will be completely rewritten, and the old one will be moved to a different branch

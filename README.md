@@ -5,13 +5,19 @@
 
 ![](images/radar.png)![](preview)
 
-aimbot (mb later): https://youtu.be/NXYFQsxMNl8
-auto farm (mb later) https://youtu.be/uOCpxAk8sOg
+
+> [!WARNING]
+> ВАЖНО: Текущий репозиторий будет полностью переписан, а старый будет размешен в другой ветке
+
+> [!WARNING]
+> IMPORTANT: The current repository will be completely rewritten, and the old one will be moved to a different branch
+
+**Star this repository so you don’t lose it.**
 
 ## Offsets and status
 
-- [offsets](https://github.com/Loara228/deadlock-esp/blob/master/deadlock/Dump/client_dll.cs): **18.09.2024**
-- [C++ format](https://github.com/Loara228/deadlock-esp/blob/master/deadlock/Dump/client_dll.hpp)
+- [offsets](https://github.com/Loara228/deadlock-esp/blob/old/deadlock/Dump/client_dll.cs): ~~20.09.2024~~
+- [C++ format](https://github.com/Loara228/deadlock-esp/blob/old/deadlock/Dump/client_dll.hpp)
 - undetected: **yes**
 
 ## Как запустить

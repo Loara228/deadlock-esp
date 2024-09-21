@@ -1,3 +1,1 @@
-ы++
-ы#
-ыrust
+Если устарело, то пиши [ТУТ](https://github.com/Loara228/deadlock-esp/issues).

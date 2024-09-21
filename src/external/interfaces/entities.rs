@@ -2,7 +2,7 @@ use std::ffi::c_void;
 
 use egui::{Pos2, Rect};
 
-use crate::{external::offsets::client_dll::CBasePlayerController, memory::read_memory, settings::Settings};
+use crate::{external::offsets::client_dll::CBasePlayerController, memory::read_memory, settings::Settings, external::cheat::esp::*};
 use super::{math::Matrix, structs::{Controller, GameSceneNode, Pawn, PlayerDataGlobal, Skeleton}};
 
 trait EntityBase
@@ -127,7 +127,8 @@ impl Player
         let mut screen_pos = self.game_scene_node.position.clone();
         if matrix.transform(&mut screen_pos)
         {
-            crate::external::cheat::esp::boxes::draw_boxes(self.rect, g, settings);
+            boxes::draw_boxes(self.rect, g, settings);
+            text::draw(g, self, settings);
         }
     }
 }

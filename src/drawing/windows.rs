@@ -25,7 +25,7 @@ fn draw_esp(overlay: &mut Overlay, ctx: &Context, _ui: &mut Ui) {
                 &mut overlay.settings.esp_players.render,
                 "rendering",
             );
-            ui.collapsing("Rectangles", |ui| {
+            ui.collapsing("Прямоугольники", |ui| {
                 egui::Grid::new("esp_grid").num_columns(2).min_col_width(150.).max_col_width(150.).show(ui, |ui| {
                     egui::ComboBox::from_id_source("esp_boxtype")
                         .selected_text(format!("{:?}", overlay.settings.esp_players.box_type))
@@ -96,12 +96,12 @@ fn draw_esp(overlay: &mut Overlay, ctx: &Context, _ui: &mut Ui) {
                 });
             })
             .fully_open();
-            ui.collapsing("Text", |ui| {
-                ui.collapsing("Text hero", |ui|
+            ui.collapsing("Надписи", |ui| {
+                ui.collapsing("Имя персонжа", |ui|
                 {
                     ui_text(ui, &mut overlay.settings.esp_players.text_hero, "ui_text_1");
                 });
-                ui.collapsing("Text health", |ui|
+                ui.collapsing("Здоровье", |ui|
                 {
                     ui_text(ui, &mut overlay.settings.esp_players.text_health, "ui_text_2");
                 });
@@ -124,11 +124,25 @@ fn hr2(ui: &mut Ui, id_name: &str)
 
 fn ui_text(ui: &mut Ui, settings: &mut TextSettings, id: &str)
 {
+    fn to_string(align: Align2) -> String
+    {
+        if align == Align2::CENTER_TOP {
+            return "Сверху".to_owned();
+        } else if align == Align2::LEFT_TOP {
+            return "Левый верхний угол".to_owned();
+        } else if align == Align2::RIGHT_TOP {
+            return "Правый верхний угол".to_owned();
+        } else if align == Align2::CENTER_BOTTOM {
+            return "Снизу".to_owned();
+        }
+        "?".to_owned() 
+    }
+
     ui.checkbox(&mut settings.enable, "enable");
     ui.horizontal(|ui|
     {
         ui.color_edit_button_srgba(&mut settings.font_color);
-        ui.checkbox(&mut settings.enable, "контрастный");
+        ui.checkbox(&mut settings.shadow, "контрастный");
     });
     ui.add(
         egui::Slider::new(&mut settings.font_size, 6.0..=24.0)
@@ -137,46 +151,27 @@ fn ui_text(ui: &mut Ui, settings: &mut TextSettings, id: &str)
     );
     
     egui::ComboBox::from_id_source(id)
-                        .selected_text(format!("{:?}", settings.align))
+                        .selected_text(format!("{}", to_string(settings.align)))
                         .show_ui(ui, |ui| {
                             ui.selectable_value(
                                 &mut settings.align,
                                 Align2::CENTER_TOP,
-                                "Top",
+                                "Сверху",
                             );
                             ui.selectable_value(
                                 &mut settings.align,
                                 Align2::LEFT_TOP,
-                                "Left",
+                                "Левый верхний угол",
                             );
                             ui.selectable_value(
                                 &mut settings.align,
                                 Align2::RIGHT_TOP,
-                                "Right",
+                                "Правый верхний угол",
                             );
                             ui.selectable_value(
                                 &mut settings.align,
                                 Align2::CENTER_BOTTOM,
-                                "Bottom",
+                                "Снизу",
                             );
                         });
 }
-
-// text
-// {
-// 	enable
-// 	color
-// 	shadow
-// 	Hero name
-// 	{
-// 		enable
-// 		anchor [enum] // так же позиция
-// 		fontSize
-// 	}
-// 	Health/MaxHealth
-// 	{
-// 		enable
-// 		anchor [enum] // так же позиция
-// 		fontSize
-// 	}
-// }

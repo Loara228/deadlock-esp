@@ -69,6 +69,7 @@ impl Default for Global
 pub struct TextSettings
 {
     pub enable: bool,
+    pub shadow: bool,
     pub align: Align2,
     pub font_size: f32,
     pub font_color: Color32
@@ -80,6 +81,7 @@ impl Default for TextSettings
         Self
         {
             enable: true,
+            shadow: true,
             align: Align2::CENTER_BOTTOM,
             font_size: 14.,
             font_color: Color32::WHITE,

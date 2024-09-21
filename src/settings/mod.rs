@@ -1,6 +1,6 @@
 pub mod structs;
 
-use egui::Color32;
+use egui::{Align2, Color32};
 use structs::BoxType;
 use crate::input::keyboard::Key;
 
@@ -26,7 +26,30 @@ pub struct EspPlayers
     
     pub stroke_width: f32,
     pub glow_blur: f32,
-    pub box_type: BoxType
+    pub box_type: BoxType,
+
+    pub text_hero: TextSettings,
+    pub text_health: TextSettings
+}
+
+impl Default for EspPlayers
+{
+    fn default() -> Self {
+        Self {
+            stroke_width: 2f32,
+            outline_color: Color32::from_rgba_unmultiplied(255, 0, 195, 200),
+            fill_color: Color32::from_rgba_unmultiplied(0, 0, 0, 35),
+            box_type: BoxType::Edges,
+            outline_rect: true,
+            fill_rect: false,
+            render: true,
+            glow: false,
+            glow_color: Color32::from_rgba_unmultiplied(255, 51, 220, 27),
+            glow_blur: 80.,
+            text_hero: Default::default(),
+            text_health: Default::default()
+        }
+    }
 }
 
 pub struct Global 
@@ -43,20 +66,23 @@ impl Default for Global
     }
 }
 
-impl Default for EspPlayers
+pub struct TextSettings
+{
+    pub enable: bool,
+    pub align: Align2,
+    pub font_size: f32,
+    pub font_color: Color32
+}
+
+impl Default for TextSettings
 {
     fn default() -> Self {
-        Self {
-            stroke_width: 2f32,
-            outline_color: Color32::from_rgba_unmultiplied(255, 0, 195, 200),
-            fill_color: Color32::from_rgba_unmultiplied(0, 0, 0, 35),
-            box_type: BoxType::Default,
-            outline_rect: true,
-            fill_rect: false,
-            render: true,
-            glow: false,
-            glow_color: Color32::from_rgba_unmultiplied(255, 51, 220, 27),
-            glow_blur: 80.,
+        Self
+        {
+            enable: true,
+            align: Align2::CENTER_BOTTOM,
+            font_size: 14.,
+            font_color: Color32::WHITE,
         }
     }
 }

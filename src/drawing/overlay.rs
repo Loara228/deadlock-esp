@@ -147,5 +147,5 @@ pub fn run()
 fn draw_background(ctx: &egui::Context, ui: &mut egui::Ui)
 {
     let screen_rect = ctx.screen_rect();
-    ui.painter().rect_filled(screen_rect, egui::Rounding::default(), Color32::from_rgba_unmultiplied(0, 0, 0, 200));
+    ui.painter().rect_filled(screen_rect, egui::Rounding::default(), Color32::from_rgba_unmultiplied(0, 0, 0, 150));
 }

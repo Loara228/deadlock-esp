@@ -1,5 +1,5 @@
-use crate::settings::structs::BoxType;
-use egui::{Context, Ui};
+use crate::settings::{structs::BoxType, TextSettings};
+use egui::{Align2, Context, Ui};
 
 use super::overlay::Overlay;
 
@@ -17,16 +17,16 @@ fn draw_main(_overlay: &mut Overlay, ctx: &Context, _ui: &mut Ui) {
 }
 
 fn draw_esp(overlay: &mut Overlay, ctx: &Context, _ui: &mut Ui) {
-    egui::Window::new("ESP")
+    egui::Window::new("ESP Игроки")
         .resizable(false)
         .default_width(500.)
         .show(ctx, |ui| {
             ui.checkbox(
                 &mut overlay.settings.esp_players.render,
-                "enable (rendering)",
+                "rendering",
             );
             ui.collapsing("Rectangles", |ui| {
-                egui::Grid::new("esp_grid").num_columns(2).min_col_width(150.).show(ui, |ui| {
+                egui::Grid::new("esp_grid").num_columns(2).min_col_width(150.).max_col_width(150.).show(ui, |ui| {
                     egui::ComboBox::from_id_source("esp_boxtype")
                         .selected_text(format!("{:?}", overlay.settings.esp_players.box_type))
                         .show_ui(ui, |ui| {
@@ -49,16 +49,17 @@ fn draw_esp(overlay: &mut Overlay, ctx: &Context, _ui: &mut Ui) {
                     ui.label("Стиль отрисовки");
                     ui.end_row();
                     hr(ui);
-                    ui.checkbox(&mut overlay.settings.esp_players.outline_rect, "stroke");
-                    ui.label("Обводки прямоугольника");
+                    ui.checkbox(&mut overlay.settings.esp_players.outline_rect, "stroke"); // stroke
+                    ui.label("Обводка");
                     ui.end_row();
-                    ui.checkbox(&mut overlay.settings.esp_players.fill_rect, "fill");
-                    ui.label("Заливка прямоугольника");
+                    ui.checkbox(&mut overlay.settings.esp_players.fill_rect, "fill"); // fill
+                    ui.label("Заливка");
                     ui.end_row();
-                    ui.checkbox(&mut overlay.settings.esp_players.glow, "glow");
-                    ui.label("Подсветка прямоугольника");
+                    ui.checkbox(&mut overlay.settings.esp_players.glow, "glow"); // glow
+                    ui.label("Подсветка");
                     ui.end_row();
                 });
+                hr2(ui, "1");
                 ui.add(
                     egui::Slider::new(&mut overlay.settings.esp_players.stroke_width, 1.0..=4.0)
                         .show_value(true)
@@ -71,39 +72,39 @@ fn draw_esp(overlay: &mut Overlay, ctx: &Context, _ui: &mut Ui) {
                         .text("Размытие"),
                 );
                 ui.end_row();
-                hr(ui);
-                egui::Grid::new("esp_grid 2").num_columns(2).min_col_width(150.).show(ui, |ui| {
+                hr2(ui, "2");
+                egui::Grid::new("esp_grid 2").num_columns(2).min_col_width(150.).max_col_width(150.).show(ui, |ui| {
                     ui.horizontal(|ui| {
                         ui.color_edit_button_srgba(&mut overlay.settings.esp_players.outline_color);
                         ui.label("stroke");
                     });
-                    ui.label("Цвет обводки прямоугольника");
+                    ui.label("Обводка");
                     ui.end_row();
                     ui.horizontal(|ui| {
                         ui.color_edit_button_srgba(&mut overlay.settings.esp_players.fill_color);
                         ui.label("fill");
                     });
-                    ui.label("Цвет заливки прямоугольника");
+                    ui.label("Заливка");
                     ui.end_row();
                     ui.horizontal(|ui| {
                         ui.color_edit_button_srgba(&mut overlay.settings.esp_players.glow_color);
                         ui.label("glow");
                     });
-                    ui.label("Цвет подсветки прямоугольника");
+                    ui.label("Подсветка");
                     ui.end_row();
                     hr(ui);
                 });
             })
             .fully_open();
             ui.collapsing("Text", |ui| {
-                egui::Grid::new("esp_grid 3").num_columns(2).min_col_width(150.).show(ui, |ui| {
-                    ui.checkbox(&mut overlay.settings.esp_players.outline_rect, "enable");
-                })
-            });
-            ui.collapsing("Misc", |ui| {
-                egui::Grid::new("esp_grid 4").num_columns(2).min_col_width(150.).show(ui, |ui| {
-                    ui.checkbox(&mut overlay.settings.esp_players.outline_rect, "enable");
-                })
+                ui.collapsing("Text hero", |ui|
+                {
+                    ui_text(ui, &mut overlay.settings.esp_players.text_hero, "ui_text_1");
+                });
+                ui.collapsing("Text health", |ui|
+                {
+                    ui_text(ui, &mut overlay.settings.esp_players.text_health, "ui_text_2");
+                });
             });
         });
 }
@@ -112,6 +113,53 @@ fn hr(ui: &mut Ui) {
     ui.separator();
     ui.separator();
     ui.end_row();
+}
+
+fn hr2(ui: &mut Ui, id_name: &str)
+{
+    egui::Grid::new(id_name).num_columns(2).min_col_width(150.).max_col_width(150.).show(ui, |ui| {
+        hr(ui);
+    });
+}
+
+fn ui_text(ui: &mut Ui, settings: &mut TextSettings, id: &str)
+{
+    ui.checkbox(&mut settings.enable, "enable");
+    ui.horizontal(|ui|
+    {
+        ui.color_edit_button_srgba(&mut settings.font_color);
+        ui.checkbox(&mut settings.enable, "контрастный");
+    });
+    ui.add(
+        egui::Slider::new(&mut settings.font_size, 6.0..=24.0)
+            .show_value(true)
+            .text("Размер шрифта"),
+    );
+    
+    egui::ComboBox::from_id_source(id)
+                        .selected_text(format!("{:?}", settings.align))
+                        .show_ui(ui, |ui| {
+                            ui.selectable_value(
+                                &mut settings.align,
+                                Align2::CENTER_TOP,
+                                "Top",
+                            );
+                            ui.selectable_value(
+                                &mut settings.align,
+                                Align2::LEFT_TOP,
+                                "Left",
+                            );
+                            ui.selectable_value(
+                                &mut settings.align,
+                                Align2::RIGHT_TOP,
+                                "Right",
+                            );
+                            ui.selectable_value(
+                                &mut settings.align,
+                                Align2::CENTER_BOTTOM,
+                                "Bottom",
+                            );
+                        });
 }
 
 // text

@@ -28,8 +28,10 @@ cargo run
 
 ## Указатели
 
-[rs](ссылка)
-[csharp & cpp](ссылка)
+[Файл в проекте](ссылка)
+[csharp](https://github.com/Loara228/deadlock-esp/blob/master/offsets/client_dll.cs)
+[cpp](https://github.com/Loara228/deadlock-esp/blob/master/offsets/client_dll.hpp)
+[rs](https://github.com/Loara228/deadlock-esp/blob/master/offsets/client_dll.rs)
 
 ## Превью
 

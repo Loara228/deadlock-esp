@@ -1,14 +1,28 @@
 use egui::{epaint::RectShape, Pos2, Rect, Rounding, Stroke};
-use crate::settings::{structs::BoxType, Settings};
+use crate::{external::interfaces::{entities::Player, math::Matrix}, settings::{structs::BoxType, Settings}};
 
 pub fn draw_boxes(rect: Rect, g: &egui::Painter, settings: &Settings)
 {
     let rounding = get_rounding(rect, settings);
 
+    if settings.esp_players.shadow
+    {
+        let size = settings.esp_players.shadow_size;
+        let r1 = egui::Rect { min: Pos2 { x: rect.min.x - size, y: rect.min.y - size }, max: Pos2 { x: rect.min.x + size, y: rect.max.y + size } };
+        let r2 = egui::Rect { min: Pos2 { x: rect.max.x - size, y: rect.min.y - size }, max: Pos2 { x: rect.max.x + size, y: rect.max.y + size } };
+        let r3 = egui::Rect { min: Pos2 { x: rect.min.x - size, y: rect.max.y - size }, max: Pos2 { x: rect.max.x + size, y: rect.max.y + size } };
+        let r4 = egui::Rect { min: Pos2 { x: rect.min.x - size, y: rect.min.y - size }, max: Pos2 { x: rect.max.x + size, y: rect.min.y + size } };
+        g.add(RectShape::filled(r1, egui::Rounding::default(), settings.esp_players.shadow_color).with_blur_width(settings.esp_players.shadow_blur));
+        g.add(RectShape::filled(r2, egui::Rounding::default(), settings.esp_players.shadow_color).with_blur_width(settings.esp_players.shadow_blur));
+        g.add(RectShape::filled(r3, egui::Rounding::default(), settings.esp_players.shadow_color).with_blur_width(settings.esp_players.shadow_blur));
+        g.add(RectShape::filled(r4, egui::Rounding::default(), settings.esp_players.shadow_color).with_blur_width(settings.esp_players.shadow_blur));
+    }
+
     if settings.esp_players.fill_rect
     {
         g.rect_filled(rect, rounding, settings.esp_players.fill_color);
     }
+
     if settings.esp_players.outline_rect
     {
         let stroke = Stroke::new(settings.esp_players.stroke_width, settings.esp_players.outline_color);
@@ -21,10 +35,19 @@ pub fn draw_boxes(rect: Rect, g: &egui::Painter, settings: &Settings)
             g.rect_stroke(rect, rounding, stroke);
         }
     }
+}
 
-    if settings.esp_players.glow
+pub fn draw_head(g: &egui::Painter, player: &Player, settings: &Settings, matrix: &Matrix)
+{
+    let mut pos = player.skeleton.head_pos.clone();
+    if matrix.transform(&mut pos)
     {
-        draw_glow(rect, g, rounding, settings);
+        let l = player.rect.width() / 6.;
+        let rect = Rect {
+            min: Pos2 { x: pos.x - l, y: pos.y - l },
+            max: Pos2 { x: pos.x + l, y: pos.y + l },
+        };
+        g.add(RectShape::filled(rect, egui::Rounding::default(), settings.esp_players.glow_color).with_blur_width(75.));
     }
 }
 
@@ -70,33 +93,6 @@ fn draw_edges(rect: Rect, g: &egui::Painter, stroke: Stroke)
     
     g.line_segment([first, second], stroke);
     g.line_segment([first, third], stroke);
-}
-
-fn draw_glow(rect: Rect, g: &egui::Painter, rounding: Rounding, settings: &Settings)
-{
-    let mut stroke = Stroke::default();
-    stroke.width = rect.width() / 2.;
-    let mut rect_shape = rect.clone();
-
-    if rect_shape.left() <= 0.
-    {
-        rect_shape.set_left(0.);
-    }
-    if rect_shape.top() <= 0.
-    {
-        rect_shape.set_top(0.);
-    }
-
-    if rect_shape.right() >= g.ctx().screen_rect().right()
-    {
-        rect_shape.set_right(g.ctx().screen_rect().right());
-    }
-    if rect_shape.bottom() >= g.ctx().screen_rect().bottom()
-    {
-        rect_shape.set_bottom(g.ctx().screen_rect().bottom());
-    }
-    let shape = RectShape::filled(rect, rounding, settings.esp_players.glow_color).with_blur_width(settings.esp_players.glow_blur);
-    g.add(shape);
 }
 
 fn get_rounding(rect: Rect, settings: &Settings) -> Rounding

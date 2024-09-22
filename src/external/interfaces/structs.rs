@@ -1,5 +1,5 @@
 use std::ffi::c_void;
-use crate::{external::offsets::client_dll::*, memory::read_memory};
+use crate::{external::offsets::client::*, external::offsets::client_dll::*, memory::read_memory};
 use super::{enums::Hero, math::Vector3};
 
 
@@ -17,6 +17,25 @@ impl GameSceneNode
         unsafe {
             let game_scene_node: *mut c_void = read_memory(pawn_ptr.add(0x328));
             self.position = read_memory(game_scene_node.add(0xD0));
+        }
+    }
+}
+
+#[derive(Default)]
+pub struct Camera
+{
+    pub view_angles: Vector3,
+    pub camera_position: Vector3
+}
+
+impl Camera
+{
+    pub fn update(&mut self, client_ptr: *mut c_void)
+    {
+        unsafe {
+            let camera_ptr: *mut c_void = read_memory(client_ptr.add(CCitadelCameraManager + 0x28));
+            self.view_angles = read_memory(camera_ptr.add(0x44));
+            self.camera_position = read_memory(camera_ptr.add(0x38));
         }
     }
 }

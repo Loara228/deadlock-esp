@@ -1,18 +1,22 @@
 
 <h1 align="center">
-      deadчпок-esp 
+      deadlock-esp
 </h1>
 
-# Использование
+<p align="center">
+Добавьте этот репозиторий в избранное, чтобы не пропустить новые обновления.<br>
+</p>
 
-Для компиляции приложения вам понадобятся Rust и Cargo. Пожалуйста, убедитесь, что они установлены.
++ 22.09.2024
+   - Небольшие изменения UI
+   - Glow effect => Подсветка игрока
+   - Добавил тень обводки
+   - Добавил радар
++ 21.09.2024
+   - Переписал на Rust
+   - Добавил UI
 
-```cfg
-rustc --version
-rustc 1.76.0 (07dca489a 2024-02-04)
-cargo --version
-cargo 1.76.0 (c84b36747 2024-01-18)
-```
+<hr>
 
 # Запуск 
 
@@ -26,49 +30,20 @@ cargo build --release
 3. Запускаем чит
 4. Для открытия/закрытия используется клавиша <kbd>HOME</kbd>
 
-<hr>
+## Offsets
 
-<h4 align="center">Offsets</h4>
-
-<div align="center">
+<div align="left">
 <b>
-      <a href="https://github.com/Loara228/deadlock-esp/blob/master/offsets/client_dll.cs">🤖cs🤖</a> | 
-      <a href="https://github.com/Loara228/deadlock-esp/blob/master/offsets/client_dll.hpp">💀cpp💀</a> | 
-      <a href="https://github.com/Loara228/deadlock-esp/blob/master/offsets/client_dll.rs">🦀rs🦀</a>
+      <a href="https://github.com/Loara228/deadlock-esp/blob/master/offsets/client_dll.cs">cs💜</a> | 
+      <a href="https://github.com/Loara228/deadlock-esp/blob/master/offsets/client_dll.hpp">cpp💀</a> | 
+      <a href="https://github.com/Loara228/deadlock-esp/blob/master/offsets/client_dll.rs">rs🦀</a>
 </b>
 </div>
-
-<hr>
-
-<h4 align="center">Обновления</h4>
-
-Добавьте этот репозиторий в избранное ⭐, чтобы не пропустить новые обновления.<br>Проект на данный момент всё еще развиваться и обдумывается новый функционал
-
-+ 22.09.2024
-   - радар
-+ 21.09.2024
-   - переписал на Rust
-   - добавил UI
-
-<hr>
-
-<h4 align="center">Связь со мной</h4>
-
-По вопросам:<br>
-telegram: https://t.me/hellocsharp<br>
-Тут заливаю что-то до обновлений:<br>
-youtube: https://www.youtube.com/@loara2295/videos
-
-<hr>
 
 ## Превью
 
 ![](images/1.png)![](preview)
 
-![](images/2.png)![](preview)
-
 ![](images/esp1.png)![](preview)
 
-![](images/esp2.png)![](preview)
-
-> <a href="https://www.youtube.com/watch?v=3nJs6GPmEZs"><sub><sub><sup>старый бог</sub></sup></sub></a>
+> <a href="https://www.youtube.com/watch?v=3nJs6GPmEZs"><sub><sub>💪старый бог💪</sup></sub></a>

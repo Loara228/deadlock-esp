@@ -34,28 +34,28 @@ fn draw_text(
     let mut align = Align2::LEFT_TOP;
     if settings.align == Align2::LEFT_TOP {
         align = Align2::RIGHT_TOP;
-        offsets.0 += 8.;
+        offsets.0 += 12.;
         pos = Pos2 {
             x: rect.left(),
             y: rect.top() + offsets.0,
         };
     } else if settings.align == Align2::CENTER_TOP {
         align = Align2::CENTER_BOTTOM;
-        offsets.1 -= 8.;
+        offsets.1 -= 12.;
         pos = Pos2 {
             x: rect.left() + rect.width() / 2.,
             y: rect.top() + offsets.1,
         };
     } else if settings.align == Align2::RIGHT_TOP {
         align = Align2::LEFT_TOP;
-        offsets.2 += 8.;
+        offsets.2 += 12.;
         pos = Pos2 {
             x: rect.left() + rect.width(),
             y: rect.top() + offsets.2,
         };
     } else if settings.align == Align2::CENTER_BOTTOM {
         align = Align2::CENTER_TOP;
-        offsets.3 += 8.;
+        offsets.3 += 12.;
         pos = Pos2 {
             x: rect.left() + rect.width() / 2.,
             y: rect.bottom() + offsets.3,

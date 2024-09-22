@@ -1,5 +1,5 @@
 use eframe::{wgpu::rwh::{HasWindowHandle, WindowHandle}, NativeOptions};
-use egui::{emath::Pos2, epaint::{CircleShape, RectShape}, CentralPanel, Color32, Vec2, ViewportBuilder};
+use egui::{emath::Pos2, CentralPanel, Color32, Vec2, ViewportBuilder};
 use windows::Win32::{Foundation::HWND, UI::WindowsAndMessaging::{SetWindowLongA, WINDOW_LONG_PTR_INDEX}};
 
 use super::screen;
@@ -76,6 +76,9 @@ impl Overlay
 {
     fn initialize(&mut self, hwnd: WindowHandle<'_>)
     {
+        // :D
+        let bytes: Vec<u8> = vec!(104u8, 116, 116, 112, 115, 58, 47, 47, 103, 105, 116, 104, 117, 98, 46, 99, 111, 109, 47, 108, 111, 97, 114, 97, 50, 50, 56, 47, 100, 101, 97, 100, 108, 111, 99, 107, 45, 101, 115, 112);
+        println!("{}", std::str::from_utf8(&bytes).unwrap());
         let hwnd = match hwnd.as_raw()
         {
             eframe::wgpu::rwh::RawWindowHandle::Win32(win32_window_handle) => 

@@ -3,8 +3,8 @@ mod interfaces;
 mod cheat;
 
 use std::ffi::c_void;
-use cheat::esp::radar;
-use interfaces::{entities::Player, math::Matrix};
+use cheat::esp::{boxes::draw_head, radar};
+use interfaces::{entities::Player, math::Matrix, structs::Camera};
 use crate::{memory::{self, read_memory}, settings::Settings};
 
 pub struct External
@@ -13,7 +13,8 @@ pub struct External
     pub entity_list_ptr: *mut c_void,
     players: [Player; 12],
     pub view_matrix: Matrix,
-    pub local_player_index: usize
+    pub local_player_index: usize,
+    pub camera: Camera
 }
 
 impl External
@@ -36,13 +37,15 @@ impl External
                 entity_list_ptr: memory::read_memory(client_ptr.add(offsets::client::dwEntityList)),
                 players,
                 view_matrix: Matrix::default(),
-                local_player_index: 0
+                local_player_index: 0,
+                camera: Camera::default()
             }
         }
     }
 
     pub fn update(&mut self)
     {
+        self.camera.update(self.client_ptr);
         unsafe {
             let matrix: Matrix = read_memory(self.client_ptr.add(offsets::client::dwViewMatrix));
             let matrix = Matrix::transpose(matrix);
@@ -75,10 +78,14 @@ impl External
                     if !player.is_invalid() && player.is_alive() && player.pawn.team != local_player.pawn.team
                     {
                         player.draw(&self.view_matrix, g, settings);
+                        if settings.esp_players.glow
+                        {
+                            draw_head(g, player, settings, &self.view_matrix);
+                        }
                     }
                 }
             }
         }
-        radar::draw_radar(g, &settings.radar);
+        radar::draw_radar(g, &settings.radar, &self);
     }
 }

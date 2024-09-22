@@ -1,14 +1,15 @@
 pub mod structs;
 
-use egui::{Align2, Color32};
+use egui::{Align2, Color32, Pos2};
 use structs::BoxType;
 use crate::input::keyboard::Key;
 
 #[derive(Default)]
 pub struct Settings
 {
-    pub global: Global,
-    pub esp_players: EspPlayers
+    pub global: GlobalSettings,
+    pub esp_players: EspPlayers,
+    pub radar: RadarSettings
 }
 
 pub struct EspPlayers
@@ -52,12 +53,12 @@ impl Default for EspPlayers
     }
 }
 
-pub struct Global 
+pub struct GlobalSettings 
 {
     pub key_overlay: Key
 }
 
-impl Default for Global
+impl Default for GlobalSettings
 {
     fn default() -> Self {
         Self {
@@ -86,5 +87,23 @@ impl Default for TextSettings
             font_size: 14.,
             font_color: Color32::WHITE,
         }
+    }
+}
+
+pub struct RadarSettings
+{
+    pub enable: bool,
+    // pub pos: Pos2,
+    // pub size: Pos2
+    pub rect: egui::Rect
+}
+
+impl Default for RadarSettings
+{
+    fn default() -> Self {
+        Self { enable: false, rect: egui::Rect {
+            min: Pos2 { x: 500., y: 500. },
+            max: Pos2 { x: 200., y: 200. }
+        } }
     }
 }

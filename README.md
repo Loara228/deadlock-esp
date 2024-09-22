@@ -24,6 +24,7 @@ cargo build --release
 
 2. Далее запускаем игру
 3. Запускаем чит
+4. Для открытия/закрытия используется клавиша <kbd>HOME</kbd>
 
 <hr>
 
@@ -42,6 +43,12 @@ cargo build --release
 <h4 align="center">Обновления</h4>
 
 Добавьте этот репозиторий в избранное ⭐, чтобы не пропустить новые обновления.<br>Проект на данный момент всё еще развиваться и обдумывается новый функционал
+
++ 22.09.2024
+   - радар
++ 21.09.2024
+   - переписал на Rust
+   - добавил UI
 
 <hr>
 
@@ -64,4 +71,4 @@ youtube: https://www.youtube.com/@loara2295/videos
 
 ![](images/esp2.png)![](preview)
 
-> <sub><sup>старый бог</sup></sub>
+> <a href="https://www.youtube.com/watch?v=3nJs6GPmEZs"><sub><sub><sup>старый бог</sub></sup></sub></a>

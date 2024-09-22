@@ -3,6 +3,7 @@ mod interfaces;
 mod cheat;
 
 use std::ffi::c_void;
+use cheat::esp::radar;
 use interfaces::{entities::Player, math::Matrix};
 use crate::{memory::{self, read_memory}, settings::Settings};
 
@@ -64,20 +65,20 @@ impl External
 
     pub fn draw(&mut self, g: &egui::Painter, settings: &Settings)
     {
-        if self.local_player_index == 0
+        if self.local_player_index != 0
         {
-            return;
-        }
-        let local_player = &self.players[self.local_player_index - 1];
-        if settings.esp_players.render
-        {
-            for player in self.players.iter() // order by distance?
+            let local_player = &self.players[self.local_player_index - 1];
+            if settings.esp_players.render
             {
-                if !player.is_invalid() && player.is_alive() && player.pawn.team != local_player.pawn.team
+                for player in self.players.iter() // order by distance?
                 {
-                    player.draw(&self.view_matrix, g, settings);
+                    if !player.is_invalid() && player.is_alive() && player.pawn.team != local_player.pawn.team
+                    {
+                        player.draw(&self.view_matrix, g, settings);
+                    }
                 }
             }
         }
+        radar::draw_radar(g, &settings.radar);
     }
 }

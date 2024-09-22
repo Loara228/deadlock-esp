@@ -6,13 +6,23 @@ use super::overlay::Overlay;
 pub fn draw_windows(overlay: &mut Overlay, ctx: &Context, ui: &mut Ui) {
     draw_main(overlay, ctx, ui);
     draw_esp(overlay, ctx, ui);
+    draw_radar(overlay, ctx, ui);
 }
 
-fn draw_main(_overlay: &mut Overlay, ctx: &Context, _ui: &mut Ui) {
-    egui::Window::new("main").resizable(false).show(ctx, |ui| {
+fn draw_main(_overlay: &mut Overlay, ctx: &Context, ui: &mut Ui) {
+    egui::Window::new("main").resizable(false).collapsible(false).show(ctx, |ui| {
         if ui.button("close").clicked() {
             std::process::exit(0);
         }
+    });
+}
+
+fn draw_radar(overlay: &mut Overlay, ctx: &Context, ui: &mut Ui)
+{
+    let window = egui::Window::new("Радар");
+    window.resizable(true).min_size(egui::Vec2 { x: 100., y: 100. }).vscroll(true).hscroll(true).max_size(egui::Vec2 { x: 500., y: 500. }).title_bar(false).show(ctx, |ui|
+    {
+        overlay.settings.radar.rect = ui.available_rect_before_wrap();
     });
 }
 
@@ -94,8 +104,7 @@ fn draw_esp(overlay: &mut Overlay, ctx: &Context, _ui: &mut Ui) {
                     ui.end_row();
                     hr(ui);
                 });
-            })
-            .fully_open();
+            });
             ui.collapsing("Надписи", |ui| {
                 ui.collapsing("Имя персонжа", |ui|
                 {

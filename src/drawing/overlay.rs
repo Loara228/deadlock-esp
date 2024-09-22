@@ -1,5 +1,5 @@
 use eframe::{wgpu::rwh::{HasWindowHandle, WindowHandle}, NativeOptions};
-use egui::{emath::Pos2, CentralPanel, Color32, Vec2, ViewportBuilder};
+use egui::{emath::Pos2, epaint::{CircleShape, RectShape}, CentralPanel, Color32, Vec2, ViewportBuilder};
 use windows::Win32::{Foundation::HWND, UI::WindowsAndMessaging::{SetWindowLongA, WINDOW_LONG_PTR_INDEX}};
 
 use super::screen;
@@ -148,4 +148,8 @@ fn draw_background(ctx: &egui::Context, ui: &mut egui::Ui)
 {
     let screen_rect = ctx.screen_rect();
     ui.painter().rect_filled(screen_rect, egui::Rounding::default(), Color32::from_rgba_unmultiplied(0, 0, 0, 150));
+    // let mut shape = RectShape::filled(egui::Rect { min: Pos2 { x: -5., y: -5. }, max: Pos2 { x: 15., y: 15. } }, 5., ctx.visua Color32::WHITE);
+    // shape.blur_width = 50.;
+    // shape.rounding = egui::Rounding::same(shape.rect.width() / 2.);
+    // ui.painter().add(shape);
 }

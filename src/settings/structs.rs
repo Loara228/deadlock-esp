@@ -46,6 +46,19 @@ pub struct Settings {
     pub global: GlobalSettings,
     pub esp_players: EspPlayers,
     pub radar: RadarSettings,
+    pub aim_players: AimSettings
+}
+
+#[derive(Serialize, Deserialize)]
+#[derive(Default)]
+pub struct AimSettings
+{
+    pub enable: bool,
+    pub angle_per_pixel: f32,
+    pub fov: f32,
+    pub smooth: f32,
+    pub velocity_prediction: bool,
+    pub vel_val: f32
 }
 
 #[derive(Serialize, Deserialize)]

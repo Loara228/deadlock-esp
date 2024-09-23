@@ -33,6 +33,11 @@ fn draw_main(overlay: &mut Overlay, ctx: &Context, _ui: &mut Ui) {
             }
         });
 }
+
+fn draw_aim(overlay: &mut Overlay, ctx: &Context, ui: &mut Ui) {
+    
+}
+
 fn draw_radar(overlay: &mut Overlay, ctx: &Context, _ui: &mut Ui) {
     let window = egui::Window::new("ESP");
     window

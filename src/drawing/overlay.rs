@@ -1,6 +1,6 @@
-use eframe::{wgpu::rwh::{HasWindowHandle, WindowHandle}, NativeOptions};
+use eframe::{NativeOptions, Renderer};
 use egui::{emath::Pos2, CentralPanel, Vec2, ViewportBuilder};
-use windows::Win32::{Foundation::HWND, Graphics::Gdi::UpdateWindow, UI::WindowsAndMessaging::{SetWindowLongA, WINDOW_LONG_PTR_INDEX}};
+use windows::{core::PCSTR, Win32::{Foundation::HWND, Graphics::Gdi::UpdateWindow, UI::WindowsAndMessaging::{FindWindowExA, SetWindowLongA, WINDOW_LONG_PTR_INDEX}}};
 
 use super::screen;
 use crate::{external::External, input::keyboard::{Key, KeyState}, settings::structs::Settings};
@@ -16,14 +16,14 @@ pub struct Overlay {
 impl eframe::App for Overlay
 {
     fn clear_color(&self, _: &egui::Visuals) -> [f32; 4] {
-        [0f32, 0f32, 0f32, 0.0f32]
+        [0f32, 0f32, 0f32, 0f32]
     }
 
     fn update(&mut self, ctx: &egui::Context, frame: &mut eframe::Frame)
     {
         if !self.initialized
         {
-            self.initialize(frame.window_handle().unwrap());
+            self.initialize();
         }
 
         let key: &mut Key = &mut self.settings.global.key_overlay;
@@ -75,28 +75,23 @@ impl Default for Overlay
 
 impl Overlay
 {
-    fn initialize(&mut self, hwnd: WindowHandle<'_>)
+    fn initialize(&mut self)
     {
         // :D
         let bytes: Vec<u8> = vec!(104u8, 116, 116, 112, 115, 58, 47, 47, 103, 105, 116, 104, 117, 98, 46, 99, 111, 109, 47, 108, 111, 97, 114, 97, 50, 50, 56, 47, 100, 101, 97, 100, 108, 111, 99, 107, 45, 101, 115, 112);
         println!("{}", std::str::from_utf8(&bytes).unwrap());
-        let hwnd = match hwnd.as_raw()
-        {
-            eframe::wgpu::rwh::RawWindowHandle::Win32(win32_window_handle) => 
-            {
-                Some(win32_window_handle.hwnd)
-            },
-            _ =>
-            {
-                None
-            },
+        
+        self.hwnd = unsafe {
+            let class = PCSTR::null();
+            let mut window = PCSTR::null();
+            window.0 = "overlay egui".as_ptr();
+            FindWindowExA(HWND::default(), HWND::default(), class, window)
         };
-        if hwnd == None
+        if self.hwnd.0 == 0
         {
             log::error!("Overlay HWND is invalid");
             panic!("Window handle is invalid");
         }
-        self.hwnd = HWND(hwnd.unwrap().get());
         log::info!("Overlay window: {:?}", self.hwnd);
         self.initialized = true;
     }
@@ -137,11 +132,11 @@ pub fn run()
         .with_position(Pos2 { x: monitor.0.x, y: monitor.0.y })
         .with_inner_size(Vec2 { x: monitor.1.x, y: monitor.1.y })
         .with_active(false)
-        .with_window_type(egui::X11WindowType::Desktop)
         .with_transparent(true);
+    native_options.renderer = Renderer::Glow;
     log::info!("Running native window...");
     let _ = eframe::run_native(
-        "overlay",
+        "overlay egui",
         native_options,
         Box::new(|_| {
             Ok(Box::<Overlay>::default())

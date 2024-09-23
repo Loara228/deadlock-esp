@@ -1,13 +1,13 @@
 use eframe::{wgpu::rwh::{HasWindowHandle, WindowHandle}, NativeOptions};
-use egui::{emath::Pos2, CentralPanel, Color32, Vec2, ViewportBuilder};
-use windows::Win32::{Foundation::HWND, UI::WindowsAndMessaging::{SetWindowLongA, WINDOW_LONG_PTR_INDEX}};
+use egui::{emath::Pos2, CentralPanel, Vec2, ViewportBuilder};
+use windows::Win32::{Foundation::HWND, Graphics::Gdi::UpdateWindow, UI::WindowsAndMessaging::{SetWindowLongA, WINDOW_LONG_PTR_INDEX}};
 
 use super::screen;
-use crate::{external::External, input::keyboard::{Key, KeyState}, settings::Settings};
+use crate::{external::External, input::keyboard::{Key, KeyState}, settings::structs::Settings};
 
 pub struct Overlay {
     initialized: bool,
-    hwnd: HWND,
+    pub(super) hwnd: HWND,
     ui_mode: bool,
     pub settings: Settings,
     pub game: External
@@ -16,7 +16,7 @@ pub struct Overlay {
 impl eframe::App for Overlay
 {
     fn clear_color(&self, _: &egui::Visuals) -> [f32; 4] {
-        [0f32, 0f32, 0f32, 0f32]
+        [0f32, 0f32, 0f32, 0.0f32]
     }
 
     fn update(&mut self, ctx: &egui::Context, frame: &mut eframe::Frame)
@@ -35,6 +35,7 @@ impl eframe::App for Overlay
                 true => self.activate(),
                 false => self.deactive(),
             }
+            
         }
 
         self.game.update();
@@ -102,25 +103,25 @@ impl Overlay
 
     pub fn activate(&mut self)
     {
-        log::info!("UI enabled");
+        log::trace!("UI enabled");
         unsafe 
         {
             let attributes: i32 = 8i32 | 32i32;
             SetWindowLongA(self.hwnd, WINDOW_LONG_PTR_INDEX(-20), attributes);
             self.ui_mode = true;
-            // UpdateWindow(self.hwnd);
+            _ = UpdateWindow(self.hwnd);
         }
     }
 
     pub fn deactive(&mut self)
     {
-        log::info!("UI disabled");
+        log::trace!("UI disabled");
         unsafe 
         {
             let attributes: i32 = 8i32 | 32i32 | 524288i32 | 134217728;
             SetWindowLongA(self.hwnd, WINDOW_LONG_PTR_INDEX(-20), attributes);
             self.ui_mode = false;
-            // UpdateWindow(self.hwnd);
+            _ = UpdateWindow(self.hwnd);
         }
     }
 }
@@ -130,13 +131,14 @@ pub fn run()
     let monitor = screen::detect();
     let mut native_options = NativeOptions::default();
     native_options.viewport = ViewportBuilder::default()
-    .with_transparent(true)
-    .with_decorations(false)
-    .with_taskbar(true)
-    .with_always_on_top()
-    .with_position(Pos2 { x: monitor.0.x, y: monitor.0.y })
-    .with_inner_size(Vec2 { x: monitor.1.x, y: monitor.1.y });
-
+        .with_decorations(false)
+        .with_taskbar(true)
+        .with_always_on_top()
+        .with_position(Pos2 { x: monitor.0.x, y: monitor.0.y })
+        .with_inner_size(Vec2 { x: monitor.1.x, y: monitor.1.y })
+        .with_active(false)
+        .with_window_type(egui::X11WindowType::Desktop)
+        .with_transparent(true);
     log::info!("Running native window...");
     let _ = eframe::run_native(
         "overlay",
@@ -150,9 +152,5 @@ pub fn run()
 fn draw_background(ctx: &egui::Context, ui: &mut egui::Ui)
 {
     let screen_rect = ctx.screen_rect();
-    ui.painter().rect_filled(screen_rect, egui::Rounding::default(), Color32::from_rgba_unmultiplied(0, 0, 0, 150));
-    // let mut shape = RectShape::filled(egui::Rect { min: Pos2 { x: -5., y: -5. }, max: Pos2 { x: 15., y: 15. } }, 5., ctx.visua Color32::WHITE);
-    // shape.blur_width = 50.;
-    // shape.rounding = egui::Rounding::same(shape.rect.width() / 2.);
-    // ui.painter().add(shape);
+    ui.painter().rect_filled(screen_rect, egui::Rounding::default(), egui::Color32::from_rgba_unmultiplied(0, 0, 0, 150));
 }

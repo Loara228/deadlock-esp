@@ -1,5 +1,7 @@
+use serde::{Deserialize, Serialize};
 use windows::Win32::UI::Input::KeyboardAndMouse::GetAsyncKeyState;
 
+#[derive(Serialize, Deserialize)]
 #[derive(Clone, Copy)]
 #[derive(PartialEq)]
 #[derive(Debug)]
@@ -11,6 +13,7 @@ pub enum KeyState
     Released
 }
 
+#[derive(Serialize, Deserialize)]
 pub struct Key
 {
     pub state: KeyState,

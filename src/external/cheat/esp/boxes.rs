@@ -1,5 +1,5 @@
 use egui::{epaint::RectShape, Pos2, Rect, Rounding, Stroke};
-use crate::{external::interfaces::{entities::Player, math::Matrix}, settings::{structs::BoxType, Settings}};
+use crate::{external::interfaces::{entities::Player, math::Matrix}, settings::{structs::BoxType, structs::Settings}};
 
 pub fn draw_boxes(rect: Rect, g: &egui::Painter, settings: &Settings)
 {

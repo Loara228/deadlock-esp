@@ -6,12 +6,13 @@ edition = "2021"
 # See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
 
 [dependencies]
-egui = "0.28.1"
-eframe = { version = "0.28.1", features = ["wgpu" ] }
+egui = {version = "0.28.1", features = ["serde"]}
+eframe = { version = "0.28.1", features = ["wgpu", "serde"] }
 emath = "0.28.1"
 log = "0.4.22"
 env_logger = "0.11.5"
-serde = "1.0.210"
+serde = { version = "1.0.210" , features = ["derive"] } 
+serde_json = { version = "1.0.128"} 
 sysinfo = "0.31.4"
 
 [dependencies.windows]

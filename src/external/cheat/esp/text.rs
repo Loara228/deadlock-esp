@@ -1,8 +1,7 @@
 use egui::{Align2, Pos2, Rect};
 
 use crate::{
-    external::interfaces::entities::Player,
-    settings::{Settings, TextSettings},
+    external::interfaces::entities::Player, settings::structs::{Settings, TextSettings},
 };
 
 pub fn draw(g: &egui::Painter, player: &Player, settings: &Settings) {

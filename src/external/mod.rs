@@ -5,7 +5,7 @@ mod cheat;
 use std::ffi::c_void;
 use cheat::esp::{boxes::draw_head, radar};
 use interfaces::{entities::Player, math::Matrix, structs::Camera};
-use crate::{memory::{self, read_memory}, settings::Settings};
+use crate::{memory::{self, read_memory}, settings::structs::Settings};
 
 pub struct External
 {

@@ -1,37 +1,77 @@
 pub mod structs;
-
 use crate::input::keyboard::Key;
 use egui::{Align2, Color32, Pos2};
-use structs::BoxType;
+use structs::{BoxType, EspPlayers, GlobalSettings, RadarSettings, TextSettings};
 
-#[derive(Default)]
-pub struct Settings {
-    pub global: GlobalSettings,
-    pub esp_players: EspPlayers,
-    pub radar: RadarSettings,
-}
+pub mod mgr
+{
+    use std::{fs::{create_dir, read_dir, remove_file, File}, io::{Read, Write}, path::PathBuf};
 
-pub struct EspPlayers {
-    /// Полная отрисовка ESP игрока. Если выключено, то просто не рисуем
-    pub render: bool,
+    use super::structs::Settings;
 
-    pub outline_rect: bool,
-    pub fill_rect: bool,
-    pub glow: bool,
-    pub shadow: bool,
+    pub fn initialize()
+    {
+        _ = get_path();
+    }
 
-    pub outline_color: Color32,
-    pub fill_color: Color32,
-    pub glow_color: Color32,
-    pub shadow_color: Color32,
+    pub fn get_configs(path: PathBuf) 
+    {
+        let mut files: Vec<PathBuf> = Vec::new();
+        for entry in read_dir(path).unwrap()
+        {
+            let entry = entry.unwrap();
+            let file_path = entry.path();
+            if file_path.is_file() && file_path.extension().unwrap_or_default() == "cjson"
+            {
+                files.push(file_path);
+            }
+        }
+    }
 
-    pub stroke_width: f32,
-    pub shadow_size: f32,
-    pub shadow_blur: f32,
-    pub box_type: BoxType,
+    fn get_path() -> PathBuf
+    {
+        let path = std::env::current_dir().unwrap().join("configs");
+        if !path.exists()
+        {
+            create_dir(path.clone()).unwrap();
+            log::warn!("Created directory: {}", path.display());
+            println!("{:?}", path.clone());
+            save(&Settings::default(), "default.cjson");
+        }
+        path
+    }
 
-    pub text_hero: TextSettings,
-    pub text_health: TextSettings,
+    pub fn save(settings: &Settings, file_name: &str)
+    {
+        let file_name = get_path().join(file_name);
+        if file_name.exists()
+        {
+            remove_file(file_name.clone()).unwrap();
+            log::info!("Deleted file: {:?}", file_name.clone());
+        }
+        let serialized = serde_json::to_string(settings).unwrap();
+        let mut file = File::create(file_name.clone()).unwrap();
+        file.write_all(serialized.as_bytes()).unwrap();
+
+        log::info!("Created file: {:?}", file_name.display());
+    }
+
+    pub fn change(settings: &mut Settings, file_name: &str)
+    {
+        let path = get_path().join(file_name);
+        if path.exists()
+        {
+            let mut file = File::open(path.clone()).unwrap();
+            let mut data = String::new();
+            file.read_to_string(&mut data).unwrap();
+            *settings = serde_json::from_str(&data).unwrap();
+            log::info!("Deserialized file: {:?}", path.display());
+        }
+        else
+        {
+            log::info!("File not found: {:?}", path.display());
+        }
+    }
 }
 
 impl Default for EspPlayers {
@@ -56,24 +96,12 @@ impl Default for EspPlayers {
     }
 }
 
-pub struct GlobalSettings {
-    pub key_overlay: Key,
-}
-
 impl Default for GlobalSettings {
     fn default() -> Self {
         Self {
             key_overlay: Key::new(0x24),
         }
     }
-}
-
-pub struct TextSettings {
-    pub enable: bool,
-    pub shadow: bool,
-    pub align: Align2,
-    pub font_size: f32,
-    pub font_color: Color32,
 }
 
 impl Default for TextSettings {
@@ -86,17 +114,6 @@ impl Default for TextSettings {
             font_color: Color32::from_rgba_unmultiplied(180, 180, 180, 255),
         }
     }
-}
-
-pub struct RadarSettings {
-    pub enable: bool,
-    pub(crate) rect: egui::Rect,
-    pub color_background: Color32,
-    pub color_border: Color32,
-    pub player_radius: f32,
-    pub scale: f32,
-    pub color_enemy: Color32,
-    pub color_team: Color32,
 }
 
 impl Default for RadarSettings {

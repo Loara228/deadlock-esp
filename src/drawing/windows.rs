@@ -1,5 +1,6 @@
 use egui::{Context, Ui};
 
+use crate::settings::mgr;
 use super::overlay::Overlay;
 
 pub fn draw_windows(overlay: &mut Overlay, ctx: &Context, ui: &mut Ui) {
@@ -8,17 +9,30 @@ pub fn draw_windows(overlay: &mut Overlay, ctx: &Context, ui: &mut Ui) {
     draw_radar(overlay, ctx, ui);
 }
 
-fn draw_main(_overlay: &mut Overlay, ctx: &Context, _ui: &mut Ui) {
+fn draw_main(overlay: &mut Overlay, ctx: &Context, _ui: &mut Ui) {
     egui::Window::new("main")
         .resizable(false)
         .collapsible(false)
         .show(ctx, |ui| {
+            ui.label("config");
+            ui.separator();
+            if ui.button("load default").clicked() {
+                mgr::change(&mut overlay.settings, "default.cjson");
+            }
+            ui.horizontal(|ui| {
+                if ui.button("load").clicked() {
+                    mgr::change(&mut overlay.settings, "current.cjson");
+                }
+                if ui.button("save").clicked() {
+                    mgr::save(&mut overlay.settings, "current.cjson");
+                }
+            });
+            ui.separator();
             if ui.button("close").clicked() {
                 std::process::exit(0);
             }
         });
 }
-
 fn draw_radar(overlay: &mut Overlay, ctx: &Context, _ui: &mut Ui) {
     let window = egui::Window::new("ESP");
     window
@@ -49,7 +63,7 @@ fn draw_esp(overlay: &mut Overlay, ctx: &Context, _ui: &mut Ui) {
 mod esp {
     use crate::{
         drawing::overlay::Overlay,
-        settings::{structs::BoxType, TextSettings},
+        settings::structs::*,
     };
     use egui::{Align2, Ui};
 

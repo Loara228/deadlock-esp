@@ -4,7 +4,9 @@ mod memory;
 pub mod settings;
 pub mod external;
 
-// -todo:
+use settings::mgr;
+
+// todo:
 // - aimbot distance limit, player distance text.
 // - spectators?
 // - info grid (window)
@@ -17,6 +19,7 @@ fn main() {
 
     log::info!("Running...");
 
+    mgr::initialize();
     memory::initialize();
     drawing::overlay::run();
 }

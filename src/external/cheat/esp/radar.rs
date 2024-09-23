@@ -1,6 +1,5 @@
 use crate::{
-    external::{interfaces::entities::Player, External},
-    settings::RadarSettings,
+    external::{interfaces::entities::Player, External}, settings::structs::RadarSettings,
 };
 use egui::{Pos2, Rect};
 

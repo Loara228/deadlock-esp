@@ -1,4 +1,5 @@
 use egui::{Context, Ui};
+use esp::aim_element;
 
 use crate::settings::mgr;
 use super::overlay::Overlay;
@@ -7,6 +8,7 @@ pub fn draw_windows(overlay: &mut Overlay, ctx: &Context, ui: &mut Ui) {
     draw_main(overlay, ctx, ui);
     draw_esp(overlay, ctx, ui);
     draw_radar(overlay, ctx, ui);
+    // draw_aim(overlay, ctx, ui);
 }
 
 fn draw_main(overlay: &mut Overlay, ctx: &Context, _ui: &mut Ui) {
@@ -35,7 +37,18 @@ fn draw_main(overlay: &mut Overlay, ctx: &Context, _ui: &mut Ui) {
 }
 
 fn draw_aim(overlay: &mut Overlay, ctx: &Context, ui: &mut Ui) {
-    
+    egui::Window::new("aim")
+        .resizable(false).show(ctx, |ui| {
+
+            ui.label("Игроки");
+            ui.group(|ui| {
+                aim_element(ui, &mut overlay.settings.aim_players.players, "gfscsdc");
+            });
+            ui.label("Крипы и сферы");
+            ui.group(|ui| {
+                aim_element(ui, &mut overlay.settings.aim_players.creeps, "asdsd");
+            });
+        });
 }
 
 fn draw_radar(overlay: &mut Overlay, ctx: &Context, _ui: &mut Ui) {
@@ -173,7 +186,7 @@ mod esp {
                     ui.end_row();
 
                     ui.checkbox(&mut overlay.settings.esp_players.glow, "glow");
-                    ui.label("Подсветка");
+                    ui.label("Свечение головы игрока");
                     ui.end_row();
 
                     ui.checkbox(&mut overlay.settings.esp_players.shadow, "shadow");
@@ -274,4 +287,21 @@ mod esp {
                 ui.selectable_value(&mut settings.align, Align2::CENTER_BOTTOM, "Снизу");
             });
     }
+
+    pub fn aim_element(ui: &mut Ui, settings: &mut AimProperties, id: &str)
+    {
+        ui.checkbox(&mut settings.enable, "Помощь в наведении");
+        ui.checkbox(&mut settings.velocity_prediction, "Velocity prediction");
+        ui.checkbox(&mut settings.rcs, "Контроль отдачи");
+        ui.add(
+            egui::Slider::new(&mut settings.fov, 20.0..=300.0).show_value(true).text("Радиус")
+        );
+        ui.add(
+            egui::Slider::new(&mut settings.smooth, 0.0..=10.0).show_value(true).text("Плавность")
+        );
+        ui.add(
+            egui::Slider::new(&mut settings.smooth, 500.0..=2000.0).show_value(true).text("Дальность")
+        );
+    }
+
 }

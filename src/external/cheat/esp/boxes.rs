@@ -47,7 +47,7 @@ pub fn draw_head(g: &egui::Painter, player: &Player, settings: &Settings, matrix
             min: Pos2 { x: pos.x - l, y: pos.y - l },
             max: Pos2 { x: pos.x + l, y: pos.y + l },
         };
-        g.add(RectShape::filled(rect, egui::Rounding::default(), settings.esp_players.glow_color).with_blur_width(75.));
+        g.add(RectShape::filled(rect, egui::Rounding::same(l / 2.), settings.esp_players.glow_color).with_blur_width(l / 1.2));
     }
 }
 

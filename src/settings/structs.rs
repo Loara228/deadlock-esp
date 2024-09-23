@@ -40,8 +40,8 @@ pub struct RadarSettings {
     pub color_team: Color32,
 }
 
-#[derive(Serialize, Deserialize)]
 #[derive(Default)]
+#[derive(Serialize, Deserialize)]
 pub struct Settings {
     pub global: GlobalSettings,
     pub esp_players: EspPlayers,
@@ -49,16 +49,25 @@ pub struct Settings {
     pub aim_players: AimSettings
 }
 
-#[derive(Serialize, Deserialize)]
 #[derive(Default)]
+#[derive(Serialize, Deserialize)]
 pub struct AimSettings
+{
+    pub players: AimProperties,
+    pub creeps: AimProperties
+}
+
+#[derive(Serialize, Deserialize)]
+pub struct AimProperties
 {
     pub enable: bool,
     pub angle_per_pixel: f32,
     pub fov: f32,
     pub smooth: f32,
     pub velocity_prediction: bool,
-    pub vel_val: f32
+    pub rcs: bool,
+    pub range: f32,
+    pub key: Key
 }
 
 #[derive(Serialize, Deserialize)]

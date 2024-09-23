@@ -1,11 +1,11 @@
 pub mod structs;
-use crate::input::keyboard::Key;
+use crate::input::keyboard::{Key, KeyState};
 use egui::{Align2, Color32, Pos2};
-use structs::{BoxType, EspPlayers, GlobalSettings, RadarSettings, TextSettings};
+use structs::{AimProperties, AimSettings, BoxType, EspPlayers, GlobalSettings, RadarSettings, TextSettings};
 
 pub mod mgr
 {
-    use std::{fs::{create_dir, read_dir, remove_file, File}, io::{Read, Write}, path::PathBuf};
+    use std::{borrow::Borrow, fs::{create_dir, read_dir, remove_file, File}, io::{Read, Write}, path::PathBuf};
 
     use super::structs::Settings;
 
@@ -64,7 +64,7 @@ pub mod mgr
             let mut file = File::open(path.clone()).unwrap();
             let mut data = String::new();
             file.read_to_string(&mut data).unwrap();
-            *settings = serde_json::from_str(&data).unwrap();
+            *settings = serde_json::from_str(&data).unwrap_or(Settings::default());
             log::info!("Deserialized file: {:?}", path.display());
         }
         else
@@ -112,6 +112,22 @@ impl Default for TextSettings {
             align: Align2::CENTER_BOTTOM,
             font_size: 14.,
             font_color: Color32::from_rgba_unmultiplied(180, 180, 180, 255),
+        }
+    }
+}
+
+impl Default for AimProperties
+{
+    fn default() -> Self {
+        Self {
+            enable: false,
+            angle_per_pixel: 0.,
+            fov: 100.,
+            smooth: 0.5,
+            velocity_prediction: true,
+            rcs: true,
+            range: 1000.,
+            key: Key { state: KeyState::None, code: 6 }
         }
     }
 }

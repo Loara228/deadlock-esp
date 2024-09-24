@@ -1,1 +1,1 @@
-Если устарело, то пиши [ТУТ](https://github.com/Loara228/deadlock-esp/issues).
+Я использую этот дампер: https://github.com/a2x/cs2-dumper

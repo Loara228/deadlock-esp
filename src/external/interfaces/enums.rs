@@ -116,3 +116,34 @@ impl TryFrom<i32> for Hero
         }
     }
 }
+
+#[derive(PartialEq, Eq)]
+#[derive(Clone, Copy)]
+pub enum EntityType
+{
+    None,
+    Soul,
+    Creep
+}
+
+impl EntityType
+{
+    
+    ///name - 7 байт
+    pub fn from_class_name(name: Vec<u8>) -> Option<EntityType>
+    {
+        let designer_name = String::from_utf8(name).unwrap_or_default();
+        if designer_name == "item_xp"
+        {
+            Some(Self::Soul)
+        }
+        else if designer_name == "npc_tro"
+        {
+            Some(Self::Creep)
+        }
+        else
+        {
+            None
+        }
+    }
+}

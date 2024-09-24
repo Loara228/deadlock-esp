@@ -2,8 +2,8 @@
 
 pub mod client {   
     pub const dwEntityList: usize = 0x1f24948;
-    pub const dwViewMatrix: usize = 0x20e22e0;
-    pub const dwLocalPlayerController: usize = 0x20d07c0;
+    pub const dwViewMatrix: usize = 0x20e22d0;
+    pub const dwLocalPlayerController: usize = 0x20d0668;
     pub const CCitadelCameraManager: usize = 0x1f46230;
 }
 

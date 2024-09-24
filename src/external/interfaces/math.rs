@@ -18,6 +18,13 @@ impl Vector3
     {
         Pos2 { x: self.x, y: self.y }
     }
+
+    pub fn distance(value1: Vector3, value2: Vector3) -> f32 {
+        let dx = value1.x - value2.x;
+        let dy = value1.y - value2.y;
+        let dz = value1.z - value2.z;
+        (dx * dx + dy * dy + dz * dz).sqrt()
+    }
 }
 
 #[derive(Default)]

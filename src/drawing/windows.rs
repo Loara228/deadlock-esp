@@ -8,7 +8,7 @@ pub fn draw_windows(overlay: &mut Overlay, ctx: &Context, ui: &mut Ui) {
     draw_main(overlay, ctx, ui);
     draw_esp(overlay, ctx, ui);
     draw_radar(overlay, ctx, ui);
-    // draw_aim(overlay, ctx, ui);
+    draw_aim(overlay, ctx, ui);
 }
 
 fn draw_main(overlay: &mut Overlay, ctx: &Context, _ui: &mut Ui) {
@@ -42,11 +42,11 @@ fn draw_aim(overlay: &mut Overlay, ctx: &Context, ui: &mut Ui) {
 
             ui.label("Игроки");
             ui.group(|ui| {
-                aim_element(ui, &mut overlay.settings.aim_players.players, "gfscsdc");
+                aim_element(ui, &mut overlay.settings.aim.players, "gfscsdc");
             });
             ui.label("Крипы и сферы");
             ui.group(|ui| {
-                aim_element(ui, &mut overlay.settings.aim_players.creeps, "asdsd");
+                aim_element(ui, &mut overlay.settings.aim.creeps, "asdsd");
             });
         });
 }

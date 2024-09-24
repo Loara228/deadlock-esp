@@ -7,7 +7,8 @@ use super::{enums::Hero, math::Vector3};
 #[derive(Clone, Copy)]
 pub struct GameSceneNode
 {
-    pub position: super::math::Vector3
+    pub position: super::math::Vector3,
+    pub dormant: bool,
 }
 
 impl GameSceneNode
@@ -15,8 +16,9 @@ impl GameSceneNode
     pub fn update(&mut self, pawn_ptr: *mut c_void)
     {
         unsafe {
-            let game_scene_node: *mut c_void = read_memory(pawn_ptr.add(0x328));
-            self.position = read_memory(game_scene_node.add(0xD0));
+            let game_scene_node: *mut c_void = read_memory(pawn_ptr.add(C_BaseEntity::m_pGameSceneNode));
+            self.position = read_memory(game_scene_node.add(CGameSceneNode::m_vecAbsOrigin));
+            self.dormant = read_memory(game_scene_node.add(CGameSceneNode::m_bDormant));
         }
     }
 }
@@ -163,19 +165,20 @@ impl Controller
     }
 }
 
+#[derive(Clone, Copy)]
 pub struct Pawn
 {
-    pub(super) ptr: *mut c_void,
+    pub(super) ptr: usize,
     pub health: i32,
     pub max_health: i32,
-    pub team: i32,
+    pub team: i32
 }
 
 impl Default for Pawn
 {
     fn default() -> Self {
         Self {
-            ptr: 0 as *mut c_void,
+            ptr: 0,
             health: 0,
             max_health: 0,
             team: 0,
@@ -185,18 +188,23 @@ impl Default for Pawn
 
 impl Pawn
 {
-    unsafe fn get_ptr(&mut self, entry: *mut c_void, pawn_handle: *mut c_void) -> *mut c_void
+    unsafe fn get_ptr(&mut self, entry: *mut c_void, pawn_handle: usize) -> *mut c_void
     {
-        read_memory(entry.add(0x78 * (pawn_handle as usize & 0x1FF)))
+        read_memory(entry.add(0x78 * (pawn_handle & 0x1FF)))
     }
 
-    pub fn update(&mut self, entry: *mut c_void, pawn_handle: *mut c_void)
+    pub fn update(&mut self, entry: *mut c_void, pawn_handle: usize)
     {
         unsafe {
-            self.ptr = self.get_ptr(entry, pawn_handle);
-            self.health = read_memory(self.ptr.add(C_BaseEntity::m_iHealth));
-            self.max_health = read_memory(self.ptr.add(C_BaseEntity::m_iMaxHealth));
-            self.team = read_memory(self.ptr.add(C_BaseEntity::m_iTeamNum));
+            self.ptr = self.get_ptr(entry, pawn_handle) as usize;
+            let ptr = self.ptr as *mut c_void;
+            if self.ptr as usize == 0
+            {
+                return;
+            }
+            self.health = read_memory(ptr.add(C_BaseEntity::m_iHealth));
+            self.max_health = read_memory(ptr.add(C_BaseEntity::m_iMaxHealth));
+            self.team = read_memory(ptr.add(C_BaseEntity::m_iTeamNum));
         }
     }
 }

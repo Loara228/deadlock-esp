@@ -1,11 +1,12 @@
 mod offsets;
-mod interfaces;
+pub (crate) mod interfaces;
 mod cheat;
 
-use std::ffi::c_void;
+use self::cheat::aim::drawing;
+use std::{ffi::c_void, sync::mpsc::{self, Receiver}};
 use cheat::esp::{boxes::draw_head, radar};
-use interfaces::{entities::Player, math::Matrix, structs::Camera};
-use crate::{memory::{self, read_memory}, settings::structs::Settings};
+use interfaces::{entities::{Entity, Player}, math::Matrix, structs::Camera};
+use crate::{memory::{self, read_memory}, settings::structs::Settings, ENT_LIST_DELAY_1, ENT_LIST_DELAY_2, ENT_LIST_END, ENT_LIST_START};
 
 pub struct External
 {
@@ -14,7 +15,8 @@ pub struct External
     players: [Player; 12],
     pub view_matrix: Matrix,
     pub local_player_index: usize,
-    pub camera: Camera
+    pub camera: Camera,
+    pub entities: Vec<Entity>
 }
 
 impl External
@@ -38,7 +40,8 @@ impl External
                 players,
                 view_matrix: Matrix::default(),
                 local_player_index: 0,
-                camera: Camera::default()
+                camera: Camera::default(),
+                entities: Vec::new()
             }
         }
     }
@@ -71,6 +74,10 @@ impl External
         if self.local_player_index != 0
         {
             let local_player = &self.players[self.local_player_index - 1];
+            if settings.aim.players.enable || settings.aim.creeps.enable
+            {
+                drawing::draw(g, &settings.aim, &self.entities, &self.view_matrix, local_player);
+            }
             if settings.esp_players.render
             {
                 for player in self.players.iter() // order by distance?
@@ -88,4 +95,30 @@ impl External
         }
         radar::draw_radar(g, &settings.radar, &self);
     }
+}
+
+pub fn run_thr(entity_list_ptr: usize) -> Receiver<Option<Vec<Entity>>> {
+    let (sender, receiver) = mpsc::channel::<Option<Vec<Entity>>>();
+    let sender2 = sender.clone();
+    std::thread::spawn(move || {
+        let mut entities = Vec::<Entity>::new();
+        for i in ENT_LIST_START..ENT_LIST_END
+        {
+            entities.push(Entity::new(i));
+        }
+        loop {
+            for entity in entities.iter_mut() {
+                entity.update(entity_list_ptr);
+            }
+            sender.send(Some(entities.clone())).unwrap();
+            std::thread::sleep(std::time::Duration::from_millis(ENT_LIST_DELAY_1));
+        }
+    });
+    std::thread::spawn(move || {
+        loop {
+            sender2.send(None).unwrap();
+            std::thread::sleep(std::time::Duration::from_millis(ENT_LIST_DELAY_2));
+        }
+    });
+    receiver
 }

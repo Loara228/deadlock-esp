@@ -70,5 +70,15 @@ pub fn read_memory<T: Copy>(address: *mut c_void) -> T
     }
 }
 
+pub unsafe fn read_memory_bytes(address:  *mut c_void, size: usize) -> Vec<u8>
+{
+    let buffer = vec![0u8; size];
+    let buffer_ptr = buffer.as_ptr() as *mut c_void;
+
+    let bytes_of_read: Option<*mut usize> = Default::default();
+    _ = ReadProcessMemory(PROCESS_HANDLE, address, buffer_ptr, size, bytes_of_read);
+    return buffer;
+}
+
 pub static mut PROCESS_HANDLE: HANDLE = HANDLE(0);
 pub static mut CLIENT_MODULE: MODULEINFO = MODULEINFO { lpBaseOfDll: 0 as *mut c_void, SizeOfImage: 0, EntryPoint: 0 as *mut c_void };

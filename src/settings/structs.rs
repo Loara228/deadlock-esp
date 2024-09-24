@@ -46,7 +46,7 @@ pub struct Settings {
     pub global: GlobalSettings,
     pub esp_players: EspPlayers,
     pub radar: RadarSettings,
-    pub aim_players: AimSettings
+    pub aim: AimSettings
 }
 
 #[derive(Default)]

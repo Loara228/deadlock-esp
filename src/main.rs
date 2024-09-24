@@ -23,3 +23,8 @@ fn main() {
     memory::initialize();
     drawing::overlay::run();
 }
+
+const ENT_LIST_END: i32 = 800;
+const ENT_LIST_START: i32 = 300;
+const ENT_LIST_DELAY_1: u64 = 60; // ms (main)
+const ENT_LIST_DELAY_2: u64 = 60; // 1/60*1000;

@@ -1,17 +1,18 @@
-use std::ffi::CString;
+use std::{ffi::CString, sync::{mpsc::{self, Receiver}, Arc, Mutex}, thread};
 use eframe::{NativeOptions, Renderer};
 use egui::{emath::Pos2, CentralPanel, Vec2, ViewportBuilder};
 use windows::{core::PCSTR, Win32::{Foundation::HWND, Graphics::Gdi::UpdateWindow, UI::WindowsAndMessaging::{FindWindowExA, SetWindowLongA, WINDOW_LONG_PTR_INDEX}}};
 
 use super::screen;
-use crate::{external::External, input::keyboard::{Key, KeyState}, settings::structs::Settings};
+use crate::{external::{self, interfaces::entities::Entity, External}, input::keyboard::{Key, KeyState}, settings::structs::Settings};
 
 pub struct Overlay {
     initialized: bool,
     pub(super) hwnd: HWND,
     ui_mode: bool,
     pub settings: Settings,
-    pub game: External
+    pub game: External,
+    receiver: Receiver<Option<Vec<Entity>>>
 }
 
 impl eframe::App for Overlay
@@ -20,7 +21,7 @@ impl eframe::App for Overlay
         [0f32, 0f32, 0f32, 0f32]
     }
 
-    fn update(&mut self, ctx: &egui::Context, frame: &mut eframe::Frame)
+    fn update(&mut self, ctx: &egui::Context, _frame: &mut eframe::Frame)
     {
         if !self.initialized
         {
@@ -38,7 +39,13 @@ impl eframe::App for Overlay
             }
             
         }
-
+        
+        match self.receiver.recv().unwrap() {
+            Some(entities) => {
+                self.game.entities = entities;
+            },
+            None => ()
+        }
         self.game.update();
         
         let panel_frame = egui::Frame {
@@ -63,13 +70,15 @@ impl eframe::App for Overlay
 impl Default for Overlay
 {
     fn default() -> Self {
+        let game = External::new();
         Self
         {
             initialized: false,
             hwnd: HWND::default(),
             ui_mode: true,
             settings: Settings::default(),
-            game: External::new()
+            receiver: external::run_thr(game.entity_list_ptr as usize),
+            game
         }
     }
 }

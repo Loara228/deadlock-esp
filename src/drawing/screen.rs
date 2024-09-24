@@ -15,7 +15,7 @@ pub fn detect() -> (Vec2, Vec2)
             
             let monitor_info = (
                 Vec2 { x: 0., y: 0. },
-                Vec2 { x: width - 1., y: height - 1. }
+                Vec2 { x: width, y: height - 1. }
             );
             log::info!("Primary: {:?}", monitor_info);
             return  monitor_info;
@@ -24,7 +24,7 @@ pub fn detect() -> (Vec2, Vec2)
         let y = GetSystemMetrics(SYSTEM_METRICS_INDEX(1)) as f32;
         let monitor_info = (
             Vec2 { x: 0., y: 0. },
-            Vec2 { x: x - 1., y: y - 1. }
+            Vec2 { x: x, y: y - 1. }
         );
         log::info!("Primary: {:?}", monitor_info);
         return  monitor_info;

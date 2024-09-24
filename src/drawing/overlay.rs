@@ -80,11 +80,11 @@ impl Overlay
         // :D
         let bytes: Vec<u8> = vec!(104u8, 116, 116, 112, 115, 58, 47, 47, 103, 105, 116, 104, 117, 98, 46, 99, 111, 109, 47, 108, 111, 97, 114, 97, 50, 50, 56, 47, 100, 101, 97, 100, 108, 111, 99, 107, 45, 101, 115, 112);
         println!("{}", std::str::from_utf8(&bytes).unwrap());
-        
+
         self.hwnd = unsafe {
             let class = PCSTR::null();
-            let mut window = PCSTR::null();
-            window.0 = "overlay egui".as_ptr();
+            let window_name = CString::new("overlayegui").unwrap();
+            let window = PCSTR(window_name.as_ptr() as *const u8);
             FindWindowExA(HWND::default(), HWND::default(), class, window)
         };
         if self.hwnd.0 == 0

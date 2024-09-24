@@ -29,7 +29,7 @@ impl External
                Player::new(1), Player::new(2), Player::new(3),
                Player::new(4), Player::new(5), Player::new(6),
                Player::new(7), Player::new(8), Player::new(9),
-               Player::new(10), Player::new(12),Player::new(13)
+               Player::new(10), Player::new(11),Player::new(12)
             ];
             Self
             {

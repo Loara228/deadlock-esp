@@ -1,3 +1,4 @@
+use std::ffi::CString;
 use eframe::{NativeOptions, Renderer};
 use egui::{emath::Pos2, CentralPanel, Vec2, ViewportBuilder};
 use windows::{core::PCSTR, Win32::{Foundation::HWND, Graphics::Gdi::UpdateWindow, UI::WindowsAndMessaging::{FindWindowExA, SetWindowLongA, WINDOW_LONG_PTR_INDEX}}};
@@ -83,7 +84,7 @@ impl Overlay
 
         self.hwnd = unsafe {
             let class = PCSTR::null();
-            let window_name = CString::new("overlayegui").unwrap();
+            let window_name = CString::new("overlay egui").unwrap();
             let window = PCSTR(window_name.as_ptr() as *const u8);
             FindWindowExA(HWND::default(), HWND::default(), class, window)
         };

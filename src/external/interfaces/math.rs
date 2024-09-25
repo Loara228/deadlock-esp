@@ -25,6 +25,116 @@ impl Vector3
         let dz = value1.z - value2.z;
         (dx * dx + dy * dy + dz * dz).sqrt()
     }
+
+    pub fn distance_2d(value1: Vector3, value2: Vector3) -> f32 {
+        let dx = value1.x - value2.x;
+        let dy = value1.y - value2.y;
+        (dx * dx + dy * dy).sqrt()
+    }
+
+    pub fn from_pos2(pos: egui::Pos2) -> Self
+    {
+        Self {
+            x: pos.x,
+            y: pos.y,
+            z: 0.,
+        }
+    }
+
+    pub fn normalize(value: Self) -> Self
+    {
+        Vector3::div(value, Vector3::lenght(value))
+    }
+
+    pub fn lenght(vec: Self) -> f32
+    {
+        Vector3::dot(vec, vec).sqrt()
+    }
+
+    pub fn dot(vec1: Self, vec2: Self) -> f32
+    {
+        vec1.x * vec2.x + vec1.y * vec2.y + vec1.z * vec2.z 
+    }
+
+    pub fn div(vec: Self, value: f32) -> Self
+    {
+        Self {
+            x: vec.x / value,
+            y: vec.y / value,
+            z: vec.z / value,
+        }
+    }
+
+    pub fn mul(vec: Self, value: f32) -> Self
+    {
+        Self {
+            x: vec.x * value,
+            y: vec.y * value,
+            z: vec.z * value,
+        }
+    }
+
+    pub fn cross(vec1: Self, vec2: Self) -> Self
+    {
+        Self {
+            x: (vec1.y * vec2.z) - (vec1.z * vec2.y),
+            y: (vec1.z * vec2.x) - (vec1.x * vec2.z),
+            z: (vec1.x * vec2.y) - (vec1.y * vec2.x)
+        }
+    }
+}
+
+impl core::ops::Div for Vector3
+{
+    type Output = Self;
+
+    fn div(self, value: Self) -> Self::Output {
+        Vector3 {
+            x: self.x / value.x,
+            y: self.y / value.y,
+            z: self.z / value.z,
+        }
+    }
+}
+
+impl core::ops::Mul for Vector3
+{
+    type Output = Self;
+
+    fn mul(self, value: Self) -> Self::Output {
+        Vector3 {
+            x: self.x * value.x,
+            y: self.y * value.y,
+            z: self.z * value.z,
+        }
+    }
+}
+
+impl core::ops::Add for Vector3
+{
+    type Output = Self;
+
+    fn add(self, value: Self) -> Self::Output {
+        Vector3 {
+            x: self.x + value.x,
+            y: self.y + value.y,
+            z: self.z + value.z,
+        }
+    }
+}
+
+
+impl core::ops::Sub for Vector3
+{
+    type Output = Self;
+
+    fn sub(self, value: Self) -> Self::Output {
+        Vector3 {
+            x: self.x - value.x,
+            y: self.y - value.y,
+            z: self.z - value.z,
+        }
+    }
 }
 
 #[derive(Default)]
@@ -153,4 +263,40 @@ pub struct Viewport
     height: i32,
     min_depth: f32,
     max_depth: f32
+}
+
+#[derive(Clone, Copy)]
+pub struct Plane3D
+{
+    pub normal: Vector3,
+    pub distance: f32
+}
+
+impl Plane3D
+{
+    fn new(normal: Vector3, distance: f32) -> Self
+    {
+        Self {
+            normal:  Vector3::normalize(normal),
+            distance,
+        }
+    }
+
+    pub fn from_point(normal: Vector3, point: Vector3) -> Self
+    {
+        Self::new(normal, -Vector3::dot(normal, point))
+    }
+
+    pub fn project_vector(self, vec: Vector3) -> (Vector3, Vector3) // plane origin, vector
+    {
+        let plane_origin = self.project_point(Vector3::default());
+        (plane_origin, self.project_point(vec) - plane_origin)
+    }
+
+    fn project_point(self, point: Vector3) -> Vector3
+    {
+        let dot = Vector3::dot(self.normal, point) + self.distance;
+        let mul = Vector3::mul(self.normal, dot);
+        point - mul
+    }
 }

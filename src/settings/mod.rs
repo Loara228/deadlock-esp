@@ -1,11 +1,11 @@
 pub mod structs;
 use crate::input::keyboard::{Key, KeyState};
 use egui::{Align2, Color32, Pos2};
-use structs::{AimProperties, AimSettings, BoxType, EspPlayers, GlobalSettings, RadarSettings, TextSettings};
+use structs::{AimProperties, BoxType, EspPlayers, GlobalSettings, RadarSettings, TextSettings};
 
 pub mod mgr
 {
-    use std::{borrow::Borrow, fs::{create_dir, read_dir, remove_file, File}, io::{Read, Write}, path::PathBuf};
+    use std::{fs::{create_dir, read_dir, remove_file, File}, io::{Read, Write}, path::PathBuf};
 
     use super::structs::Settings;
 
@@ -88,6 +88,7 @@ impl Default for EspPlayers {
             glow_color: Color32::from_rgba_unmultiplied(255, 51, 220, 27),
             text_hero: Default::default(),
             text_health: Default::default(),
+            text_distance: Default::default(),
             shadow: false,
             shadow_color: Color32::from_rgba_unmultiplied(0, 0, 0, 30),
             shadow_size: 6.,
@@ -121,13 +122,13 @@ impl Default for AimProperties
     fn default() -> Self {
         Self {
             enable: false,
-            angle_per_pixel: 0.,
             fov: 100.,
-            smooth: 0.5,
+            smooth: 4f32,
             velocity_prediction: true,
             rcs: true,
             range: 1000.,
-            key: Key { state: KeyState::None, code: 6 }
+            key: Key { state: KeyState::None, code: 6 },
+            targeting: true
         }
     }
 }

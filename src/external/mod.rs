@@ -1,12 +1,14 @@
 mod offsets;
 pub (crate) mod interfaces;
-mod cheat;
+pub mod cheat;
 
 use self::cheat::aim::drawing;
 use std::{ffi::c_void, sync::mpsc::{self, Receiver}};
 use cheat::esp::{boxes::draw_head, radar};
-use interfaces::{entities::{Entity, Player}, math::Matrix, structs::Camera};
-use crate::{memory::{self, read_memory}, settings::structs::Settings, ENT_LIST_DELAY_1, ENT_LIST_DELAY_2, ENT_LIST_END, ENT_LIST_START};
+use egui::Pos2;
+use interfaces::{entities::{Entity, Player}, math::{Matrix, Vector3}, structs::Camera};
+use offsets::client_dll::{CPlayer_CameraServices, C_BasePlayerPawn};
+use crate::{memory::{self, read_memory}, settings::structs::Settings};
 
 pub struct External
 {
@@ -16,7 +18,9 @@ pub struct External
     pub view_matrix: Matrix,
     pub local_player_index: usize,
     pub camera: Camera,
-    pub entities: Vec<Entity>
+    pub entities: Vec<Entity>,
+    pub screen: egui::Rect,
+    pub aim_punch: Vector3
 }
 
 impl External
@@ -31,7 +35,7 @@ impl External
                Player::new(1), Player::new(2), Player::new(3),
                Player::new(4), Player::new(5), Player::new(6),
                Player::new(7), Player::new(8), Player::new(9),
-               Player::new(10), Player::new(12),Player::new(13)
+               Player::new(10), Player::new(11),Player::new(12)
             ];
             Self
             {
@@ -41,7 +45,9 @@ impl External
                 view_matrix: Matrix::default(),
                 local_player_index: 0,
                 camera: Camera::default(),
-                entities: Vec::new()
+                entities: Vec::new(),
+                screen: egui::Rect::from_two_pos(Pos2::default(), Pos2::default()),
+                aim_punch: Vector3::default()
             }
         }
     }
@@ -56,15 +62,36 @@ impl External
             self.view_matrix = matrix * viewport;
         }
         self.update_players();
+        self.update_entities();
     }
 
-    pub fn update_players(&mut self)
+    fn update_entities(&mut self)
+    {
+        let mut entities: Vec<Entity> = Vec::new();
+        for i in crate::ENT_LIST_START..crate::ENT_LIST_END
+        {
+            let mut e = Entity::new(i);
+            e.update(self.entity_list_ptr as usize);
+            entities.push(e);
+        }
+        self.entities = entities;
+    }
+
+    fn update_players(&mut self)
     {
         for player in self.players.iter_mut()
         {
             if player.update(self.entity_list_ptr, &self.view_matrix)
             {
                 self.local_player_index = player.index as usize;
+            }
+        }
+        if self.local_player_index != 0
+        {
+            let local_player = self.get_local_player();
+            unsafe {
+                let camera_services: *mut c_void = read_memory(local_player.pawn.ptr.add(C_BasePlayerPawn::m_pCameraServices));
+                self.aim_punch = read_memory(camera_services.add(CPlayer_CameraServices::m_vecPunchAngle));
             }
         }
     }
@@ -84,7 +111,7 @@ impl External
                 {
                     if !player.is_invalid() && player.is_alive() && player.pawn.team != local_player.pawn.team
                     {
-                        player.draw(&self.view_matrix, g, settings);
+                        player.draw(&self.view_matrix, g, settings, local_player);
                         if settings.esp_players.glow
                         {
                             draw_head(g, player, settings, &self.view_matrix);
@@ -95,30 +122,31 @@ impl External
         }
         radar::draw_radar(g, &settings.radar, &self);
     }
+
+    pub fn get_local_player(&self) -> &Player {
+        self.get_player_by_index(self.local_player_index)
+    }
+
+    pub fn get_player_by_index(&self, index: usize) -> &Player {
+        &self.players[index - 1]
+    }
 }
 
 pub fn run_thr(entity_list_ptr: usize) -> Receiver<Option<Vec<Entity>>> {
     let (sender, receiver) = mpsc::channel::<Option<Vec<Entity>>>();
-    let sender2 = sender.clone();
-    std::thread::spawn(move || {
-        let mut entities = Vec::<Entity>::new();
-        for i in ENT_LIST_START..ENT_LIST_END
-        {
-            entities.push(Entity::new(i));
-        }
-        loop {
-            for entity in entities.iter_mut() {
-                entity.update(entity_list_ptr);
-            }
-            sender.send(Some(entities.clone())).unwrap();
-            std::thread::sleep(std::time::Duration::from_millis(ENT_LIST_DELAY_1));
-        }
-    });
-    std::thread::spawn(move || {
-        loop {
-            sender2.send(None).unwrap();
-            std::thread::sleep(std::time::Duration::from_millis(ENT_LIST_DELAY_2));
-        }
-    });
+    // std::thread::spawn(move || {
+    //     let mut entities = Vec::<Entity>::new();
+    //     for i in ENT_LIST_START..ENT_LIST_END
+    //     {
+    //         entities.push(Entity::new(i));
+    //     }
+    //     loop {
+    //         for entity in entities.iter_mut() {
+    //             entity.update(entity_list_ptr);
+    //         }
+    //         sender.send(Some(entities.clone())).unwrap();
+    //         std::thread::sleep(std::time::Duration::from_millis(ENT_LIST_DELAY_1));
+    //     }
+    // });
     receiver
 }

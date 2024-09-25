@@ -1,10 +1,10 @@
 use egui::{Align2, Pos2, Rect};
 
 use crate::{
-    external::interfaces::entities::Player, settings::structs::{Settings, TextSettings},
+    external::interfaces::{entities::Player, math::Vector3}, settings::structs::{Settings, TextSettings},
 };
 
-pub fn draw(g: &egui::Painter, player: &Player, settings: &Settings) {
+pub fn draw(g: &egui::Painter, player: &Player, local_player: &Player, settings: &Settings) {
     let mut offsets = (0., 0., 0., 0.); // left, top, right, bottom
     draw_text(
         g,
@@ -18,6 +18,13 @@ pub fn draw(g: &egui::Painter, player: &Player, settings: &Settings) {
         player.rect,
         &settings.esp_players.text_health,
         format!("{}/{}", player.pawn.health, player.pawn.max_health),
+        &mut offsets,
+    );
+    draw_text(
+        g,
+        player.rect,
+        &settings.esp_players.text_distance,
+        format!("{}m", (Vector3::distance(player.game_scene_node.position, local_player.game_scene_node.position) * 0.0254).round()),
         &mut offsets,
     );
 }

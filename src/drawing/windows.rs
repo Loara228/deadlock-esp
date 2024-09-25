@@ -1,7 +1,8 @@
 use egui::{Context, Ui};
 use esp::aim_element;
+use windows::Win32::UI::WindowsAndMessaging::SetForegroundWindow;
 
-use crate::settings::mgr;
+use crate::{external::cheat::aim, settings::mgr};
 use super::overlay::Overlay;
 
 pub fn draw_windows(overlay: &mut Overlay, ctx: &Context, ui: &mut Ui) {
@@ -29,6 +30,9 @@ fn draw_main(overlay: &mut Overlay, ctx: &Context, _ui: &mut Ui) {
                     mgr::save(&mut overlay.settings, "current.cjson");
                 }
             });
+            ui.collapsing("current settings", |ui| {
+                ui.label(format!("{:?}", overlay.settings));
+            });
             ui.separator();
             if ui.button("close").clicked() {
                 std::process::exit(0);
@@ -39,7 +43,10 @@ fn draw_main(overlay: &mut Overlay, ctx: &Context, _ui: &mut Ui) {
 fn draw_aim(overlay: &mut Overlay, ctx: &Context, ui: &mut Ui) {
     egui::Window::new("aim")
         .resizable(false).show(ctx, |ui| {
-
+            if ui.button("Калибровать").clicked() {
+                unsafe { SetForegroundWindow(overlay.game_hwnd).unwrap(); }
+                overlay.settings.aim.angle_per_pixel = aim::aiming::calibrate(&mut overlay.game);
+            }
             ui.label("Игроки");
             ui.group(|ui| {
                 aim_element(ui, &mut overlay.settings.aim.players, "gfscsdc");
@@ -297,11 +304,14 @@ mod esp {
             egui::Slider::new(&mut settings.fov, 20.0..=300.0).show_value(true).text("Радиус")
         );
         ui.add(
-            egui::Slider::new(&mut settings.smooth, 0.0..=10.0).show_value(true).text("Плавность")
+            egui::Slider::new(&mut settings.smooth, 1.0..=10.0).show_value(true).text("Плавность")
         );
-        ui.add(
-            egui::Slider::new(&mut settings.smooth, 500.0..=2000.0).show_value(true).text("Дальность")
-        );
+        ui.horizontal(|ui| {
+            ui.add(
+                egui::Slider::new(&mut settings.range, 200.0..=5000.0).show_value(true).text("Дальность")
+            );
+            ui.label(format!("{} метров", settings.range * 0.0254f32))
+        });
     }
 
 }

@@ -13,6 +13,7 @@ pub enum KeyState
     Released
 }
 
+#[derive(Debug)]
 #[derive(Serialize, Deserialize)]
 pub struct Key
 {

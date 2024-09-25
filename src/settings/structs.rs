@@ -14,6 +14,7 @@ pub enum BoxType
 
 }
 
+#[derive(Debug)]
 #[derive(Serialize, Deserialize)]
 pub struct TextSettings {
     pub enable: bool,
@@ -23,11 +24,13 @@ pub struct TextSettings {
     pub font_color: Color32,
 }
 
+#[derive(Debug)]
 #[derive(Serialize, Deserialize)]
 pub struct GlobalSettings {
     pub key_overlay: Key,
 }
 
+#[derive(Debug)]
 #[derive(Serialize, Deserialize)]
 pub struct RadarSettings {
     pub enable: bool,
@@ -40,6 +43,7 @@ pub struct RadarSettings {
     pub color_team: Color32,
 }
 
+#[derive(Debug)]
 #[derive(Default)]
 #[derive(Serialize, Deserialize)]
 pub struct Settings {
@@ -49,27 +53,31 @@ pub struct Settings {
     pub aim: AimSettings
 }
 
+#[derive(Debug)]
 #[derive(Default)]
 #[derive(Serialize, Deserialize)]
 pub struct AimSettings
 {
     pub players: AimProperties,
-    pub creeps: AimProperties
+    pub creeps: AimProperties,
+    pub angle_per_pixel: f32
 }
 
+#[derive(Debug)]
 #[derive(Serialize, Deserialize)]
 pub struct AimProperties
 {
     pub enable: bool,
-    pub angle_per_pixel: f32,
     pub fov: f32,
     pub smooth: f32,
     pub velocity_prediction: bool,
     pub rcs: bool,
     pub range: f32,
-    pub key: Key
+    pub key: Key,
+    pub targeting: bool
 }
 
+#[derive(Debug)]
 #[derive(Serialize, Deserialize)]
 pub struct EspPlayers {
     pub render: bool,
@@ -91,4 +99,5 @@ pub struct EspPlayers {
 
     pub text_hero: TextSettings,
     pub text_health: TextSettings,
+    pub text_distance: TextSettings,
 }

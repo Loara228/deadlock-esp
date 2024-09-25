@@ -183,13 +183,13 @@ impl Player
         }
     }
 
-    pub fn draw(&self, matrix: &Matrix, g: &egui::Painter, settings: &Settings)
+    pub fn draw(&self, matrix: &Matrix, g: &egui::Painter, settings: &Settings, local_player: &Player)
     {
         let mut screen_pos = self.game_scene_node.position.clone();
         if matrix.transform(&mut screen_pos)
         {
             boxes::draw_boxes(self.rect, g, settings);
-            text::draw(g, self, settings);
+            text::draw(g, self, local_player, settings);
         }
     }
 }

@@ -1,18 +1,19 @@
-use std::{ffi::CString, sync::{mpsc::{self, Receiver}, Arc, Mutex}, thread};
+use std::{ffi::CString, sync::{mpsc::{Receiver}}};
 use eframe::{NativeOptions, Renderer};
 use egui::{emath::Pos2, CentralPanel, Vec2, ViewportBuilder};
-use windows::{core::PCSTR, Win32::{Foundation::HWND, Graphics::Gdi::UpdateWindow, UI::WindowsAndMessaging::{FindWindowExA, SetWindowLongA, WINDOW_LONG_PTR_INDEX}}};
+use windows::{core::PCSTR, Win32::{Foundation::HWND, Graphics::Gdi::UpdateWindow, UI::WindowsAndMessaging::{FindWindowExA, SetForegroundWindow, SetWindowLongA, WINDOW_LONG_PTR_INDEX}}};
 
 use super::screen;
-use crate::{external::{self, interfaces::entities::Entity, External}, input::keyboard::{Key, KeyState}, settings::structs::Settings};
+use crate::{external::{External}, input::keyboard::{Key, KeyState}, settings::structs::Settings};
 
 pub struct Overlay {
     initialized: bool,
-    pub(super) hwnd: HWND,
+    pub(super) overlay_hwnd: HWND,
+    pub(super) game_hwnd: HWND,
     ui_mode: bool,
     pub settings: Settings,
     pub game: External,
-    receiver: Receiver<Option<Vec<Entity>>>
+    // receiver: Receiver<Option<Vec<Entity>>>
 }
 
 impl eframe::App for Overlay
@@ -28,8 +29,12 @@ impl eframe::App for Overlay
             self.initialize();
         }
 
+        self.game.screen = ctx.screen_rect();
+
         let key: &mut Key = &mut self.settings.global.key_overlay;
         key.update();
+        self.settings.aim.players.key.update();
+        self.settings.aim.creeps.key.update();
         if key.state == KeyState::Pressed
         {
             self.ui_mode = !self.ui_mode;
@@ -37,14 +42,6 @@ impl eframe::App for Overlay
                 true => self.activate(),
                 false => self.deactive(),
             }
-            
-        }
-        
-        match self.receiver.recv().unwrap() {
-            Some(entities) => {
-                self.game.entities = entities;
-            },
-            None => ()
         }
         self.game.update();
         
@@ -52,7 +49,9 @@ impl eframe::App for Overlay
             fill: egui::Color32::TRANSPARENT,
             ..Default::default()
         };
-
+        if self.game.local_player_index != 0 {
+            crate::external::cheat::aim::aiming::update(&self.settings.aim, &self.game);
+        }
         CentralPanel::default().frame(panel_frame).show(ctx, |ui|
         {
             self.game.draw(ui.painter(), &self.settings);
@@ -70,15 +69,15 @@ impl eframe::App for Overlay
 impl Default for Overlay
 {
     fn default() -> Self {
-        let game = External::new();
         Self
         {
             initialized: false,
-            hwnd: HWND::default(),
+            overlay_hwnd: HWND::default(),
+            game_hwnd: HWND::default(),
             ui_mode: true,
             settings: Settings::default(),
-            receiver: external::run_thr(game.entity_list_ptr as usize),
-            game
+            // receiver: external::run_thr(game.entity_list_ptr as usize),
+            game: External::new()
         }
     }
 }
@@ -87,22 +86,33 @@ impl Overlay
 {
     fn initialize(&mut self)
     {
-        // :D
         let bytes: Vec<u8> = vec!(104u8, 116, 116, 112, 115, 58, 47, 47, 103, 105, 116, 104, 117, 98, 46, 99, 111, 109, 47, 108, 111, 97, 114, 97, 50, 50, 56, 47, 100, 101, 97, 100, 108, 111, 99, 107, 45, 101, 115, 112);
         println!("{}", std::str::from_utf8(&bytes).unwrap());
 
-        self.hwnd = unsafe {
+        self.overlay_hwnd = unsafe {
             let class = PCSTR::null();
             let window_name = CString::new("overlay egui").unwrap();
             let window = PCSTR(window_name.as_ptr() as *const u8);
             FindWindowExA(HWND::default(), HWND::default(), class, window)
         };
-        if self.hwnd.0 == 0
+        self.game_hwnd = unsafe {
+            let class = PCSTR::null();
+            let window_name = CString::new("Deadlock").unwrap();
+            let window = PCSTR(window_name.as_ptr() as *const u8);
+            FindWindowExA(HWND::default(), HWND::default(), class, window)
+        };
+        if self.overlay_hwnd.0 == 0
         {
             log::error!("Overlay HWND is invalid");
-            panic!("Window handle is invalid");
+            panic!("Overlay window handle is invalid");
         }
-        log::info!("Overlay window: {:?}", self.hwnd);
+        if self.game_hwnd.0 == 0
+        {
+            log::error!("Game HWND is invalid");
+            panic!("Game window handle is invalid");
+        }
+        log::info!("Overlay: {:?}", self.overlay_hwnd);
+        log::info!("Game: {:?}", self.game_hwnd);
         self.initialized = true;
     }
 
@@ -112,9 +122,10 @@ impl Overlay
         unsafe 
         {
             let attributes: i32 = 8i32 | 32i32;
-            SetWindowLongA(self.hwnd, WINDOW_LONG_PTR_INDEX(-20), attributes);
+            SetWindowLongA(self.overlay_hwnd, WINDOW_LONG_PTR_INDEX(-20), attributes);
             self.ui_mode = true;
-            _ = UpdateWindow(self.hwnd);
+            _ = UpdateWindow(self.overlay_hwnd);
+            // _ = SetForegroundWindow(self.overlay_hwnd);
         }
     }
 
@@ -124,9 +135,10 @@ impl Overlay
         unsafe 
         {
             let attributes: i32 = 8i32 | 32i32 | 524288i32 | 134217728;
-            SetWindowLongA(self.hwnd, WINDOW_LONG_PTR_INDEX(-20), attributes);
+            SetWindowLongA(self.overlay_hwnd, WINDOW_LONG_PTR_INDEX(-20), attributes);
             self.ui_mode = false;
-            _ = UpdateWindow(self.hwnd);
+            _ = UpdateWindow(self.overlay_hwnd);
+            SetForegroundWindow(self.game_hwnd).unwrap();
         }
     }
 }

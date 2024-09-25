@@ -27,7 +27,7 @@ impl GameSceneNode
 pub struct Camera
 {
     pub view_angles: Vector3,
-    pub camera_position: Vector3
+    pub position: Vector3,
 }
 
 impl Camera
@@ -37,7 +37,7 @@ impl Camera
         unsafe {
             let camera_ptr: *mut c_void = read_memory(client_ptr.add(CCitadelCameraManager + 0x28));
             self.view_angles = read_memory(camera_ptr.add(0x44));
-            self.camera_position = read_memory(camera_ptr.add(0x38));
+            self.position = read_memory(camera_ptr.add(0x38));
         }
     }
 }
@@ -168,7 +168,7 @@ impl Controller
 #[derive(Clone, Copy)]
 pub struct Pawn
 {
-    pub(super) ptr: usize,
+    pub(crate) ptr: *mut c_void,
     pub health: i32,
     pub max_health: i32,
     pub team: i32
@@ -178,7 +178,7 @@ impl Default for Pawn
 {
     fn default() -> Self {
         Self {
-            ptr: 0,
+            ptr: 0 as *mut c_void,
             health: 0,
             max_health: 0,
             team: 0,
@@ -196,7 +196,7 @@ impl Pawn
     pub fn update(&mut self, entry: *mut c_void, pawn_handle: usize)
     {
         unsafe {
-            self.ptr = self.get_ptr(entry, pawn_handle) as usize;
+            self.ptr = self.get_ptr(entry, pawn_handle as usize);
             let ptr = self.ptr as *mut c_void;
             if self.ptr as usize == 0
             {

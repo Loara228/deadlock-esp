@@ -11,7 +11,7 @@ pub struct External
 {
     client_ptr: *mut c_void,
     pub entity_list_ptr: *mut c_void,
-    players: [Player; 12],
+    players: [Player; 13],
     pub view_matrix: Matrix,
     pub local_player_index: usize,
     pub camera: Camera
@@ -24,12 +24,12 @@ impl External
         unsafe 
         {
             let client_ptr = memory::CLIENT_MODULE.lpBaseOfDll;
-            let players: [Player; 12] =
+            let players: [Player; 13] =
             [
                Player::new(1), Player::new(2), Player::new(3),
                Player::new(4), Player::new(5), Player::new(6),
                Player::new(7), Player::new(8), Player::new(9),
-               Player::new(10), Player::new(11),Player::new(12)
+               Player::new(10), Player::new(11), Player::new(12), Player::new(13)
             ];
             Self
             {

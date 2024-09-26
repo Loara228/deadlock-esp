@@ -2,46 +2,102 @@ use std::{ffi::c_void, thread, time::Duration};
 
 use egui::Pos2;
 
-use crate::{external::{interfaces::{entities::Entity, math::{Plane3D, Vector3}, structs::Camera}, External}, input::{keyboard::KeyState, mouse}, settings::structs::{AimProperties, AimSettings}};
+use crate::{external::{interfaces::{entities::Player, enums::EntityType, math::{Plane3D, Vector3}, structs::Camera}, External}, input::{keyboard::KeyState, mouse}, settings::structs::{AimProperties, AimSettings}};
 
 pub fn update(settings: &AimSettings, game: &External)
 {
-    if settings.angle_per_pixel == 0.
+    if settings.angle_per_pixel == 0f32 || (!settings.players.enable && !settings.creeps.enable)
     {
         return;
     }
-    if settings.players.key.state == KeyState::None
-    {
-        unsafe { player_index = None };
-    }
-    if settings.players.enable {
-        find_player(game, settings.players.fov);
-    }
 
-    if settings.players.key.state == KeyState::Down
-    {
-        unsafe {
-            match player_index {
-                Some(index) => {
-                    let target = game.get_player_by_index(index);
-                    aim_to(target.skeleton.head_pos.clone(), settings.angle_per_pixel, game, &settings.players);
-                },
-                None => {
-                    match entity {
-                        Some(_) => {
-
-                        },
-                        None => {},
-                    }
-                },
-            }
+    unsafe {
+        update_targets(settings, game);
+        match player_index {
+            Some(index) => {
+                let target = game.get_player_by_index(index);
+                let mut target_pos = target.skeleton.head_pos.clone();
+                if settings.players.velocity_prediction
+                {
+                    target_pos = calc_velocity(target_pos, target.pawn.velocity, &settings.players);
+                }
+                aim_to(target_pos, settings.angle_per_pixel, game, &settings.players);
+            },
+            None => {
+                match entity_array_index {
+                    Some(entity_index) => {
+                        let entity = game.entities[entity_index];
+                        let mut target_pos = entity.game_scene_node.position;
+                        if settings.creeps.velocity_prediction
+                        {
+                            target_pos = calc_velocity(target_pos, entity.pawn.velocity, &settings.players);
+                        }
+                        if entity.class == EntityType::Creep
+                        {
+                            target_pos.z += 45f32;
+                        }
+                        aim_to(target_pos, settings.angle_per_pixel, game, &settings.creeps);
+                    },
+                    None => (),
+                }
+            },
         }
     }
 }
 
-fn find_player(game: &External, fov: f32)
+unsafe fn update_targets(settings: &AimSettings, game: &External)
 {
-    unsafe { player_index = None };
+    if settings.players.enable
+    {
+        if settings.players.key.state == KeyState::Down || settings.players.key.state == KeyState::Pressed
+        {
+            if !settings.players.targeting
+            {
+                find_player(game, game.get_local_player(), &settings.players);
+            }
+            if player_index == None
+            {
+                find_player(game, game.get_local_player(), &settings.players);
+                if player_index != None
+                {
+                    return;
+                }
+            }
+        }
+        else
+        {
+            player_index = None;
+        }
+    }
+    if settings.creeps.enable
+    {
+        if player_index == None && settings.creeps.key.state == KeyState::Down || settings.creeps.key.state == KeyState::Pressed
+        {
+            if !settings.creeps.targeting
+            {
+                find_entity(game, game.get_local_player(), &settings.creeps);
+            }
+            if entity_array_index == None {
+                find_entity(game, game.get_local_player(), &settings.creeps);
+                if entity_array_index != None
+                {
+                    return;
+                }
+            }
+        }
+        else
+        {
+            entity_array_index = None;
+        }
+    }
+}
+
+fn find_player(game: &External, local_player: &Player, settings: &AimProperties)
+{
+    if !settings.targeting
+    {
+        unsafe { player_index = None };
+    }
     let mut distance = 9999f32;
     let center = game.screen.center();
     for p in game.players.iter()
@@ -49,16 +105,68 @@ fn find_player(game: &External, fov: f32)
         if p.pawn.team != game.get_local_player().pawn.team && p.is_alive()
         {
             let mut head_pos = p.skeleton.head_pos.clone();
-            if game.view_matrix.transform(&mut head_pos) && in_fov(head_pos, center, fov)
+            if game.view_matrix.transform(&mut head_pos) && in_fov(head_pos, center, settings.fov)
             {
                 let cur_distance = Vector3::distance_2d(head_pos, Vector3::from_pos2(center));
-                if cur_distance < distance
+                if cur_distance < distance && Vector3::distance(p.game_scene_node.position, local_player.game_scene_node.position) < settings.range
                 {
                     distance = cur_distance;
                     unsafe { player_index = Some(p.index as usize) };
                 }
             }
         }
+    }
+}
+
+fn find_entity(game: &External, local_player: &Player, settings: &AimProperties)
+{
+    if !settings.targeting
+    {
+        unsafe { player_index = None };
+    }
+    let mut distance = 9999f32;
+    let mut priority = 0;
+    let center = game.screen.center();
+    let mut i = 0;
+    for ent in game.entities.iter()
+    {
+        if ent.continue_alive() || ent.check_creep(local_player)
+        {
+            i += 1;
+            continue;
+        }
+        if ent.class.as_priority() >= priority
+            {
+                let mut head_pos = ent.game_scene_node.position.clone();
+                if ent.class == EntityType::Creep
+                {
+                    head_pos.z += 45f32;
+                }
+                if !ent.game_scene_node.dormant && game.view_matrix.transform(&mut head_pos) && in_fov(head_pos, center, settings.fov)
+                {
+                    let cur_distance = Vector3::distance_2d(head_pos, Vector3::from_pos2(center));
+                    if cur_distance < distance && Vector3::distance(ent.game_scene_node.position, local_player.game_scene_node.position) < settings.range
+                    {
+                        priority = ent.class.as_priority();
+                        distance = cur_distance;
+                        unsafe { entity_array_index = Some(i) };
+                    }
+                }
+            }
+            i += 1;
+    }
+}
+
+fn calc_velocity(world_pos: Vector3, velocity: Vector3, settings: &AimProperties) -> Vector3
+{
+    // target_pos.x += target.pawn.velocity.x / settings.players.velocity_div_dav;
+    // target_pos.y += target.pawn.velocity.y / settings.players.velocity_div_dav;
+    // target_pos.z += target.pawn.velocity.z / settings.players.velocity_div_dav;
+
+    Vector3 {
+        x: world_pos.x + velocity.x / settings.velocity_div_dav,
+        y: world_pos.y + velocity.y / settings.velocity_div_dav,
+        z: world_pos.z + velocity.z / settings.velocity_div_dav,
     }
 }
 
@@ -189,4 +297,4 @@ fn in_fov(p: Vector3, c: Pos2, radius: f32) -> bool
 }
 
 static mut player_index: Option<usize> = None;
-static mut entity: Option<Entity> = None;
+static mut entity_array_index: Option<usize> = None;

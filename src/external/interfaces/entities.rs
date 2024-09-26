@@ -2,8 +2,8 @@ use std::ffi::c_void;
 
 use egui::{Pos2, Rect};
 
-use crate::{external::{cheat::esp::*, offsets::client_dll::CBasePlayerController}, memory::read_memory, memory::read_memory_bytes, settings::structs::Settings};
-use super::{enums::EntityType, math::Matrix, structs::{Controller, GameSceneNode, Pawn, PlayerDataGlobal, Skeleton}};
+use crate::{external::{cheat::esp::*, offsets::client_dll::CBasePlayerController}, memory::{read_memory, read_memory_bytes}, settings::structs::{AimProperties, AimSettings, Settings}};
+use super::{enums::EntityType, math::{Matrix, Vector3}, structs::{Controller, GameSceneNode, Pawn, PlayerDataGlobal, Skeleton}};
 
 trait EntityBase
 {
@@ -41,7 +41,8 @@ impl Entity
 
     pub fn update(&mut self, entity_list_ptr: usize)
     {
-        self.game_scene_node.dormant = true;
+        self.class = EntityType::None;
+        self.game_scene_node.dormant = false;
 
         let entity_list_ptr = entity_list_ptr as *mut c_void;
         let base_ptr = self.read_base(self.index, entity_list_ptr);
@@ -71,6 +72,60 @@ impl Entity
             let entity_identity: *mut c_void = read_memory((self.pawn.ptr as *mut c_void).add(0x10));
             let class_name_ptr: *mut c_void = read_memory(entity_identity.add(0x20));
             read_memory_bytes(class_name_ptr, 7)
+        }
+    }
+
+    pub fn continue_alive(&self) -> bool
+    {
+        self.class == EntityType::None && self.game_scene_node.dormant
+    }
+
+    pub fn check_creep(&self, local_player: &Player) -> bool
+    {
+        if self.class == EntityType::Creep
+        {
+            if self.pawn.health == 0
+            {
+                return true;
+            }
+            if self.pawn.team != 263171 && self.pawn.team != 263170
+            {
+                return  true;
+            }
+            else
+            {
+                let enemy_team = if local_player.pawn.team == 2 {
+                    263171
+                } else {
+                    263170
+                };
+                return self.pawn.team != enemy_team;
+            }
+        }
+        return false;
+    }
+
+    pub fn draw(&self, g: &egui::Painter, matrix: &Matrix, settings: &AimSettings)
+    {
+        let mut screen_pos = self.game_scene_node.position;
+        match self.class
+        {
+            EntityType::Soul => 
+            {
+                if matrix.transform(&mut screen_pos)
+                {
+                    g.circle_filled(Pos2::new(screen_pos.x, screen_pos.y), 4., settings.soul_color);
+                }
+            },
+            EntityType::Creep => 
+            {
+                screen_pos.z += 45f32;
+                if matrix.transform(&mut screen_pos)
+                {
+                    g.circle_filled(Pos2::new(screen_pos.x, screen_pos.y), 4., settings.creep_color);
+                }
+            },
+            EntityType::None => (),
         }
     }
 }

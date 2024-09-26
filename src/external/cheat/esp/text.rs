@@ -36,6 +36,10 @@ fn draw_text(
     text: String,
     offsets: &mut (f32, f32, f32, f32),
 ) {
+    if !settings.enable
+    {
+        return;
+    }
     let mut pos = Pos2 { x: 0., y: 0. };
     let mut align = Align2::LEFT_TOP;
     if settings.align == Align2::LEFT_TOP {

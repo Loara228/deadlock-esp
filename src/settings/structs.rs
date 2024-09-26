@@ -54,13 +54,14 @@ pub struct Settings {
 }
 
 #[derive(Debug)]
-#[derive(Default)]
 #[derive(Serialize, Deserialize)]
 pub struct AimSettings
 {
     pub players: AimProperties,
     pub creeps: AimProperties,
-    pub angle_per_pixel: f32
+    pub angle_per_pixel: f32,
+    pub creep_color: Color32,
+    pub soul_color: Color32
 }
 
 #[derive(Debug)]
@@ -71,10 +72,12 @@ pub struct AimProperties
     pub fov: f32,
     pub smooth: f32,
     pub velocity_prediction: bool,
+    pub velocity_div_dav: f32,
     pub rcs: bool,
     pub range: f32,
     pub key: Key,
-    pub targeting: bool
+    pub targeting: bool,
+    pub color: Color32
 }
 
 #[derive(Debug)]

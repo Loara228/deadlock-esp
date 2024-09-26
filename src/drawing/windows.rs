@@ -49,11 +49,22 @@ fn draw_aim(overlay: &mut Overlay, ctx: &Context, ui: &mut Ui) {
             }
             ui.label("Игроки");
             ui.group(|ui| {
-                aim_element(ui, &mut overlay.settings.aim.players, "gfscsdc");
+                aim_element(ui, &mut overlay.settings.aim, false);
             });
-            ui.label("Крипы и сферы");
+            ui.label("Крипы и сферы (души)");
             ui.group(|ui| {
-                aim_element(ui, &mut overlay.settings.aim.creeps, "asdsd");
+                aim_element(ui, &mut overlay.settings.aim, true);
+            });
+
+        ui.horizontal(|ui|
+            {
+                ui.color_edit_button_srgba(&mut overlay.settings.aim.soul_color);
+                ui.label("Цвет сфер (душ)");
+            });
+            ui.horizontal(|ui|
+            {
+                ui.color_edit_button_srgba(&mut overlay.settings.aim.creep_color);
+                ui.label("Цвет крипов");
             });
         });
 }
@@ -99,11 +110,10 @@ mod esp {
                 ui_text(ui, &mut overlay.settings.esp_players.text_hero, "ui_text_1");
             });
             ui.collapsing("Здоровье", |ui| {
-                ui_text(
-                    ui,
-                    &mut overlay.settings.esp_players.text_health,
-                    "ui_text_2",
-                );
+                ui_text(ui, &mut overlay.settings.esp_players.text_health, "ui_text_2");
+            });
+            ui.collapsing("Дистанция", |ui| {
+                ui_text(ui, &mut overlay.settings.esp_players.text_distance, "ui_text_3");
             });
         });
     }
@@ -295,20 +305,32 @@ mod esp {
             });
     }
 
-    pub fn aim_element(ui: &mut Ui, settings: &mut AimProperties, id: &str)
+    pub fn aim_element(ui: &mut Ui, global_aim_settings: &mut AimSettings, entities: bool)
     {
+        let settings: &mut AimProperties = match entities {
+            true => &mut global_aim_settings.creeps,
+            false => &mut global_aim_settings.players,
+        };
         ui.checkbox(&mut settings.enable, "Помощь в наведении");
-        ui.checkbox(&mut settings.velocity_prediction, "Velocity prediction");
+        ui.checkbox(&mut settings.velocity_prediction, "Учитывать ускорение");
         ui.checkbox(&mut settings.rcs, "Контроль отдачи");
+        ui.checkbox(&mut settings.targeting, "Захват цели");
+        ui.horizontal(|ui| {
+            ui.color_edit_button_srgba(&mut settings.color);
+            ui.label("Цвет FOV");
+        });
         ui.add(
-            egui::Slider::new(&mut settings.fov, 20.0..=300.0).show_value(true).text("Радиус")
+            egui::Slider::new(&mut settings.fov, 20.0..=800.0).show_value(true).text("FOV")
         );
         ui.add(
-            egui::Slider::new(&mut settings.smooth, 1.0..=10.0).show_value(true).text("Плавность")
+            egui::Slider::new(&mut settings.smooth, 1.25..=10.0).show_value(true).text("Плавность")
+        );
+        ui.add(
+            egui::Slider::new(&mut settings.velocity_div_dav, 1f32..=50.0).show_value(true).text("Делитель учета ускорения")
         );
         ui.horizontal(|ui| {
             ui.add(
-                egui::Slider::new(&mut settings.range, 200.0..=5000.0).show_value(true).text("Дальность")
+                egui::Slider::new(&mut settings.range, 200.0..=5000.0).show_value(true).text("Максимальная дистанция")
             );
             ui.label(format!("{} метров", settings.range * 0.0254f32))
         });

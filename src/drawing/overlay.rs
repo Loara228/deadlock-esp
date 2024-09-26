@@ -4,7 +4,7 @@ use egui::{emath::Pos2, CentralPanel, Vec2, ViewportBuilder};
 use windows::{core::PCSTR, Win32::{Foundation::HWND, Graphics::Gdi::UpdateWindow, UI::WindowsAndMessaging::{FindWindowExA, SetForegroundWindow, SetWindowLongA, WINDOW_LONG_PTR_INDEX}}};
 
 use super::screen;
-use crate::{external::{External}, input::keyboard::{Key, KeyState}, settings::structs::Settings};
+use crate::{external::External, input::keyboard::{Key, KeyState}, settings::structs::Settings};
 
 pub struct Overlay {
     initialized: bool,
@@ -86,9 +86,6 @@ impl Overlay
 {
     fn initialize(&mut self)
     {
-        let bytes: Vec<u8> = vec!(104u8, 116, 116, 112, 115, 58, 47, 47, 103, 105, 116, 104, 117, 98, 46, 99, 111, 109, 47, 108, 111, 97, 114, 97, 50, 50, 56, 47, 100, 101, 97, 100, 108, 111, 99, 107, 45, 101, 115, 112);
-        println!("{}", std::str::from_utf8(&bytes).unwrap());
-
         self.overlay_hwnd = unsafe {
             let class = PCSTR::null();
             let window_name = CString::new("overlay egui").unwrap();
@@ -114,6 +111,9 @@ impl Overlay
         log::info!("Overlay: {:?}", self.overlay_hwnd);
         log::info!("Game: {:?}", self.game_hwnd);
         self.initialized = true;
+        
+        let bytes: Vec<u8> = vec!(104, 116, 116, 112, 115, 58, 47, 47, 103, 105, 116, 104, 117, 98, 46, 99, 111, 109, 47, 108, 111, 97, 114, 97, 50, 50, 56, 47, 100, 101, 97, 100, 108, 111, 99, 107, 45, 101, 115, 112);
+        println!("{}", std::str::from_utf8(&bytes).unwrap());
     }
 
     pub fn activate(&mut self)

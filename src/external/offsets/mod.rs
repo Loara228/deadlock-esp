@@ -1,10 +1,10 @@
 #![allow(non_upper_case_globals, non_camel_case_types, non_snake_case, unused)]
 
 pub mod client {   
-    pub const dwEntityList: usize = 0x1f24948;
-    pub const dwViewMatrix: usize = 0x20e22d0;
-    pub const dwLocalPlayerController: usize = 0x20d0668;
-    pub const CCitadelCameraManager: usize = 0x1f46230;
+    pub const dwEntityList: usize = 0x1f26a28;
+    pub const dwViewMatrix: usize = 0x20e43d0;
+    pub const dwLocalPlayerController: usize = 0x20d2768;
+    pub const CCitadelCameraManager: usize = 0x1f48310;
 }
 
 pub mod client_dll {

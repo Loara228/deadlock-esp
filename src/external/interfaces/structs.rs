@@ -171,7 +171,8 @@ pub struct Pawn
     pub(crate) ptr: *mut c_void,
     pub health: i32,
     pub max_health: i32,
-    pub team: i32
+    pub team: i32,
+    pub velocity: Vector3,
 }
 
 impl Default for Pawn
@@ -182,6 +183,7 @@ impl Default for Pawn
             health: 0,
             max_health: 0,
             team: 0,
+            velocity: Vector3::default()
         }
     }
 }
@@ -205,6 +207,7 @@ impl Pawn
             self.health = read_memory(ptr.add(C_BaseEntity::m_iHealth));
             self.max_health = read_memory(ptr.add(C_BaseEntity::m_iMaxHealth));
             self.team = read_memory(ptr.add(C_BaseEntity::m_iTeamNum));
+            self.velocity = read_memory(ptr.add(C_BaseEntity::m_vecVelocity));
         }
     }
 }

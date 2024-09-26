@@ -1,7 +1,7 @@
 pub mod structs;
 use crate::input::keyboard::{Key, KeyState};
 use egui::{Align2, Color32, Pos2};
-use structs::{AimProperties, BoxType, EspPlayers, GlobalSettings, RadarSettings, TextSettings};
+use structs::{AimProperties, AimSettings, BoxType, EspPlayers, GlobalSettings, RadarSettings, TextSettings};
 
 pub mod mgr
 {
@@ -108,7 +108,7 @@ impl Default for GlobalSettings {
 impl Default for TextSettings {
     fn default() -> Self {
         Self {
-            enable: true,
+            enable: false,
             shadow: true,
             align: Align2::CENTER_BOTTOM,
             font_size: 14.,
@@ -128,7 +128,9 @@ impl Default for AimProperties
             rcs: true,
             range: 1000.,
             key: Key { state: KeyState::None, code: 6 },
-            targeting: true
+            targeting: true,
+            velocity_div_dav: 40f32,
+            color: Color32::RED,
         }
     }
 }
@@ -147,6 +149,20 @@ impl Default for RadarSettings {
             color_enemy: Color32::from_rgba_unmultiplied(234, 103, 109, 255),
             color_team: Color32::from_rgba_unmultiplied(75, 192, 117, 180),
             scale: 30.
+        }
+    }
+}
+
+impl Default for AimSettings
+{
+    fn default() -> Self {
+        Self
+        {
+            players: AimProperties::default(),
+            creeps: AimProperties::default(),
+            angle_per_pixel: 0f32,
+            creep_color: Color32::RED,
+            soul_color: Color32::RED,
         }
     }
 }

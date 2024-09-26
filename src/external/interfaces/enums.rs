@@ -128,7 +128,6 @@ pub enum EntityType
 
 impl EntityType
 {
-    
     ///name - 7 байт
     pub fn from_class_name(name: Vec<u8>) -> Option<EntityType>
     {
@@ -144,6 +143,15 @@ impl EntityType
         else
         {
             None
+        }
+    }
+
+    pub fn as_priority(self) -> u8
+    {
+        match self {
+            EntityType::None => 0,
+            EntityType::Creep => 1,
+            EntityType::Soul => 2,
         }
     }
 }

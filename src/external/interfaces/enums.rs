@@ -71,7 +71,7 @@ impl Hero
             Hero::Viscous => Some(7),
             Hero::Wrecker => Some(0),
             Hero::Pocket => Some(13),
-            Hero::Mirage => Some(0),
+            Hero::Mirage => Some(8),
             Hero::Dummy => Some(0),
             _ => None
         }

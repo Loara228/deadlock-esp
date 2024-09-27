@@ -1,7 +1,7 @@
 use std::{ffi::CString, sync::{mpsc::{Receiver}}};
 use eframe::{NativeOptions, Renderer};
 use egui::{emath::Pos2, CentralPanel, Vec2, ViewportBuilder};
-use windows::{core::PCSTR, Win32::{Foundation::HWND, Graphics::Gdi::UpdateWindow, UI::WindowsAndMessaging::{FindWindowExA, SetForegroundWindow, SetWindowLongA, WINDOW_LONG_PTR_INDEX}}};
+use windows::{core::PCSTR, Win32::{Foundation::HWND, Graphics::Gdi::UpdateWindow, UI::WindowsAndMessaging::{FindWindowExA, GetForegroundWindow, SetForegroundWindow, SetWindowLongA, WINDOW_LONG_PTR_INDEX}}};
 
 use super::screen;
 use crate::{external::External, input::keyboard::{Key, KeyState}, settings::structs::Settings};
@@ -29,6 +29,18 @@ impl eframe::App for Overlay
             self.initialize();
         }
 
+        let focused = unsafe
+        {
+            let w = GetForegroundWindow();
+            w == self.game_hwnd || w == self.overlay_hwnd
+        };
+
+        if !focused
+        {
+            ctx.request_repaint_after_for(std::time::Duration::from_millis(500), ctx.viewport_id());
+            return;
+        }
+
         self.game.screen = ctx.screen_rect();
 
         let key: &mut Key = &mut self.settings.global.key_overlay;
@@ -43,12 +55,14 @@ impl eframe::App for Overlay
                 false => self.deactive(),
             }
         }
+        
         self.game.update();
         
         let panel_frame = egui::Frame {
             fill: egui::Color32::TRANSPARENT,
             ..Default::default()
         };
+        
         if self.game.local_player_index != 0 {
             crate::external::cheat::aim::aiming::update(&self.settings.aim, &self.game);
         }
@@ -125,7 +139,7 @@ impl Overlay
             SetWindowLongA(self.overlay_hwnd, WINDOW_LONG_PTR_INDEX(-20), attributes);
             self.ui_mode = true;
             _ = UpdateWindow(self.overlay_hwnd);
-            // _ = SetForegroundWindow(self.overlay_hwnd);
+            _ = SetForegroundWindow(self.overlay_hwnd);
         }
     }
 

@@ -9,8 +9,8 @@ use settings::mgr;
 // todo:
 // - spectators?
 // - info grid (window)
+// - хп (bar)
 // > configs сделать выбор конфигов
-// 
 fn main() {
     env_logger::builder()
         .filter_module("deadlock", log::LevelFilter::Info)
@@ -23,5 +23,10 @@ fn main() {
     drawing::overlay::run();
 }
 
-const ENT_LIST_END: i32 = 800;
+fn check_update()
+{
+    // update required?
+}
+
+const ENT_LIST_END: i32 = 1900;
 const ENT_LIST_START: i32 = 150;

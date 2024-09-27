@@ -21,6 +21,7 @@ pub struct Entity
     pub pawn: Pawn,
     pub class: EntityType,
     pub game_scene_node: GameSceneNode,
+    pub previous_pos: Vector3
 }
 
 impl EntityBase for Entity
@@ -36,6 +37,7 @@ impl Entity
             pawn: Pawn::default(),
             class: EntityType::None,
             game_scene_node: GameSceneNode::default(),
+            previous_pos: Vector3::default()
         }
     }
 
@@ -56,6 +58,7 @@ impl Entity
         {
             Some(class_type) => 
             {
+                self.previous_pos = self.game_scene_node.position;
                 self.class = class_type;
             },
             None => {

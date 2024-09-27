@@ -43,9 +43,17 @@ fn draw_main(overlay: &mut Overlay, ctx: &Context, _ui: &mut Ui) {
 fn draw_aim(overlay: &mut Overlay, ctx: &Context, ui: &mut Ui) {
     egui::Window::new("aim")
         .resizable(false).show(ctx, |ui| {
+            if overlay.settings.aim.angle_per_pixel == 0f32
+            {
+                ui.label(egui::RichText::new("АИМ НЕ ОТКАЛИБРОВАН!!!").color(egui::Color32::RED));
+            }
             if ui.button("Калибровать").clicked() {
                 unsafe { SetForegroundWindow(overlay.game_hwnd).unwrap(); }
                 overlay.settings.aim.angle_per_pixel = aim::aiming::calibrate(&mut overlay.game);
+                if overlay.settings.aim.angle_per_pixel.is_nan()
+                {
+                    overlay.settings.aim.angle_per_pixel = 0f32;
+                }
             }
             ui.label("Игроки");
             ui.group(|ui| {

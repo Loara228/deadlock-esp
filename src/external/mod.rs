@@ -39,6 +39,11 @@ impl External
                Player::new(7), Player::new(8), Player::new(9),
                Player::new(10), Player::new(11), Player::new(12), Player::new(13) // на всякий еще добавил
             ];
+            let mut entities: Vec<Entity> = Vec::new();
+            for i in crate::ENT_LIST_START..crate::ENT_LIST_END
+            {
+                entities.push(Entity::new(i));
+            }
             Self
             {
                 client_ptr,
@@ -47,7 +52,7 @@ impl External
                 view_matrix: Matrix::default(),
                 local_player_index: 0,
                 camera: Camera::default(),
-                entities: Vec::new(),
+                entities,
                 screen: egui::Rect::from_two_pos(Pos2::default(), Pos2::default()),
                 aim_punch: Vector3::default()
             }
@@ -60,7 +65,8 @@ impl External
         unsafe {
             let matrix: Matrix = read_memory(self.client_ptr.add(offsets::client::dwViewMatrix));
             let matrix = Matrix::transpose(matrix);
-            let viewport = Matrix::get_viewport(egui::Vec2 { x: 1920f32, y: 1080f32 });
+            
+            let viewport = Matrix::get_viewport(egui::Vec2 { x: self.screen.max.x, y: self.screen.max.y });
             self.view_matrix = matrix * viewport;
         }
         self.update_players();
@@ -69,14 +75,10 @@ impl External
 
     fn update_entities(&mut self)
     {
-        let mut entities: Vec<Entity> = Vec::new();
-        for i in crate::ENT_LIST_START..crate::ENT_LIST_END
+        for i in 0..self.entities.len()
         {
-            let mut e = Entity::new(i);
-            e.update(self.entity_list_ptr as usize);
-            entities.push(e);
+            self.entities[i].update(self.entity_list_ptr as usize);
         }
-        self.entities = entities;
     }
 
     fn update_players(&mut self)

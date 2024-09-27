@@ -123,13 +123,13 @@ impl Default for AimProperties
         Self {
             enable: false,
             fov: 100.,
-            smooth: 4f32,
+            smooth: 1.25f32,
             velocity_prediction: true,
             rcs: true,
-            range: 1000.,
+            range: 1800.,
             key: Key { state: KeyState::None, code: 6 },
             targeting: true,
-            velocity_div_dav: 40f32,
+            velocity_div_dav: 15f32,
             color: Color32::RED,
         }
     }
@@ -155,14 +155,19 @@ impl Default for RadarSettings {
 
 impl Default for AimSettings
 {
+    
     fn default() -> Self {
+        let players = AimProperties::default();
+        let mut creeps = AimProperties::default();
+        creeps.targeting = false;
+        creeps.key.code = 5;
         Self
         {
-            players: AimProperties::default(),
-            creeps: AimProperties::default(),
             angle_per_pixel: 0f32,
             creep_color: Color32::RED,
             soul_color: Color32::RED,
+            players,
+            creeps
         }
     }
 }

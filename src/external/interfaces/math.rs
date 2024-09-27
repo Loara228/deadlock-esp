@@ -2,6 +2,7 @@ use std::ops::Mul;
 
 use egui::{Pos2, Vec2};
 
+#[derive(PartialEq)]
 #[derive(Default)]
 #[derive(Clone, Copy)]
 #[derive(Debug)]

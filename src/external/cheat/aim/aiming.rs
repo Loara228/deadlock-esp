@@ -38,7 +38,7 @@ pub fn update(settings: &AimSettings, game: &External)
                         }
                         aim_to(target_pos, settings.angle_per_pixel, game, &settings.creeps);
                     },
-                    None => (),
+                    _ => (),
                 }
             },
         }
@@ -130,7 +130,7 @@ fn find_entity(game: &External, local_player: &Player, settings: &AimProperties)
     let mut i = 0;
     for ent in game.entities.iter()
     {
-        if ent.continue_alive() || ent.check_creep(local_player)
+        if ent.continue_alive() || ent.check_creep(local_player) || ent.game_scene_node.dormant
         {
             i += 1;
             continue;
@@ -141,6 +141,14 @@ fn find_entity(game: &External, local_player: &Player, settings: &AimProperties)
                 if ent.class == EntityType::Creep
                 {
                     head_pos.z += 45f32;
+                }
+                else
+                {
+                    // if ent.previous_pos == ent.game_scene_node.position
+                    // {
+                    //     i += 1;
+                    //     continue;
+                    // }
                 }
                 if !ent.game_scene_node.dormant && game.view_matrix.transform(&mut head_pos) && in_fov(head_pos, center, settings.fov)
                 {
@@ -239,7 +247,7 @@ fn acos_clamped(value: f32, tolerance: f32) -> f32
     }
     if value < tolerance - 1f32
     {
-        return 3.14159265358979323846f32; // здец
+        return  std::f32::consts::PI; // здец
     }
     value.acos()
 }

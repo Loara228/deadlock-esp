@@ -197,6 +197,10 @@ impl Player
                     self.pawn.update(list_entry, pawn_handle as usize);
                     if self.pawn.ptr as i32 != 0
                     {
+                        if self.pawn.health > self.pawn.max_health
+                        {
+                            self.pawn.health = self.pawn.max_health
+                        }
                         self.game_scene_node.update(self.pawn.ptr as *mut c_void);
                         self.data.update(self.controller.ptr);
                         self.skeleton.update(self.pawn.ptr as *mut c_void, self.data.hero);
@@ -247,6 +251,7 @@ impl Player
         if matrix.transform(&mut screen_pos)
         {
             boxes::draw_boxes(self.rect, g, settings);
+            healthbar::draw(g, self, &settings.healthbars);
             text::draw(g, self, local_player, settings);
         }
     }

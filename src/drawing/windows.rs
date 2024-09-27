@@ -97,8 +97,8 @@ fn draw_esp(overlay: &mut Overlay, ctx: &Context, _ui: &mut Ui) {
         .resizable(false)
         .default_width(500.)
         .show(ctx, |ui| {
-            ui.checkbox(&mut overlay.settings.esp_players.render, "rendering");
             esp::esp_players(ui, overlay);
+            esp::esp_boxes(ui, overlay);
             esp::esp_radar(ui, overlay);
             esp::esp_text(ui, overlay);
         });
@@ -174,6 +174,7 @@ mod esp {
 
     pub fn esp_players(ui: &mut Ui, overlay: &mut Overlay) {
         ui.collapsing("Прямоугольники", |ui| {
+            ui.checkbox(&mut overlay.settings.esp_players.render, "Включить");
             egui::Grid::new("esp_grid")
                 .num_columns(2)
                 .min_col_width(150.)
@@ -273,6 +274,27 @@ mod esp {
         });
     }
 
+    pub fn esp_boxes(ui: &mut Ui, overlay: &mut Overlay) {
+        ui.collapsing("Здоровье", |ui| {
+            ui.checkbox(&mut overlay.settings.healthbars.enable, "Включить");
+            egui::Grid::new("healthbars_grid")
+            .num_columns(2)
+            .min_col_width(150.)
+            .max_col_width(150.)
+            .show(ui, |ui| {
+                ui.color_edit_button_srgba(&mut overlay.settings.healthbars.background_color);
+                ui.label("Цвет заднего фона");
+                ui.end_row();
+                ui.color_edit_button_srgba(&mut overlay.settings.healthbars.hp_color);
+                ui.label("Цвет здоровья");
+                ui.end_row();
+                ui.color_edit_button_srgba(&mut overlay.settings.healthbars.outline_color);
+                ui.label("Цвет обводки");
+                ui.end_row();
+            });
+        });
+    }
+
     /// UI блок для ESP TEXT
     fn ui_text(ui: &mut Ui, settings: &mut TextSettings, id: &str) {
         fn to_string(align: Align2) -> String {
@@ -288,10 +310,10 @@ mod esp {
             "?".to_owned()
         }
 
-        ui.checkbox(&mut settings.enable, "enable");
+        ui.checkbox(&mut settings.enable, "Включить");
         ui.horizontal(|ui| {
             ui.color_edit_button_srgba(&mut settings.font_color);
-            ui.checkbox(&mut settings.shadow, "контрастный");
+            ui.checkbox(&mut settings.shadow, "Контрастный");
         });
         ui.add(
             egui::Slider::new(&mut settings.font_size, 6.0..=24.0)

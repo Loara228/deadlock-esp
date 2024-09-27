@@ -9,8 +9,8 @@ use settings::mgr;
 // todo:
 // - spectators?
 // - info grid (window)
-// - хп (bar)
 // > configs сделать выбор конфигов
+
 fn main() {
     env_logger::builder()
         .filter_module("deadlock", log::LevelFilter::Info)

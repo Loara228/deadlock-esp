@@ -1,7 +1,7 @@
 pub mod structs;
 use crate::input::keyboard::{Key, KeyState};
 use egui::{Align2, Color32, Pos2};
-use structs::{AimProperties, AimSettings, BoxType, EspPlayers, GlobalSettings, RadarSettings, TextSettings};
+use structs::{AimProperties, AimSettings, BoxType, EspPlayers, GlobalSettings, HealthbarSettings, RadarSettings, TextSettings};
 
 pub mod mgr
 {
@@ -149,6 +149,19 @@ impl Default for RadarSettings {
             color_enemy: Color32::from_rgba_unmultiplied(234, 103, 109, 255),
             color_team: Color32::from_rgba_unmultiplied(75, 192, 117, 180),
             scale: 30.
+        }
+    }
+}
+
+impl Default for HealthbarSettings
+{
+    fn default() -> Self {
+        Self
+        {
+            background_color: Color32::from_rgba_unmultiplied(0, 0, 0, 33),
+            outline_color: Color32::BLACK,
+            hp_color: Color32::WHITE,
+            enable: false,
         }
     }
 }

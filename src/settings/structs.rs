@@ -49,6 +49,7 @@ pub struct RadarSettings {
 pub struct Settings {
     pub global: GlobalSettings,
     pub esp_players: EspPlayers,
+    pub healthbars: HealthbarSettings,
     pub radar: RadarSettings,
     pub aim: AimSettings
 }
@@ -103,4 +104,14 @@ pub struct EspPlayers {
     pub text_hero: TextSettings,
     pub text_health: TextSettings,
     pub text_distance: TextSettings,
+}
+
+#[derive(Debug)]
+#[derive(Serialize, Deserialize)]
+pub struct HealthbarSettings
+{
+    pub enable: bool,
+    pub background_color: Color32,
+    pub outline_color: Color32,
+    pub hp_color: Color32
 }

@@ -1,4 +1,4 @@
-use std::{ffi::CString, sync::{mpsc::{Receiver}}};
+use std::ffi::CString;
 use eframe::{NativeOptions, Renderer};
 use egui::{emath::Pos2, CentralPanel, Vec2, ViewportBuilder};
 use windows::{core::PCSTR, Win32::{Foundation::HWND, Graphics::Gdi::UpdateWindow, UI::WindowsAndMessaging::{FindWindowExA, GetForegroundWindow, SetForegroundWindow, SetWindowLongA, WINDOW_LONG_PTR_INDEX}}};
@@ -57,6 +57,8 @@ impl eframe::App for Overlay
         }
         
         self.game.update();
+
+        test(&mut self.game);
         
         let panel_frame = egui::Frame {
             fill: egui::Color32::TRANSPARENT,
@@ -104,20 +106,20 @@ impl Overlay
             let class = PCSTR::null();
             let window_name = CString::new("overlay egui").unwrap();
             let window = PCSTR(window_name.as_ptr() as *const u8);
-            FindWindowExA(HWND::default(), HWND::default(), class, window)
+            FindWindowExA(HWND::default(), HWND::default(), class, window).unwrap()
         };
         self.game_hwnd = unsafe {
             let class = PCSTR::null();
             let window_name = CString::new("Deadlock").unwrap();
             let window = PCSTR(window_name.as_ptr() as *const u8);
-            FindWindowExA(HWND::default(), HWND::default(), class, window)
+            FindWindowExA(HWND::default(), HWND::default(), class, window).unwrap()
         };
-        if self.overlay_hwnd.0 == 0
+        if self.overlay_hwnd.0 == std::ptr::null_mut()
         {
             log::error!("Overlay HWND is invalid");
             panic!("Overlay window handle is invalid");
         }
-        if self.game_hwnd.0 == 0
+        if self.game_hwnd.0 == std::ptr::null_mut()
         {
             log::error!("Game HWND is invalid");
             panic!("Game window handle is invalid");
@@ -184,4 +186,39 @@ fn draw_background(ctx: &egui::Context, ui: &mut egui::Ui)
 {
     let screen_rect = ctx.screen_rect();
     ui.painter().rect_filled(screen_rect, egui::Rounding::default(), egui::Color32::from_rgba_unmultiplied(0, 0, 0, 150));
+}
+
+use crate::memory::*;
+use crate::external::offsets::client_dll::*;
+use std::ffi::c_void;
+
+fn test(game: &mut External)
+{
+    unsafe {
+        if game.local_player_index != 0
+        {
+            let global_vars: *mut c_void = read_memory(game.client_ptr.add(0x14e3268));
+            println!("{global_vars:?}");
+            return;
+            let local_player = game.get_local_player();
+            // let ability_component: *mut c_void = read_memory(local_player.pawn.ptr.add(C_CitadelPlayerPawn::m_CCitadelAbilityComponent));
+            let ability_component = local_player.pawn.ptr.add(C_CitadelPlayerPawn::m_CCitadelAbilityComponent);
+
+            let arr = read_memory_bytes(ability_component.add(0xD8), 32);
+            println!("{:?}", arr);
+
+            let vec_abilities: *mut c_void = read_memory(ability_component.add(CCitadelAbilityComponent::m_vecAbilities + 0x8));
+            for i in 0..19 {
+                let ability_handle: *mut c_void = read_memory(vec_abilities.add(0x4 * i));
+                let list_entry: *mut c_void = read_memory(game.entity_list_ptr.add(0x8 * ((ability_handle as usize & 0x7FFF) >> 0x9) + 0x10));
+                let ability: *mut c_void = read_memory(list_entry.add(120 * ( ability_handle as usize & 0x1FF ) ));
+                let cd: f32 = read_memory(ability.add(0x6C8));
+                let cd2: f32 = read_memory(ability.add(0x6C8));
+                if ability as usize != 0
+                {
+                    println!("{i} | {:?} {cd}", ability);
+                }
+            }
+        }
+    }
 }

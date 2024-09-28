@@ -1,4 +1,4 @@
-mod offsets;
+pub (crate) mod offsets;
 pub (crate) mod interfaces;
 pub mod cheat;
 
@@ -14,7 +14,7 @@ const PLAYERS_LEN: usize = 12 + 1;
 
 pub struct External
 {
-    client_ptr: *mut c_void,
+    pub(crate) client_ptr: *mut c_void,
     pub entity_list_ptr: *mut c_void,
     players: [Player; PLAYERS_LEN],
     pub view_matrix: Matrix,

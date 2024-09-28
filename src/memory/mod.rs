@@ -1,13 +1,97 @@
 use core::{ffi::c_void, str};
 use windows::Win32::{Foundation::{HANDLE, HMODULE}, System::{Diagnostics::Debug::ReadProcessMemory, ProcessStatus::{EnumProcessModules, GetModuleBaseNameA, GetModuleInformation, MODULEINFO}, Threading::{OpenProcess, PROCESS_QUERY_INFORMATION, PROCESS_VM_READ}}};
 
-pub fn initialize()
+#[derive(Debug)]
+pub struct Signature
+{
+    pattern: String,
+    offset: usize,
+    extra: usize,
+}
+
+impl Signature
+{
+    pub fn new(pattern: &str, offset: usize, extra: usize) -> Self
+    {
+        Signature
+        {
+            pattern: pattern.to_owned(),
+            offset,
+            extra
+        }
+    }
+
+    pub unsafe fn find(&self, memory: &Vec<u8>, module_ptr: *mut c_void) -> (bool, *mut c_void)
+    {
+        let pattern: Vec<u8> = self.parse_pattern();
+        for i in 0..memory.len()
+        {
+            let mut pattern_match = true;
+            for j in 0..pattern.len()
+            {
+                if pattern[j] != 0
+                {
+                    if memory[i + j] != pattern[j]
+                    {
+                        pattern_match = false;
+                        break;
+                    }
+                }
+            }
+            if pattern_match
+            {
+                let pattern_address = module_ptr.add(i);
+                let of: i32 = read_memory(pattern_address.add(self.offset));
+                let result = pattern_address.add(of as usize).add(self.extra).sub(module_ptr as usize);
+                log::info!("{:?}\t({})", result, self.pattern);
+                return (true, result);
+            }
+        }
+        log::error!("not found {:?}", self);
+        return (false, 0 as *mut c_void);
+    }
+
+    pub fn parse_pattern(&self) -> Vec<u8>
+    {
+        let mut bytes: Vec<u8> = Vec::new();
+        for byte_str in self.pattern.split(' ')
+        {
+            if byte_str == "?" || byte_str == "??"
+            {
+                bytes.push(0);
+            }
+            else
+            {
+                bytes.push(u8::from_str_radix(byte_str, 16).expect("pattern format"));
+            }
+        }
+        return bytes;
+    }
+}
+
+pub fn initialize(find_offsets: bool)
 {
     unsafe
     {
         PROCESS_HANDLE = find_process();
         CLIENT_MODULE = find_module("client.dll");
         log::info!("Initialized");
+        if find_offsets {
+            let client_memory = read_memory_bytes(CLIENT_MODULE.lpBaseOfDll, CLIENT_MODULE.SizeOfImage as usize);
+
+            let entity_list_sig = Signature::new("48 8B 0D ? ? ? ? 8B C5 48 C1 E8", 3, 7);
+            crate::external::offsets::client::dwEntityList = entity_list_sig.find(&client_memory, CLIENT_MODULE.lpBaseOfDll).1 as usize;
+            
+            let view_matrix_sig = Signature::new("48 63 C2 48 8D 0D ? ? ? ? 48 C1 E0", 6, 10);
+            crate::external::offsets::client::dwViewMatrix = view_matrix_sig.find(&client_memory, CLIENT_MODULE.lpBaseOfDll).1 as usize;
+
+            let local_player_sig = Signature::new("48 8B 0D ? ? ? ? 48 85 C9 74 65 83 FF FF", 3, 7);
+            crate::external::offsets::client::dwLocalPlayerController = local_player_sig.find(&client_memory, CLIENT_MODULE.lpBaseOfDll).1 as usize;
+
+            let camera_sig = Signature::new("48 8D 3D ? ? ? ? 8B D9", 3, 7);
+            crate::external::offsets::client::CCitadelCameraManager = camera_sig.find(&client_memory, CLIENT_MODULE.lpBaseOfDll).1 as usize;
+    
+        }
     }
 }
 
@@ -80,5 +164,5 @@ pub unsafe fn read_memory_bytes(address:  *mut c_void, size: usize) -> Vec<u8>
     return buffer;
 }
 
-pub static mut PROCESS_HANDLE: HANDLE = HANDLE(0);
+pub static mut PROCESS_HANDLE: HANDLE = HANDLE(std::ptr::null_mut());
 pub static mut CLIENT_MODULE: MODULEINFO = MODULEINFO { lpBaseOfDll: 0 as *mut c_void, SizeOfImage: 0, EntryPoint: 0 as *mut c_void };

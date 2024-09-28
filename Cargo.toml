@@ -1,23 +1,21 @@
 [package]
 name = "deadlock"
-version = "0.1.0"
+version = "0.1.1"
 edition = "2021"
 
 # See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
 
 [dependencies]
-egui = {version = "0.28.1", features = ["serde"]}
-eframe = { version = "0.28.1", features = ["glow", "serde"] }
-emath = "0.28.1"
+egui = {version = "0.29.0", features = ["serde"]}
+eframe = { version = "0.29.0", features = ["glow", "serde"] }
+emath = "0.29.0"
 log = "0.4.22"
 env_logger = "0.11.5"
 serde = { version = "1.0.210" , features = ["derive"] } 
 serde_json = { version = "1.0.128"} 
 sysinfo = "0.31.4"
-
-[dependencies.windows]
-windows = "0.58.0"
-features = [
+clap = { version = "4.5.18", features = ["derive"]}
+windows = { version = "0.58.0", features = [
     "Win32_Foundation",
     "System",
     "Win32_UI_WindowsAndMessaging",
@@ -26,4 +24,17 @@ features = [
     "Win32_System_Threading",
     "Win32_System_ProcessStatus",
     "Win32_UI_Input_KeyboardAndMouse"
-]
+    ] }
+
+# [dependencies.windows]
+# windows = "0.58.0"
+# features = [
+#     "Win32_Foundation",
+#     "System",
+#     "Win32_UI_WindowsAndMessaging",
+#     "Win32_Graphics_Gdi",
+#     "Win32_System_Diagnostics_Debug",
+#     "Win32_System_Threading",
+#     "Win32_System_ProcessStatus",
+#     "Win32_UI_Input_KeyboardAndMouse"
+# ]

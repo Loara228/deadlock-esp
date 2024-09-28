@@ -8,7 +8,7 @@ pub fn detect() -> (Vec2, Vec2)
     {
         if multi_monitor_support()
         {
-            let hdc = GetDC(HWND(0isize));
+            let hdc = GetDC(HWND(std::ptr::null_mut()));
             
             let width = GetDeviceCaps(hdc, HORZRES) as f32;
             let height = GetDeviceCaps(hdc, VERTRES) as f32;

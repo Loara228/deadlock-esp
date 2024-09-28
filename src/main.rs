@@ -4,6 +4,7 @@ mod memory;
 pub mod settings;
 pub mod external;
 
+use clap::*;
 use settings::mgr;
 
 // todo:
@@ -11,21 +12,43 @@ use settings::mgr;
 // - info grid (window)
 // > configs сделать выбор конфигов
 
+#[derive(Parser)]
+#[command(version)]
+struct Cli {
+    #[arg(short, long)]
+    offsets: bool,
+
+    #[arg(short, long, value_enum)]
+    #[arg(default_value = "3")]
+    logs: usize
+}
+
+impl Cli {
+    fn get_filter(&self) -> log::LevelFilter {
+        match self.logs {
+            1 => log::LevelFilter::Error,
+            2 => log::LevelFilter::Warn,
+            3 => log::LevelFilter::Info,
+            _ => log::LevelFilter::Off,
+        }
+    }
+}
+
 fn main() {
-    env_logger::builder()
-        .filter_module("deadlock", log::LevelFilter::Info)
-        .init();
-
+    let args = parse_arguments();
     log::info!("Running...");
-
     mgr::initialize();
-    memory::initialize();
+    memory::initialize(args.offsets);
     drawing::overlay::run();
 }
 
-fn check_update()
+fn parse_arguments() -> Cli
 {
-    // update required?
+    let args = Cli::parse();
+    env_logger::builder()
+        .filter_module("deadlock", log::LevelFilter::from(args.get_filter()))
+        .init();
+    args
 }
 
 const ENT_LIST_END: i32 = 1900;

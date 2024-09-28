@@ -188,37 +188,37 @@ fn draw_background(ctx: &egui::Context, ui: &mut egui::Ui)
     ui.painter().rect_filled(screen_rect, egui::Rounding::default(), egui::Color32::from_rgba_unmultiplied(0, 0, 0, 150));
 }
 
-use crate::memory::*;
-use crate::external::offsets::client_dll::*;
-use std::ffi::c_void;
+// use crate::memory::*;
+// use crate::external::offsets::client_dll::*;
+// use std::ffi::c_void;
 
 fn test(game: &mut External)
 {
-    unsafe {
-        if game.local_player_index != 0
-        {
-            let global_vars: *mut c_void = read_memory(game.client_ptr.add(0x14e3268));
-            println!("{global_vars:?}");
-            return;
-            let local_player = game.get_local_player();
-            // let ability_component: *mut c_void = read_memory(local_player.pawn.ptr.add(C_CitadelPlayerPawn::m_CCitadelAbilityComponent));
-            let ability_component = local_player.pawn.ptr.add(C_CitadelPlayerPawn::m_CCitadelAbilityComponent);
+    // unsafe {
+    //     if game.local_player_index != 0
+    //     {
+    //         let global_vars: *mut c_void = read_memory(game.client_ptr.add(0x14e3268));
+    //         println!("{global_vars:?}");
+    //         return;
+    //         let local_player = game.get_local_player();
+    //         // let ability_component: *mut c_void = read_memory(local_player.pawn.ptr.add(C_CitadelPlayerPawn::m_CCitadelAbilityComponent));
+    //         let ability_component = local_player.pawn.ptr.add(C_CitadelPlayerPawn::m_CCitadelAbilityComponent);
 
-            let arr = read_memory_bytes(ability_component.add(0xD8), 32);
-            println!("{:?}", arr);
+    //         let arr = read_memory_bytes(ability_component.add(0xD8), 32);
+    //         println!("{:?}", arr);
 
-            let vec_abilities: *mut c_void = read_memory(ability_component.add(CCitadelAbilityComponent::m_vecAbilities + 0x8));
-            for i in 0..19 {
-                let ability_handle: *mut c_void = read_memory(vec_abilities.add(0x4 * i));
-                let list_entry: *mut c_void = read_memory(game.entity_list_ptr.add(0x8 * ((ability_handle as usize & 0x7FFF) >> 0x9) + 0x10));
-                let ability: *mut c_void = read_memory(list_entry.add(120 * ( ability_handle as usize & 0x1FF ) ));
-                let cd: f32 = read_memory(ability.add(0x6C8));
-                let cd2: f32 = read_memory(ability.add(0x6C8));
-                if ability as usize != 0
-                {
-                    println!("{i} | {:?} {cd}", ability);
-                }
-            }
-        }
-    }
+    //         let vec_abilities: *mut c_void = read_memory(ability_component.add(CCitadelAbilityComponent::m_vecAbilities + 0x8));
+    //         for i in 0..19 {
+    //             let ability_handle: *mut c_void = read_memory(vec_abilities.add(0x4 * i));
+    //             let list_entry: *mut c_void = read_memory(game.entity_list_ptr.add(0x8 * ((ability_handle as usize & 0x7FFF) >> 0x9) + 0x10));
+    //             let ability: *mut c_void = read_memory(list_entry.add(120 * ( ability_handle as usize & 0x1FF ) ));
+    //             let cd: f32 = read_memory(ability.add(0x6C8));
+    //             let cd2: f32 = read_memory(ability.add(0x6C8));
+    //             if ability as usize != 0
+    //             {
+    //                 println!("{i} | {:?} {cd}", ability);
+    //             }
+    //         }
+    //     }
+    // }
 }

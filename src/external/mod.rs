@@ -3,7 +3,7 @@ pub (crate) mod interfaces;
 pub mod cheat;
 
 use self::cheat::aim::drawing;
-use std::{ffi::c_void, sync::mpsc::{self, Receiver}};
+use std::ffi::c_void;
 use cheat::esp::{boxes::draw_head, radar};
 use egui::Pos2;
 use interfaces::{entities::{Entity, Player}, math::{Matrix, Vector3}, structs::Camera};
@@ -134,23 +134,4 @@ impl External
     pub fn get_player_by_index(&self, index: usize) -> &Player {
         &self.players[index - 1]
     }
-}
-
-pub fn run_thr(entity_list_ptr: usize) -> Receiver<Option<Vec<Entity>>> {
-    let (sender, receiver) = mpsc::channel::<Option<Vec<Entity>>>();
-    // std::thread::spawn(move || {
-    //     let mut entities = Vec::<Entity>::new();
-    //     for i in ENT_LIST_START..ENT_LIST_END
-    //     {
-    //         entities.push(Entity::new(i));
-    //     }
-    //     loop {
-    //         for entity in entities.iter_mut() {
-    //             entity.update(entity_list_ptr);
-    //         }
-    //         sender.send(Some(entities.clone())).unwrap();
-    //         std::thread::sleep(std::time::Duration::from_millis(ENT_LIST_DELAY_1));
-    //     }
-    // });
-    receiver
 }

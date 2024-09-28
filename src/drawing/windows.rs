@@ -40,7 +40,7 @@ fn draw_main(overlay: &mut Overlay, ctx: &Context, _ui: &mut Ui) {
         });
 }
 
-fn draw_aim(overlay: &mut Overlay, ctx: &Context, ui: &mut Ui) {
+fn draw_aim(overlay: &mut Overlay, ctx: &Context, _ui: &mut Ui) {
     egui::Window::new("aim")
         .resizable(false).show(ctx, |ui| {
             if overlay.settings.aim.angle_per_pixel == 0f32
@@ -180,7 +180,7 @@ mod esp {
                 .min_col_width(150.)
                 .max_col_width(150.)
                 .show(ui, |ui| {
-                    egui::ComboBox::from_id_source("esp_boxtype")
+                    egui::ComboBox::from_id_salt("esp_boxtype")
                         .selected_text(format!("{:?}", overlay.settings.esp_players.box_type))
                         .show_ui(ui, |ui| {
                             ui.selectable_value(
@@ -321,7 +321,7 @@ mod esp {
                 .text("Размер шрифта"),
         );
 
-        egui::ComboBox::from_id_source(id)
+        egui::ComboBox::from_id_salt(id)
             .selected_text(format!("{}", to_string(settings.align)))
             .show_ui(ui, |ui| {
                 ui.selectable_value(&mut settings.align, Align2::CENTER_TOP, "Сверху");

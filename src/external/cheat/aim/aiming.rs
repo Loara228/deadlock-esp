@@ -1,7 +1,7 @@
+#![allow(non_upper_case_globals, non_camel_case_types, non_snake_case, unused)]
+
 use std::{ffi::c_void, thread, time::Duration};
-
 use egui::Pos2;
-
 use crate::{external::{interfaces::{entities::Player, enums::EntityType, math::{Plane3D, Vector3}, structs::Camera}, External}, input::{keyboard::KeyState, mouse}, settings::structs::{AimProperties, AimSettings}};
 
 pub fn update(settings: &AimSettings, game: &External)
@@ -303,6 +303,5 @@ fn in_fov(p: Vector3, c: Pos2, radius: f32) -> bool
 {
     Vector3::distance(p, Vector3::from_pos2(c)) <= radius
 }
-
 static mut player_index: Option<usize> = None;
 static mut entity_array_index: Option<usize> = None;

@@ -2,7 +2,7 @@ use std::ffi::c_void;
 
 use egui::{Pos2, Rect};
 
-use crate::{external::{cheat::esp::*, offsets::client_dll::CBasePlayerController}, memory::{read_memory, read_memory_bytes}, settings::structs::{AimProperties, AimSettings, Settings}};
+use crate::{external::{cheat::esp::*, offsets::client_dll::CBasePlayerController}, memory::{read_memory, read_memory_bytes}, settings::structs::{AimSettings, Settings}};
 use super::{enums::EntityType, math::{Matrix, Vector3}, structs::{Controller, GameSceneNode, Pawn, PlayerDataGlobal, Skeleton}};
 
 trait EntityBase

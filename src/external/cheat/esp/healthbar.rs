@@ -1,5 +1,5 @@
 use crate::{external::interfaces::entities::Player, settings::structs::HealthbarSettings};
-use egui::{Color32, Pos2, Rounding, Stroke};
+use egui::{Pos2, Rounding, Stroke};
 use emath::Rect;
 
 pub fn draw(g: &egui::Painter, player: &Player, settings: &HealthbarSettings)

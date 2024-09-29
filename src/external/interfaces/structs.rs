@@ -2,6 +2,12 @@ use std::ffi::c_void;
 use crate::{external::offsets::client::*, external::offsets::client_dll::*, memory::read_memory};
 use super::{enums::Hero, math::Vector3};
 
+pub unsafe fn from_handle(entity_list_ptr: *mut c_void, handle: *mut c_void) -> *mut c_void
+{
+    let list_entry: *mut c_void = read_memory(entity_list_ptr.add(0x8 * ((handle as usize & 0x7FFF) >> 0x9) + 0x10));
+    let result: *mut c_void = read_memory(list_entry.add(0x78 * ( handle as usize & 0x1FF ) ));
+    result
+}
 
 #[derive(Debug)]
 #[derive(Default)]
@@ -22,6 +28,47 @@ impl GameSceneNode
             self.dormant = read_memory(game_scene_node.add(CGameSceneNode::m_bDormant));
         }
     }
+}
+
+#[derive(Debug)]
+#[derive(Default)]
+pub struct Abilities
+{
+    pub list: Vec<Ability>
+}
+
+impl Abilities
+{
+    pub unsafe  fn update(&mut self, entity_list_ptr: *mut c_void, pawn_ptr: *mut c_void) {
+        self.list.clear();
+        let ability_component = pawn_ptr.add(C_CitadelPlayerPawn::m_CCitadelAbilityComponent);
+        let vec_abilities: *mut c_void = read_memory(ability_component.add(CCitadelAbilityComponent::m_vecAbilities + 0x8));
+        for i in 10..18 {
+            let ability_handle: *mut c_void = read_memory(vec_abilities.add(0x4 * i));
+            if ability_handle as i32 == 0
+            {
+                continue;
+            }
+            let ability = from_handle(entity_list_ptr, ability_handle);
+
+            self.list.push(Ability {
+                index: i,
+                cd_start: read_memory(ability.add(C_CitadelBaseAbility::m_flCooldownStart)),
+                cd_end: read_memory(ability.add(C_CitadelBaseAbility::m_flCooldownEnd)),
+                coodown: read_memory(ability.add(C_CitadelBaseAbility::m_bIsCoolingDownInternal)),
+            });
+        }
+    }
+}
+
+#[derive(Debug)]
+#[derive(Default)]
+pub struct Ability
+{
+    pub index: usize,
+    pub cd_start: f32,
+    pub cd_end: f32,
+    pub coodown: bool,
 }
 
 #[derive(Default)]
@@ -47,7 +94,8 @@ impl Camera
 pub struct PlayerDataGlobal
 {
     pub hero: Hero,
-    pub alive: bool
+    pub alive: bool,
+    pub ult_cd_time_end: f32
 }
 
 impl PlayerDataGlobal
@@ -58,6 +106,7 @@ impl PlayerDataGlobal
             let struct_offset: *mut c_void = controller_ptr.add(CCitadelPlayerController::m_PlayerDataGlobal);
             let hero_id: i32 = read_memory(struct_offset.add(PlayerDataGlobal_t::m_nHeroID));
             self.alive = read_memory(struct_offset.add(PlayerDataGlobal_t::m_bAlive));
+            self.ult_cd_time_end = read_memory(struct_offset.add(PlayerDataGlobal_t::m_flUltimateCooldownEnd));
 
             match Hero::try_from(hero_id)  {
                 Ok(hero) => self.hero = hero,

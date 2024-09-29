@@ -22,7 +22,8 @@ pub struct External
     pub camera: Camera,
     pub entities: Vec<Entity>,
     pub screen: egui::Rect,
-    pub aim_punch: Vector3
+    pub aim_punch: Vector3,
+    pub global_vars: GlobalVars
 }
 
 impl External
@@ -54,13 +55,15 @@ impl External
                 camera: Camera::default(),
                 entities,
                 screen: egui::Rect::from_two_pos(Pos2::default(), Pos2::default()),
-                aim_punch: Vector3::default()
+                aim_punch: Vector3::default(),
+                global_vars: GlobalVars::default()
             }
         }
     }
 
     pub fn update(&mut self)
     {
+        self.global_vars.update(self.client_ptr);
         self.camera.update(self.client_ptr);
         unsafe {
             let matrix: Matrix = read_memory(self.client_ptr.add(offsets::client::dwViewMatrix));
@@ -133,5 +136,24 @@ impl External
 
     pub fn get_player_by_index(&self, index: usize) -> &Player {
         &self.players[index - 1]
+    }
+}
+
+#[derive(Default)]
+#[derive(Debug)]
+pub struct GlobalVars
+{
+    real_time: f32,
+    current_time: f32,
+}
+
+impl GlobalVars
+{
+    pub fn update(&mut self, client_ptr: *mut c_void) {
+        unsafe {
+            let global_vars: *mut c_void = read_memory(client_ptr.add(offsets::client::dwGlobalVars));
+            self.real_time = read_memory(global_vars);
+            self.current_time = read_memory(global_vars.add(0x34));
+        }
     }
 }

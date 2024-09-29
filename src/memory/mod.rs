@@ -90,7 +90,9 @@ pub fn initialize(find_offsets: bool)
 
             let camera_sig = Signature::new("48 8D 3D ? ? ? ? 8B D9", 3, 7);
             crate::external::offsets::client::CCitadelCameraManager = camera_sig.find(&client_memory, CLIENT_MODULE.lpBaseOfDll).1 as usize;
-    
+
+            let global_vars_sig = Signature::new("48 8B 05 ? ? ? ? 44 3B 40", 3, 7);
+            crate::external::offsets::client::dwGlobalVars = global_vars_sig.find(&client_memory, CLIENT_MODULE.lpBaseOfDll).1 as usize;
         }
     }
 }

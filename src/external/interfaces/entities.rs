@@ -1,9 +1,10 @@
+use core::f32;
 use std::ffi::c_void;
 
-use egui::{Pos2, Rect};
+use egui::{epaint::{PathStroke, Vertex}, Color32, Mesh, Pos2, Rect};
 
 use crate::{external::{cheat::esp::*, offsets::client_dll::CBasePlayerController}, memory::{read_memory, read_memory_bytes}, settings::structs::{AimSettings, Settings}};
-use super::{enums::EntityType, math::{Matrix, Vector3}, structs::{Controller, GameSceneNode, Pawn, PlayerDataGlobal, Skeleton}};
+use super::{enums::EntityType, math::{Matrix, Vector3}, structs::{Abilities, Controller, GameSceneNode, Pawn, PlayerDataGlobal, Skeleton}};
 
 trait EntityBase
 {
@@ -122,10 +123,40 @@ impl Entity
             },
             EntityType::Creep => 
             {
-                screen_pos.z += 45f32;
                 if matrix.transform(&mut screen_pos)
                 {
-                    g.circle_filled(Pos2::new(screen_pos.x, screen_pos.y), 4., settings.creep_color);
+                    let mut lines: Vec<[Vector3; 2]> = Vec::new();
+                    const VERTICES: usize = 16;
+                    const RADIUS: f32 = 16f32;
+
+                    for i in (0..VERTICES).step_by(1) {
+                        let angle = 2f32 * f32::consts::PI * i as f32 / VERTICES as f32;
+                        let x = self.game_scene_node.position.x + RADIUS * f32::cos(angle);
+                        let y = self.game_scene_node.position.y + RADIUS * f32::sin(angle);
+                        let z = self.game_scene_node.position.z;
+
+                        let angle = 2f32 * f32::consts::PI * (i + 1) as f32 / VERTICES as f32;
+                        let x2 = self.game_scene_node.position.x + RADIUS * f32::cos(angle);
+                        let y2 = self.game_scene_node.position.y + RADIUS * f32::sin(angle);
+                        let z2 = self.game_scene_node.position.z;
+
+                        lines.push([Vector3 { x, y, z }, Vector3 { x: x2, y: y2, z: z2 }]);
+                    }
+                    let mut color = Color32::WHITE;
+                    if self.pawn.health < 150
+                    {
+                        color = Color32::ORANGE;
+                    }
+                    if self.pawn.health <= 50
+                    {
+                        color = Color32::RED;
+                    }
+                    let stroke = PathStroke::new(2f32, color);
+                    for line in lines.iter_mut() {
+                        matrix.transform(&mut line[0]);
+                        matrix.transform(&mut line[1]);
+                        g.line_segment([line[0].to_pos2(), line[1].to_pos2()], stroke.clone());
+                    }
                 }
             },
             EntityType::None => (),
@@ -143,7 +174,8 @@ pub struct Player
     pub controller: Controller,
 
     pub skeleton: Skeleton,
-    pub data: PlayerDataGlobal
+    pub data: PlayerDataGlobal,
+    pub abilities: Abilities
 }
 
 impl EntityBase for Player
@@ -161,7 +193,8 @@ impl Player
             pawn: Pawn::default(),
             skeleton: Skeleton::default(),
             data: PlayerDataGlobal::default(),
-            rect: Rect { min: Pos2::default(), max: Pos2::default() }
+            rect: Rect { min: Pos2::default(), max: Pos2::default() },
+            abilities: Abilities::default()
         }
     }
     
@@ -197,9 +230,10 @@ impl Player
                     self.pawn.update(list_entry, pawn_handle as usize);
                     if self.pawn.ptr as i32 != 0
                     {
+                        self.abilities.update(entity_list_ptr, self.pawn.ptr);
                         if self.pawn.health > self.pawn.max_health
                         {
-                            self.pawn.health = self.pawn.max_health
+                            self.pawn.max_health = self.pawn.health
                         }
                         self.game_scene_node.update(self.pawn.ptr as *mut c_void);
                         self.data.update(self.controller.ptr);
@@ -252,6 +286,7 @@ impl Player
         {
             boxes::draw_boxes(self.rect, g, settings);
             healthbar::draw(g, self, &settings.healthbars);
+            // ability::draw(g, self);
             text::draw(g, self, local_player, settings);
         }
     }

@@ -24,5 +24,5 @@ fn get_hpbar_rect(player_rect: Rect, hp: i32, hp_max: i32) -> Rect
     }
 }
 
-const HEIGHT: f32 = 8f32;
-const OFFSET: f32 = 4f32;
+const HEIGHT: f32 = 4f32;
+const OFFSET: f32 = 2f32;

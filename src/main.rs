@@ -17,6 +17,8 @@ use settings::mgr;
 struct Cli {
     #[arg(short, long)]
     offsets: bool,
+    #[arg(short, long)]
+    mouse: bool,
 
     #[arg(short, long, value_enum)]
     #[arg(default_value = "3")]
@@ -36,10 +38,20 @@ impl Cli {
 
 fn main() {
     let args = parse_arguments();
-    log::info!("Running...");
+    if args.mouse {
+        log::info!("Running mouse...");
+        run_mouse();
+        std::process::exit(0);
+    }
+    log::info!("Running main...");
     mgr::initialize();
     memory::initialize(args.offsets);
     drawing::overlay::run();
+}
+
+fn run_mouse()
+{
+
 }
 
 fn parse_arguments() -> Cli

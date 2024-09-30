@@ -126,7 +126,7 @@ impl Entity
                 if matrix.transform(&mut screen_pos)
                 {
                     let mut lines: Vec<[Vector3; 2]> = Vec::new();
-                    const VERTICES: usize = 16;
+                    const VERTICES: usize = 8;
                     const RADIUS: f32 = 16f32;
 
                     for i in (0..VERTICES).step_by(1) {

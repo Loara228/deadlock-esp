@@ -2,6 +2,7 @@ use crate::external::interfaces::entities::Player;
 
 pub fn draw(g: &egui::Painter, player: &Player)
 {
+    return;
     let ult = player.abilities.list.last();
     if ult.is_none() {
         return;

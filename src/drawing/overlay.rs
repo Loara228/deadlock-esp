@@ -1,4 +1,4 @@
-use std::{ffi::CString, fmt::Debug};
+use std::{ffi::CString, fmt::Debug, net::UdpSocket};
 use eframe::{NativeOptions, Renderer};
 use egui::{emath::Pos2, CentralPanel, Vec2, ViewportBuilder};
 use windows::{core::PCSTR, Win32::{Foundation::HWND, Graphics::Gdi::UpdateWindow, UI::WindowsAndMessaging::{FindWindowExA, GetForegroundWindow, SetForegroundWindow, SetWindowLongA, WINDOW_LONG_PTR_INDEX}}};
@@ -12,7 +12,8 @@ pub struct Overlay {
     pub(super) game_hwnd: HWND,
     ui_mode: bool,
     pub settings: Settings,
-    pub game: External
+    pub game: External,
+    udp_socket: UdpSocket
 }
 
 impl eframe::App for Overlay
@@ -63,7 +64,7 @@ impl eframe::App for Overlay
         };
         
         if self.game.local_player_index != 0 {
-            crate::external::cheat::aim::aiming::update(&self.settings.aim, &self.game);
+            crate::external::cheat::aim::aiming::update(&self.settings.aim, &self.game, &self.udp_socket);
         }
         CentralPanel::default().frame(panel_frame).show(ctx, |ui|
         {
@@ -84,6 +85,8 @@ impl eframe::App for Overlay
 impl Default for Overlay
 {
     fn default() -> Self {
+        log::info!("Connecting...");
+        let socket = UdpSocket::bind("127.0.0.1:229").unwrap();
         Self
         {
             initialized: false,
@@ -91,7 +94,8 @@ impl Default for Overlay
             game_hwnd: HWND::default(),
             ui_mode: true,
             settings: Settings::default(),
-            game: External::new()
+            game: External::new(),
+            udp_socket: socket
         }
     }
 }

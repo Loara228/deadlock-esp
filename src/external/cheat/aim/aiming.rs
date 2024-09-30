@@ -1,10 +1,10 @@
 #![allow(non_upper_case_globals, non_camel_case_types, non_snake_case, unused)]
 
-use std::{ffi::c_void, thread, time::Duration};
+use std::{ffi::c_void, net::UdpSocket, thread, time::Duration};
 use egui::Pos2;
 use crate::{external::{interfaces::{entities::Player, enums::EntityType, math::{Plane3D, Vector3}, structs::Camera}, External}, input::{keyboard::KeyState, mouse}, settings::structs::{AimProperties, AimSettings}};
 
-pub fn update(settings: &AimSettings, game: &External)
+pub fn update(settings: &AimSettings, game: &External, socket: &UdpSocket)
 {
     if settings.angle_per_pixel == 0f32 || (!settings.players.enable && !settings.creeps.enable)
     {
@@ -21,7 +21,7 @@ pub fn update(settings: &AimSettings, game: &External)
                 {
                     target_pos = calc_velocity(target_pos, target.pawn.velocity, &settings.players);
                 }
-                aim_to(target_pos, settings.angle_per_pixel, game, &settings.players);
+                aim_to(target_pos, settings.angle_per_pixel, game, &settings.players, socket);
             },
             None => {
                 match entity_array_index {
@@ -36,7 +36,7 @@ pub fn update(settings: &AimSettings, game: &External)
                         {
                             target_pos.z += 45f32;
                         }
-                        aim_to(target_pos, settings.angle_per_pixel, game, &settings.creeps);
+                        aim_to(target_pos, settings.angle_per_pixel, game, &settings.creeps, socket);
                     },
                     _ => (),
                 }
@@ -167,10 +167,6 @@ fn find_entity(game: &External, local_player: &Player, settings: &AimProperties)
 
 fn calc_velocity(world_pos: Vector3, velocity: Vector3, settings: &AimProperties) -> Vector3
 {
-    // target_pos.x += target.pawn.velocity.x / settings.players.velocity_div_dav;
-    // target_pos.y += target.pawn.velocity.y / settings.players.velocity_div_dav;
-    // target_pos.z += target.pawn.velocity.z / settings.players.velocity_div_dav;
-
     Vector3 {
         x: world_pos.x + velocity.x / settings.velocity_div_dav,
         y: world_pos.y + velocity.y / settings.velocity_div_dav,
@@ -178,7 +174,7 @@ fn calc_velocity(world_pos: Vector3, velocity: Vector3, settings: &AimProperties
     }
 }
 
-fn aim_to(point_world: Vector3, angle_per_pixel: f32, game: &External, settings: &AimProperties)
+fn aim_to(point_world: Vector3, angle_per_pixel: f32, game: &External, settings: &AimProperties, socket: &UdpSocket)
 {
     let mut aim_punch = Vector3::default();
     if settings.rcs
@@ -207,7 +203,8 @@ fn aim_to(point_world: Vector3, angle_per_pixel: f32, game: &External, settings:
 
     if aim_pixels.x != 0f32 || aim_pixels.y != 0f32
     {
-        mouse::send_move(aim_pixels.x as i32, aim_pixels.y as i32);
+        crate::connection::send_move(socket, aim_pixels.x as i32, aim_pixels.y as i32);
+        // mouse::send_move(aim_pixels.x as i32, aim_pixels.y as i32);
     }
 }
 

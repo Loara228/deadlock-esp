@@ -1,5 +1,5 @@
 use std::{ffi::c_void, fmt::Debug};
-use crate::{external::{offsets::{client::*, client_dll::*}, External, PLAYERS_LEN}, memory::read_memory};
+use crate::{external::{offsets::{client::*, client_dll::*}, PLAYERS_LEN}, memory::read_memory};
 use super::{entities::Player, enums::Hero, math::Vector3};
 
 pub unsafe fn from_handle(entity_list_ptr: *mut c_void, handle: *mut c_void) -> *mut c_void
@@ -40,6 +40,9 @@ pub struct Abilities
 impl Abilities
 {
     pub unsafe  fn update(&mut self, entity_list_ptr: *mut c_void, pawn_ptr: *mut c_void) {
+        if true {
+            return;
+        }
         self.list.clear();
         let ability_component = pawn_ptr.add(C_CitadelPlayerPawn::m_CCitadelAbilityComponent);
         let vec_abilities: *mut c_void = read_memory(ability_component.add(CCitadelAbilityComponent::m_vecAbilities + 0x8));
@@ -106,11 +109,6 @@ impl Observers
         let player_obs_target: *mut c_void = read_memory(player_obs.add(CPlayer_ObserverServices::m_hObserverTarget));
         let player_obs_target_pawn: *mut c_void = from_handle(entity_list_ptr, player_obs_target);
         player_obs_target_pawn
-    }
-
-    pub fn draw(&self, game: &External)
-    {
-        // ctx, ui
     }
 }
 

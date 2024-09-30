@@ -1,4 +1,4 @@
-use std::{ffi::CString, fmt::Debug, net::UdpSocket};
+use std::{ffi::CString, net::UdpSocket};
 use eframe::{NativeOptions, Renderer};
 use egui::{emath::Pos2, CentralPanel, Vec2, ViewportBuilder};
 use windows::{core::PCSTR, Win32::{Foundation::HWND, Graphics::Gdi::UpdateWindow, UI::WindowsAndMessaging::{FindWindowExA, GetForegroundWindow, SetForegroundWindow, SetWindowLongA, WINDOW_LONG_PTR_INDEX}}};
@@ -86,8 +86,6 @@ impl eframe::App for Overlay
             }
             ctx.request_repaint();
         });
-
-        test(ctx, &mut self.game);
     }
 }
 
@@ -183,6 +181,7 @@ pub fn run()
         .with_active(false)
         .with_transparent(true);
     native_options.renderer = Renderer::Glow;
+    native_options.vsync = false;
     log::info!("Running native window...");
     let _ = eframe::run_native(
         "overlay egui",
@@ -199,8 +198,8 @@ fn draw_background(ctx: &egui::Context, ui: &mut egui::Ui)
     ui.painter().rect_filled(screen_rect, egui::Rounding::default(), egui::Color32::from_rgba_unmultiplied(0, 0, 0, 150));
 }
 
-fn test(ctx: &egui::Context, game: &mut External)
-{
+// fn test(ctx: &egui::Context, game: &mut External)
+// {
     // egui::Window::new("test").default_height(600f32).show(ctx, |ui| {
     //     ui.label(format!("{:?}", game.global_vars));
     //     ui.separator();
@@ -208,4 +207,4 @@ fn test(ctx: &egui::Context, game: &mut External)
     //     ui.separator();
     //     ui.label(format!("ult: {:?}", game.get_local_player().data.ult_cd_time_end));
     // });
-}
+// }

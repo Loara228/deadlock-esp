@@ -1,7 +1,7 @@
 use core::f32;
 use std::ffi::c_void;
 
-use egui::{epaint::{PathStroke, Vertex}, Color32, Mesh, Pos2, Rect};
+use egui::{epaint::PathStroke, Color32, Pos2, Rect};
 
 use crate::{external::{cheat::esp::*, offsets::client_dll::CBasePlayerController}, memory::{read_memory, read_memory_bytes}, settings::structs::{AimSettings, Settings}};
 use super::{enums::EntityType, math::{Matrix, Vector3}, structs::{Abilities, Controller, GameSceneNode, Pawn, PlayerDataGlobal, Skeleton}};

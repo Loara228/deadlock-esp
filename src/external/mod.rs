@@ -6,7 +6,7 @@ use self::cheat::aim::drawing;
 use std::ffi::c_void;
 use cheat::esp::{boxes::draw_head, radar};
 use egui::Pos2;
-use interfaces::{entities::{Entity, Player}, math::{Matrix, Vector3}, structs::Camera};
+use interfaces::{entities::{Entity, Player}, math::{Matrix, Vector3}, structs::{Camera, Observers}};
 use offsets::client_dll::{CPlayer_CameraServices, C_BasePlayerPawn};
 use crate::{memory::{self, read_memory}, settings::structs::Settings};
 
@@ -23,7 +23,8 @@ pub struct External
     pub entities: Vec<Entity>,
     pub screen: egui::Rect,
     pub aim_punch: Vector3,
-    pub global_vars: GlobalVars
+    pub global_vars: GlobalVars,
+    pub observers: Observers
 }
 
 impl External
@@ -56,7 +57,8 @@ impl External
                 entities,
                 screen: egui::Rect::from_two_pos(Pos2::default(), Pos2::default()),
                 aim_punch: Vector3::default(),
-                global_vars: GlobalVars::default()
+                global_vars: GlobalVars::default(),
+                observers: Observers::default()
             }
         }
     }
@@ -73,7 +75,16 @@ impl External
             self.view_matrix = matrix * viewport;
         }
         self.update_players();
+        self.update_observers();
         self.update_entities();
+    }
+
+    fn update_observers(&mut self) {
+        if self.local_player_index == 0 {
+            return;
+        }
+        let local_player = &self.players[self.local_player_index - 1];
+        self.observers.update(self.entity_list_ptr, local_player, &self.players);
     }
 
     fn update_entities(&mut self)

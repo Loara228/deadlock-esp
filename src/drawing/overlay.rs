@@ -4,7 +4,7 @@ use egui::{emath::Pos2, CentralPanel, Vec2, ViewportBuilder};
 use windows::{core::PCSTR, Win32::{Foundation::HWND, Graphics::Gdi::UpdateWindow, UI::WindowsAndMessaging::{FindWindowExA, GetForegroundWindow, SetForegroundWindow, SetWindowLongA, WINDOW_LONG_PTR_INDEX}}};
 
 use super::screen;
-use crate::{external::External, input::keyboard::{Key, KeyState}, settings::structs::Settings};
+use crate::{external::{cheat::esp::{self, radar::draw_radar_window}, External}, input::keyboard::{Key, KeyState}, settings::structs::Settings};
 
 pub struct Overlay {
     initialized: bool,
@@ -66,6 +66,15 @@ impl eframe::App for Overlay
         if self.game.local_player_index != 0 {
             crate::external::cheat::aim::aiming::update(&self.settings.aim, &self.game, &self.udp_socket);
         }
+        if self.settings.radar.enable && self.ui_mode {
+            draw_radar_window(&mut self.settings.radar, ctx);
+        }
+
+        // todo: if spectators.enabled?
+        if self.game.observers.spectator_list.len() > 0 || self.ui_mode {
+            esp::spectators::draw_window(&self.game.observers, ctx);
+        } 
+
         CentralPanel::default().frame(panel_frame).show(ctx, |ui|
         {
             self.game.draw(ui.painter(), &self.settings);

@@ -8,7 +8,6 @@ use super::overlay::Overlay;
 pub fn draw_windows(overlay: &mut Overlay, ctx: &Context, ui: &mut Ui) {
     draw_main(overlay, ctx, ui);
     draw_esp(overlay, ctx, ui);
-    draw_radar(overlay, ctx, ui);
     draw_aim(overlay, ctx, ui);
 }
 
@@ -74,21 +73,6 @@ fn draw_aim(overlay: &mut Overlay, ctx: &Context, _ui: &mut Ui) {
                 ui.color_edit_button_srgba(&mut overlay.settings.aim.creep_color);
                 ui.label("Цвет крипов");
             });
-        });
-}
-
-fn draw_radar(overlay: &mut Overlay, ctx: &Context, _ui: &mut Ui) {
-    let window = egui::Window::new("ESP");
-    window
-        .resizable(true)
-        .min_size(egui::Vec2 { x: 100., y: 100. })
-        .vscroll(true)
-        .hscroll(true)
-        .max_size(egui::Vec2 { x: 500., y: 500. })
-        .title_bar(false)
-        .default_size(overlay.settings.radar.rect.size())
-        .show(ctx, |ui| {
-            overlay.settings.radar.rect = ui.available_rect_before_wrap();
         });
 }
 

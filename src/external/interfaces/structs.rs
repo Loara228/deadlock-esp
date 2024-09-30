@@ -1,6 +1,6 @@
-use std::ffi::c_void;
-use crate::{external::offsets::client::*, external::offsets::client_dll::*, memory::read_memory};
-use super::{enums::Hero, math::Vector3};
+use std::{ffi::c_void, fmt::Debug};
+use crate::{external::{offsets::{client::*, client_dll::*}, External, PLAYERS_LEN}, memory::read_memory};
+use super::{entities::Player, enums::Hero, math::Vector3};
 
 pub unsafe fn from_handle(entity_list_ptr: *mut c_void, handle: *mut c_void) -> *mut c_void
 {
@@ -58,6 +58,59 @@ impl Abilities
                 coodown: read_memory(ability.add(C_CitadelBaseAbility::m_bIsCoolingDownInternal)),
             });
         }
+    }
+}
+
+#[derive(Default)]
+pub struct Observers
+{
+    pub spectator_list: Vec<String> // Индексы наблюдателей?
+}
+
+impl Observers
+{
+    pub fn update(&mut self, entity_list_ptr: *mut c_void, local_player: &Player, players: &[Player; PLAYERS_LEN])
+    {
+        self.spectator_list.clear();
+        unsafe {
+            if local_player.is_alive() {
+                for player in players.iter() {
+                    if player.is_alive() || player.pawn.ptr == local_player.pawn.ptr {
+                        continue;
+                    }
+                    let player_obs_target_pawn = Self::get_obs_target_pawn(entity_list_ptr, player.pawn.ptr);
+                    if local_player.pawn.ptr == player_obs_target_pawn {
+                        self.spectator_list.push(format!("{:?}", player.data.hero));
+                    }
+                }
+            }
+            else
+            {
+                let local_player_obs_target_pawn = Self::get_obs_target_pawn(entity_list_ptr, local_player.pawn.ptr);
+                for player in players.iter() {
+                    if player.is_alive() || player.pawn.ptr == local_player.pawn.ptr {
+                        continue;
+                    }
+                    let player_obs_target_pawn = Self::get_obs_target_pawn(entity_list_ptr, player.pawn.ptr);
+                    if local_player_obs_target_pawn == player_obs_target_pawn {
+                        self.spectator_list.push(format!("{:?}", player.data.hero));
+                    }
+                }
+            }
+        }
+    }
+
+    unsafe fn get_obs_target_pawn(entity_list_ptr: *mut c_void, player_pawn: *mut c_void) -> *mut c_void
+    {
+        let player_obs: *mut c_void = read_memory(player_pawn.add(C_BasePlayerPawn::m_pObserverServices));
+        let player_obs_target: *mut c_void = read_memory(player_obs.add(CPlayer_ObserverServices::m_hObserverTarget));
+        let player_obs_target_pawn: *mut c_void = from_handle(entity_list_ptr, player_obs_target);
+        player_obs_target_pawn
+    }
+
+    pub fn draw(&self, game: &External)
+    {
+        // ctx, ui
     }
 }
 

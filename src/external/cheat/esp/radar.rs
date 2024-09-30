@@ -3,6 +3,21 @@ use crate::{
 };
 use egui::{Pos2, Rect};
 
+pub fn draw_radar_window(settings: &mut RadarSettings, ctx: &egui::Context)
+{    let window = egui::Window::new("radar");
+      window
+          .resizable(true)
+          .min_size(egui::Vec2 { x: 100., y: 100. })
+          .vscroll(true)
+          .hscroll(true)
+          .max_size(egui::Vec2 { x: 500., y: 500. })
+          .title_bar(false)
+          .default_size(settings.rect.size())
+          .show(ctx, |ui| {
+            settings.rect = ui.available_rect_before_wrap();
+    });
+}
+
 pub fn draw_radar(g: &egui::Painter, settings: &RadarSettings, game: &External) {
     if game.local_player_index == 0 || !settings.enable {
         return;

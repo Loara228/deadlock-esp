@@ -68,11 +68,11 @@ fn draw_aim(overlay: &mut Overlay, ctx: &Context, _ui: &mut Ui) {
                 ui.color_edit_button_srgba(&mut overlay.settings.aim.soul_color);
                 ui.label("Цвет сфер (душ)");
             });
-            ui.horizontal(|ui|
-            {
-                ui.color_edit_button_srgba(&mut overlay.settings.aim.creep_color);
-                ui.label("Цвет крипов");
-            });
+            // ui.horizontal(|ui|
+            // {
+            //     ui.color_edit_button_srgba(&mut overlay.settings.aim.creep_color);
+            //     ui.label("Цвет крипов");
+            // });
         });
 }
 

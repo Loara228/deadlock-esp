@@ -13,7 +13,7 @@ pub fn draw(g: &egui::Painter, player: &Player, settings: &HealthbarSettings)
     let hp_rect = get_hpbar_rect(player.rect, player.pawn.health, player.pawn.max_health);
     g.rect_filled(hp_rect_max, rounding, settings.background_color); // background
     g.rect_filled(hp_rect, rounding, settings.hp_color); // hp
-    g.rect_stroke(hp_rect_max, rounding, Stroke::new(2f32, settings.outline_color)); // stroke
+    g.rect_stroke(hp_rect_max, rounding, Stroke::new(1f32, settings.outline_color)); // stroke
 }
 
 fn get_hpbar_rect(player_rect: Rect, hp: i32, hp_max: i32) -> Rect
@@ -24,5 +24,5 @@ fn get_hpbar_rect(player_rect: Rect, hp: i32, hp_max: i32) -> Rect
     }
 }
 
-const HEIGHT: f32 = 4f32;
-const OFFSET: f32 = 2f32;
+const HEIGHT: f32 = 5f32;
+const OFFSET: f32 = 4f32;

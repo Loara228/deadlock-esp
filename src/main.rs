@@ -55,7 +55,6 @@ pub mod connection
 }
 
 // todo:
-// - spectators?
 // - info grid (window)
 // > configs сделать выбор конфигов
 

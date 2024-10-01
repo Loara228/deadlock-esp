@@ -122,7 +122,7 @@ fn find_entity(game: &External, local_player: &Player, settings: &AimProperties)
 {
     if !settings.targeting
     {
-        unsafe { player_index = None };
+        unsafe { entity_array_index = None };
     }
     let mut distance = 9999f32;
     let mut priority = 0;

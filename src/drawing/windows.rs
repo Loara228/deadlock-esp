@@ -78,6 +78,7 @@ fn draw_aim(overlay: &mut Overlay, ctx: &Context, _ui: &mut Ui) {
                 {
                     overlay.settings.aim.angle_per_pixel = 0f32;
                 }
+                unsafe { SetForegroundWindow(overlay.overlay_hwnd).unwrap(); }
             }
             ui.label(overlay.lang.aim_players());
             ui.group(|ui| {

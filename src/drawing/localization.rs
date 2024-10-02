@@ -152,14 +152,6 @@ impl Lang {
         }
     }
     
-    pub fn aim_distance_m(self) -> &'static str {
-        match self {
-            Lang::RU => ru::AIM_CREEPS,
-            Lang::EN => en::AIM_CREEPS,
-            Lang::CH => ch::AIM_CREEPS,
-        }
-    }
-    
     pub fn aim_meters(self) -> &'static str {
         match self {
             Lang::RU => ru::AIM_METERS,

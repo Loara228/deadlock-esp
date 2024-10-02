@@ -4,7 +4,7 @@ use crate::{
 use egui::{Pos2, Rect};
 
 pub fn draw_radar_window(settings: &mut RadarSettings, ctx: &egui::Context)
-{    let window = egui::Window::new("radar");
+{    let window = egui::Window::new("Radar");
       window
           .resizable(true)
           .min_size(egui::Vec2 { x: 100., y: 100. })

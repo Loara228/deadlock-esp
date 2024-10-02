@@ -12,7 +12,7 @@ pub fn draw_windows(overlay: &mut Overlay, ctx: &Context, ui: &mut Ui) {
 }
 
 fn draw_main(overlay: &mut Overlay, ctx: &Context, _ui: &mut Ui) {
-    egui::Window::new("main")
+    egui::Window::new("Main")
         .resizable(false)
         .collapsible(false)
         .show(ctx, |ui| {
@@ -52,7 +52,7 @@ fn draw_main(overlay: &mut Overlay, ctx: &Context, _ui: &mut Ui) {
                     mgr::save(&mut overlay.settings, "current.cjson");
                 }
             });
-            ui.collapsing("cjson:", |ui| {
+            ui.collapsing("json:", |ui| {
                 ui.label(format!("{:?}", overlay.settings));
             });
             ui.separator();
@@ -65,13 +65,13 @@ fn draw_main(overlay: &mut Overlay, ctx: &Context, _ui: &mut Ui) {
 }
 
 fn draw_aim(overlay: &mut Overlay, ctx: &Context, _ui: &mut Ui) {
-    egui::Window::new("aim")
+    egui::Window::new("Aim")
         .resizable(false).show(ctx, |ui| {
             if overlay.settings.aim.angle_per_pixel == 0f32
             {
-                ui.label(egui::RichText::new("АИМ НЕ ОТКАЛИБРОВАН!!!").color(egui::Color32::RED));
+                ui.label(egui::RichText::new(overlay.lang.aim_not_calibrated()).color(egui::Color32::RED));
             }
-            if ui.button("Калибровать").clicked() {
+            if ui.button(overlay.lang.aim_calibrate()).clicked() {
                 unsafe { SetForegroundWindow(overlay.game_hwnd).unwrap(); }
                 overlay.settings.aim.angle_per_pixel = aim::aiming::calibrate(&mut overlay.game);
                 if overlay.settings.aim.angle_per_pixel.is_nan()
@@ -79,25 +79,25 @@ fn draw_aim(overlay: &mut Overlay, ctx: &Context, _ui: &mut Ui) {
                     overlay.settings.aim.angle_per_pixel = 0f32;
                 }
             }
-            ui.label("Игроки");
+            ui.label(overlay.lang.aim_players());
             ui.group(|ui| {
-                aim_element(ui, &mut overlay.settings.aim, false);
+                aim_element(ui, &mut overlay.settings.aim, false, overlay.lang);
             });
-            ui.label("Крипы и сферы (души)");
+            ui.label(overlay.lang.aim_creeps());
             ui.group(|ui| {
-                aim_element(ui, &mut overlay.settings.aim, true);
+                aim_element(ui, &mut overlay.settings.aim, true, overlay.lang);
             });
 
         ui.horizontal(|ui|
             {
                 ui.color_edit_button_srgba(&mut overlay.settings.aim.soul_color);
-                ui.label("Цвет сфер (душ)");
+                ui.label(overlay.lang.aim_creeps());
             });
         });
 }
 
 fn draw_esp(overlay: &mut Overlay, ctx: &Context, _ui: &mut Ui) {
-    egui::Window::new("Отрисовка")
+    egui::Window::new("ESP")
         .resizable(false)
         .default_width(500.)
         .show(ctx, |ui| {
@@ -110,7 +110,7 @@ fn draw_esp(overlay: &mut Overlay, ctx: &Context, _ui: &mut Ui) {
 
 mod esp {
     use crate::{
-        drawing::overlay::Overlay,
+        drawing::{localization::Lang, overlay::Overlay},
         settings::structs::*,
     };
     use egui::{Align2, Ui};
@@ -339,34 +339,34 @@ mod esp {
             });
     }
 
-    pub fn aim_element(ui: &mut Ui, global_aim_settings: &mut AimSettings, entities: bool)
+    pub fn aim_element(ui: &mut Ui, global_aim_settings: &mut AimSettings, entities: bool, lang: Lang)
     {
         let settings: &mut AimProperties = match entities {
             true => &mut global_aim_settings.creeps,
             false => &mut global_aim_settings.players,
         };
-        ui.checkbox(&mut settings.enable, "Помощь в наведении");
-        ui.checkbox(&mut settings.velocity_prediction, "Учитывать ускорение");
-        ui.checkbox(&mut settings.rcs, "Контроль отдачи");
-        ui.checkbox(&mut settings.targeting, "Захват цели");
+        ui.checkbox(&mut settings.enable, lang.aim_enable());
+        ui.checkbox(&mut settings.velocity_prediction, lang.aim_velocity_prediction());
+        ui.checkbox(&mut settings.rcs, lang.aim_rcs());
+        ui.checkbox(&mut settings.targeting, lang.aim_targeting());
         ui.horizontal(|ui| {
             ui.color_edit_button_srgba(&mut settings.color);
-            ui.label("Цвет FOV");
+            ui.label(lang.aim_fov_color());
         });
         ui.add(
-            egui::Slider::new(&mut settings.fov, 20.0..=800.0).show_value(true).text("FOV")
+            egui::Slider::new(&mut settings.fov, 20.0..=800.0).show_value(true).text(lang.aim_fov())
         );
         ui.add(
-            egui::Slider::new(&mut settings.smooth, 1.25..=10.0).show_value(true).text("Плавность")
+            egui::Slider::new(&mut settings.smooth, 1.25..=10.0).show_value(true).text(lang.aim_smooth())
         );
         ui.add(
-            egui::Slider::new(&mut settings.velocity_div_dav, 1f32..=50.0).show_value(true).text("Делитель учета ускорения")
+            egui::Slider::new(&mut settings.velocity_div_dav, 1f32..=30.0).show_value(true).text(lang.aim_velocity_prediction())
         );
         ui.horizontal(|ui| {
             ui.add(
-                egui::Slider::new(&mut settings.range, 200.0..=5000.0).show_value(true).text("Максимальная дистанция")
+                egui::Slider::new(&mut settings.range, 200.0..=5000.0).show_value(true).text(lang.aim_max_distance())
             );
-            ui.label(format!("{} метров", settings.range * 0.0254f32))
+            ui.label(format!("{} ({})", (settings.range * 0.0254f32).round(), lang.aim_meters()))
         });
     }
 

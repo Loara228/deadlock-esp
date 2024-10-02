@@ -90,6 +90,8 @@ fn main() {
         std::process::exit(0);
     }
 
+    check_processes();
+
     log::info!("Running mouse...");
     run_mouse_proc();
     log::info!("Running main...");
@@ -97,6 +99,22 @@ fn main() {
     mgr::initialize();
     memory::initialize(args.offsets);
     drawing::overlay::run();
+}
+
+fn check_processes()
+{
+    let mut system = sysinfo::System::new();
+    system.refresh_processes(sysinfo::ProcessesToUpdate::All);
+    let processes = system.processes_by_name("deadlock".as_ref());
+    let mut i = 0;
+    for p in processes.into_iter() {
+        i += 1;
+    }
+
+    if i > 1 {
+        log::error!("Something went wrong. close all \"deadlock.exe\" processes and restart program");
+        std::process::exit(0);
+    }
 }
 
 fn run_mouse_proc()

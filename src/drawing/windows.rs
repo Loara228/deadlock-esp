@@ -8,24 +8,9 @@ use crate::{external::cheat::aim, settings::mgr};
 use super::{localization::Lang, overlay::Overlay};
 
 pub fn draw_windows(overlay: &mut Overlay, ctx: &Context, ui: &mut Ui) {
-    load_custom_font(ctx);
     draw_main(overlay, ctx, ui);
     draw_esp(overlay, ctx, ui);
     draw_aim(overlay, ctx, ui);
-}
-
-fn load_custom_font(ctx: &Context) {
-    let mut fonts = FontDefinitions::default();
-
-    fonts.font_data.insert(
-        "my_font".to_owned(),
-        FontData::from_static(include_bytes!("../../assets/fonts/Iansui.ttf")),
-    );
-
-    fonts.families.entry(egui::FontFamily::Proportional).or_default().insert(0, "my_font".to_owned());
-    fonts.families.entry(egui::FontFamily::Monospace).or_default().push("my_font".to_owned());
-
-    ctx.set_fonts(fonts);
 }
 
 fn draw_main(overlay: &mut Overlay, ctx: &Context, _ui: &mut Ui) {

@@ -1,4 +1,4 @@
-use egui::{Context, Ui};
+use egui::{Context, FontDefinitions, Ui};
 use esp::aim_element;
 use windows::Win32::UI::WindowsAndMessaging::SetForegroundWindow;
 
@@ -31,11 +31,13 @@ fn draw_main(overlay: &mut Overlay, ctx: &Context, _ui: &mut Ui) {
                                 Lang::RU,
                                 "Русский",
                             );
-                            ui.selectable_value(
+                            if ui.selectable_value(
                                 &mut overlay.lang,
                                 Lang::CH,
                                 "中文",
-                            );
+                            ).clicked() {
+                                log::warn!("todo: set font");
+                            };
                         });
 
             ui.separator();
@@ -103,7 +105,7 @@ fn draw_esp(overlay: &mut Overlay, ctx: &Context, _ui: &mut Ui) {
         .default_width(500.)
         .show(ctx, |ui| {
             esp::esp_players(ui, overlay);
-            esp::esp_boxes(ui, overlay);
+            esp::esp_healthbar(ui, overlay);
             esp::esp_radar(ui, overlay);
             esp::esp_text(ui, overlay);
         });
@@ -118,68 +120,69 @@ mod esp {
 
 
     pub fn esp_text(ui: &mut Ui, overlay: &mut Overlay) {
-        ui.collapsing("Надписи", |ui| {
-            ui.collapsing("Имя персонжа", |ui| {
-                ui_text(ui, &mut overlay.settings.esp_players.text_hero, "ui_text_1");
+        ui.collapsing(overlay.lang.esp_text(), |ui| {
+            ui.collapsing(overlay.lang.esp_text_hero_name(), |ui| {
+                ui_text(ui, &mut overlay.settings.esp_players.text_hero, "ui_text_1", &overlay.lang);
             });
-            ui.collapsing("Здоровье", |ui| {
-                ui_text(ui, &mut overlay.settings.esp_players.text_health, "ui_text_2");
+            ui.collapsing(overlay.lang.esp_text_health(), |ui| {
+                ui_text(ui, &mut overlay.settings.esp_players.text_health, "ui_text_2", &overlay.lang);
             });
-            ui.collapsing("Дистанция", |ui| {
-                ui_text(ui, &mut overlay.settings.esp_players.text_distance, "ui_text_3");
+            ui.collapsing(overlay.lang.esp_text_distance(), |ui| {
+                ui_text(ui, &mut overlay.settings.esp_players.text_distance, "ui_text_3", &overlay.lang);
             });
         });
     }
     
     pub fn esp_radar(ui: &mut Ui, overlay: &mut Overlay)
     {
-        ui.collapsing("Радар", |ui| {
+        ui.collapsing(overlay.lang.esp_radar(), |ui| {
             egui::Grid::new("radar_grid")
                 .num_columns(2)
                 .min_col_width(150.)
                 .max_col_width(150.)
                 .show(ui, |ui| {
-                    ui.checkbox(&mut overlay.settings.radar.enable, "enable");
-                    ui.label("Отрисовка радара на экране");
+                    ui.checkbox(&mut overlay.settings.radar.enable, overlay.lang.enable());
+                    ui.label(overlay.lang.enable());
                     ui.end_row();
                     ui.add(
                         egui::Slider::new(&mut overlay.settings.radar.player_radius, 1.0..=8.0)
                             .show_value(true)
                     );
-                    ui.label("Радиус точки игрока");
+                    ui.label(overlay.lang.esp_radar_radius());
                     ui.end_row();
                     ui.add(
                         egui::Slider::new(&mut overlay.settings.radar.scale, 10.0..=50.0)
                             .show_value(true)
                     );
-                    ui.label("Маштаб радара");
+                    ui.label(overlay.lang.esp_radar_scale());
                     ui.end_row();
 
                     ui.color_edit_button_srgba(&mut overlay.settings.radar.color_enemy);
-                    ui.label("Цвет врага");
+                    ui.label(overlay.lang.esp_radar_color_enemy());
 
                     ui.end_row();
 
                     ui.color_edit_button_srgba(&mut overlay.settings.radar.color_team);
-                    ui.label("Цвет союзника");
+                    ui.label(overlay.lang.esp_radar_color_teammate());
                     ui.end_row();
                     
 
                     ui.color_edit_button_srgba(&mut overlay.settings.radar.color_background);
-                    ui.label("Цвет фона");
+                    ui.label(overlay.lang.esp_radar_color_bg());
 
                     ui.end_row();
 
                     ui.color_edit_button_srgba(&mut overlay.settings.radar.color_border);
-                    ui.label("Цвет обводки");
+                    ui.label(overlay.lang.esp_radar_color_stroke());
                     ui.end_row();
                 })
         });
     }
 
     pub fn esp_players(ui: &mut Ui, overlay: &mut Overlay) {
-        ui.collapsing("Прямоугольники", |ui| {
-            ui.checkbox(&mut overlay.settings.esp_players.render, "Включить");
+        let lang = overlay.lang;
+        ui.checkbox(&mut overlay.settings.esp_players.render, "Render players");
+        ui.collapsing(lang.esp_players_rect(), |ui| {
             egui::Grid::new("esp_grid")
                 .num_columns(2)
                 .min_col_width(150.)
@@ -205,44 +208,44 @@ mod esp {
                             );
                         });
 
-                    ui.label("Стиль отрисовки");
+                    ui.label(lang.esp_players_rect_type());
                     ui.end_row();
 
-                    ui.checkbox(&mut overlay.settings.esp_players.outline_rect, "stroke");
-                    ui.label("Обводка");
+                    ui.checkbox(&mut overlay.settings.esp_players.outline_rect, lang.enable());
+                    ui.label(lang.esp_players_rect_stroke());
                     ui.end_row();
 
-                    ui.checkbox(&mut overlay.settings.esp_players.fill_rect, "fill");
-                    ui.label("Заливка");
+                    ui.checkbox(&mut overlay.settings.esp_players.fill_rect, lang.enable());
+                    ui.label(lang.esp_players_rect_fill());
                     ui.end_row();
 
-                    ui.checkbox(&mut overlay.settings.esp_players.glow, "glow");
-                    ui.label("Свечение головы игрока");
+                    ui.checkbox(&mut overlay.settings.esp_players.shadow, lang.enable());
+                    ui.label(lang.esp_players_rect_shadow());
                     ui.end_row();
 
-                    ui.checkbox(&mut overlay.settings.esp_players.shadow, "shadow");
-                    ui.label("Тень обводки");
+                    ui.checkbox(&mut overlay.settings.esp_players.glow, lang.enable());
+                    ui.label(lang.esp_players_rect_head());
                     ui.end_row();
                 });
                 
             ui.add(
                 egui::Slider::new(&mut overlay.settings.esp_players.stroke_width, 1.0..=4.0)
                     .show_value(true)
-                    .text("Толщина линий"),
+                    .text(lang.esp_players_rect_stroke_value()),
             );
             ui.end_row();
             
             ui.add(
-                egui::Slider::new(&mut overlay.settings.esp_players.shadow_size, 4.0..=18.0)
+                egui::Slider::new(&mut overlay.settings.esp_players.shadow_size, 4.0..=10.0)
                     .show_value(true)
-                    .text("Размер тени"),
+                    .text(lang.esp_players_rect_shadow_value()),
             );
             ui.end_row();
             
             ui.add(
-                egui::Slider::new(&mut overlay.settings.esp_players.shadow_blur, 1.0..=100.)
+                egui::Slider::new(&mut overlay.settings.esp_players.shadow_blur, 1.0..=10.)
                     .show_value(true)
-                    .text("Размытие тени"),
+                    .text(lang.esp_players_rect_shadow_blur_value()),
             );
             ui.end_row();
             
@@ -253,90 +256,91 @@ mod esp {
                 .show(ui, |ui| {
                     ui.horizontal(|ui| {
                         ui.color_edit_button_srgba(&mut overlay.settings.esp_players.outline_color);
-                        ui.label("stroke");
+                        ui.label(lang.color());
                     });
-                    ui.label("Обводка");
+                    ui.label(lang.esp_players_rect_stroke());
                     ui.end_row();
                     ui.horizontal(|ui| {
                         ui.color_edit_button_srgba(&mut overlay.settings.esp_players.fill_color);
-                        ui.label("fill");
+                        ui.label(lang.color());
                     });
-                    ui.label("Заливка");
+                    ui.label(lang.esp_players_rect_fill());
                     ui.end_row();
                     ui.horizontal(|ui| {
                         ui.color_edit_button_srgba(&mut overlay.settings.esp_players.glow_color);
-                        ui.label("glow");
+                        ui.label(lang.color());
                     });
-                    ui.label("Подсветка");
+                    ui.label(lang.esp_players_rect_head());
                     ui.end_row();
                     ui.horizontal(|ui| {
                         ui.color_edit_button_srgba(&mut overlay.settings.esp_players.shadow_color);
-                        ui.label("shadow");
+                        ui.label(lang.color());
                     });
-                    ui.label("Тень обводки");
+                    ui.label(lang.esp_players_rect_shadow());
                     ui.end_row();
                 });
         });
     }
 
-    pub fn esp_boxes(ui: &mut Ui, overlay: &mut Overlay) {
-        ui.collapsing("Здоровье", |ui| {
-            ui.checkbox(&mut overlay.settings.healthbars.enable, "Включить");
+    pub fn esp_healthbar(ui: &mut Ui, overlay: &mut Overlay) {
+        let lang = &overlay.lang;
+        ui.collapsing(lang.esp_healthbar(), |ui| {
+            ui.checkbox(&mut overlay.settings.healthbars.enable, lang.enable());
             egui::Grid::new("healthbars_grid")
             .num_columns(2)
             .min_col_width(150.)
             .max_col_width(150.)
             .show(ui, |ui| {
                 ui.color_edit_button_srgba(&mut overlay.settings.healthbars.background_color);
-                ui.label("Цвет заднего фона");
+                ui.label(lang.esp_healthbar_bg());
                 ui.end_row();
                 ui.color_edit_button_srgba(&mut overlay.settings.healthbars.hp_color);
-                ui.label("Цвет здоровья");
+                ui.label(lang.esp_healthbar_value());
                 ui.end_row();
                 ui.color_edit_button_srgba(&mut overlay.settings.healthbars.outline_color);
-                ui.label("Цвет обводки");
+                ui.label(lang.esp_healthbar_stroke());
                 ui.end_row();
             });
         });
     }
 
     /// UI блок для ESP TEXT
-    fn ui_text(ui: &mut Ui, settings: &mut TextSettings, id: &str) {
-        fn to_string(align: Align2) -> String {
+    fn ui_text(ui: &mut Ui, settings: &mut TextSettings, id: &str, lang: &Lang) {
+        fn to_string(align: Align2, lang: &Lang) -> &str {
             if align == Align2::CENTER_TOP {
-                return "Сверху".to_owned();
+                return lang.align_top();
             } else if align == Align2::LEFT_TOP {
-                return "Левый верхний угол".to_owned();
+                return lang.align_left();
             } else if align == Align2::RIGHT_TOP {
-                return "Правый верхний угол".to_owned();
+                return lang.align_right();
             } else if align == Align2::CENTER_BOTTOM {
-                return "Снизу".to_owned();
+                return lang.align_bottom();
             }
-            "?".to_owned()
+            panic!("ui_text unknown align");
         }
 
-        ui.checkbox(&mut settings.enable, "Включить");
+        ui.checkbox(&mut settings.enable, lang.enable());
         ui.horizontal(|ui| {
             ui.color_edit_button_srgba(&mut settings.font_color);
-            ui.checkbox(&mut settings.shadow, "Контрастный");
+            ui.checkbox(&mut settings.shadow, lang.esp_text_shadow());
         });
         ui.add(
             egui::Slider::new(&mut settings.font_size, 6.0..=24.0)
                 .show_value(true)
-                .text("Размер шрифта"),
+                .text(lang.esp_text_font_size()),
         );
 
         egui::ComboBox::from_id_salt(id)
-            .selected_text(format!("{}", to_string(settings.align)))
+            .selected_text(format!("{}", to_string(settings.align, lang)))
             .show_ui(ui, |ui| {
-                ui.selectable_value(&mut settings.align, Align2::CENTER_TOP, "Сверху");
-                ui.selectable_value(&mut settings.align, Align2::LEFT_TOP, "Левый верхний угол");
+                ui.selectable_value(&mut settings.align, Align2::CENTER_TOP, lang.align_top());
+                ui.selectable_value(&mut settings.align, Align2::LEFT_TOP, lang.align_left());
                 ui.selectable_value(
                     &mut settings.align,
                     Align2::RIGHT_TOP,
-                    "Правый верхний угол",
+                    lang.align_right(),
                 );
-                ui.selectable_value(&mut settings.align, Align2::CENTER_BOTTOM, "Снизу");
+                ui.selectable_value(&mut settings.align, Align2::CENTER_BOTTOM, lang.align_bottom());
             });
     }
 

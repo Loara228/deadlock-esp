@@ -1,4 +1,6 @@
-use egui::{Context, FontDefinitions, Ui};
+use std::{io::Read, path::PathBuf};
+
+use egui::{Context, FontData, FontDefinitions, Ui};
 use esp::aim_element;
 use windows::Win32::UI::WindowsAndMessaging::SetForegroundWindow;
 
@@ -33,11 +35,23 @@ fn draw_main(overlay: &mut Overlay, ctx: &Context, _ui: &mut Ui) {
                             );
                             if ui.selectable_value(
                                 &mut overlay.lang,
-                                Lang::CH,
-                                "中文",
+                                Lang::ZhCn,
+                                "Chinese",
                             ).clicked() {
-                                log::warn!("todo: set font");
-                                
+                                if !overlay.font_loaded {
+                                    load_font(ctx);
+                                    overlay.font_loaded = true;
+                                }
+                            };
+                            if ui.selectable_value(
+                                &mut overlay.lang,
+                                Lang::ZhTw,
+                                "Chinese (Taiwan)",
+                            ).clicked() {
+                                if !overlay.font_loaded {
+                                    load_font(ctx);
+                                    overlay.font_loaded = true;
+                                }
                             };
                         });
 
@@ -110,6 +124,38 @@ fn draw_esp(overlay: &mut Overlay, ctx: &Context, _ui: &mut Ui) {
             esp::esp_radar(ui, overlay);
             esp::esp_text(ui, overlay);
         });
+}
+
+fn load_font(ctx: &Context) {
+    let mut fonts = FontDefinitions::default();
+    let fonts_path = system_font_dir().unwrap().join("msyh.ttc");
+
+    let mut file = std::fs::File::open(fonts_path.clone()).unwrap();
+    let mut font_data = Vec::new();
+    file.read_to_end(&mut font_data).unwrap();
+    
+    let font_data: &'static [u8] = Box::leak(font_data.into_boxed_slice()); 
+    fonts.font_data.insert(
+        "my_font".to_owned(),
+        FontData::from_static(font_data),
+    );
+
+    fonts.families.entry(egui::FontFamily::Proportional).or_default().insert(0, "my_font".to_owned());
+    fonts.families.entry(egui::FontFamily::Monospace).or_default().push("my_font".to_owned());
+
+    ctx.set_fonts(fonts);
+    log::info!("Font loaded: {:?}", fonts_path);
+}
+
+fn system_font_dir() -> Option<PathBuf> {
+    std::env::var_os("windir").and_then(|x| {
+        let path = PathBuf::from(x).join("Fonts");
+        if path.is_dir() {
+            Some(path)
+        } else {
+            None
+        }
+    })
 }
 
 mod esp {
@@ -375,5 +421,4 @@ mod esp {
             ui.label(format!("{} ({})", (settings.range * 0.0254f32).round(), lang.aim_meters()))
         });
     }
-
 }

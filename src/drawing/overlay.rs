@@ -14,7 +14,8 @@ pub struct Overlay {
     pub settings: Settings,
     pub game: External,
     udp_socket: UdpSocket,
-    pub lang: Lang
+    pub lang: Lang,
+    pub font_loaded: bool
 }
 
 impl eframe::App for Overlay
@@ -104,7 +105,8 @@ impl Default for Overlay
             settings: Settings::default(),
             game: External::new(),
             udp_socket: socket,
-            lang: Lang::EN
+            lang: Lang::EN,
+            font_loaded: false
         }
     }
 }

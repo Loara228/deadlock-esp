@@ -4,8 +4,8 @@
 pub enum Lang {
     RU,
     EN,
-    ZH_CN,
-    ZH_TW
+    ZhCn,
+    ZhTw
 }
 
 impl Lang {
@@ -14,8 +14,8 @@ impl Lang {
         match self {
             Lang::RU => ru::ENABLE,
             Lang::EN => en::ENABLE,
-			Lang::ZH_CN => zhcn::,
-			Lang::ZH_TW => zhtw::,
+			Lang::ZhCn => zhcn::ENABLE,
+			Lang::ZhTw => zhtw::ENABLE,
         }
     }
     
@@ -23,8 +23,8 @@ impl Lang {
         match self {
             Lang::RU => ru::COLOR,
             Lang::EN => en::COLOR,
-			Lang::ZH_CN => zhcn::COLOR,
-			Lang::ZH_TW => zhtw::COLOR,
+			Lang::ZhCn => zhcn::COLOR,
+			Lang::ZhTw => zhtw::COLOR,
         }
     }
 
@@ -32,8 +32,8 @@ impl Lang {
         match self {
             Lang::RU => ru::CONFIG,
             Lang::EN => en::CONFIG,
-			Lang::ZH_CN => zhcn::CONFIG,
-			Lang::ZH_TW => zhtw::CONFIG,
+			Lang::ZhCn => zhcn::CONFIG,
+			Lang::ZhTw => zhtw::CONFIG,
         }
     }
     
@@ -41,8 +41,8 @@ impl Lang {
         match self {
             Lang::RU => ru::CONFIG_LOAD,
             Lang::EN => en::CONFIG_LOAD,
-			Lang::ZH_CN => zhcn::CONFIG_LOAD,
-			Lang::ZH_TW => zhtw::CONFIG_LOAD,
+			Lang::ZhCn => zhcn::CONFIG_LOAD,
+			Lang::ZhTw => zhtw::CONFIG_LOAD,
         }
     }
     
@@ -50,8 +50,8 @@ impl Lang {
         match self {
             Lang::RU => ru::CONFIG_SAVE,
             Lang::EN => en::CONFIG_SAVE,
-			Lang::ZH_CN => zhcn::CONFIG_SAVE,
-			Lang::ZH_TW => zhtw::CONFIG_SAVE,
+			Lang::ZhCn => zhcn::CONFIG_SAVE,
+			Lang::ZhTw => zhtw::CONFIG_SAVE,
         }
     }
     
@@ -59,8 +59,8 @@ impl Lang {
         match self {
             Lang::RU => ru::CONFIG_DEFAULT,
             Lang::EN => en::CONFIG_DEFAULT,
-			Lang::ZH_CN => zhcn::CONFIG_DEFAULT,
-			Lang::ZH_TW => zhtw::CONFIG_DEFAULT,
+			Lang::ZhCn => zhcn::CONFIG_DEFAULT,
+			Lang::ZhTw => zhtw::CONFIG_DEFAULT,
         }
     }
     
@@ -68,8 +68,8 @@ impl Lang {
         match self {
             Lang::RU => ru::REPOSITORY,
             Lang::EN => en::REPOSITORY,
-			Lang::ZH_CN => zhcn::REPOSITORY,
-			Lang::ZH_TW => zhtw::REPOSITORY,
+			Lang::ZhCn => zhcn::REPOSITORY,
+			Lang::ZhTw => zhtw::REPOSITORY,
         }
     }
     
@@ -77,8 +77,8 @@ impl Lang {
         match self {
             Lang::RU => ru::CLOSE,
             Lang::EN => en::CLOSE,
-			Lang::ZH_CN => zhcn::CLOSE,
-			Lang::ZH_TW => zhtw::CLOSE,
+			Lang::ZhCn => zhcn::CLOSE,
+			Lang::ZhTw => zhtw::CLOSE,
         }
     }
     
@@ -86,8 +86,8 @@ impl Lang {
         match self {
             Lang::RU => ru::AIM_NOT_CALIBRATED,
             Lang::EN => en::AIM_NOT_CALIBRATED,
-			Lang::ZH_CN => zhcn::AIM_NOT_CALIBRATED,
-			Lang::ZH_TW => zhtw::AIM_NOT_CALIBRATED,
+			Lang::ZhCn => zhcn::AIM_NOT_CALIBRATED,
+			Lang::ZhTw => zhtw::AIM_NOT_CALIBRATED,
         }
     }
     
@@ -95,8 +95,8 @@ impl Lang {
         match self {
             Lang::RU => ru::AIM_CALIBRATE,
             Lang::EN => en::AIM_CALIBRATE,
-			Lang::ZH_CN => zhcn::AIM_CALIBRATE,
-			Lang::ZH_TW => zhtw::AIM_CALIBRATE,
+			Lang::ZhCn => zhcn::AIM_CALIBRATE,
+			Lang::ZhTw => zhtw::AIM_CALIBRATE,
         }
     }
     
@@ -104,8 +104,8 @@ impl Lang {
         match self {
             Lang::RU => ru::AIM_PLAYERS,
             Lang::EN => en::AIM_PLAYERS,
-			Lang::ZH_CN => zhcn::AIM_PLAYERS,
-			Lang::ZH_TW => zhtw::AIM_PLAYERS,
+			Lang::ZhCn => zhcn::AIM_PLAYERS,
+			Lang::ZhTw => zhtw::AIM_PLAYERS,
         }
     }
     
@@ -113,8 +113,8 @@ impl Lang {
         match self {
             Lang::RU => ru::AIM_CREEPS,
             Lang::EN => en::AIM_CREEPS,
-			Lang::ZH_CN => zhcn::AIM_CREEPS,
-			Lang::ZH_TW => zhtw::AIM_CREEPS,
+			Lang::ZhCn => zhcn::AIM_CREEPS,
+			Lang::ZhTw => zhtw::AIM_CREEPS,
         }
     }
     
@@ -122,8 +122,8 @@ impl Lang {
         match self {
             Lang::RU => ru::AIM_ENABLE,
             Lang::EN => en::AIM_ENABLE,
-			Lang::ZH_CN => zhcn::AIM_ENABLE,
-			Lang::ZH_TW => zhtw::AIM_ENABLE,
+			Lang::ZhCn => zhcn::AIM_ENABLE,
+			Lang::ZhTw => zhtw::AIM_ENABLE,
         }
     }
     
@@ -131,8 +131,8 @@ impl Lang {
         match self {
             Lang::RU => ru::AIM_VELOCITY_PREDICTION,
             Lang::EN => en::AIM_VELOCITY_PREDICTION,
-			Lang::ZH_CN => zhcn::AIM_VELOCITY_PREDICTION,
-			Lang::ZH_TW => zhtw::AIM_VELOCITY_PREDICTION,
+			Lang::ZhCn => zhcn::AIM_VELOCITY_PREDICTION,
+			Lang::ZhTw => zhtw::AIM_VELOCITY_PREDICTION,
         }
     }
     
@@ -140,8 +140,8 @@ impl Lang {
         match self {
             Lang::RU => ru::AIM_RCS,
             Lang::EN => en::AIM_RCS,
-			Lang::ZH_CN => zhcn::AIM_RCS,
-			Lang::ZH_TW => zhtw::AIM_RCS,
+			Lang::ZhCn => zhcn::AIM_RCS,
+			Lang::ZhTw => zhtw::AIM_RCS,
         }
     }
     
@@ -149,8 +149,8 @@ impl Lang {
         match self {
             Lang::RU => ru::AIM_TARGETING,
             Lang::EN => en::AIM_TARGETING,
-			Lang::ZH_CN => zhcn::AIM_TARGETING,
-			Lang::ZH_TW => zhtw::AIM_TARGETING,
+			Lang::ZhCn => zhcn::AIM_TARGETING,
+			Lang::ZhTw => zhtw::AIM_TARGETING,
         }
     }
     
@@ -158,8 +158,8 @@ impl Lang {
         match self {
             Lang::RU => ru::AIM_FOV_COLOR,
             Lang::EN => en::AIM_FOV_COLOR,
-			Lang::ZH_CN => zhcn::AIM_FOV_COLOR,
-			Lang::ZH_TW => zhtw::AIM_FOV_COLOR,
+			Lang::ZhCn => zhcn::AIM_FOV_COLOR,
+			Lang::ZhTw => zhtw::AIM_FOV_COLOR,
         }
     }
     
@@ -167,8 +167,8 @@ impl Lang {
         match self {
             Lang::RU => ru::AIM_FOV,
             Lang::EN => en::AIM_FOV,
-			Lang::ZH_CN => zhcn::AIM_FOV,
-			Lang::ZH_TW => zhtw::AIM_FOV,
+			Lang::ZhCn => zhcn::AIM_FOV,
+			Lang::ZhTw => zhtw::AIM_FOV,
         }
     }
     
@@ -176,8 +176,8 @@ impl Lang {
         match self {
             Lang::RU => ru::AIM_SMOOTH,
             Lang::EN => en::AIM_SMOOTH,
-			Lang::ZH_CN => zhcn::AIM_SMOOTH,
-			Lang::ZH_TW => zhtw::AIM_SMOOTH,
+			Lang::ZhCn => zhcn::AIM_SMOOTH,
+			Lang::ZhTw => zhtw::AIM_SMOOTH,
         }
     }
     
@@ -185,8 +185,8 @@ impl Lang {
         match self {
             Lang::RU => ru::AIM_MAX_DISTANCE,
             Lang::EN => en::AIM_MAX_DISTANCE,
-			Lang::ZH_CN => zhcn::AIM_MAX_DISTANCE,
-			Lang::ZH_TW => zhtw::AIM_MAX_DISTANCE,
+			Lang::ZhCn => zhcn::AIM_MAX_DISTANCE,
+			Lang::ZhTw => zhtw::AIM_MAX_DISTANCE,
         }
     }
     
@@ -194,8 +194,8 @@ impl Lang {
         match self {
             Lang::RU => ru::AIM_METERS,
             Lang::EN => en::AIM_METERS,
-			Lang::ZH_CN => zhcn::AIM_METERS,
-			Lang::ZH_TW => zhtw::AIM_METERS,
+			Lang::ZhCn => zhcn::AIM_METERS,
+			Lang::ZhTw => zhtw::AIM_METERS,
         }
     }
     
@@ -203,8 +203,8 @@ impl Lang {
         match self {
             Lang::RU => ru::ESP_PLAYERS_RECTANGLE,
             Lang::EN => en::ESP_PLAYERS_RECTANGLE,
-			Lang::ZH_CN => zhcn::ESP_PLAYERS_RECTANGLE,
-			Lang::ZH_TW => zhtw::ESP_PLAYERS_RECTANGLE,
+			Lang::ZhCn => zhcn::ESP_PLAYERS_RECTANGLE,
+			Lang::ZhTw => zhtw::ESP_PLAYERS_RECTANGLE,
         }
     }
     
@@ -212,8 +212,8 @@ impl Lang {
         match self {
             Lang::RU => ru::ESP_PLAYERS_RECTANGLE_TYPE,
             Lang::EN => en::ESP_PLAYERS_RECTANGLE_TYPE,
-			Lang::ZH_CN => zhcn::ESP_PLAYERS_RECTANGLE_TYPE,
-			Lang::ZH_TW => zhtw::ESP_PLAYERS_RECTANGLE_TYPE,
+			Lang::ZhCn => zhcn::ESP_PLAYERS_RECTANGLE_TYPE,
+			Lang::ZhTw => zhtw::ESP_PLAYERS_RECTANGLE_TYPE,
         }
     }
     
@@ -221,8 +221,8 @@ impl Lang {
         match self {
             Lang::RU => ru::ESP_PLAYERS_RECTANGLE_STROKE,
             Lang::EN => en::ESP_PLAYERS_RECTANGLE_STROKE,
-			Lang::ZH_CN => zhcn::ESP_PLAYERS_RECTANGLE_STROKE,
-			Lang::ZH_TW => zhtw::ESP_PLAYERS_RECTANGLE_STROKE,
+			Lang::ZhCn => zhcn::ESP_PLAYERS_RECTANGLE_STROKE,
+			Lang::ZhTw => zhtw::ESP_PLAYERS_RECTANGLE_STROKE,
         }
     }
     
@@ -230,8 +230,8 @@ impl Lang {
         match self {
             Lang::RU => ru::ESP_PLAYERS_RECTANGLE_FILL,
             Lang::EN => en::ESP_PLAYERS_RECTANGLE_FILL,
-			Lang::ZH_CN => zhcn::ESP_PLAYERS_RECTANGLE_FILL,
-			Lang::ZH_TW => zhtw::ESP_PLAYERS_RECTANGLE_FILL,
+			Lang::ZhCn => zhcn::ESP_PLAYERS_RECTANGLE_FILL,
+			Lang::ZhTw => zhtw::ESP_PLAYERS_RECTANGLE_FILL,
         }
     }
     
@@ -239,8 +239,8 @@ impl Lang {
         match self {
             Lang::RU => ru::ESP_PLAYERS_RECTANGLE_SHADOW,
             Lang::EN => en::ESP_PLAYERS_RECTANGLE_SHADOW,
-			Lang::ZH_CN => zhcn::ESP_PLAYERS_RECTANGLE_SHADOW,
-			Lang::ZH_TW => zhtw::ESP_PLAYERS_RECTANGLE_SHADOW,
+			Lang::ZhCn => zhcn::ESP_PLAYERS_RECTANGLE_SHADOW,
+			Lang::ZhTw => zhtw::ESP_PLAYERS_RECTANGLE_SHADOW,
         }
     }
     
@@ -248,8 +248,8 @@ impl Lang {
         match self {
             Lang::RU => ru::ESP_PLAYERS_RECTANGLE_HEAD,
             Lang::EN => en::ESP_PLAYERS_RECTANGLE_HEAD,
-			Lang::ZH_CN => zhcn::ESP_PLAYERS_RECTANGLE_HEAD,
-			Lang::ZH_TW => zhtw::ESP_PLAYERS_RECTANGLE_HEAD,
+			Lang::ZhCn => zhcn::ESP_PLAYERS_RECTANGLE_HEAD,
+			Lang::ZhTw => zhtw::ESP_PLAYERS_RECTANGLE_HEAD,
         }
     }
     
@@ -257,8 +257,8 @@ impl Lang {
         match self {
             Lang::RU => ru::ESP_PLAYERS_RECTANGLE_STROKE_VALUE,
             Lang::EN => en::ESP_PLAYERS_RECTANGLE_STROKE_VALUE,
-			Lang::ZH_CN => zhcn::ESP_PLAYERS_RECTANGLE_STROKE_VALUE,
-			Lang::ZH_TW => zhtw::ESP_PLAYERS_RECTANGLE_STROKE_VALUE,
+			Lang::ZhCn => zhcn::ESP_PLAYERS_RECTANGLE_STROKE_VALUE,
+			Lang::ZhTw => zhtw::ESP_PLAYERS_RECTANGLE_STROKE_VALUE,
         }
     }
     
@@ -266,8 +266,8 @@ impl Lang {
         match self {
             Lang::RU => ru::ESP_PLAYERS_RECTANGLE_SHADOW_VALUE,
             Lang::EN => en::ESP_PLAYERS_RECTANGLE_SHADOW_VALUE,
-			Lang::ZH_CN => zhcn::ESP_PLAYERS_RECTANGLE_SHADOW_VALUE,
-			Lang::ZH_TW => zhtw::ESP_PLAYERS_RECTANGLE_SHADOW_VALUE,
+			Lang::ZhCn => zhcn::ESP_PLAYERS_RECTANGLE_SHADOW_VALUE,
+			Lang::ZhTw => zhtw::ESP_PLAYERS_RECTANGLE_SHADOW_VALUE,
         }
     }
     
@@ -275,8 +275,8 @@ impl Lang {
         match self {
             Lang::RU => ru::ESP_PLAYERS_RECTANGLE_SHADOW_BLUR_VALUE,
             Lang::EN => en::ESP_PLAYERS_RECTANGLE_SHADOW_BLUR_VALUE,
-			Lang::ZH_CN => zhcn::ESP_PLAYERS_RECTANGLE_SHADOW_BLUR_VALUE,
-			Lang::ZH_TW => zhtw::ESP_PLAYERS_RECTANGLE_SHADOW_BLUR_VALUE,
+			Lang::ZhCn => zhcn::ESP_PLAYERS_RECTANGLE_SHADOW_BLUR_VALUE,
+			Lang::ZhTw => zhtw::ESP_PLAYERS_RECTANGLE_SHADOW_BLUR_VALUE,
         }
     }
     
@@ -284,8 +284,8 @@ impl Lang {
         match self {
             Lang::RU => ru::ESP_HEALTHBAR,
             Lang::EN => en::ESP_HEALTHBAR,
-			Lang::ZH_CN => zhcn::ESP_HEALTHBAR,
-			Lang::ZH_TW => zhtw::ESP_HEALTHBAR,
+			Lang::ZhCn => zhcn::ESP_HEALTHBAR,
+			Lang::ZhTw => zhtw::ESP_HEALTHBAR,
         }
     }
     
@@ -293,8 +293,8 @@ impl Lang {
         match self {
             Lang::RU => ru::ESP_HEALTHBAR_BACKGROUND,
             Lang::EN => en::ESP_HEALTHBAR_BACKGROUND,
-			Lang::ZH_CN => zhcn::ESP_HEALTHBAR_BACKGROUND,
-			Lang::ZH_TW => zhtw::ESP_HEALTHBAR_BACKGROUND,
+			Lang::ZhCn => zhcn::ESP_HEALTHBAR_BACKGROUND,
+			Lang::ZhTw => zhtw::ESP_HEALTHBAR_BACKGROUND,
         }
     }
     
@@ -302,8 +302,8 @@ impl Lang {
         match self {
             Lang::RU => ru::ESP_HEALTHBAR_HEALTH,
             Lang::EN => en::ESP_HEALTHBAR_HEALTH,
-			Lang::ZH_CN => zhcn::ESP_HEALTHBAR_HEALTH,
-			Lang::ZH_TW => zhtw::ESP_HEALTHBAR_HEALTH,
+			Lang::ZhCn => zhcn::ESP_HEALTHBAR_HEALTH,
+			Lang::ZhTw => zhtw::ESP_HEALTHBAR_HEALTH,
         }
     }
     
@@ -311,8 +311,8 @@ impl Lang {
         match self {
             Lang::RU => ru::ESP_HEALTHBAR_STROKE,
             Lang::EN => en::ESP_HEALTHBAR_STROKE,
-			Lang::ZH_CN => zhcn::ESP_HEALTHBAR_STROKE,
-			Lang::ZH_TW => zhtw::ESP_HEALTHBAR_STROKE,
+			Lang::ZhCn => zhcn::ESP_HEALTHBAR_STROKE,
+			Lang::ZhTw => zhtw::ESP_HEALTHBAR_STROKE,
         }
     }
     
@@ -320,8 +320,8 @@ impl Lang {
         match self {
             Lang::RU => ru::ALIGN_TOP,
             Lang::EN => en::ALIGN_TOP,
-			Lang::ZH_CN => zhcn::ALIGN_TOP,
-			Lang::ZH_TW => zhtw::ALIGN_TOP,
+			Lang::ZhCn => zhcn::ALIGN_TOP,
+			Lang::ZhTw => zhtw::ALIGN_TOP,
         }
     }
     
@@ -329,8 +329,8 @@ impl Lang {
         match self {
             Lang::RU => ru::ALIGN_TOP_LEFT,
             Lang::EN => en::ALIGN_TOP_LEFT,
-			Lang::ZH_CN => zhcn::ALIGN_TOP_LEFT,
-			Lang::ZH_TW => zhtw::ALIGN_TOP_LEFT,
+			Lang::ZhCn => zhcn::ALIGN_TOP_LEFT,
+			Lang::ZhTw => zhtw::ALIGN_TOP_LEFT,
         }
     }
     
@@ -338,8 +338,8 @@ impl Lang {
         match self {
             Lang::RU => ru::ALIGN_TOP_RIGHT,
             Lang::EN => en::ALIGN_TOP_RIGHT,
-			Lang::ZH_CN => zhcn::ALIGN_TOP_RIGHT,
-			Lang::ZH_TW => zhtw::ALIGN_TOP_RIGHT,
+			Lang::ZhCn => zhcn::ALIGN_TOP_RIGHT,
+			Lang::ZhTw => zhtw::ALIGN_TOP_RIGHT,
         }
     }
     
@@ -347,8 +347,8 @@ impl Lang {
         match self {
             Lang::RU => ru::ALIGN_BOTTOM,
             Lang::EN => en::ALIGN_BOTTOM,
-			Lang::ZH_CN => zhcn::ALIGN_BOTTOM,
-			Lang::ZH_TW => zhtw::ALIGN_BOTTOM,
+			Lang::ZhCn => zhcn::ALIGN_BOTTOM,
+			Lang::ZhTw => zhtw::ALIGN_BOTTOM,
         }
     }
     
@@ -356,8 +356,8 @@ impl Lang {
         match self {
             Lang::RU => ru::ESP_TEXT_CONSTAST,
             Lang::EN => en::ESP_TEXT_CONSTAST,
-			Lang::ZH_CN => zhcn::ESP_TEXT_CONSTAST,
-			Lang::ZH_TW => zhtw::ESP_TEXT_CONSTAST,
+			Lang::ZhCn => zhcn::ESP_TEXT_CONSTAST,
+			Lang::ZhTw => zhtw::ESP_TEXT_CONSTAST,
         }
     }
     
@@ -365,8 +365,8 @@ impl Lang {
         match self {
             Lang::RU => ru::ESP_TEXT_FONT_SIZE,
             Lang::EN => en::ESP_TEXT_FONT_SIZE,
-			Lang::ZH_CN => zhcn::ESP_TEXT_FONT_SIZE,
-			Lang::ZH_TW => zhtw::ESP_TEXT_FONT_SIZE,
+			Lang::ZhCn => zhcn::ESP_TEXT_FONT_SIZE,
+			Lang::ZhTw => zhtw::ESP_TEXT_FONT_SIZE,
         }
     }
     
@@ -374,8 +374,8 @@ impl Lang {
         match self {
             Lang::RU => ru::ESP_TEXT,
             Lang::EN => en::ESP_TEXT,
-			Lang::ZH_CN => zhcn::ESP_TEXT,
-			Lang::ZH_TW => zhtw::ESP_TEXT,
+			Lang::ZhCn => zhcn::ESP_TEXT,
+			Lang::ZhTw => zhtw::ESP_TEXT,
         }
     }
     
@@ -383,8 +383,8 @@ impl Lang {
         match self {
             Lang::RU => ru::ESP_TEXT_HERO_NAME,
             Lang::EN => en::ESP_TEXT_HERO_NAME,
-			Lang::ZH_CN => zhcn::ESP_TEXT_HERO_NAME,
-			Lang::ZH_TW => zhtw::ESP_TEXT_HERO_NAME,
+			Lang::ZhCn => zhcn::ESP_TEXT_HERO_NAME,
+			Lang::ZhTw => zhtw::ESP_TEXT_HERO_NAME,
         }
     }
     
@@ -392,8 +392,8 @@ impl Lang {
         match self {
             Lang::RU => ru::ESP_TEXT_HEALTH,
             Lang::EN => en::ESP_TEXT_HEALTH,
-			Lang::ZH_CN => zhcn::ESP_TEXT_HEALTH,
-			Lang::ZH_TW => zhtw::ESP_TEXT_HEALTH,
+			Lang::ZhCn => zhcn::ESP_TEXT_HEALTH,
+			Lang::ZhTw => zhtw::ESP_TEXT_HEALTH,
         }
     }
     
@@ -401,8 +401,8 @@ impl Lang {
         match self {
             Lang::RU => ru::ESP_TEXT_DISTANCE,
             Lang::EN => en::ESP_TEXT_DISTANCE,
-			Lang::ZH_CN => zhcn::ESP_TEXT_DISTANCE,
-			Lang::ZH_TW => zhtw::ESP_TEXT_DISTANCE,
+			Lang::ZhCn => zhcn::ESP_TEXT_DISTANCE,
+			Lang::ZhTw => zhtw::ESP_TEXT_DISTANCE,
         }
     }
     
@@ -410,8 +410,8 @@ impl Lang {
         match self {
             Lang::RU => ru::ESP_RADAR,
             Lang::EN => en::ESP_RADAR,
-			Lang::ZH_CN => zhcn::ESP_RADAR,
-			Lang::ZH_TW => zhtw::ESP_RADAR,
+			Lang::ZhCn => zhcn::ESP_RADAR,
+			Lang::ZhTw => zhtw::ESP_RADAR,
         }
     }
     
@@ -419,8 +419,8 @@ impl Lang {
         match self {
             Lang::RU => ru::ESP_RADAR_RADIUS,
             Lang::EN => en::ESP_RADAR_RADIUS,
-			Lang::ZH_CN => zhcn::ESP_RADAR_RADIUS,
-			Lang::ZH_TW => zhtw::ESP_RADAR_RADIUS,
+			Lang::ZhCn => zhcn::ESP_RADAR_RADIUS,
+			Lang::ZhTw => zhtw::ESP_RADAR_RADIUS,
         }
     }
     
@@ -428,8 +428,8 @@ impl Lang {
         match self {
             Lang::RU => ru::ESP_RADAR_SCALE,
             Lang::EN => en::ESP_RADAR_SCALE,
-			Lang::ZH_CN => zhcn::ESP_RADAR_SCALE,
-			Lang::ZH_TW => zhtw::ESP_RADAR_SCALE,
+			Lang::ZhCn => zhcn::ESP_RADAR_SCALE,
+			Lang::ZhTw => zhtw::ESP_RADAR_SCALE,
         }
     }
     
@@ -437,8 +437,8 @@ impl Lang {
         match self {
             Lang::RU => ru::ESP_RADAR_COLOR_ENEMY,
             Lang::EN => en::ESP_RADAR_COLOR_ENEMY,
-			Lang::ZH_CN => zhcn::ESP_RADAR_COLOR_ENEMY,
-			Lang::ZH_TW => zhtw::ESP_RADAR_COLOR_ENEMY,
+			Lang::ZhCn => zhcn::ESP_RADAR_COLOR_ENEMY,
+			Lang::ZhTw => zhtw::ESP_RADAR_COLOR_ENEMY,
         }
     }
     
@@ -446,8 +446,8 @@ impl Lang {
         match self {
             Lang::RU => ru::ESP_RADAR_COLOR_TEAMMATE,
             Lang::EN => en::ESP_RADAR_COLOR_TEAMMATE,
-			Lang::ZH_CN => zhcn::ESP_RADAR_COLOR_TEAMMATE,
-			Lang::ZH_TW => zhtw::ESP_RADAR_COLOR_TEAMMATE,
+			Lang::ZhCn => zhcn::ESP_RADAR_COLOR_TEAMMATE,
+			Lang::ZhTw => zhtw::ESP_RADAR_COLOR_TEAMMATE,
         }
     }
     
@@ -455,8 +455,8 @@ impl Lang {
         match self {
             Lang::RU => ru::ESP_RADAR_COLOR_BACKGROUND,
             Lang::EN => en::ESP_RADAR_COLOR_BACKGROUND,
-			Lang::ZH_CN => zhcn::ESP_RADAR_COLOR_BACKGROUND,
-			Lang::ZH_TW => zhtw::ESP_RADAR_COLOR_BACKGROUND,
+			Lang::ZhCn => zhcn::ESP_RADAR_COLOR_BACKGROUND,
+			Lang::ZhTw => zhtw::ESP_RADAR_COLOR_BACKGROUND,
         }
     }
     
@@ -464,8 +464,8 @@ impl Lang {
         match self {
             Lang::RU => ru::ESP_RADAR_COLOR_STROKE,
             Lang::EN => en::ESP_RADAR_COLOR_STROKE,
-			Lang::ZH_CN => zhcn::ESP_RADAR_COLOR_STROKE,
-			Lang::ZH_TW => zhtw::ESP_RADAR_COLOR_STROKE,
+			Lang::ZhCn => zhcn::ESP_RADAR_COLOR_STROKE,
+			Lang::ZhTw => zhtw::ESP_RADAR_COLOR_STROKE,
         }
     }
 }

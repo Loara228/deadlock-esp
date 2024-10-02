@@ -3,7 +3,7 @@ use esp::aim_element;
 use windows::Win32::UI::WindowsAndMessaging::SetForegroundWindow;
 
 use crate::{external::cheat::aim, settings::mgr};
-use super::overlay::Overlay;
+use super::{localization::Lang, overlay::Overlay};
 
 pub fn draw_windows(overlay: &mut Overlay, ctx: &Context, ui: &mut Ui) {
     draw_main(overlay, ctx, ui);
@@ -16,24 +16,49 @@ fn draw_main(overlay: &mut Overlay, ctx: &Context, _ui: &mut Ui) {
         .resizable(false)
         .collapsible(false)
         .show(ctx, |ui| {
-            ui.label("config");
             ui.separator();
-            if ui.button("load default").clicked() {
+            ui.label("Language");
+            egui::ComboBox::from_id_salt("lang_selector")
+                        .selected_text(format!("{:?}", overlay.lang))
+                        .show_ui(ui, |ui| {
+                            ui.selectable_value(
+                                &mut overlay.lang,
+                                Lang::EN,
+                                "English",
+                            );
+                            ui.selectable_value(
+                                &mut overlay.lang,
+                                Lang::RU,
+                                "Русский",
+                            );
+                            ui.selectable_value(
+                                &mut overlay.lang,
+                                Lang::CH,
+                                "中文",
+                            );
+                        });
+
+            ui.separator();
+            ui.label(overlay.lang.config());
+            ui.separator();
+            if ui.button(overlay.lang.config_default()).clicked() {
                 mgr::change(&mut overlay.settings, "default.cjson");
             }
             ui.horizontal(|ui| {
-                if ui.button("load").clicked() {
+                if ui.button(overlay.lang.config_load()).clicked() {
                     mgr::change(&mut overlay.settings, "current.cjson");
                 }
-                if ui.button("save").clicked() {
+                if ui.button(overlay.lang.config_save()).clicked() {
                     mgr::save(&mut overlay.settings, "current.cjson");
                 }
             });
-            ui.collapsing("current settings", |ui| {
+            ui.collapsing("cjson:", |ui| {
                 ui.label(format!("{:?}", overlay.settings));
             });
             ui.separator();
-            if ui.button("close").clicked() {
+            ui.hyperlink_to(overlay.lang.repository(), "https://github.com/Loara228/deadlock-esp");
+            ui.separator();
+            if ui.button(overlay.lang.close()).clicked() {
                 std::process::exit(0);
             }
         });
@@ -68,11 +93,6 @@ fn draw_aim(overlay: &mut Overlay, ctx: &Context, _ui: &mut Ui) {
                 ui.color_edit_button_srgba(&mut overlay.settings.aim.soul_color);
                 ui.label("Цвет сфер (душ)");
             });
-            // ui.horizontal(|ui|
-            // {
-            //     ui.color_edit_button_srgba(&mut overlay.settings.aim.creep_color);
-            //     ui.label("Цвет крипов");
-            // });
         });
 }
 

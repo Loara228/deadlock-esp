@@ -3,7 +3,7 @@ use eframe::{NativeOptions, Renderer};
 use egui::{emath::Pos2, CentralPanel, Vec2, ViewportBuilder};
 use windows::{core::PCSTR, Win32::{Foundation::HWND, Graphics::Gdi::UpdateWindow, UI::WindowsAndMessaging::{FindWindowExA, GetForegroundWindow, SetForegroundWindow, SetWindowLongA, WINDOW_LONG_PTR_INDEX}}};
 
-use super::screen;
+use super::{localization::Lang, screen};
 use crate::{external::{cheat::esp::{self, radar::draw_radar_window}, External}, input::keyboard::{Key, KeyState}, settings::structs::Settings};
 
 pub struct Overlay {
@@ -13,7 +13,8 @@ pub struct Overlay {
     ui_mode: bool,
     pub settings: Settings,
     pub game: External,
-    udp_socket: UdpSocket
+    udp_socket: UdpSocket,
+    pub lang: Lang
 }
 
 impl eframe::App for Overlay
@@ -102,7 +103,8 @@ impl Default for Overlay
             ui_mode: true,
             settings: Settings::default(),
             game: External::new(),
-            udp_socket: socket
+            udp_socket: socket,
+            lang: Lang::EN
         }
     }
 }

@@ -193,7 +193,7 @@ fn aim_to(point_world: Vector3, angle_per_pixel: f32, game: &External, settings:
 
     let aim_angles = Vector3::mul(Vector3::div(aim_angles, settings.smooth), 1f32);
 
-    // Могут быть проблемы, если FOV 90
+    // Могут быть проблемы, FOV 90
     let aim_pixels = Pos2 {
         x: ((aim_angles.x / angle_per_pixel) * 100f32).round() / 100f32,
         y: ((aim_angles.y / angle_per_pixel) * 100f32).round() / 100f32,
@@ -204,7 +204,6 @@ fn aim_to(point_world: Vector3, angle_per_pixel: f32, game: &External, settings:
     if aim_pixels.x != 0f32 || aim_pixels.y != 0f32
     {
         crate::connection::send_move(socket, aim_pixels.x as i32, aim_pixels.y as i32);
-        // mouse::send_move(aim_pixels.x as i32, aim_pixels.y as i32);
     }
 }
 

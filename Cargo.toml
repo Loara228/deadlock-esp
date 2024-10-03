@@ -1,5 +1,6 @@
 [package]
-name = "deadlock"
+# меняйте имя тут! Пример "hjsdgfk234" (до 15-ти символов)
+name = "aaa_123"
 version = "0.1.1"
 edition = "2021"
 
@@ -25,16 +26,3 @@ windows = { version = "0.58.0", features = [
     "Win32_System_ProcessStatus",
     "Win32_UI_Input_KeyboardAndMouse"
     ] }
-
-# [dependencies.windows]
-# windows = "0.58.0"
-# features = [
-#     "Win32_Foundation",
-#     "System",
-#     "Win32_UI_WindowsAndMessaging",
-#     "Win32_Graphics_Gdi",
-#     "Win32_System_Diagnostics_Debug",
-#     "Win32_System_Threading",
-#     "Win32_System_ProcessStatus",
-#     "Win32_UI_Input_KeyboardAndMouse"
-# ]

@@ -3,6 +3,22 @@
 version = 3
 
 [[package]]
+name = "aaa_123"
+version = "0.1.1"
+dependencies = [
+ "clap",
+ "eframe",
+ "egui",
+ "emath",
+ "env_logger",
+ "log",
+ "serde",
+ "serde_json",
+ "sysinfo",
+ "windows 0.58.0",
+]
+
+[[package]]
 name = "ab_glyph"
 version = "0.2.28"
 source = "registry+https://github.com/rust-lang/crates.io-index"
@@ -904,22 +920,6 @@ name = "cursor-icon"
 version = "1.1.0"
 source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "96a6ac251f4a2aca6b3f91340350eab87ae57c3f127ffeb585e92bd336717991"
-
-[[package]]
-name = "deadlock"
-version = "0.1.1"
-dependencies = [
- "clap",
- "eframe",
- "egui",
- "emath",
- "env_logger",
- "log",
- "serde",
- "serde_json",
- "sysinfo",
- "windows 0.58.0",
-]
 
 [[package]]
 name = "derivative"

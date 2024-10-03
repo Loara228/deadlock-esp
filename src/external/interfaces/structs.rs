@@ -95,6 +95,9 @@ impl Observers
                         continue;
                     }
                     let player_obs_target_pawn = Self::get_obs_target_pawn(entity_list_ptr, player.pawn.ptr);
+                    if player_obs_target_pawn as i32 == 0i32 {
+                        continue;
+                    }
                     if local_player_obs_target_pawn == player_obs_target_pawn {
                         self.spectator_list.push(format!("{:?}", player.data.hero));
                     }

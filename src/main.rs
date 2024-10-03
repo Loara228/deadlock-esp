@@ -54,9 +54,6 @@ pub mod connection
     }
 }
 
-// todo:
-// - info grid (window)
-// > configs сделать выбор конфигов
 
 #[derive(Parser)]
 #[command(version)]
@@ -105,25 +102,24 @@ fn check_processes()
 {
     let mut system = sysinfo::System::new();
     system.refresh_processes(sysinfo::ProcessesToUpdate::All);
-    let processes = system.processes_by_name("deadlock".as_ref());
     let mut i = 0;
-    for p in processes.into_iter() {
+    
+    let cur_file = get_current_file_name();
+    for _ in system.processes_by_name(cur_file.as_ref()) {
         i += 1;
     }
 
     if i > 1 {
-        log::error!("Something went wrong. close all \"deadlock.exe\" processes and restart program");
+        let cur_file = get_current_file_name();
+        log::error!("Something went wrong. close all \"{}\" processes and restart program", cur_file);
         std::process::exit(0);
     }
 }
 
 fn run_mouse_proc()
 {
-    let exe_path = env::current_exe().unwrap();
-    let current_file = exe_path.file_name().unwrap().to_owned();
-    
     _ = std::thread::spawn(|| {
-        std::process::Command::new(current_file).arg("-m").spawn().unwrap();
+        std::process::Command::new(get_current_file_name()).arg("-m").spawn().unwrap();
     });
     std::thread::sleep(std::time::Duration::from_secs(1));
 }
@@ -132,10 +128,16 @@ fn parse_arguments() -> Cli
 {
     let args = Cli::parse();
     env_logger::builder()
-        .filter_module("deadlock", log::LevelFilter::from(args.get_filter()))
+        .filter_module(&get_current_file_name(), log::LevelFilter::from(args.get_filter()))
         .init();
     args
 }
 
-const ENT_LIST_END: i32 = 1900;
-const ENT_LIST_START: i32 = 150;
+fn get_current_file_name() -> String
+{   
+    let exe_path = env::current_exe().unwrap();
+    exe_path.file_name().unwrap().to_str().unwrap().to_owned()
+}
+
+const ENT_LIST_END: i32 = 2000;
+const ENT_LIST_START: i32 = 200;

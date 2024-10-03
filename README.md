@@ -13,7 +13,7 @@
 
 > [!WARNING]
 > The use of cheat programs is strictly prohibited by Gaben. This may result in your account being banned!<br>
-> f you care about your account, then do not use any cheats, including this one
+> If you care about your account, then do not use any cheats, including this one
 
 ## Настройки
 

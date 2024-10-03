@@ -1,7 +1,7 @@
 use crate::{
     external::{interfaces::entities::Player, External}, settings::structs::RadarSettings,
 };
-use egui::{Pos2, Rect};
+use egui::{epaint::PathShape, Pos2, Rect, Stroke};
 
 pub fn draw_radar_window(settings: &mut RadarSettings, ctx: &egui::Context)
 {    let window = egui::Window::new("Radar");
@@ -31,13 +31,14 @@ pub fn draw_radar(g: &egui::Painter, settings: &RadarSettings, game: &External) 
     for player in game.players.iter() {
         if player.is_alive() {
             let local_player: &Player = &game.players[game.local_player_index - 1];
-            draw_player(
-                g,
-                player,
-                local_player,
-                settings,
-                game.camera.view_angles.y - 90.,
-            );
+            if local_player.index != player.index {
+                draw_player(
+                    g,
+                    player,
+                    local_player,
+                    settings,
+                    game.camera.view_angles.y - 90.,
+                );}
         }
     }
 
@@ -70,6 +71,9 @@ fn draw_player(
         true => settings.color_enemy,
         false => settings.color_team,
     };
+    
+    let player_view_angle = ((player.game_scene_node.view_angle_y) * -1f32) + angle;
+    draw_direction(g, radar_pos.x, radar_pos.y, player_view_angle, settings.player_radius * 3f32, color);
     g.circle_filled(radar_pos, settings.player_radius, color);
 }
 
@@ -102,4 +106,24 @@ fn transform(point_to_rotate: Pos2, center: Pos2, radar_rect: Rect, angle: f32) 
         rotated_point.y = radar_rect.top();
     }
     rotated_point
+}
+
+fn draw_direction(g: &egui::Painter, x: f32, y: f32, angle: f32, radius: f32, color: egui::Color32) {
+    let arrow = calc_angle(x, y, angle, radius);
+    let arrow_l = calc_angle(x, y, angle - 45f32, radius / 3f32);
+    let arrow_r = calc_angle(x, y, angle + 45f32, radius / 3f32);
+
+    let triangle_points = vec![
+        arrow,
+        arrow_l,
+        arrow_r
+    ];
+    g.add(PathShape::convex_polygon(triangle_points, color, Stroke::default()));
+}
+
+fn calc_angle(x: f32, y: f32, angle: f32, radius: f32) -> Pos2 {
+    Pos2 {
+        x: x + radius * angle.to_radians().cos(),
+        y: y + radius * angle.to_radians().sin()
+    }
 }

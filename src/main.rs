@@ -104,8 +104,8 @@ fn check_processes()
     system.refresh_processes(sysinfo::ProcessesToUpdate::All);
     let mut i = 0;
     
-    let cur_file = get_current_file_name();
-    for _ in system.processes_by_name(cur_file.as_ref()) {
+    let cur_proc = module_path!();
+    for _ in system.processes_by_name(cur_proc.as_ref()) {
         i += 1;
     }
 
@@ -128,7 +128,7 @@ fn parse_arguments() -> Cli
 {
     let args = Cli::parse();
     env_logger::builder()
-        .filter_module(&get_current_file_name(), log::LevelFilter::from(args.get_filter()))
+        .filter_module(module_path!(), log::LevelFilter::from(args.get_filter()))
         .init();
     args
 }

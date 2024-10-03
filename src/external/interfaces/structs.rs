@@ -16,6 +16,7 @@ pub struct GameSceneNode
 {
     pub position: super::math::Vector3,
     pub dormant: bool,
+    pub view_angle_y: f32
 }
 
 impl GameSceneNode
@@ -26,6 +27,7 @@ impl GameSceneNode
             let game_scene_node: *mut c_void = read_memory(pawn_ptr.add(C_BaseEntity::m_pGameSceneNode));
             self.position = read_memory(game_scene_node.add(CGameSceneNode::m_vecAbsOrigin));
             self.dormant = read_memory(game_scene_node.add(CGameSceneNode::m_bDormant));
+            self.view_angle_y = read_memory(game_scene_node.add(CGameSceneNode::m_angAbsRotation + 4usize));
         }
     }
 }
@@ -277,7 +279,7 @@ pub struct Pawn
     pub health: i32,
     pub max_health: i32,
     pub team: i32,
-    pub velocity: Vector3,
+    pub velocity: Vector3
 }
 
 impl Default for Pawn

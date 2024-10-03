@@ -1,10 +1,9 @@
 use std::{io::Read, path::PathBuf};
 
 use egui::{Context, FontData, FontDefinitions, Ui};
-use esp::aim_element;
-use windows::Win32::UI::WindowsAndMessaging::SetForegroundWindow;
+use windows::Win32::UI::{Input::KeyboardAndMouse::GetAsyncKeyState, WindowsAndMessaging::SetForegroundWindow};
 
-use crate::{external::cheat::aim, settings::mgr};
+use crate::{external::cheat::aim, input::keyboard::{Key, VirtualKeys}, settings::{mgr, structs::{AimProperties, AimSettings}}};
 use super::{localization::Lang, overlay::Overlay};
 
 pub fn draw_windows(overlay: &mut Overlay, ctx: &Context, ui: &mut Ui) {
@@ -99,11 +98,11 @@ fn draw_aim(overlay: &mut Overlay, ctx: &Context, _ui: &mut Ui) {
             }
             ui.label(overlay.lang.aim_players());
             ui.group(|ui| {
-                aim_element(ui, &mut overlay.settings.aim, false, overlay.lang);
+                aim_element(ui, &mut overlay.settings.aim, false, &overlay.lang);
             });
             ui.label(overlay.lang.aim_creeps());
             ui.group(|ui| {
-                aim_element(ui, &mut overlay.settings.aim, true, overlay.lang);
+                aim_element(ui, &mut overlay.settings.aim, true, &overlay.lang);
             });
 
         ui.horizontal(|ui|
@@ -156,6 +155,61 @@ fn system_font_dir() -> Option<PathBuf> {
             None
         }
     })
+}
+
+pub fn aim_element(ui: &mut Ui, global_aim_settings: &mut AimSettings, entities: bool, lang: &Lang)
+{
+    let settings: &mut AimProperties = match entities {
+        true => &mut global_aim_settings.creeps,
+        false => &mut global_aim_settings.players,
+    };
+
+    btn_read_key(ui, &mut settings.key, lang);
+
+    ui.checkbox(&mut settings.enable, lang.aim_enable());
+    ui.checkbox(&mut settings.velocity_prediction, lang.aim_velocity_prediction());
+    ui.checkbox(&mut settings.rcs, lang.aim_rcs());
+    ui.checkbox(&mut settings.targeting, lang.aim_targeting());
+    ui.horizontal(|ui| {
+        ui.color_edit_button_srgba(&mut settings.color);
+        ui.label(lang.aim_fov_color());
+    });
+    ui.add(
+        egui::Slider::new(&mut settings.fov, 20.0..=800.0).show_value(true).text(lang.aim_fov())
+    );
+    ui.add(
+        egui::Slider::new(&mut settings.smooth, 1.25..=10.0).show_value(true).text(lang.aim_smooth())
+    );
+    ui.add(
+        egui::Slider::new(&mut settings.velocity_div_dav, 1f32..=30.0).show_value(true).text(lang.aim_velocity_prediction())
+    );
+    ui.horizontal(|ui| {
+        ui.add(
+            egui::Slider::new(&mut settings.range, 200.0..=5000.0).show_value(true).text(lang.aim_max_distance())
+        );
+        ui.label(format!("{} ({})", (settings.range * 0.0254f32).round(), lang.aim_meters()))
+    });
+}
+
+fn btn_read_key(ui: &mut Ui, key_bind: &mut Key, lang: &Lang) {
+    ui.horizontal(|ui| {
+        if ui.button(lang.select_key()).clicked()
+        {
+            loop {
+                std::thread::sleep(std::time::Duration::from_millis(25));
+                unsafe {
+                    for key in VirtualKeys::get_keys().iter() {
+                        if GetAsyncKeyState(*key as i32) < 0 {
+                            key_bind.code = *key as i32;
+                            log::info!("selected key: {}", key_bind.code);
+                            return;
+                        }
+                    }
+                }
+            }
+        }
+        ui.label(format!("{:?}", key_bind));
+    });
 }
 
 mod esp {
@@ -389,36 +443,5 @@ mod esp {
                 );
                 ui.selectable_value(&mut settings.align, Align2::CENTER_BOTTOM, lang.align_bottom());
             });
-    }
-
-    pub fn aim_element(ui: &mut Ui, global_aim_settings: &mut AimSettings, entities: bool, lang: Lang)
-    {
-        let settings: &mut AimProperties = match entities {
-            true => &mut global_aim_settings.creeps,
-            false => &mut global_aim_settings.players,
-        };
-        ui.checkbox(&mut settings.enable, lang.aim_enable());
-        ui.checkbox(&mut settings.velocity_prediction, lang.aim_velocity_prediction());
-        ui.checkbox(&mut settings.rcs, lang.aim_rcs());
-        ui.checkbox(&mut settings.targeting, lang.aim_targeting());
-        ui.horizontal(|ui| {
-            ui.color_edit_button_srgba(&mut settings.color);
-            ui.label(lang.aim_fov_color());
-        });
-        ui.add(
-            egui::Slider::new(&mut settings.fov, 20.0..=800.0).show_value(true).text(lang.aim_fov())
-        );
-        ui.add(
-            egui::Slider::new(&mut settings.smooth, 1.25..=10.0).show_value(true).text(lang.aim_smooth())
-        );
-        ui.add(
-            egui::Slider::new(&mut settings.velocity_div_dav, 1f32..=30.0).show_value(true).text(lang.aim_velocity_prediction())
-        );
-        ui.horizontal(|ui| {
-            ui.add(
-                egui::Slider::new(&mut settings.range, 200.0..=5000.0).show_value(true).text(lang.aim_max_distance())
-            );
-            ui.label(format!("{} ({})", (settings.range * 0.0254f32).round(), lang.aim_meters()))
-        });
     }
 }

@@ -468,6 +468,15 @@ impl Lang {
 			Lang::ZhTw => zhtw::ESP_RADAR_COLOR_STROKE,
         }
     }
+    
+    pub fn select_key(self) -> &'static str {
+        match self {
+            Lang::RU => ru::SELECT_KEY,
+            Lang::EN => en::SELECT_KEY,
+			Lang::ZhCn => zhcn::SELECT_KEY,
+			Lang::ZhTw => zhtw::SELECT_KEY,
+        }
+    }
 }
 
 pub(super) mod ru
@@ -480,6 +489,7 @@ pub(super) mod ru
     pub const CONFIG_DEFAULT: &str = "Загрузить стандартные настройки";
     pub const REPOSITORY: &str = "Репозиторий (исходный код и обновления)";
     pub const CLOSE: &str = "Закрыть";
+    pub const SELECT_KEY: &str = "Изменить кнопку";
 
     pub const ALIGN_TOP: &str = "Сверху";
     pub const ALIGN_TOP_LEFT: &str = "Левый верхний угол";
@@ -542,6 +552,7 @@ pub(super) mod en
     pub const CONFIG_DEFAULT: &str = "Load default config";
     pub const REPOSITORY: &str = "Repository (source code & updates)";
     pub const CLOSE: &str = "Close";
+    pub const SELECT_KEY: &str = "Change key";
 
     pub const ALIGN_TOP: &str = "Top";
     pub const ALIGN_TOP_LEFT: &str = "Left";
@@ -603,6 +614,7 @@ pub (super) mod zhcn
 	pub const CONFIG_DEFAULT: &str = "载入预设设置";
 	pub const REPOSITORY: &str = "资源库（源码与更新）";
 	pub const CLOSE: &str = "关闭";
+    pub const SELECT_KEY: &str = "编辑按钮";
 
 	pub const ALIGN_TOP: &str = "上方";
 	pub const ALIGN_TOP_LEFT: &str = "左上方";
@@ -665,6 +677,7 @@ pub (super) mod zhtw
 	pub const CONFIG_DEFAULT: &str = "載入預設設定";
 	pub const REPOSITORY: &str = "資源庫（源碼與更新）";
 	pub const CLOSE: &str = "關閉";
+    pub const SELECT_KEY: &str = "编辑按钮";
 
 	pub const ALIGN_TOP: &str = "正上方";
 	pub const ALIGN_TOP_LEFT: &str = "左上角";

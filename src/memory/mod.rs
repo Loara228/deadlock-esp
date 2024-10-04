@@ -1,4 +1,5 @@
 use core::{ffi::c_void, str};
+use std::thread;
 use windows::Win32::{Foundation::{HANDLE, HMODULE}, System::{Diagnostics::Debug::ReadProcessMemory, ProcessStatus::{EnumProcessModules, GetModuleBaseNameA, GetModuleInformation, MODULEINFO}, Threading::{OpenProcess, PROCESS_QUERY_INFORMATION, PROCESS_VM_READ}}};
 
 #[derive(Debug)]
@@ -106,6 +107,14 @@ unsafe fn find_process() -> HANDLE
     {
         Some(proc) => 
         {
+            thread::spawn(move || {
+                let mut system = sysinfo::System::new();
+                system.refresh_processes(sysinfo::ProcessesToUpdate::All);
+                let process = system.processes_by_name("project8".as_ref()).next();
+                process.unwrap().wait();
+                log::info!("Game exited. Bye!");
+                std::process::exit(0);
+            });
             let handle = OpenProcess(PROCESS_QUERY_INFORMATION | PROCESS_VM_READ, false, proc.pid().as_u32()).unwrap();
             log::info!("Process found: {:?}", handle);
             handle

@@ -105,7 +105,7 @@ fn check_processes()
     let mut i = 0;
     
     let cur_proc = module_path!();
-    for p in system.processes_by_name(cur_proc.as_ref()) {
+    for _ in system.processes_by_name(cur_proc.as_ref()) {
         i += 1;
     }
 

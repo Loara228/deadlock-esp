@@ -137,6 +137,10 @@ fn find_entity(game: &External, local_player: &Player, settings: &AimProperties)
         }
         if ent.class.as_priority() >= priority
             {
+                if ent.class.as_priority() > priority
+                {
+                    distance = 9999f32;
+                }
                 let mut head_pos = ent.game_scene_node.position.clone();
                 if ent.class == EntityType::Creep
                 {

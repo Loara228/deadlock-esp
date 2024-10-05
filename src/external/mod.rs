@@ -6,7 +6,7 @@ use self::cheat::aim::drawing;
 use std::ffi::c_void;
 use cheat::esp::{boxes::draw_head, radar};
 use egui::Pos2;
-use interfaces::{entities::{Entity, Player}, math::{Matrix, Vector3}, structs::{Camera, Observers}};
+use interfaces::{entities::{Entity, Player}, enums::TargetBone, math::{Matrix, Vector3}, structs::{Camera, Observers}};
 use offsets::client_dll::{CPlayer_CameraServices, C_BasePlayerPawn};
 use crate::{memory::{self, read_memory}, settings::structs::Settings};
 
@@ -63,7 +63,7 @@ impl External
         }
     }
 
-    pub fn update(&mut self)
+    pub fn update(&mut self, target_bone: &TargetBone)
     {
         self.global_vars.update(self.client_ptr);
         self.camera.update(self.client_ptr);
@@ -74,7 +74,7 @@ impl External
             let viewport = Matrix::get_viewport(egui::Vec2 { x: self.screen.max.x, y: self.screen.max.y });
             self.view_matrix = matrix * viewport;
         }
-        self.update_players();
+        self.update_players(target_bone);
         self.update_observers();
         self.update_entities();
     }
@@ -95,11 +95,11 @@ impl External
         }
     }
 
-    fn update_players(&mut self)
+    fn update_players(&mut self, target_bone: &TargetBone)
     {
         for player in self.players.iter_mut()
         {
-            if player.update(self.entity_list_ptr, &self.view_matrix)
+            if player.update(self.entity_list_ptr, &self.view_matrix, target_bone)
             {
                 self.local_player_index = player.index as usize;
             }

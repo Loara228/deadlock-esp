@@ -477,6 +477,42 @@ impl Lang {
 			Lang::ZhTw => zhtw::SELECT_KEY,
         }
     }
+
+    pub fn bone(self) -> &'static str {
+        match self {
+            Lang::RU => ru::BONE,
+            Lang::EN => en::BONE,
+			Lang::ZhCn => zhcn::BONE,
+			Lang::ZhTw => zhtw::BONE,
+        }
+    }
+
+    pub fn bone_head(self) -> &'static str {
+        match self {
+            Lang::RU => ru::BONE_HEAD,
+            Lang::EN => en::BONE_HEAD,
+			Lang::ZhCn => zhcn::BONE_HEAD,
+			Lang::ZhTw => zhtw::BONE_HEAD,
+        }
+    }
+
+    pub fn bone_neck(self) -> &'static str {
+        match self {
+            Lang::RU => ru::BONE_NECK,
+            Lang::EN => en::BONE_NECK,
+			Lang::ZhCn => zhcn::BONE_NECK,
+			Lang::ZhTw => zhtw::BONE_NECK,
+        }
+    }
+
+    pub fn bone_pelvis(self) -> &'static str {
+        match self {
+            Lang::RU => ru::BONE_PELVIS,
+            Lang::EN => en::BONE_PELVIS,
+			Lang::ZhCn => zhcn::BONE_PELVIS,
+			Lang::ZhTw => zhtw::BONE_PELVIS,
+        }
+    }
 }
 
 pub(super) mod ru
@@ -539,12 +575,17 @@ pub(super) mod ru
     pub const ESP_RADAR_COLOR_TEAMMATE: &str = "Цвет союзника";
     pub const ESP_RADAR_COLOR_BACKGROUND: &str = "Цвет фона";
     pub const ESP_RADAR_COLOR_STROKE: &str = "Цвет обводки";
+
+    pub const BONE: &str = "Кость";
+    pub const BONE_HEAD: &str = "Голова";
+    pub const BONE_NECK: &str = "Шея";
+    pub const BONE_PELVIS: &str = "Жопа";
 }
 
 // Burger
 pub(super) mod en
 {
-    pub const ENABLE: &str = "Enable";
+    pub const ENABLE: &str = "Hello, McDonald's. Give me one chickenburger and one Coca Cola. Are you getting a gun as a gift?";
     pub const COLOR: &str = "Color";
     pub const CONFIG: &str = "Config";
     pub const CONFIG_LOAD: &str = "Load config";
@@ -602,6 +643,11 @@ pub(super) mod en
     pub const ESP_RADAR_COLOR_TEAMMATE: &str = "Teammate color";
     pub const ESP_RADAR_COLOR_BACKGROUND: &str = "Bacgkround color";
     pub const ESP_RADAR_COLOR_STROKE: &str = "Stroke color";
+
+    pub const BONE: &str = "Bone";
+    pub const BONE_HEAD: &str = "Head";
+    pub const BONE_NECK: &str = "Neck";
+    pub const BONE_PELVIS: &str = "Pelvis";
 }
 
 pub (super) mod zhcn
@@ -665,6 +711,11 @@ pub (super) mod zhcn
 	pub const ESP_RADAR_COLOR_BACKGROUND: &str = "背景颜色";
 	pub const ESP_RADAR_COLOR_STROKE: &str = "描边颜色";
 
+    pub const BONE: &str = "骨骼";
+    pub const BONE_HEAD: &str = "头部";
+    pub const BONE_NECK: &str = "颈部";
+    pub const BONE_PELVIS: &str = "骨盆";
+
 }
 
 pub (super) mod zhtw
@@ -727,5 +778,10 @@ pub (super) mod zhtw
 	pub const ESP_RADAR_COLOR_TEAMMATE: &str = "隊友顏色";
 	pub const ESP_RADAR_COLOR_BACKGROUND: &str = "背景顏色";
 	pub const ESP_RADAR_COLOR_STROKE: &str = "描邊顏色";
+
+    pub const BONE: &str = "骨骼";
+    pub const BONE_HEAD: &str = "头部";
+    pub const BONE_NECK: &str = "颈部";
+    pub const BONE_PELVIS: &str = "骨盆";
 
 }

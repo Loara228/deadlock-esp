@@ -4,7 +4,7 @@ use std::ffi::c_void;
 use egui::{epaint::PathStroke, Color32, Pos2, Rect};
 
 use crate::{external::{cheat::esp::*, offsets::client_dll::CBasePlayerController}, memory::{read_memory, read_memory_bytes}, settings::structs::{AimSettings, Settings}};
-use super::{enums::EntityType, math::{Matrix, Vector3}, structs::{Abilities, Controller, GameSceneNode, Pawn, PlayerDataGlobal, Skeleton}};
+use super::{enums::{EntityType, TargetBone}, math::{Matrix, Vector3}, structs::{Abilities, Controller, GameSceneNode, Pawn, PlayerDataGlobal, Skeleton}};
 
 trait EntityBase
 {
@@ -217,7 +217,7 @@ impl Player
         }
     }
 
-    pub fn update(&mut self, entity_list_ptr: *mut c_void,  matrix: &Matrix) -> bool {
+    pub fn update(&mut self, entity_list_ptr: *mut c_void,  matrix: &Matrix, target_bone: &TargetBone) -> bool {
         let base_ptr = self.read_base(self.index, entity_list_ptr);
         if base_ptr as usize != 0
         {
@@ -237,7 +237,7 @@ impl Player
                         }
                         self.game_scene_node.update(self.pawn.ptr as *mut c_void);
                         self.data.update(self.controller.ptr);
-                        self.skeleton.update(self.pawn.ptr as *mut c_void, self.data.hero);
+                        self.skeleton.update(self.pawn.ptr as *mut c_void, self.data.hero, target_bone);
                         self.update_rect(matrix);
                     }
                     else

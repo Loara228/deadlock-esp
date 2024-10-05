@@ -3,7 +3,7 @@ use std::{io::Read, path::PathBuf};
 use egui::{Context, FontData, FontDefinitions, Ui};
 use windows::Win32::UI::{Input::KeyboardAndMouse::GetAsyncKeyState, WindowsAndMessaging::SetForegroundWindow};
 
-use crate::{external::cheat::aim, input::keyboard::{Key, VirtualKeys}, settings::{mgr, structs::{AimProperties, AimSettings}}};
+use crate::{external::{cheat::aim, interfaces::enums::TargetBone}, input::keyboard::{Key, VirtualKeys}, settings::{mgr, structs::{AimProperties, AimSettings}}};
 use super::{localization::Lang, overlay::Overlay};
 
 pub fn draw_windows(overlay: &mut Overlay, ctx: &Context, ui: &mut Ui) {
@@ -24,7 +24,7 @@ fn draw_main(overlay: &mut Overlay, ctx: &Context, _ui: &mut Ui) {
                         .show_ui(ui, |ui| {
                             ui.selectable_value(
                                 &mut overlay.lang,
-                                Lang::EN,
+                                Lang::ZhCn,
                                 "English",
                             );
                             ui.selectable_value(
@@ -56,7 +56,6 @@ fn draw_main(overlay: &mut Overlay, ctx: &Context, _ui: &mut Ui) {
 
             ui.separator();
             ui.label(overlay.lang.config());
-            ui.separator();
             if ui.button(overlay.lang.config_default()).clicked() {
                 mgr::change(&mut overlay.settings, "default.cjson");
             }
@@ -96,21 +95,15 @@ fn draw_aim(overlay: &mut Overlay, ctx: &Context, _ui: &mut Ui) {
                 }
                 unsafe { SetForegroundWindow(overlay.overlay_hwnd).unwrap(); }
             }
-            ui.label(overlay.lang.aim_players());
-            ui.group(|ui| {
+
+            ui.collapsing(overlay.lang.aim_players(), |ui| {
                 aim_element(ui, &mut overlay.settings.aim, false, &overlay.lang);
             });
-            ui.label(overlay.lang.aim_creeps());
-            ui.group(|ui| {
+            ui.collapsing(overlay.lang.aim_creeps(), |ui| {
                 aim_element(ui, &mut overlay.settings.aim, true, &overlay.lang);
             });
-
-        ui.horizontal(|ui|
-            {
-                ui.color_edit_button_srgba(&mut overlay.settings.aim.soul_color);
-                ui.label(overlay.lang.aim_creeps());
-            });
-        });
+        }
+    );
 }
 
 fn draw_esp(overlay: &mut Overlay, ctx: &Context, _ui: &mut Ui) {
@@ -164,6 +157,28 @@ pub fn aim_element(ui: &mut Ui, global_aim_settings: &mut AimSettings, entities:
         false => &mut global_aim_settings.players,
     };
 
+    if !entities {
+        egui::ComboBox::from_id_salt("aim_bone")
+                        .selected_text(format!("{} {:?}", lang.bone(), global_aim_settings.aim_bone))
+                        .show_ui(ui, |ui| {
+                            ui.selectable_value(
+                                &mut global_aim_settings.aim_bone,
+                                TargetBone::Head,
+                                lang.bone_head(),
+                            );
+                            ui.selectable_value(
+                                &mut global_aim_settings.aim_bone,
+                                TargetBone::Neck,
+                                lang.bone_neck(),
+                            );
+                            ui.selectable_value(
+                                &mut global_aim_settings.aim_bone,
+                                TargetBone::Pelvis,
+                                lang.bone_pelvis(),
+                            );
+                        });
+    }
+
     btn_read_key(ui, &mut settings.key, lang);
 
     ui.checkbox(&mut settings.enable, lang.aim_enable());
@@ -174,6 +189,12 @@ pub fn aim_element(ui: &mut Ui, global_aim_settings: &mut AimSettings, entities:
         ui.color_edit_button_srgba(&mut settings.color);
         ui.label(lang.aim_fov_color());
     });
+    if entities {
+        ui.horizontal(|ui|
+            {
+                ui.color_edit_button_srgba(&mut global_aim_settings.soul_color);
+                ui.label(lang.color());
+            });}
     ui.add(
         egui::Slider::new(&mut settings.fov, 20.0..=800.0).show_value(true).text(lang.aim_fov())
     );

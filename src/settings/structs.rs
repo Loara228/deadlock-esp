@@ -1,7 +1,7 @@
 use egui::{Align2, Color32};
 use serde::{Deserialize, Serialize};
 
-use crate::input::keyboard::Key;
+use crate::{external::interfaces::enums::TargetBone, input::keyboard::Key};
 
 #[derive(Debug)]
 #[derive(PartialEq)]
@@ -51,7 +51,8 @@ pub struct Settings {
     pub esp_players: EspPlayers,
     pub healthbars: HealthbarSettings,
     pub radar: RadarSettings,
-    pub aim: AimSettings
+    pub aim: AimSettings,
+    pub spectators: bool
 }
 
 #[derive(Debug)]
@@ -62,7 +63,8 @@ pub struct AimSettings
     pub creeps: AimProperties,
     pub angle_per_pixel: f32,
     pub creep_color: Color32,
-    pub soul_color: Color32
+    pub soul_color: Color32,
+    pub aim_bone: TargetBone,
 }
 
 #[derive(Debug)]

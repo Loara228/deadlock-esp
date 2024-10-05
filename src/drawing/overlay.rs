@@ -58,7 +58,7 @@ impl eframe::App for Overlay
             }
         }
         
-        self.game.update();
+        self.game.update(&self.settings.aim.aim_bone);
         
         let panel_frame = egui::Frame {
             fill: egui::Color32::TRANSPARENT,
@@ -74,7 +74,7 @@ impl eframe::App for Overlay
 
         // todo: if spectators.enabled?
         if self.game.observers.spectator_list.len() > 0 || self.ui_mode {
-            esp::spectators::draw_window(&self.game.observers, ctx);
+            esp::spectators::draw_window(&self.game.observers, ctx, &mut self.settings, &self.lang, self.ui_mode);
         } 
 
         CentralPanel::default().frame(panel_frame).show(ctx, |ui|
@@ -105,7 +105,7 @@ impl Default for Overlay
             settings: Settings::default(),
             game: External::new(),
             udp_socket: socket,
-            lang: Lang::EN,
+            lang: Lang::RU,
             font_loaded: false
         }
     }

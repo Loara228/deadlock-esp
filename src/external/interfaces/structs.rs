@@ -1,6 +1,6 @@
 use std::{ffi::c_void, fmt::Debug};
 use crate::{external::{offsets::{client::*, client_dll::*}, PLAYERS_LEN}, memory::read_memory};
-use super::{entities::Player, enums::Hero, math::Vector3};
+use super::{entities::Player, enums::{Hero, TargetBone}, math::Vector3};
 
 pub unsafe fn from_handle(entity_list_ptr: *mut c_void, handle: *mut c_void) -> *mut c_void
 {
@@ -179,19 +179,24 @@ impl PlayerDataGlobal
 pub struct Skeleton
 {
     pub head_pos: Vector3,
+    pub target_bone_pos: Vector3,
     bone_array: *mut c_void
 }
 
 impl Default for Skeleton
 {
     fn default() -> Self {
-        Self { head_pos: Default::default(), bone_array: 0 as *mut c_void }
+        Self {
+            head_pos: Vector3::default(),
+            bone_array: 0 as *mut c_void,
+            target_bone_pos: Vector3::default()
+        }
     }
 }
 
 impl Skeleton
 {
-    pub fn update(&mut self, pawn_ptr: *mut c_void, hero: Hero)
+    pub fn update(&mut self, pawn_ptr: *mut c_void, hero: Hero, target_bone: &TargetBone)
     {
         unsafe {
             let game_scene_node: *mut c_void = read_memory(pawn_ptr.add(C_BaseEntity::m_pGameSceneNode));
@@ -206,6 +211,17 @@ impl Skeleton
                         if i != 0
                         {
                             self.update_head(i);
+                            if *target_bone == TargetBone::Neck {
+                                let bone = TargetBone::Neck;
+                                self.target_bone_pos = read_memory(self.bone_array.add(bone.get_bone_index(hero) as usize * 32usize));
+                            }
+                            else if *target_bone == TargetBone::Pelvis {
+                                let bone = TargetBone::Pelvis;
+                                self.target_bone_pos = read_memory(self.bone_array.add(bone.get_bone_index(hero) as usize * 32usize));
+                            }
+                            else {
+                                self.target_bone_pos = self.head_pos;
+                            }
                             return;
                         }
                     },

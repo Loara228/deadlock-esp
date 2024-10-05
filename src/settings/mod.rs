@@ -1,5 +1,5 @@
 pub mod structs;
-use crate::input::keyboard::{Key, KeyState};
+use crate::{external::interfaces::enums::TargetBone, input::keyboard::{Key, KeyState}};
 use egui::{Align2, Color32, Pos2};
 use structs::{AimProperties, AimSettings, BoxType, EspPlayers, GlobalSettings, HealthbarSettings, RadarSettings, TextSettings};
 
@@ -180,7 +180,8 @@ impl Default for AimSettings
             creep_color: Color32::RED,
             soul_color: Color32::RED,
             players,
-            creeps
+            creeps,
+            aim_bone: TargetBone::Head
         }
     }
 }

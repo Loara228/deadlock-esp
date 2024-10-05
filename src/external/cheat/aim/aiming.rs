@@ -16,7 +16,7 @@ pub fn update(settings: &AimSettings, game: &External, socket: &UdpSocket)
         match player_index {
             Some(index) => {
                 let target = game.get_player_by_index(index);
-                let mut target_pos = target.skeleton.head_pos.clone();
+                let mut target_pos = target.skeleton.target_bone_pos.clone();
                 if settings.players.velocity_prediction
                 {
                     target_pos = calc_velocity(target_pos, target.pawn.velocity, &settings.players);

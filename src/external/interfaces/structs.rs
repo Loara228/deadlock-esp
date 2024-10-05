@@ -208,7 +208,7 @@ impl Skeleton
                 match bone_index {
                     Some(i) => 
                     {
-                        if i != 0
+                        if i != -1
                         {
                             self.update_head(i);
                             if *target_bone == TargetBone::Neck {
@@ -227,7 +227,7 @@ impl Skeleton
                     },
                     None => 
                     {
-                        log::warn!("unknown hero index");
+                        log::trace!("Unknown hero index");
                         return;
                     },
                 }

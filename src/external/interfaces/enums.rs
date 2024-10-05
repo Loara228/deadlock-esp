@@ -43,7 +43,7 @@ impl TargetBone {
                 Hero::Wrecker => todo!(),
                 Hero::Pocket => 12,
                 Hero::Mirage => 7,
-                Hero::Dummy => 0,
+                Hero::Dummy => 17,
             }
         }
         else if *self == TargetBone::Pelvis {
@@ -73,7 +73,7 @@ impl TargetBone {
                 Hero::Wrecker => todo!(),
                 Hero::Pocket =>  7,
                 Hero::Mirage => 2,
-                Hero::Dummy => 0,
+                Hero::Dummy => 6,
             }
         }
         0
@@ -129,7 +129,7 @@ impl Hero
             Hero::Infernus => Some(30),
             Hero::Seven => Some(14),
             Hero::Vindicta => Some(7),
-            Hero::LadyGeist => Some(0),
+            Hero::LadyGeist => Some(-1),
             Hero::Abrams => Some(7),
             Hero::Wraith => Some(7),
             Hero::McGinnis => Some(7),
@@ -137,7 +137,7 @@ impl Hero
             Hero::Dynamo => Some(13),
             Hero::Kelvin => Some(12),
             Hero::Haze => Some(7),
-            Hero::Holliday => Some(0),
+            Hero::Holliday => Some(-1),
             Hero::Bebop => Some(6),
             Hero::GreyTalon => Some(17),
             Hero::MoAndKrill => Some(25), // 10
@@ -147,10 +147,10 @@ impl Hero
             Hero::Yamato => Some(35),
             Hero::Lash => Some(12),
             Hero::Viscous => Some(7),
-            Hero::Wrecker => Some(0),
+            Hero::Wrecker => Some(-1),
             Hero::Pocket => Some(13),
             Hero::Mirage => Some(8),
-            Hero::Dummy => Some(0),
+            Hero::Dummy => Some(34),
             _ => None
         }
     }

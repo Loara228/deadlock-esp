@@ -104,10 +104,10 @@ fn find_player(game: &External, local_player: &Player, settings: &AimProperties)
     {
         if p.pawn.team != game.get_local_player().pawn.team && p.is_alive()
         {
-            let mut head_pos = p.skeleton.head_pos.clone();
-            if game.view_matrix.transform(&mut head_pos) && in_fov(head_pos, center, settings.fov)
+            let mut target_pos = p.skeleton.target_bone_pos.clone();
+            if game.view_matrix.transform(&mut target_pos) && in_fov(target_pos, center, settings.fov)
             {
-                let cur_distance = Vector3::distance_2d(head_pos, Vector3::from_pos2(center));
+                let cur_distance = Vector3::distance_2d(target_pos, Vector3::from_pos2(center));
                 if cur_distance < distance && Vector3::distance(p.game_scene_node.position, local_player.game_scene_node.position) < settings.range
                 {
                     distance = cur_distance;

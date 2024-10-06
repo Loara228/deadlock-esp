@@ -15,6 +15,10 @@ pub struct Vector3
 
 impl Vector3
 {
+    pub fn is_zero(&self) -> bool {
+        self.x == 0f32 && self.y == 0f32 && self.z == 0f32
+    }
+
     pub fn to_pos2(self) -> Pos2
     {
         Pos2 { x: self.x, y: self.y }

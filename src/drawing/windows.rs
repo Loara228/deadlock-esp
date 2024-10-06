@@ -24,14 +24,17 @@ fn draw_main(overlay: &mut Overlay, ctx: &Context, _ui: &mut Ui) {
                         .show_ui(ui, |ui| {
                             ui.selectable_value(
                                 &mut overlay.lang,
-                                Lang::ZhCn,
-                                "English",
-                            );
-                            ui.selectable_value(
-                                &mut overlay.lang,
                                 Lang::RU,
                                 "Русский",
                             );
+                            if ui.selectable_value(
+                                &mut overlay.lang,
+                                Lang::ZhCn,
+                                "English",
+                            ).clicked() {
+                                load_font(ctx);
+                                overlay.font_loaded = true;
+                            };
                             if ui.selectable_value(
                                 &mut overlay.lang,
                                 Lang::ZhCn,

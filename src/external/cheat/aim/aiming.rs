@@ -4,8 +4,13 @@ use std::{ffi::c_void, net::UdpSocket, thread, time::Duration};
 use egui::Pos2;
 use crate::{external::{interfaces::{entities::Player, enums::EntityType, math::{Plane3D, Vector3}, structs::Camera}, External}, input::{keyboard::KeyState, mouse}, settings::structs::{AimProperties, AimSettings}};
 
+use super::drawing;
+
 pub fn update(settings: &AimSettings, game: &External, socket: &UdpSocket)
 {
+    unsafe {
+        drawing::DISPLAY_POS = Vector3 { x: 0f32, y: 0f32, z: 0f32 };
+    }
     if settings.angle_per_pixel == 0f32 || (!settings.players.enable && !settings.creeps.enable)
     {
         return;
@@ -21,6 +26,9 @@ pub fn update(settings: &AimSettings, game: &External, socket: &UdpSocket)
                 {
                     target_pos = calc_velocity(target_pos, target.pawn.velocity, &settings.players);
                 }
+                let mut target_pos_screen = target_pos;
+                game.view_matrix.transform(&mut target_pos_screen);
+                drawing::DISPLAY_POS = Vector3 { x: target_pos_screen.x, y: target_pos_screen.y, z: 0f32 };
                 aim_to(target_pos, settings.angle_per_pixel, game, &settings.players, socket);
             },
             None => {
@@ -111,7 +119,9 @@ fn find_player(game: &External, local_player: &Player, settings: &AimProperties)
                 if cur_distance < distance && Vector3::distance(p.game_scene_node.position, local_player.game_scene_node.position) < settings.range
                 {
                     distance = cur_distance;
-                    unsafe { player_index = Some(p.index as usize) };
+                    unsafe { 
+                        player_index = Some(p.index as usize);
+                    };
                 }
             }
         }
@@ -161,7 +171,9 @@ fn find_entity(game: &External, local_player: &Player, settings: &AimProperties)
                     {
                         priority = ent.class.as_priority();
                         distance = cur_distance;
-                        unsafe { entity_array_index = Some(i) };
+                        unsafe {
+                            entity_array_index = Some(i);
+                        };
                     }
                 }
             }

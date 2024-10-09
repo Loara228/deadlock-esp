@@ -513,6 +513,15 @@ impl Lang {
 			Lang::ZhTw => zhtw::BONE_PELVIS,
         }
     }
+
+    pub fn bone_chest(self) -> &'static str {
+        match self {
+            Lang::RU => ru::BONE_CHEST,
+            Lang::EN => en::BONE_CHEST,
+			Lang::ZhCn => zhcn::BONE_CHEST,
+			Lang::ZhTw => zhtw::BONE_CHEST,
+        }
+    }
 }
 
 pub(super) mod ru
@@ -579,6 +588,7 @@ pub(super) mod ru
     pub const BONE: &str = "Кость";
     pub const BONE_HEAD: &str = "Голова";
     pub const BONE_NECK: &str = "Шея";
+    pub const BONE_CHEST: &str = "Сиська";
     pub const BONE_PELVIS: &str = "Жопа";
 }
 
@@ -647,6 +657,7 @@ pub(super) mod en
     pub const BONE: &str = "Bone";
     pub const BONE_HEAD: &str = "Head";
     pub const BONE_NECK: &str = "Neck";
+    pub const BONE_CHEST: &str = "Chest";
     pub const BONE_PELVIS: &str = "Pelvis";
 }
 
@@ -714,6 +725,7 @@ pub (super) mod zhcn
     pub const BONE: &str = "骨骼";
     pub const BONE_HEAD: &str = "头部";
     pub const BONE_NECK: &str = "颈部";
+    pub const BONE_CHEST: &str = "胸";
     pub const BONE_PELVIS: &str = "骨盆";
 
 }
@@ -782,6 +794,7 @@ pub (super) mod zhtw
     pub const BONE: &str = "骨骼";
     pub const BONE_HEAD: &str = "头部";
     pub const BONE_NECK: &str = "颈部";
+    pub const BONE_CHEST: &str = "胸";
     pub const BONE_PELVIS: &str = "骨盆";
 
 }

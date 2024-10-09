@@ -176,6 +176,11 @@ pub fn aim_element(ui: &mut Ui, global_aim_settings: &mut AimSettings, entities:
                             );
                             ui.selectable_value(
                                 &mut global_aim_settings.aim_bone,
+                                TargetBone::Chest,
+                                lang.bone_chest(),
+                            );
+                            ui.selectable_value(
+                                &mut global_aim_settings.aim_bone,
                                 TargetBone::Pelvis,
                                 lang.bone_pelvis(),
                             );

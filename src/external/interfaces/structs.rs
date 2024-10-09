@@ -219,6 +219,10 @@ impl Skeleton
                                 let bone = TargetBone::Pelvis;
                                 self.target_bone_pos = read_memory(self.bone_array.add(bone.get_bone_index(hero) as usize * 32usize));
                             }
+                            else if *target_bone == TargetBone::Chest {
+                                let bone = TargetBone::Chest;
+                                self.target_bone_pos = read_memory(self.bone_array.add(bone.get_bone_index(hero) as usize * 32usize));
+                            }
                             else {
                                 self.target_bone_pos = self.head_pos;
                             }

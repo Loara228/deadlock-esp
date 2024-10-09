@@ -2960,6 +2960,9 @@ pub mod client_dll {
         pub const m_hController: usize = 0xF04; // CHandle<CBasePlayerController>
         pub const m_bIsSwappingToPredictableController: usize = 0xF08; // bool
     }
+    pub mod CCitadel_Modifier_TimeWall_AuraVData {
+        pub const m_DebuffModifier: usize = 0x648; // CEmbeddedSubclass<CCitadelModifier>
+    }
     pub mod CAttributeManager {
         pub const m_Providers: usize = 0x8; // CUtlVector<CHandle<C_BaseEntity>>
         pub const m_Receivers: usize = 0x20; // CUtlVector<CHandle<C_BaseEntity>>
@@ -3521,6 +3524,7 @@ pub mod client_dll {
         pub const m_flUltimateCooldownEnd: usize = 0x70; // GameTime_t
         pub const m_bHasRejuvenator: usize = 0x74; // bool
         pub const m_bHasRebirth: usize = 0x75; // bool
+        pub const m_bFlaggedAsCheater: usize = 0x76; // bool
         pub const m_iHeroDamage: usize = 0x78; // int32
         pub const m_iHeroHealing: usize = 0x7C; // int32
         pub const m_iSelfHealing: usize = 0x80; // int32
@@ -7258,6 +7262,10 @@ pub mod client_dll {
     }
     pub mod CCitadel_Ability_Weapon_BossTier3 {
     }
+    pub mod CCitadel_Modifier_CheaterCurseVData {
+        pub const m_CursedModel: usize = 0x608; // CResourceNameTyped<CWeakHandle<InfoForResourceTypeCModel>>
+        pub const m_flModelScale: usize = 0x6E8; // float32
+    }
     pub mod CBaseLockonAbilityVData {
         pub const m_TargetModifier: usize = 0x1548; // CEmbeddedSubclass<CBaseModifier>
         pub const m_strApplyLockonStack: usize = 0x1558; // CSoundEventName
@@ -8341,6 +8349,7 @@ pub mod client_dll {
         pub const m_TimerToSilence: usize = 0x608; // float32
         pub const m_SilenceDuration: usize = 0x60C; // float32
         pub const m_SilenceModifier: usize = 0x610; // CEmbeddedSubclass<CCitadelModifier>
+        pub const m_bIsIdolPickup: usize = 0x620; // bool
     }
     pub mod CCitadel_Ability_Rutger_Pulse_VData {
         pub const m_AuraModifier: usize = 0x1548; // CEmbeddedSubclass<CBaseModifier>

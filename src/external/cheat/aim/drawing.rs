@@ -1,5 +1,3 @@
-use egui::Pos2;
-
 use crate::{external::interfaces::{entities::{Entity, Player}, math::{Matrix, Vector3}}, settings::structs::{AimProperties, AimSettings}};
 
 pub fn draw(g: &egui::Painter, settings: &AimSettings, entities: &Vec<Entity>, matrix: &Matrix, local_player: &Player)

@@ -11,7 +11,8 @@ pub enum TargetBone
 {
     Head,
     Neck,
-    Pelvis
+    Pelvis,
+    Chest
 }
 
 impl TargetBone {
@@ -76,6 +77,36 @@ impl TargetBone {
                 Hero::Dummy => 6,
             }
         }
+        else if *self == TargetBone::Chest { // SPINE_3
+            return match hero {
+                Hero::None => 0,
+                Hero::Infernus => 11,
+                Hero::Seven => 11,
+                Hero::Vindicta => 5,
+                Hero::LadyGeist => 9,
+                Hero::Abrams => 5,
+                Hero::Wraith => 5,
+                Hero::McGinnis => 5,
+                Hero::Paradox => 6,
+                Hero::Dynamo => 7,
+                Hero::Kelvin => 10,
+                Hero::Haze => 5,
+                Hero::Holliday => todo!(),
+                Hero::Bebop => 4,
+                Hero::GreyTalon => 15,
+                Hero::MoAndKrill => 8, // 23
+                Hero::Shiv => 11,
+                Hero::Ivy => 11,
+                Hero::Warden => 9,
+                Hero::Yamato => 18,
+                Hero::Lash => 10,
+                Hero::Viscous => 5,
+                Hero::Wrecker => todo!(),
+                Hero::Pocket =>  11,
+                Hero::Mirage => 6,
+                Hero::Dummy => 10,
+            }
+        }
         0
     }
 }
@@ -129,7 +160,7 @@ impl Hero
             Hero::Infernus => Some(30),
             Hero::Seven => Some(14),
             Hero::Vindicta => Some(7),
-            Hero::LadyGeist => Some(-1),
+            Hero::LadyGeist => Some(11),
             Hero::Abrams => Some(7),
             Hero::Wraith => Some(7),
             Hero::McGinnis => Some(7),

@@ -58,8 +58,10 @@ pub mod connection
 #[derive(Parser)]
 #[command(version)]
 struct Cli {
-    #[arg(short, long)]
+    #[arg(short, long, default_value = "false")]
     offsets: bool,
+    #[arg(short, long)]
+    dev: bool,
     #[arg(short, long)]
     mouse: bool,
 

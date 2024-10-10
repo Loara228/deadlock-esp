@@ -71,10 +71,11 @@
 
 ## Todo
 
-- [ ] Улучшить UI конфигов
 - [ ] Авто парирование
-- [ ] Авто загрузка последнего конфига
+- [ ] Скрипты
+- [ ] Бинды на переключение настроек
 
+Если хотите предложить что-то своё - [тык](https://github.com/Loara228/deadlock-esp/issues/new)
 
 <hr>
 
@@ -112,11 +113,9 @@ cargo build --release
 </b>
 </div>
 
+Актуальные смещения, которые используются в проекте - [тык](https://github.com/Loara228/deadlock-esp/blob/master/src/external/offsets/mod.rs)
+
 ## Превью
-
-![](images/1.png)![](preview)
-
-![](images/spec.png)![](preview)
 
 ![](images/3.png)![](preview)
 
@@ -124,10 +123,8 @@ cargo build --release
 
 ![](images/5.png)![](preview)
 
-![](images/esp1.png)![](preview)
-
 <div align = "center">
-<img src="https://github.com/user-attachments/assets/5aa2dd1b-b106-4831-9c70-df3a672da18b" height=" 800"/>
+<img src="https://github.com/user-attachments/assets/5aa2dd1b-b106-4831-9c70-df3a672da18b" height=" 600"/>
 </div>
 
 > <a href="https://www.youtube.com/watch?v=3nJs6GPmEZs"><sub><sub>💪старый бог💪</sup></sub></a>

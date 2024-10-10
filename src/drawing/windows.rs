@@ -3,13 +3,58 @@ use std::{io::Read, path::PathBuf};
 use egui::{Context, FontData, FontDefinitions, Ui};
 use windows::Win32::UI::{Input::KeyboardAndMouse::GetAsyncKeyState, WindowsAndMessaging::SetForegroundWindow};
 
-use crate::{external::{cheat::aim, interfaces::enums::TargetBone}, input::keyboard::{Key, VirtualKeys}, settings::{mgr, structs::{AimProperties, AimSettings}}};
+use crate::{external::{cheat::aim, interfaces::enums::TargetBone}, input::keyboard::{Key, VirtualKeys}, settings::{self, mgr, structs::{AimProperties, AimSettings, Settings}}};
 use super::{localization::Lang, overlay::Overlay};
 
 pub fn draw_windows(overlay: &mut Overlay, ctx: &Context, ui: &mut Ui) {
     draw_main(overlay, ctx, ui);
     draw_esp(overlay, ctx, ui);
     draw_aim(overlay, ctx, ui);
+}
+
+fn draw_config(overlay: &mut Overlay, ui: &mut Ui) {
+    ui.label(overlay.lang.config());
+    ui.horizontal(|ui| {
+        let mut btn_text = overlay.lang.config_create();
+        ui.add(egui::TextEdit::singleline(&mut overlay.current_config).desired_width(100f32).hint_text("default"));
+        if overlay.configs.contains(&overlay.current_config)
+        {
+            btn_text = overlay.lang.config_save();
+        }
+        if ui.button(btn_text).clicked() {
+            let mut conf_name = overlay.current_config.to_owned();
+            conf_name.push_str(".cjson");
+            mgr::save(&mut overlay.settings, &conf_name);
+            overlay.configs = settings::mgr::get_configs();
+        }
+    });
+    let mut deleted = false;
+    for c in overlay.configs.iter() {
+        ui.horizontal(|ui| {
+            ui.group(|ui| {
+                if ui.button(overlay.lang.config_load()).clicked() {
+                    let mut conf_name = c.to_owned();
+                    conf_name.push_str(".cjson");
+                    mgr::change(&mut overlay.settings, &conf_name);
+                }
+                if ui.button(overlay.lang.config_delete()).clicked() {
+                    let mut conf_name = c.to_owned();
+                    conf_name.push_str(".cjson");
+                    mgr::delete(&conf_name);
+                    deleted = true;
+                }
+                ui.add_space(10f32);
+                ui.label(c);
+            });
+        });
+    }
+    // if ui.button(overlay.lang.config_default()).clicked() {
+    //     overlay.settings = Settings::default();
+    // }
+    if deleted {
+        overlay.configs = settings::mgr::get_configs();
+    }
+    ui.separator();
 }
 
 fn draw_main(overlay: &mut Overlay, ctx: &Context, _ui: &mut Ui) {
@@ -58,22 +103,7 @@ fn draw_main(overlay: &mut Overlay, ctx: &Context, _ui: &mut Ui) {
                         });
 
             ui.separator();
-            ui.label(overlay.lang.config());
-            if ui.button(overlay.lang.config_default()).clicked() {
-                mgr::change(&mut overlay.settings, "default.cjson");
-            }
-            ui.horizontal(|ui| {
-                if ui.button(overlay.lang.config_load()).clicked() {
-                    mgr::change(&mut overlay.settings, "current.cjson");
-                }
-                if ui.button(overlay.lang.config_save()).clicked() {
-                    mgr::save(&mut overlay.settings, "current.cjson");
-                }
-            });
-            ui.collapsing("json:", |ui| {
-                ui.label(format!("{:?}", overlay.settings));
-            });
-            ui.separator();
+            draw_config(overlay, ui);
             ui.hyperlink_to(overlay.lang.repository(), "https://github.com/Loara228/deadlock-esp");
             ui.separator();
             if ui.button(overlay.lang.close()).clicked() {

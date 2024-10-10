@@ -14,18 +14,20 @@ pub mod mgr
         _ = get_path();
     }
 
-    pub fn get_configs(path: PathBuf) 
+    pub fn get_configs()  -> Vec<String>
     {
-        let mut files: Vec<PathBuf> = Vec::new();
+        let path: PathBuf = get_path();
+        let mut files: Vec<String> = Vec::new();
         for entry in read_dir(path).unwrap()
         {
             let entry = entry.unwrap();
             let file_path = entry.path();
             if file_path.is_file() && file_path.extension().unwrap_or_default() == "cjson"
             {
-                files.push(file_path);
+                files.push(file_path.file_name().unwrap().to_str().unwrap().to_owned().replace(".cjson", ""));
             }
         }
+        files
     }
 
     fn get_path() -> PathBuf
@@ -36,7 +38,6 @@ pub mod mgr
             create_dir(path.clone()).unwrap();
             log::warn!("Created directory: {}", path.display());
             println!("{:?}", path.clone());
-            save(&Settings::default(), "default.cjson");
         }
         path
     }
@@ -54,6 +55,18 @@ pub mod mgr
         file.write_all(serialized.as_bytes()).unwrap();
 
         log::info!("Created file: {:?}", file_name.display());
+    }
+
+    pub fn delete(file_name: &str) {
+        let file_name = get_path().join(file_name);
+        if file_name.exists()
+        {
+            remove_file(file_name.clone()).unwrap();
+            log::info!("Deleted file: {:?}", file_name.clone());
+        }
+        else {
+            log::warn!("File not found: {:?}", file_name);
+        }
     }
 
     pub fn change(settings: &mut Settings, file_name: &str)

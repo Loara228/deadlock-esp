@@ -4,7 +4,7 @@ use egui::{emath::Pos2, CentralPanel, Vec2, ViewportBuilder};
 use windows::{core::PCSTR, Win32::{Foundation::HWND, Graphics::Gdi::UpdateWindow, UI::WindowsAndMessaging::{FindWindowExA, GetForegroundWindow, SetForegroundWindow, SetWindowLongA, WINDOW_LONG_PTR_INDEX}}};
 
 use super::{localization::Lang, screen};
-use crate::{external::{cheat::esp::{self, radar::draw_radar_window}, External}, input::keyboard::{Key, KeyState}, settings::structs::Settings};
+use crate::{external::{cheat::esp::{self, radar::draw_radar_window}, External}, input::keyboard::{Key, KeyState}, settings::{self, structs::Settings}};
 
 pub struct Overlay {
     initialized: bool,
@@ -15,7 +15,9 @@ pub struct Overlay {
     pub game: External,
     udp_socket: UdpSocket,
     pub lang: Lang,
-    pub font_loaded: bool
+    pub font_loaded: bool,
+    pub current_config: String,
+    pub configs: Vec<String>
 }
 
 impl eframe::App for Overlay
@@ -96,6 +98,7 @@ impl Default for Overlay
     fn default() -> Self {
         log::info!("Connecting...");
         let socket = UdpSocket::bind("127.0.0.1:229").unwrap();
+        let configs: Vec<String> = settings::mgr::get_configs();
         Self
         {
             initialized: false,
@@ -106,7 +109,9 @@ impl Default for Overlay
             game: External::new(),
             udp_socket: socket,
             lang: Lang::RU,
-            font_loaded: false
+            font_loaded: false,
+            current_config: "default".to_owned(),
+            configs
         }
     }
 }

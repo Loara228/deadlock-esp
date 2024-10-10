@@ -46,12 +46,30 @@ impl Lang {
         }
     }
     
+    pub fn config_delete(self) -> &'static str {
+        match self {
+            Lang::RU => ru::CONFIG_DELETE,
+            Lang::EN => en::CONFIG_DELETE,
+			Lang::ZhCn => zhcn::CONFIG_DELETE,
+			Lang::ZhTw => zhtw::CONFIG_DELETE,
+        }
+    }
+    
     pub fn config_save(self) -> &'static str {
         match self {
             Lang::RU => ru::CONFIG_SAVE,
             Lang::EN => en::CONFIG_SAVE,
 			Lang::ZhCn => zhcn::CONFIG_SAVE,
 			Lang::ZhTw => zhtw::CONFIG_SAVE,
+        }
+    }
+    
+    pub fn config_create(self) -> &'static str {
+        match self {
+            Lang::RU => ru::CONFIG_CREATE,
+            Lang::EN => en::CONFIG_CREATE,
+			Lang::ZhCn => zhcn::CONFIG_CREATE,
+			Lang::ZhTw => zhtw::CONFIG_CREATE,
         }
     }
     
@@ -529,8 +547,10 @@ pub(super) mod ru
     pub const ENABLE: &str = "Включить";
     pub const COLOR: &str = "Цвет";
     pub const CONFIG: &str = "Настройки";
-    pub const CONFIG_LOAD: &str = "Загрузить настройки";
-    pub const CONFIG_SAVE: &str = "Сохранить настройки";
+    pub const CONFIG_LOAD: &str = "Загрузить";
+    pub const CONFIG_SAVE: &str = "Сохранить";
+    pub const CONFIG_CREATE: &str = "Создать";
+    pub const CONFIG_DELETE: &str = "Удалить";
     pub const CONFIG_DEFAULT: &str = "Загрузить стандартные настройки";
     pub const REPOSITORY: &str = "Репозиторий (исходный код и обновления)";
     pub const CLOSE: &str = "Закрыть";
@@ -595,11 +615,13 @@ pub(super) mod ru
 // Burger
 pub(super) mod en
 {
-    pub const ENABLE: &str = "Hello, McDonald's. Give me one chickenburger and one Coca Cola. Are you getting a gun as a gift?";
+    pub const ENABLE: &str = "Hello. Can i get a... Big mac. No pickles. Extra... uhhhh Ketchup. Medium french fries. And also one extra large sprite.. Thanks. Are you getting a gun as a gift?";
     pub const COLOR: &str = "Color";
     pub const CONFIG: &str = "Config";
-    pub const CONFIG_LOAD: &str = "Load config";
-    pub const CONFIG_SAVE: &str = "Save config";
+    pub const CONFIG_LOAD: &str = "Load";
+    pub const CONFIG_SAVE: &str = "Save";
+    pub const CONFIG_CREATE: &str = "Создать";
+    pub const CONFIG_DELETE: &str = "Удалить";
     pub const CONFIG_DEFAULT: &str = "Load default config";
     pub const REPOSITORY: &str = "Repository (source code & updates)";
     pub const CLOSE: &str = "Close";
@@ -666,8 +688,10 @@ pub (super) mod zhcn
 	pub const ENABLE: &str = "启用";
 	pub const COLOR: &str = "颜色";
 	pub const CONFIG: &str = "设置";
-	pub const CONFIG_LOAD: &str = "载入设置";
-	pub const CONFIG_SAVE: &str = "储存设置";
+	pub const CONFIG_LOAD: &str = "加载";
+	pub const CONFIG_SAVE: &str = "保存";
+    pub const CONFIG_CREATE: &str = "创建";
+    pub const CONFIG_DELETE: &str = "删除";
 	pub const CONFIG_DEFAULT: &str = "载入预设设置";
 	pub const REPOSITORY: &str = "资源库（源码与更新）";
 	pub const CLOSE: &str = "关闭";
@@ -735,8 +759,10 @@ pub (super) mod zhtw
 	pub const ENABLE: &str = "啟用";
 	pub const COLOR: &str = "顏色";
 	pub const CONFIG: &str = "設定";
-	pub const CONFIG_LOAD: &str = "載入設定";
-	pub const CONFIG_SAVE: &str = "儲存設定";
+	pub const CONFIG_LOAD: &str = "加载";
+	pub const CONFIG_SAVE: &str = "保存";
+    pub const CONFIG_CREATE: &str = "创建";
+    pub const CONFIG_DELETE: &str = "删除";
 	pub const CONFIG_DEFAULT: &str = "載入預設設定";
 	pub const REPOSITORY: &str = "資源庫（源碼與更新）";
 	pub const CLOSE: &str = "關閉";

@@ -10,6 +10,18 @@ pub fn draw_windows(overlay: &mut Overlay, ctx: &Context, ui: &mut Ui) {
     draw_main(overlay, ctx, ui);
     draw_esp(overlay, ctx, ui);
     draw_aim(overlay, ctx, ui);
+    draw_heroes(overlay, ctx, ui);
+}
+
+fn draw_heroes(overlay: &mut Overlay, ctx: &Context, ui: &mut Ui) {
+    egui::Window::new("Scripts").show(ctx, |ui| {
+        // ui.vertical_centered(|ui| {
+        //     ui.add(crate::egui_github_link_file_line!());
+        // });
+
+        ui.label("Shiv");
+        // todo
+    });
 }
 
 fn draw_config(overlay: &mut Overlay, ui: &mut Ui) {

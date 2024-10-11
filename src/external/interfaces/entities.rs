@@ -230,7 +230,6 @@ impl Player
                     self.pawn.update(list_entry, pawn_handle as usize);
                     if self.pawn.ptr as i32 != 0
                     {
-                        self.abilities.update(entity_list_ptr, self.pawn.ptr);
                         if self.pawn.health > self.pawn.max_health
                         {
                             self.pawn.max_health = self.pawn.health
@@ -286,7 +285,6 @@ impl Player
         {
             boxes::draw_boxes(self.rect, g, settings);
             healthbar::draw(g, self, &settings.healthbars);
-            // ability::draw(g, self);
             text::draw(g, self, local_player, settings);
         }
     }

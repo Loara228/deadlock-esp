@@ -3,8 +3,8 @@ pub (crate) mod interfaces;
 pub mod cheat;
 
 use self::cheat::aim::drawing;
-use std::ffi::c_void;
-use cheat::esp::{boxes::draw_head, radar};
+use std::{ffi::c_void, sync::Arc};
+use cheat::{esp::{boxes::draw_head, radar}, scripts::hero_scripts::{HeroScript, Shiv}};
 use egui::Pos2;
 use interfaces::{entities::{Entity, Player}, enums::TargetBone, math::{Matrix, Vector3}, structs::{Camera, Observers}};
 use offsets::client_dll::{CPlayer_CameraServices, C_BasePlayerPawn};
@@ -24,7 +24,8 @@ pub struct External
     pub screen: egui::Rect,
     pub aim_punch: Vector3,
     pub global_vars: GlobalVars,
-    pub observers: Observers
+    pub observers: Observers,
+    pub hero_scripts: Vec<Arc<dyn HeroScript>>
 }
 
 impl External
@@ -58,7 +59,9 @@ impl External
                 screen: egui::Rect::from_two_pos(Pos2::default(), Pos2::default()),
                 aim_punch: Vector3::default(),
                 global_vars: GlobalVars::default(),
-                observers: Observers::default()
+                observers: Observers::default(),
+                hero_scripts: vec![Arc::new(Shiv::default())]
+
             }
         }
     }
@@ -77,6 +80,15 @@ impl External
         self.update_players(target_bone);
         self.update_observers();
         self.update_entities();
+        Self::update_scripts(self);
+    }
+
+    fn update_scripts(game: &mut External) {
+        let local_player = game.get_local_player();
+        for hero_script in game.hero_scripts.iter() {
+            if hero_script.hero_id() == local_player.data.hero {
+                hero_script.update(game);}
+        }
     }
 
     fn update_observers(&mut self) {
@@ -106,7 +118,8 @@ impl External
         }
         if self.local_player_index != 0
         {
-            let local_player = self.get_local_player();
+            let local_player = &mut self.players[self.local_player_index - 1];
+            local_player.abilities.update(self.entity_list_ptr, local_player.pawn.ptr);
             unsafe {
                 let camera_services: *mut c_void = read_memory(local_player.pawn.ptr.add(C_BasePlayerPawn::m_pCameraServices));
                 self.aim_punch = read_memory(camera_services.add(CPlayer_CameraServices::m_vecPunchAngle));
@@ -137,8 +150,18 @@ impl External
                     }
                 }
             }
+            Self::draw_scripts(g, &self);
         }
         radar::draw_radar(g, &settings.radar, &self);
+    }
+
+    fn draw_scripts(g: &egui::Painter, game: &External) {
+        let local_player = game.get_local_player();
+        for hero_script in game.hero_scripts.iter() {
+            if hero_script.hero_id() == local_player.data.hero {
+                hero_script.draw(g, game);
+            }
+        }
     }
 
     pub fn get_local_player(&self) -> &Player {

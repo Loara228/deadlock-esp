@@ -34,6 +34,16 @@ impl GameSceneNode
 
 #[derive(Debug)]
 #[derive(Default)]
+pub struct Ability
+{
+    pub index: usize,
+    /// Кол-во потраченных поинтов на скилл
+    pub points: i32,
+    pub coodown: bool,
+}
+
+#[derive(Debug)]
+#[derive(Default)]
 pub struct Abilities
 {
     pub list: Vec<Ability>
@@ -41,27 +51,25 @@ pub struct Abilities
 
 impl Abilities
 {
-    pub unsafe  fn update(&mut self, entity_list_ptr: *mut c_void, pawn_ptr: *mut c_void) {
-        if true {
-            return;
-        }
+    pub fn update(&mut self, entity_list_ptr: *mut c_void, pawn_ptr: *mut c_void) {
         self.list.clear();
-        let ability_component = pawn_ptr.add(C_CitadelPlayerPawn::m_CCitadelAbilityComponent);
-        let vec_abilities: *mut c_void = read_memory(ability_component.add(CCitadelAbilityComponent::m_vecAbilities + 0x8));
-        for i in 10..18 {
-            let ability_handle: *mut c_void = read_memory(vec_abilities.add(0x4 * i));
-            if ability_handle as i32 == 0
-            {
-                continue;
+        unsafe {
+            let ability_component = pawn_ptr.add(C_CitadelPlayerPawn::m_CCitadelAbilityComponent);
+            let vec_abilities: *mut c_void = read_memory(ability_component.add(CCitadelAbilityComponent::m_vecAbilities + 0x8));
+            for i in 12..16 {
+                let ability_handle: *mut c_void = read_memory(vec_abilities.add(0x4 * i));
+                if ability_handle as i32 == 0
+                {
+                    continue;
+                }
+                let ability = from_handle(entity_list_ptr, ability_handle);
+    
+                self.list.push(Ability {
+                    index: i,
+                    points: read_memory(ability.add(C_CitadelBaseAbility::m_nUpgradeBits)),
+                    coodown: read_memory(ability.add(C_CitadelBaseAbility::m_bIsCoolingDownInternal))
+                });
             }
-            let ability = from_handle(entity_list_ptr, ability_handle);
-
-            self.list.push(Ability {
-                index: i,
-                cd_start: read_memory(ability.add(C_CitadelBaseAbility::m_flCooldownStart)),
-                cd_end: read_memory(ability.add(C_CitadelBaseAbility::m_flCooldownEnd)),
-                coodown: read_memory(ability.add(C_CitadelBaseAbility::m_bIsCoolingDownInternal)),
-            });
         }
     }
 }
@@ -115,16 +123,6 @@ impl Observers
         let player_obs_target_pawn: *mut c_void = from_handle(entity_list_ptr, player_obs_target);
         player_obs_target_pawn
     }
-}
-
-#[derive(Debug)]
-#[derive(Default)]
-pub struct Ability
-{
-    pub index: usize,
-    pub cd_start: f32,
-    pub cd_end: f32,
-    pub coodown: bool,
 }
 
 #[derive(Default)]

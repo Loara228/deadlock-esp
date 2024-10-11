@@ -153,8 +153,8 @@ pub mod client_dll {
         pub const m_tDieTime: usize = 0x8CC; // GameTime_t
     }
     pub mod CCitadelBaseTriggerAbility {
-        pub const m_hAbilityToTrigger: usize = 0xC80; // CHandle<C_CitadelBaseAbility>
-        pub const m_SwappedToTime: usize = 0xC84; // GameTime_t
+        pub const m_hAbilityToTrigger: usize = 0xC90; // CHandle<C_CitadelBaseAbility>
+        pub const m_SwappedToTime: usize = 0xC94; // GameTime_t
     }
     pub mod CCitadel_Modifier_Chomp_Grapple {
         pub const m_hMoveToTarget: usize = 0xC0; // CHandle<C_BaseEntity>
@@ -193,25 +193,25 @@ pub mod client_dll {
         pub const m_DebuffModifier: usize = 0x7E8; // CEmbeddedSubclass<CCitadelModifier>
     }
     pub mod CCitadel_Ability_ZipLine {
-        pub const m_flActivatePressTime: usize = 0x1078; // GameTime_t
-        pub const m_bThinking: usize = 0x107C; // bool
-        pub const m_bMoveCollidedPushUp: usize = 0x107D; // bool
-        pub const m_flTimeStartZipping: usize = 0x108C; // GameTime_t
-        pub const m_flTimeForKnockdownProtection: usize = 0x1090; // GameTime_t
-        pub const m_flTimeStopZipping: usize = 0x1094; // GameTime_t
-        pub const m_flCasterSpeed: usize = 0x1098; // float32
-        pub const m_vecInitialVel: usize = 0x109C; // CNetworkVelocityVector
-        pub const m_vecAttachPoint: usize = 0x10D0; // Vector
-        pub const m_pPrevNode: usize = 0x10DC; // CHandle<C_BaseEntity>
-        pub const m_pNextNode: usize = 0x10E0; // CHandle<C_BaseEntity>
-        pub const m_flTimeEnterState: usize = 0x10E4; // GameTime_t
-        pub const m_flLatchTime: usize = 0x10E8; // GameTime_t
-        pub const m_flDamagedTime: usize = 0x10EC; // GameTime_t
-        pub const m_eAttachState: usize = 0x10F0; // EAttachState_t
-        pub const m_iAttachedZipLineLane: usize = 0x10F4; // int32
-        pub const m_bDroppedFromZipline: usize = 0x10F8; // bool
-        pub const m_hAttachZipLine: usize = 0x10F9; // AttachmentHandle_t
-        pub const m_vAttachZipLineOffset: usize = 0x10FC; // Vector
+        pub const m_flActivatePressTime: usize = 0x1088; // GameTime_t
+        pub const m_bThinking: usize = 0x108C; // bool
+        pub const m_bMoveCollidedPushUp: usize = 0x108D; // bool
+        pub const m_flTimeStartZipping: usize = 0x109C; // GameTime_t
+        pub const m_flTimeForKnockdownProtection: usize = 0x10A0; // GameTime_t
+        pub const m_flTimeStopZipping: usize = 0x10A4; // GameTime_t
+        pub const m_flCasterSpeed: usize = 0x10A8; // float32
+        pub const m_vecInitialVel: usize = 0x10AC; // CNetworkVelocityVector
+        pub const m_vecAttachPoint: usize = 0x10E0; // Vector
+        pub const m_pPrevNode: usize = 0x10EC; // CHandle<C_BaseEntity>
+        pub const m_pNextNode: usize = 0x10F0; // CHandle<C_BaseEntity>
+        pub const m_flTimeEnterState: usize = 0x10F4; // GameTime_t
+        pub const m_flLatchTime: usize = 0x10F8; // GameTime_t
+        pub const m_flDamagedTime: usize = 0x10FC; // GameTime_t
+        pub const m_eAttachState: usize = 0x1100; // EAttachState_t
+        pub const m_iAttachedZipLineLane: usize = 0x1104; // int32
+        pub const m_bDroppedFromZipline: usize = 0x1108; // bool
+        pub const m_hAttachZipLine: usize = 0x1109; // AttachmentHandle_t
+        pub const m_vAttachZipLineOffset: usize = 0x110C; // Vector
     }
     pub mod CCitadel_Ability_SuperNeutralIncendiary {
     }
@@ -322,13 +322,13 @@ pub mod client_dll {
     pub mod CCitadel_Modifier_Bolo_Leech {
     }
     pub mod CCitadel_Ability_BulletFlurry {
-        pub const m_vecShootTargets: usize = 0xD98; // CUtlVector<CHandle<C_BaseEntity>>
-        pub const m_nNumPlayersKilled: usize = 0xDB0; // int32
-        pub const m_nShootIndex: usize = 0xDB4; // int32
-        pub const m_nShootIndexNPC: usize = 0xDB8; // int32
-        pub const m_nBurstShots: usize = 0xDBC; // int32
-        pub const m_flNextAttackTime: usize = 0xDC0; // GameTime_t
-        pub const m_nSatVolumeIndex: usize = 0xDC4; // SatVolumeIndex_t
+        pub const m_vecShootTargets: usize = 0xDA8; // CUtlVector<CHandle<C_BaseEntity>>
+        pub const m_nNumPlayersKilled: usize = 0xDC0; // int32
+        pub const m_nShootIndex: usize = 0xDC4; // int32
+        pub const m_nShootIndexNPC: usize = 0xDC8; // int32
+        pub const m_nBurstShots: usize = 0xDCC; // int32
+        pub const m_flNextAttackTime: usize = 0xDD0; // GameTime_t
+        pub const m_nSatVolumeIndex: usize = 0xDD4; // SatVolumeIndex_t
     }
     pub mod C_NPC_Boss_Tier2 {
         pub const m_iLane: usize = 0x14B8; // int32
@@ -413,24 +413,24 @@ pub mod client_dll {
         pub const m_flCastDelayMaxDist: usize = 0x1BB0; // float32
     }
     pub mod CCitadel_Ability_PowerJump {
-        pub const m_nTargetingParticleIndex: usize = 0xC84; // ParticleIndex_t
-        pub const m_bAirRaiding: usize = 0xC88; // bool
+        pub const m_nTargetingParticleIndex: usize = 0xC94; // ParticleIndex_t
+        pub const m_bAirRaiding: usize = 0xC98; // bool
     }
     pub mod CModifierTier3BossLaserBeamVData {
     }
     pub mod CCitadel_Ability_Climb_Rope {
-        pub const m_vTop: usize = 0xC80; // CNetworkOriginQuantizedVector
-        pub const m_vBottom: usize = 0xCB0; // CNetworkOriginQuantizedVector
-        pub const m_flActivatePressTime: usize = 0xCE0; // GameTime_t
-        pub const m_flDisconnectTime: usize = 0xCE4; // GameTime_t
-        pub const m_flClimbStartTime: usize = 0xCE8; // GameTime_t
-        pub const m_vLastPos: usize = 0xCEC; // Vector
-        pub const m_bRequestStopClimbing: usize = 0xD00; // bool
-        pub const m_bRequestJumpToRoof: usize = 0xD01; // bool
-        pub const m_flLastMoveTime: usize = 0xD04; // GameTime_t
-        pub const m_flMoveDownStartTime: usize = 0xD08; // GameTime_t
-        pub const m_eClimbState: usize = 0xD0C; // EClimbRopeState_t
-        pub const m_ClimbCount: usize = 0xD14; // int32
+        pub const m_vTop: usize = 0xC90; // CNetworkOriginQuantizedVector
+        pub const m_vBottom: usize = 0xCC0; // CNetworkOriginQuantizedVector
+        pub const m_flActivatePressTime: usize = 0xCF0; // GameTime_t
+        pub const m_flDisconnectTime: usize = 0xCF4; // GameTime_t
+        pub const m_flClimbStartTime: usize = 0xCF8; // GameTime_t
+        pub const m_vLastPos: usize = 0xCFC; // Vector
+        pub const m_bRequestStopClimbing: usize = 0xD10; // bool
+        pub const m_bRequestJumpToRoof: usize = 0xD11; // bool
+        pub const m_flLastMoveTime: usize = 0xD14; // GameTime_t
+        pub const m_flMoveDownStartTime: usize = 0xD18; // GameTime_t
+        pub const m_eClimbState: usize = 0xD1C; // EClimbRopeState_t
+        pub const m_ClimbCount: usize = 0xD24; // int32
     }
     pub mod C_CitadelTeam {
         pub const m_hPayload: usize = 0x618; // CHandle<C_BaseEntity>
@@ -443,10 +443,10 @@ pub mod client_dll {
         pub const m_EnvWindShared: usize = 0x560; // C_EnvWindShared
     }
     pub mod CCitadel_Ability_Mirage_Teleport {
-        pub const m_hDummyForCamera: usize = 0xC88; // CHandle<C_BaseEntity>
-        pub const m_vCastStartPosition: usize = 0xC8C; // Vector
-        pub const m_vTargetPosition: usize = 0xC98; // Vector
-        pub const m_vTargetAngles: usize = 0xCA4; // QAngle
+        pub const m_hDummyForCamera: usize = 0xC98; // CHandle<C_BaseEntity>
+        pub const m_vCastStartPosition: usize = 0xC9C; // Vector
+        pub const m_vTargetPosition: usize = 0xCA8; // Vector
+        pub const m_vTargetAngles: usize = 0xCB4; // QAngle
     }
     pub mod CCitadel_Modifier_Warden_RiotProtocol {
         pub const m_mapEntToTimeHit: usize = 0xC0; // CUtlOrderedMap<CHandle<C_BaseEntity>,GameTime_t>
@@ -798,9 +798,9 @@ pub mod client_dll {
     pub mod C_ConditionalCollidable {
     }
     pub mod CCitadel_Ability_Thumper_1 {
-        pub const m_vecAimPos: usize = 0xC80; // Vector
-        pub const m_vecAimNormal: usize = 0xC8C; // Vector
-        pub const m_flPushForce: usize = 0xC98; // float32
+        pub const m_vecAimPos: usize = 0xC90; // Vector
+        pub const m_vecAimNormal: usize = 0xC9C; // Vector
+        pub const m_flPushForce: usize = 0xCA8; // float32
     }
     pub mod CCitadel_Modifier_Cadence_Sleeping {
     }
@@ -850,8 +850,8 @@ pub mod client_dll {
     pub mod CCitadel_Item_Containment {
     }
     pub mod CCitadel_Ability_IceDome {
-        pub const m_flDomeStartTime: usize = 0xCB8; // GameTime_t
-        pub const m_flDomeEndTime: usize = 0xCBC; // GameTime_t
+        pub const m_flDomeStartTime: usize = 0xCC8; // GameTime_t
+        pub const m_flDomeEndTime: usize = 0xCCC; // GameTime_t
     }
     pub mod CCitadel_Modifier_DetentionAmmo {
     }
@@ -931,10 +931,10 @@ pub mod client_dll {
     pub mod CCitadel_Ability_Intimidate {
     }
     pub mod CCitadel_Ability_ProximityRitual {
-        pub const m_eState: usize = 0xC80; // ECatStatueState_t
-        pub const m_hStatue: usize = 0xC84; // CHandle<C_BaseEntity>
-        pub const m_vLaunchPosition: usize = 0xC90; // Vector
-        pub const m_qLaunchAngle: usize = 0xC9C; // QAngle
+        pub const m_eState: usize = 0xC90; // ECatStatueState_t
+        pub const m_hStatue: usize = 0xC94; // CHandle<C_BaseEntity>
+        pub const m_vLaunchPosition: usize = 0xCA0; // Vector
+        pub const m_qLaunchAngle: usize = 0xCAC; // QAngle
     }
     pub mod CCitadel_Modifier_Galvanic_Storm {
     }
@@ -980,11 +980,11 @@ pub mod client_dll {
     pub mod CCitadel_Modifier_Uppercutted {
     }
     pub mod CCitadel_Ability_Bounce_Pad {
-        pub const m_vForward: usize = 0xC80; // Vector
-        pub const m_bShouldDeploy: usize = 0xC8C; // bool
-        pub const m_bAnglesSet: usize = 0xC8D; // bool
-        pub const m_bCanCancel: usize = 0xC8E; // bool
-        pub const m_angFacing: usize = 0xDA8; // QAngle
+        pub const m_vForward: usize = 0xC90; // Vector
+        pub const m_bShouldDeploy: usize = 0xC9C; // bool
+        pub const m_bAnglesSet: usize = 0xC9D; // bool
+        pub const m_bCanCancel: usize = 0xC9E; // bool
+        pub const m_angFacing: usize = 0xDB8; // QAngle
     }
     pub mod CItemPowerShardVData {
         pub const m_RefreshParticle: usize = 0x1590; // CResourceNameTyped<CWeakHandle<InfoForResourceTypeIParticleSystemDefinition>>
@@ -998,7 +998,7 @@ pub mod client_dll {
     pub mod CNPC_YakuzaGangster {
     }
     pub mod CAbility_Mirage_SandPhantom {
-        pub const m_vecVictimModifiers: usize = 0xC80; // CUtlVector<CModifierHandleTyped<CCitadelModifier>>
+        pub const m_vecVictimModifiers: usize = 0xC90; // CUtlVector<CModifierHandleTyped<CCitadelModifier>>
     }
     pub mod CCitadel_Modifier_ThrowSandDebuffVData {
         pub const m_DebuffParticle: usize = 0x608; // CResourceNameTyped<CWeakHandle<InfoForResourceTypeIParticleSystemDefinition>>
@@ -1041,7 +1041,7 @@ pub mod client_dll {
         pub const m_cGlowColor: usize = 0x108; // Color
     }
     pub mod CCitadel_Ability_RestorativeGoo {
-        pub const m_flSelfCastEndTime: usize = 0xC80; // GameTime_t
+        pub const m_flSelfCastEndTime: usize = 0xC90; // GameTime_t
     }
     pub mod CCitadel_Modifier_Idol_Return {
     }
@@ -1078,12 +1078,12 @@ pub mod client_dll {
         pub const m_ReverseLeechModifier: usize = 0x618; // CEmbeddedSubclass<CCitadelModifier>
     }
     pub mod CCitadel_Ability_Chrono_KineticCarbine {
-        pub const m_bWantsSlow: usize = 0xC80; // bool
-        pub const m_flLatchedTimeScaleFracChangeTime: usize = 0xC84; // GameTime_t
-        pub const m_flLatchedTimeScaleFrac: usize = 0xC88; // float32
-        pub const m_flSpeedBoostEndTime: usize = 0xC8C; // GameTime_t
-        pub const m_flShotTimeScaleEndTime: usize = 0xC90; // GameTime_t
-        pub const m_flStoredPowerPct: usize = 0xC98; // float32
+        pub const m_bWantsSlow: usize = 0xC90; // bool
+        pub const m_flLatchedTimeScaleFracChangeTime: usize = 0xC94; // GameTime_t
+        pub const m_flLatchedTimeScaleFrac: usize = 0xC98; // float32
+        pub const m_flSpeedBoostEndTime: usize = 0xC9C; // GameTime_t
+        pub const m_flShotTimeScaleEndTime: usize = 0xCA0; // GameTime_t
+        pub const m_flStoredPowerPct: usize = 0xCA8; // float32
     }
     pub mod CCitadel_Modifier_DeathTaxTechAmp {
     }
@@ -1094,7 +1094,7 @@ pub mod client_dll {
         pub const m_flOriginalModelScale: usize = 0xC0; // float32
     }
     pub mod CCitadel_ArmorUpgrade_AblativeCoat {
-        pub const m_iCurrentResistValue: usize = 0xC98; // int32
+        pub const m_iCurrentResistValue: usize = 0xCA8; // int32
     }
     pub mod CCitadel_Modifier_PermanentPickupVData {
     }
@@ -1108,11 +1108,11 @@ pub mod client_dll {
         pub const m_vEscapeTarget: usize = 0x1D8; // Vector
     }
     pub mod CCitadel_Ability_Bebop_LaserBeam {
-        pub const m_bZoomed: usize = 0xDD0; // bool
-        pub const m_bAirCast: usize = 0xDD1; // bool
-        pub const m_vBeamAimPos: usize = 0xDD4; // Vector
-        pub const m_angBeamAngles: usize = 0xDE0; // QAngle
-        pub const m_bNeedsBeamReset: usize = 0xDF8; // bool
+        pub const m_bZoomed: usize = 0xDE0; // bool
+        pub const m_bAirCast: usize = 0xDE1; // bool
+        pub const m_vBeamAimPos: usize = 0xDE4; // Vector
+        pub const m_angBeamAngles: usize = 0xDF0; // QAngle
+        pub const m_bNeedsBeamReset: usize = 0xE08; // bool
     }
     pub mod CCitadel_Modifier_IceBeam_Stacking_Slow {
         pub const m_flCurrBuildup: usize = 0x220; // float32
@@ -1227,7 +1227,7 @@ pub mod client_dll {
     pub mod C_NPC_SuperTrooper {
     }
     pub mod CCitadel_Item_PowerShard {
-        pub const m_hLastSignatureToActivate: usize = 0xC98; // CHandle<C_CitadelBaseAbility>
+        pub const m_hLastSignatureToActivate: usize = 0xCA8; // CHandle<C_CitadelBaseAbility>
     }
     pub mod C_BaseButton {
         pub const m_glowEntity: usize = 0x840; // CHandle<C_BaseModelEntity>
@@ -1240,8 +1240,8 @@ pub mod client_dll {
         pub const m_fBulletShield: usize = 0xC0; // float32
     }
     pub mod CCitadel_Ability_Tokamak_CrimsonCannon {
-        pub const m_bAirCast: usize = 0xC80; // bool
-        pub const m_bIsZoomed: usize = 0xE48; // bool
+        pub const m_bAirCast: usize = 0xC90; // bool
+        pub const m_bIsZoomed: usize = 0xE58; // bool
     }
     pub mod CCitadel_Modifier_Cadence_GrandFinaleAOE {
     }
@@ -1250,9 +1250,9 @@ pub mod client_dll {
     pub mod CInfoParticleTarget {
     }
     pub mod CCitadel_Ability_Mirage_FireBeetles {
-        pub const m_vLaunchPosition: usize = 0xC80; // Vector
-        pub const m_qLaunchAngle: usize = 0xC8C; // QAngle
-        pub const m_flCastStartTime: usize = 0xC98; // GameTime_t
+        pub const m_vLaunchPosition: usize = 0xC90; // Vector
+        pub const m_qLaunchAngle: usize = 0xC9C; // QAngle
+        pub const m_flCastStartTime: usize = 0xCA8; // GameTime_t
     }
     pub mod CCitadel_Modifier_LightningBall {
         pub const m_hProjectile: usize = 0x168; // CHandle<C_BaseEntity>
@@ -1321,16 +1321,16 @@ pub mod client_dll {
         pub const m_cameraSequenceTeleport: usize = 0x1758; // CitadelCameraOperationsSequence_t
     }
     pub mod CCitadel_Ability_GooBowlingBall {
-        pub const m_nAirJumpsLeft: usize = 0xFC8; // int32
-        pub const m_bIsRolling: usize = 0xFCC; // bool
-        pub const m_hBall: usize = 0xFD0; // CHandle<C_CitadelViscousBall>
-        pub const m_eRollingState: usize = 0xFD4; // EViscousBowlingBallState_t
-        pub const m_flNextStateTime: usize = 0xFD8; // GameTime_t
-        pub const m_flNextWallCheck: usize = 0xFDC; // GameTime_t
-        pub const m_flRollStartTime: usize = 0xFE0; // GameTime_t
-        pub const m_flWallExitTime: usize = 0xFE4; // GameTime_t
-        pub const m_vecWallExitVelocity: usize = 0xFE8; // Vector
-        pub const m_nDirectionParticleIndex: usize = 0xFFC; // ParticleIndex_t
+        pub const m_nAirJumpsLeft: usize = 0xFD8; // int32
+        pub const m_bIsRolling: usize = 0xFDC; // bool
+        pub const m_hBall: usize = 0xFE0; // CHandle<C_CitadelViscousBall>
+        pub const m_eRollingState: usize = 0xFE4; // EViscousBowlingBallState_t
+        pub const m_flNextStateTime: usize = 0xFE8; // GameTime_t
+        pub const m_flNextWallCheck: usize = 0xFEC; // GameTime_t
+        pub const m_flRollStartTime: usize = 0xFF0; // GameTime_t
+        pub const m_flWallExitTime: usize = 0xFF4; // GameTime_t
+        pub const m_vecWallExitVelocity: usize = 0xFF8; // Vector
+        pub const m_nDirectionParticleIndex: usize = 0x100C; // ParticleIndex_t
     }
     pub mod CCitadelModifierAerialAssaultVData {
         pub const m_FireRateModifier: usize = 0x608; // CEmbeddedSubclass<CCitadelModifier>
@@ -1390,15 +1390,15 @@ pub mod client_dll {
         pub const m_szTeamname: usize = 0x594; // char[129]
     }
     pub mod CCitadel_Ability_ChargedTackle {
-        pub const m_bPreparing: usize = 0xE78; // bool
-        pub const m_bTackling: usize = 0xE79; // bool
-        pub const m_flTackleStartTime: usize = 0xE7C; // GameTime_t
-        pub const m_flPrepareStartTime: usize = 0xE80; // GameTime_t
-        pub const m_vecTackleDir: usize = 0xE84; // Vector
-        pub const m_vecLastPosition: usize = 0xE90; // Vector
-        pub const m_nStuckFramesCount: usize = 0xE9C; // int32
-        pub const m_vecHitEnemies: usize = 0xEA0; // CUtlVector<CHandle<C_BaseEntity>>
-        pub const m_nDistancePreview: usize = 0xEB8; // ParticleIndex_t
+        pub const m_bPreparing: usize = 0xE88; // bool
+        pub const m_bTackling: usize = 0xE89; // bool
+        pub const m_flTackleStartTime: usize = 0xE8C; // GameTime_t
+        pub const m_flPrepareStartTime: usize = 0xE90; // GameTime_t
+        pub const m_vecTackleDir: usize = 0xE94; // Vector
+        pub const m_vecLastPosition: usize = 0xEA0; // Vector
+        pub const m_nStuckFramesCount: usize = 0xEAC; // int32
+        pub const m_vecHitEnemies: usize = 0xEB0; // CUtlVector<CHandle<C_BaseEntity>>
+        pub const m_nDistancePreview: usize = 0xEC8; // ParticleIndex_t
     }
     pub mod CCitadelAbilityChargedBombVData {
         pub const m_ChargeBombModifier: usize = 0x1548; // CEmbeddedSubclass<CCitadelModifier>
@@ -1448,9 +1448,9 @@ pub mod client_dll {
         pub const m_vMax: usize = 0x594; // Vector
     }
     pub mod CCitadel_Ability_PrimaryWeapon_Bebop {
-        pub const m_flStartWindUpTime: usize = 0x1008; // GameTime_t
-        pub const m_flStartFiringTime: usize = 0x100C; // GameTime_t
-        pub const m_bFiring: usize = 0x1010; // bool
+        pub const m_flStartWindUpTime: usize = 0x1018; // GameTime_t
+        pub const m_flStartFiringTime: usize = 0x101C; // GameTime_t
+        pub const m_bFiring: usize = 0x1020; // bool
     }
     pub mod CModifier_SiphonBullets_HealthLoss {
     }
@@ -1678,9 +1678,9 @@ pub mod client_dll {
         pub const m_RestorativeGooModifier: usize = 0x1628; // CEmbeddedSubclass<CCitadelModifier>
     }
     pub mod CCitadel_Ability_Teleport {
-        pub const m_bTeleportingToTarget: usize = 0xC80; // bool
-        pub const m_vTargetPosition: usize = 0xC84; // Vector
-        pub const m_vTargetAngles: usize = 0xC90; // QAngle
+        pub const m_bTeleportingToTarget: usize = 0xC90; // bool
+        pub const m_vTargetPosition: usize = 0xC94; // Vector
+        pub const m_vTargetAngles: usize = 0xCA0; // QAngle
     }
     pub mod CCitadel_Modifier_BulletArmorReductionVData {
     }
@@ -1893,7 +1893,7 @@ pub mod client_dll {
         pub const m_iLane: usize = 0xC0; // int32
     }
     pub mod CAbility_Synth_Affliction {
-        pub const m_hAOEParticle: usize = 0xCF0; // ParticleIndex_t
+        pub const m_hAOEParticle: usize = 0xD00; // ParticleIndex_t
     }
     pub mod CCitadel_Ability_Tenacity {
     }
@@ -1912,25 +1912,25 @@ pub mod client_dll {
         pub const m_BuffTimerModifier: usize = 0x17C8; // CEmbeddedSubclass<CCitadelModifier>
     }
     pub mod CCitadel_Ability_TangoTether {
-        pub const m_desatVolIdx: usize = 0xC80; // SatVolumeIndex_t
-        pub const m_vecCastStartPos: usize = 0xC84; // Vector
-        pub const m_vecDashStartPos: usize = 0xC90; // Vector
-        pub const m_vecDashEndPos: usize = 0xC9C; // Vector
-        pub const m_angDashStartAng: usize = 0xCA8; // QAngle
-        pub const m_flDashStartTime: usize = 0xCB4; // GameTime_t
-        pub const m_flGrappleStartTime: usize = 0xCB8; // GameTime_t
-        pub const m_flGrappleArriveTime: usize = 0xCBC; // GameTime_t
-        pub const m_hTarget: usize = 0xCC0; // CHandle<C_BaseEntity>
-        pub const m_flVelSpring: usize = 0xCC4; // float32
-        pub const m_flGrappleShotAttackTime: usize = 0xCC8; // GameTime_t
-        pub const m_nTicksNotMoving: usize = 0xCCC; // int32
-        pub const m_vecPrevPos: usize = 0xCD0; // Vector
-        pub const m_rgTargetPos: usize = 0xCDC; // Vector[20]
-        pub const m_rgTargetPosTime: usize = 0xDCC; // GameTime_t[20]
-        pub const m_nGrappleTravelEffect: usize = 0xE1C; // ParticleIndex_t
+        pub const m_desatVolIdx: usize = 0xC90; // SatVolumeIndex_t
+        pub const m_vecCastStartPos: usize = 0xC94; // Vector
+        pub const m_vecDashStartPos: usize = 0xCA0; // Vector
+        pub const m_vecDashEndPos: usize = 0xCAC; // Vector
+        pub const m_angDashStartAng: usize = 0xCB8; // QAngle
+        pub const m_flDashStartTime: usize = 0xCC4; // GameTime_t
+        pub const m_flGrappleStartTime: usize = 0xCC8; // GameTime_t
+        pub const m_flGrappleArriveTime: usize = 0xCCC; // GameTime_t
+        pub const m_hTarget: usize = 0xCD0; // CHandle<C_BaseEntity>
+        pub const m_flVelSpring: usize = 0xCD4; // float32
+        pub const m_flGrappleShotAttackTime: usize = 0xCD8; // GameTime_t
+        pub const m_nTicksNotMoving: usize = 0xCDC; // int32
+        pub const m_vecPrevPos: usize = 0xCE0; // Vector
+        pub const m_rgTargetPos: usize = 0xCEC; // Vector[20]
+        pub const m_rgTargetPosTime: usize = 0xDDC; // GameTime_t[20]
+        pub const m_nGrappleTravelEffect: usize = 0xE2C; // ParticleIndex_t
     }
     pub mod CCitadel_Ability_ShivDagger {
-        pub const m_bIsInRicochet: usize = 0xC80; // bool
+        pub const m_bIsInRicochet: usize = 0xC90; // bool
     }
     pub mod CCitadel_Ability_Puddle {
     }
@@ -1961,35 +1961,35 @@ pub mod client_dll {
         pub const m_flHoverSpeedDecay: usize = 0x1998; // float32
     }
     pub mod C_CitadelBaseAbility {
-        pub const m_vecIntrinsicModifiers: usize = 0x628; // CUtlVector<CModifierHandleTyped<CCitadelModifier>>
-        pub const m_pCastDelayAutoModifier: usize = 0x640; // CModifierHandleTyped<CCitadelModifier>
-        pub const m_pChannelAutoModifier: usize = 0x658; // CModifierHandleTyped<CCitadelModifier>
-        pub const m_strUsedCastGraphParam: usize = 0x670; // CGlobalSymbol
-        pub const m_nCastParamNeedsResetTick: usize = 0x678; // int32
-        pub const m_bIsCoolingDownInternal: usize = 0x67C; // bool
-        pub const m_flCancelLockoutTime: usize = 0x680; // GameTime_t
-        pub const m_bChanneling: usize = 0x6A0; // bool
-        pub const m_bInCastDelay: usize = 0x6A1; // bool
-        pub const m_vecImbuedByAbilitiyIDs: usize = 0x6A8; // C_NetworkUtlVectorBase<CUtlStringToken>
-        pub const m_nUpgradeBits: usize = 0x6C0; // int32
-        pub const m_iBucketID: usize = 0x6C4; // int32
-        pub const m_bToggleState: usize = 0x6C8; // bool
-        pub const m_flCooldownStart: usize = 0x6CC; // GameTime_t
-        pub const m_flCooldownEnd: usize = 0x6D0; // GameTime_t
-        pub const m_flCastCompletedTime: usize = 0x6D4; // GameTime_t
-        pub const m_flChannelStartTime: usize = 0x6D8; // GameTime_t
-        pub const m_flCastDelayStartTime: usize = 0x6DC; // GameTime_t
-        pub const m_eAbilitySlot: usize = 0x6E0; // EAbilitySlots_t
-        pub const m_flPostCastDelayEndTime: usize = 0x6E4; // GameTime_t
-        pub const m_iRemainingCharges: usize = 0x6E8; // int32
-        pub const m_flChargeRechargeStart: usize = 0x6EC; // GameTime_t
-        pub const m_flChargeRechargeEnd: usize = 0x6F0; // GameTime_t
-        pub const m_flMovementControlActiveTime: usize = 0x6F4; // GameTime_t
-        pub const m_flSelectedChangedTime: usize = 0x6F8; // GameTime_t
-        pub const m_flAltCastHoldStartTime: usize = 0x6FC; // GameTime_t
-        pub const m_flAltCastDoubleTapStartTime: usize = 0x700; // GameTime_t
-        pub const m_nImbuedAbilityID: usize = 0x704; // CUtlStringToken
-        pub const m_bSelectionModeIsAltMode: usize = 0x708; // bool
+        pub const m_vecIntrinsicModifiers: usize = 0x630; // CUtlVector<CModifierHandleTyped<CCitadelModifier>>
+        pub const m_pCastDelayAutoModifier: usize = 0x648; // CModifierHandleTyped<CCitadelModifier>
+        pub const m_pChannelAutoModifier: usize = 0x660; // CModifierHandleTyped<CCitadelModifier>
+        pub const m_strUsedCastGraphParam: usize = 0x678; // CGlobalSymbol
+        pub const m_nCastParamNeedsResetTick: usize = 0x680; // int32
+        pub const m_bIsCoolingDownInternal: usize = 0x684; // bool
+        pub const m_flCancelLockoutTime: usize = 0x688; // GameTime_t
+        pub const m_bChanneling: usize = 0x6A8; // bool
+        pub const m_bInCastDelay: usize = 0x6A9; // bool
+        pub const m_vecImbuedByAbilitiyIDs: usize = 0x6B0; // C_NetworkUtlVectorBase<CUtlStringToken>
+        pub const m_nUpgradeBits: usize = 0x6C8; // int32
+        pub const m_iBucketID: usize = 0x6CC; // int32
+        pub const m_bToggleState: usize = 0x6D0; // bool
+        pub const m_flCooldownStart: usize = 0x6D4; // GameTime_t
+        pub const m_flCooldownEnd: usize = 0x6D8; // GameTime_t
+        pub const m_flCastCompletedTime: usize = 0x6DC; // GameTime_t
+        pub const m_flChannelStartTime: usize = 0x6E0; // GameTime_t
+        pub const m_flCastDelayStartTime: usize = 0x6E4; // GameTime_t
+        pub const m_eAbilitySlot: usize = 0x6E8; // EAbilitySlots_t
+        pub const m_flPostCastDelayEndTime: usize = 0x6EC; // GameTime_t
+        pub const m_iRemainingCharges: usize = 0x6F0; // int32
+        pub const m_flChargeRechargeStart: usize = 0x6F4; // GameTime_t
+        pub const m_flChargeRechargeEnd: usize = 0x6F8; // GameTime_t
+        pub const m_flMovementControlActiveTime: usize = 0x6FC; // GameTime_t
+        pub const m_flSelectedChangedTime: usize = 0x700; // GameTime_t
+        pub const m_flAltCastHoldStartTime: usize = 0x704; // GameTime_t
+        pub const m_flAltCastDoubleTapStartTime: usize = 0x708; // GameTime_t
+        pub const m_nImbuedAbilityID: usize = 0x70C; // CUtlStringToken
+        pub const m_bSelectionModeIsAltMode: usize = 0x710; // bool
     }
     pub mod C_NPC_TeslaCoil {
         pub const m_CCitadelAbilityComponent: usize = 0xB68; // CCitadelAbilityComponent
@@ -2032,9 +2032,9 @@ pub mod client_dll {
         pub const m_PrecastSpiritBuffModifier: usize = 0x15A0; // CEmbeddedSubclass<CCitadelModifier>
     }
     pub mod CCitadel_Upgrade_MagicCarpet {
-        pub const m_flFlyingStartTime: usize = 0xC98; // GameTime_t
-        pub const m_bFlying: usize = 0xD48; // bool
-        pub const m_bSummoning: usize = 0xD49; // bool
+        pub const m_flFlyingStartTime: usize = 0xCA8; // GameTime_t
+        pub const m_bFlying: usize = 0xD58; // bool
+        pub const m_bSummoning: usize = 0xD59; // bool
     }
     pub mod CPointOffScreenIndicatorUi {
         pub const m_bBeenEnabled: usize = 0xAA0; // bool
@@ -2043,8 +2043,8 @@ pub mod client_dll {
         pub const m_pTargetPanel: usize = 0xAA8; // C_PointClientUIWorldPanel*
     }
     pub mod CCitadel_Ability_Shakedown_Target {
-        pub const m_hShadowdownAbility: usize = 0xC80; // CHandle<CCitadel_Ability_Yakuza_Shakedown>
-        pub const m_AimPos: usize = 0xC84; // Vector
+        pub const m_hShadowdownAbility: usize = 0xC90; // CHandle<CCitadel_Ability_Yakuza_Shakedown>
+        pub const m_AimPos: usize = 0xC94; // Vector
     }
     pub mod CCitadel_Bounce_PadVData {
         pub const m_sModelName: usize = 0x28; // CResourceNameTyped<CWeakHandle<InfoForResourceTypeCModel>>
@@ -2203,8 +2203,8 @@ pub mod client_dll {
         pub const m_bLinkedToServerEnt: usize = 0x87D; // bool
     }
     pub mod CAbility_Mirage_Tornado {
-        pub const m_vLastValidMovementPosition: usize = 0xC80; // Vector
-        pub const m_hActiveProjectile: usize = 0xC8C; // CHandle<C_CitadelProjectile>
+        pub const m_vLastValidMovementPosition: usize = 0xC90; // Vector
+        pub const m_hActiveProjectile: usize = 0xC9C; // CHandle<C_CitadelProjectile>
     }
     pub mod CModifierRiotProtocolEnemyDebuffVData {
         pub const m_DebuffParticle: usize = 0x608; // CResourceNameTyped<CWeakHandle<InfoForResourceTypeIParticleSystemDefinition>>
@@ -2324,7 +2324,7 @@ pub mod client_dll {
         pub const m_hSurfShard: usize = 0x300; // CHandle<C_BaseModelEntity>
     }
     pub mod CCitadel_Ability_ChronoSwap {
-        pub const m_bHitTarget: usize = 0xC80; // bool
+        pub const m_bHitTarget: usize = 0xC90; // bool
     }
     pub mod CAbilityCardTossVData {
         pub const m_ExplodeParticle: usize = 0x1548; // CResourceNameTyped<CWeakHandle<InfoForResourceTypeIParticleSystemDefinition>>
@@ -2376,12 +2376,12 @@ pub mod client_dll {
     pub mod CCitadel_Modifier_MagicShock_Proc {
     }
     pub mod CCitadel_Ability_Sprint {
-        pub const m_nSprintParticle: usize = 0xC80; // ParticleIndex_t
-        pub const m_bSprinting: usize = 0xC84; // bool
-        pub const m_flInCombatStartTime: usize = 0xC88; // GameTime_t
-        pub const m_flInCombatEndTime: usize = 0xC8C; // GameTime_t
-        pub const m_flSprintStartTime: usize = 0xC90; // GameTime_t
-        pub const m_bInCombat: usize = 0xC94; // bool
+        pub const m_nSprintParticle: usize = 0xC90; // ParticleIndex_t
+        pub const m_bSprinting: usize = 0xC94; // bool
+        pub const m_flInCombatStartTime: usize = 0xC98; // GameTime_t
+        pub const m_flInCombatEndTime: usize = 0xC9C; // GameTime_t
+        pub const m_flSprintStartTime: usize = 0xCA0; // GameTime_t
+        pub const m_bInCombat: usize = 0xCA4; // bool
     }
     pub mod CCitadel_Modifier_DamageResistance {
         pub const m_flShieldHealth: usize = 0xC0; // float32
@@ -2493,10 +2493,10 @@ pub mod client_dll {
         pub const m_flPrevAnimUpdateTime: usize = 0x14D8; // GameTime_t
     }
     pub mod CCitadel_Ability_HealthSwap {
-        pub const m_nFXIndex: usize = 0xC80; // ParticleIndex_t
-        pub const m_flHealthToCaster: usize = 0xC84; // float32
-        pub const m_flTargetHealthLost: usize = 0xC88; // float32
-        pub const m_flPostCastHoldEndTime: usize = 0xDA8; // GameTime_t
+        pub const m_nFXIndex: usize = 0xC90; // ParticleIndex_t
+        pub const m_flHealthToCaster: usize = 0xC94; // float32
+        pub const m_flTargetHealthLost: usize = 0xC98; // float32
+        pub const m_flPostCastHoldEndTime: usize = 0xDB8; // GameTime_t
     }
     pub mod CCitadel_Modifier_Galvanic_Storm_VData {
         pub const m_TechShieldModifier: usize = 0x828; // CEmbeddedSubclass<CCitadelModifier>
@@ -2599,10 +2599,10 @@ pub mod client_dll {
     pub mod CCitadel_Modifier_ControlPointBlockerAura {
     }
     pub mod CCitadel_Item_WarpStone {
-        pub const m_nCastDelayParticleIndex: usize = 0xC98; // ParticleIndex_t
+        pub const m_nCastDelayParticleIndex: usize = 0xCA8; // ParticleIndex_t
     }
     pub mod CCitadel_WeaponUpgrade_SiphonBullets {
-        pub const m_iStacks: usize = 0xC98; // int32
+        pub const m_iStacks: usize = 0xCA8; // int32
     }
     pub mod C_PathParticleRope {
         pub const m_bStartActive: usize = 0x568; // bool
@@ -3153,16 +3153,16 @@ pub mod client_dll {
         pub const m_EMPModifier: usize = 0x628; // CEmbeddedSubclass<CCitadelModifier>
     }
     pub mod CCitadel_Ability_FissureWall {
-        pub const m_vecWallPreviewParticles: usize = 0xC90; // CUtlVector<ParticleIndex_t>
-        pub const m_vecStartPos: usize = 0xD50; // Vector
-        pub const m_vecPosition: usize = 0xD5C; // Vector
-        pub const m_vecInitialPosition: usize = 0xD68; // Vector
-        pub const m_CastTime: usize = 0xD74; // GameTime_t
-        pub const m_vecDirection: usize = 0xD78; // Vector
-        pub const m_vecLeft: usize = 0xD84; // Vector
-        pub const m_Length: usize = 0xD90; // float32
-        pub const m_bTraveling: usize = 0xD94; // bool
-        pub const m_bPreview: usize = 0xD95; // bool
+        pub const m_vecWallPreviewParticles: usize = 0xCA0; // CUtlVector<ParticleIndex_t>
+        pub const m_vecStartPos: usize = 0xD60; // Vector
+        pub const m_vecPosition: usize = 0xD6C; // Vector
+        pub const m_vecInitialPosition: usize = 0xD78; // Vector
+        pub const m_CastTime: usize = 0xD84; // GameTime_t
+        pub const m_vecDirection: usize = 0xD88; // Vector
+        pub const m_vecLeft: usize = 0xD94; // Vector
+        pub const m_Length: usize = 0xDA0; // float32
+        pub const m_bTraveling: usize = 0xDA4; // bool
+        pub const m_bPreview: usize = 0xDA5; // bool
     }
     pub mod CCitadel_Modifier_LifestrikeGauntlets {
     }
@@ -3176,7 +3176,7 @@ pub mod client_dll {
         pub const m_StatStolenBuffModifier: usize = 0x618; // CEmbeddedSubclass<CCitadelModifier>
     }
     pub mod CCitadel_Ability_Shiv_Defer_Damage {
-        pub const m_flTotalPendingDamage: usize = 0xD60; // float32
+        pub const m_flTotalPendingDamage: usize = 0xD70; // float32
     }
     pub mod CCitadel_Ability_IceBeamVData {
         pub const m_BeamParticle: usize = 0x1548; // CResourceNameTyped<CWeakHandle<InfoForResourceTypeIParticleSystemDefinition>>
@@ -3193,12 +3193,12 @@ pub mod client_dll {
     pub mod C_NPC_TrooperBarrackBoss {
     }
     pub mod CCitadel_Ability_ViscousWeapon_Alt {
-        pub const m_ChargeState: usize = 0xC80; // EViscousChargedGunState
-        pub const m_nClipConsumed: usize = 0xC84; // float32
-        pub const m_bIsCharging: usize = 0xC88; // bool
-        pub const m_bIsToggled: usize = 0xC89; // bool
-        pub const m_fxChargingParticle: usize = 0xC8C; // ParticleIndex_t
-        pub const m_flLastBulletConsumedTime: usize = 0xC98; // GameTime_t
+        pub const m_ChargeState: usize = 0xC90; // EViscousChargedGunState
+        pub const m_nClipConsumed: usize = 0xC94; // float32
+        pub const m_bIsCharging: usize = 0xC98; // bool
+        pub const m_bIsToggled: usize = 0xC99; // bool
+        pub const m_fxChargingParticle: usize = 0xC9C; // ParticleIndex_t
+        pub const m_flLastBulletConsumedTime: usize = 0xCA8; // GameTime_t
     }
     pub mod CCitadel_Modifier_ColdFrontAOE {
         pub const m_hAOEEffect: usize = 0x1A0; // ParticleIndex_t
@@ -3331,7 +3331,7 @@ pub mod client_dll {
         pub const m_strTargetCompleteSound: usize = 0x8F8; // CSoundEventName
     }
     pub mod CCitadel_Ability_Lash_Flog {
-        pub const m_SandEffect: usize = 0xD98; // ParticleIndex_t
+        pub const m_SandEffect: usize = 0xDA8; // ParticleIndex_t
     }
     pub mod CCitadel_WeaponUpgrade_SiphonBulletsVData {
         pub const m_PermanentHealthLoss: usize = 0x1590; // CEmbeddedSubclass<CCitadelModifier>
@@ -3469,7 +3469,7 @@ pub mod client_dll {
         pub const m_LiftParticle: usize = 0x618; // CResourceNameTyped<CWeakHandle<InfoForResourceTypeIParticleSystemDefinition>>
     }
     pub mod CCitadel_Ability_Fealty {
-        pub const m_hTarget: usize = 0xC80; // CHandle<C_BaseEntity>
+        pub const m_hTarget: usize = 0xC90; // CHandle<C_BaseEntity>
     }
     pub mod CCitadel_Ability_SummonGangster {
     }
@@ -3497,7 +3497,7 @@ pub mod client_dll {
         pub const m_nMoveType: usize = 0x608; // MoveType_t
     }
     pub mod CCitadel_Ability_StickyBomb {
-        pub const m_nPlayersHit: usize = 0xC88; // int32
+        pub const m_nPlayersHit: usize = 0xC98; // int32
     }
     pub mod CCitadel_Modifier_LightningBullet {
     }
@@ -3580,8 +3580,8 @@ pub mod client_dll {
         pub const m_cameraSequenceTravelingInTornado: usize = 0x1668; // CitadelCameraOperationsSequence_t
     }
     pub mod CCitadel_Ability_PowerSlash {
-        pub const m_nPowerLevel: usize = 0xC94; // int32
-        pub const m_nCastParticle: usize = 0xC98; // ParticleIndex_t
+        pub const m_nPowerLevel: usize = 0xCA4; // int32
+        pub const m_nCastParticle: usize = 0xCA8; // ParticleIndex_t
     }
     pub mod CCitadel_Ability_Bomber_Ability02 {
     }
@@ -3592,7 +3592,7 @@ pub mod client_dll {
     pub mod CCitadel_Modifier_Base {
     }
     pub mod CCitadel_WeaponUpgrade_BurstFire {
-        pub const m_nFastFireEndTime: usize = 0xC98; // GameTime_t
+        pub const m_nFastFireEndTime: usize = 0xCA8; // GameTime_t
     }
     pub mod CCitadel_ArmorUpgrade_HealOnLevel {
     }
@@ -3814,12 +3814,12 @@ pub mod client_dll {
     pub mod C_SoundOpvarSetAutoRoomEntity {
     }
     pub mod CCitadel_UtilityUpgrade_RocketBooster {
-        pub const m_nTargetingParticleIndex: usize = 0xD0C; // ParticleIndex_t
-        pub const m_flCastTime: usize = 0xD10; // GameTime_t
-        pub const m_bCrashingDown: usize = 0xD14; // bool
-        pub const m_bImpulseApplied: usize = 0xD15; // bool
-        pub const m_vecCrashPosition: usize = 0xD18; // Vector
-        pub const m_vecCrashDirection: usize = 0xD24; // Vector
+        pub const m_nTargetingParticleIndex: usize = 0xD1C; // ParticleIndex_t
+        pub const m_flCastTime: usize = 0xD20; // GameTime_t
+        pub const m_bCrashingDown: usize = 0xD24; // bool
+        pub const m_bImpulseApplied: usize = 0xD25; // bool
+        pub const m_vecCrashPosition: usize = 0xD28; // Vector
+        pub const m_vecCrashDirection: usize = 0xD34; // Vector
     }
     pub mod CCitadel_Item_SelfBuffModifier {
     }
@@ -3884,7 +3884,7 @@ pub mod client_dll {
     pub mod CCitadel_Ability_SmokeBomb {
     }
     pub mod CCitadel_Ability_ChargedShot {
-        pub const m_ChannelParticle: usize = 0xC80; // ParticleIndex_t
+        pub const m_ChannelParticle: usize = 0xC90; // ParticleIndex_t
     }
     pub mod CCitadel_Modifier_Tier2Boss_RocketDamage_AuraDebuff {
     }
@@ -4003,7 +4003,7 @@ pub mod client_dll {
         pub const m_bKnockedBack: usize = 0xCC; // bool
     }
     pub mod CAbility_Synth_Grasp {
-        pub const m_vecTetheredEnemies: usize = 0xC80; // CUtlVector<CHandle<C_BaseEntity>>
+        pub const m_vecTetheredEnemies: usize = 0xC90; // CUtlVector<CHandle<C_BaseEntity>>
     }
     pub mod CPlayer_ObserverServices {
         pub const m_iObserverMode: usize = 0x40; // uint8
@@ -4014,7 +4014,7 @@ pub mod client_dll {
         pub const m_flObserverChaseDistanceCalcTime: usize = 0x54; // GameTime_t
     }
     pub mod CCitadel_Ability_TangoTether_Trigger {
-        pub const m_hBaseAbility: usize = 0xC94; // CHandle<C_CitadelBaseAbility>
+        pub const m_hBaseAbility: usize = 0xCA4; // CHandle<C_CitadelBaseAbility>
     }
     pub mod C_AssignedLaneParticle {
         pub const m_iLane: usize = 0x860; // int32
@@ -4114,19 +4114,19 @@ pub mod client_dll {
         pub const m_eHoldPosition: usize = 0xC8; // ELassoHoldPosition
     }
     pub mod CCitadel_Ability_Bull_Leap {
-        pub const m_flBoostYaw: usize = 0xC80; // float32
-        pub const m_vecCrashPosition: usize = 0xC84; // Vector
-        pub const m_vecCrashDirection: usize = 0xC90; // Vector
-        pub const m_eLeapState: usize = 0xC9C; // ELeapState_t
-        pub const m_flStateEnterTime: usize = 0xCA0; // GameTime_t
-        pub const m_flNextStateTime: usize = 0xCA8; // CCitadelAutoScaledTime
-        pub const m_flBoostEndTime: usize = 0xCC0; // CCitadelAutoScaledTime
-        pub const m_vecLastVel: usize = 0xE30; // Vector
+        pub const m_flBoostYaw: usize = 0xC90; // float32
+        pub const m_vecCrashPosition: usize = 0xC94; // Vector
+        pub const m_vecCrashDirection: usize = 0xCA0; // Vector
+        pub const m_eLeapState: usize = 0xCAC; // ELeapState_t
+        pub const m_flStateEnterTime: usize = 0xCB0; // GameTime_t
+        pub const m_flNextStateTime: usize = 0xCB8; // CCitadelAutoScaledTime
+        pub const m_flBoostEndTime: usize = 0xCD0; // CCitadelAutoScaledTime
+        pub const m_vecLastVel: usize = 0xE40; // Vector
     }
     pub mod CCitadel_Modifier_Infuser {
     }
     pub mod CCitadel_Ability_Tier2Boss_RocketBarrage {
-        pub const m_nGrenadesLeft: usize = 0xC80; // int32
+        pub const m_nGrenadesLeft: usize = 0xC90; // int32
     }
     pub mod CPointModifierThinker {
         pub const m_hModifier: usize = 0x560; // CModifierHandleTyped<CCitadelModifier>
@@ -4201,9 +4201,9 @@ pub mod client_dll {
     pub mod CCitadel_Modifier_ThermalDetonator_Thinker {
     }
     pub mod CAbility_Synth_Barrage {
-        pub const m_nProjectilesScheduled: usize = 0xEE8; // int32
-        pub const m_ChannelParticle: usize = 0xEEC; // ParticleIndex_t
-        pub const m_flNextShootTime: usize = 0xEF0; // GameTime_t
+        pub const m_nProjectilesScheduled: usize = 0xEF8; // int32
+        pub const m_ChannelParticle: usize = 0xEFC; // ParticleIndex_t
+        pub const m_flNextShootTime: usize = 0xF00; // GameTime_t
     }
     pub mod CAbilityWreckerUltimateVData {
         pub const m_BeamParticle: usize = 0x1548; // CResourceNameTyped<CWeakHandle<InfoForResourceTypeIParticleSystemDefinition>>
@@ -4256,10 +4256,10 @@ pub mod client_dll {
     pub mod CCitadel_Modifier_Thumper_EnemyPulled_VData {
     }
     pub mod CCitadel_Ability_UltCombo {
-        pub const m_flLastAttackTime: usize = 0xC80; // GameTime_t
-        pub const m_nAttackNum: usize = 0xC84; // int32
-        pub const m_iBonusHealth: usize = 0xD30; // int32
-        pub const m_hTarget: usize = 0xD34; // CHandle<C_BaseEntity>
+        pub const m_flLastAttackTime: usize = 0xC90; // GameTime_t
+        pub const m_nAttackNum: usize = 0xC94; // int32
+        pub const m_iBonusHealth: usize = 0xD40; // int32
+        pub const m_hTarget: usize = 0xD44; // CHandle<C_BaseEntity>
     }
     pub mod CCitadel_Ability_Rolling_FireBall {
     }
@@ -4364,7 +4364,7 @@ pub mod client_dll {
         pub const m_iChainEffect: usize = 0x8C8; // ParticleIndex_t
     }
     pub mod CCitadel_WeaponUpgrade_GlassCannon {
-        pub const m_nKillsEarned: usize = 0xC98; // int32
+        pub const m_nKillsEarned: usize = 0xCA8; // int32
     }
     pub mod C_PointClientUIDialog {
         pub const m_hActivator: usize = 0x870; // CHandle<C_BaseEntity>
@@ -4384,9 +4384,9 @@ pub mod client_dll {
         pub const m_flBallTraceRadius: usize = 0x155C; // float32
     }
     pub mod CCitadel_Ability_Hook {
-        pub const m_hHookVictim: usize = 0xC80; // CHandle<C_BaseEntity>
-        pub const m_hProjectile: usize = 0xC84; // CHandle<C_BaseEntity>
-        pub const m_vecHookTargetStartPos: usize = 0xC88; // Vector
+        pub const m_hHookVictim: usize = 0xC90; // CHandle<C_BaseEntity>
+        pub const m_hProjectile: usize = 0xC94; // CHandle<C_BaseEntity>
+        pub const m_vecHookTargetStartPos: usize = 0xC98; // Vector
     }
     pub mod CCitadel_Ability_VoidSphere {
     }
@@ -4454,13 +4454,13 @@ pub mod client_dll {
         pub const m_CastParticle: usize = 0x1638; // CResourceNameTyped<CWeakHandle<InfoForResourceTypeIParticleSystemDefinition>>
     }
     pub mod CCitadel_Ability_Tokamak_HeatSinks_Inherent {
-        pub const m_nIntervalsElapsed: usize = 0xC80; // int32
-        pub const m_NextShotTime: usize = 0xC84; // GameTime_t
-        pub const m_flDissipationRate: usize = 0xC88; // float32
-        pub const m_flDissipationTime: usize = 0xC8C; // GameTime_t
-        pub const m_flHeatTime: usize = 0xC90; // GameTime_t
-        pub const m_flOverheatSoundTime: usize = 0xC94; // GameTime_t
-        pub const m_bOverheating: usize = 0xC98; // bool
+        pub const m_nIntervalsElapsed: usize = 0xC90; // int32
+        pub const m_NextShotTime: usize = 0xC94; // GameTime_t
+        pub const m_flDissipationRate: usize = 0xC98; // float32
+        pub const m_flDissipationTime: usize = 0xC9C; // GameTime_t
+        pub const m_flHeatTime: usize = 0xCA0; // GameTime_t
+        pub const m_flOverheatSoundTime: usize = 0xCA4; // GameTime_t
+        pub const m_bOverheating: usize = 0xCA8; // bool
     }
     pub mod CCitadel_Modifier_VoidSphereBuffVData {
         pub const m_RapidFireParticle: usize = 0x608; // CResourceNameTyped<CWeakHandle<InfoForResourceTypeIParticleSystemDefinition>>
@@ -4490,13 +4490,13 @@ pub mod client_dll {
         pub const m_vMaxs: usize = 0x62C; // Vector
     }
     pub mod CCitadel_Ability_Tokamak_HotShot {
-        pub const m_flDPS: usize = 0xDF8; // float32
-        pub const m_flNextDamageTick: usize = 0xDFC; // GameTime_t
-        pub const m_vStart: usize = 0xE00; // Vector
-        pub const m_vEnd: usize = 0xE0C; // Vector
-        pub const m_vecEntitiesHit: usize = 0xE18; // CUtlVector<CHandle<C_BaseEntity>>
-        pub const m_angBeamAngles: usize = 0xE30; // QAngle
-        pub const m_bNeedsBeamReset: usize = 0xE48; // bool
+        pub const m_flDPS: usize = 0xE08; // float32
+        pub const m_flNextDamageTick: usize = 0xE0C; // GameTime_t
+        pub const m_vStart: usize = 0xE10; // Vector
+        pub const m_vEnd: usize = 0xE1C; // Vector
+        pub const m_vecEntitiesHit: usize = 0xE28; // CUtlVector<CHandle<C_BaseEntity>>
+        pub const m_angBeamAngles: usize = 0xE40; // QAngle
+        pub const m_bNeedsBeamReset: usize = 0xE58; // bool
     }
     pub mod CModifier_WreckerScrapBlastDebuffVData {
         pub const m_DebuffParticle: usize = 0x608; // CResourceNameTyped<CWeakHandle<InfoForResourceTypeIParticleSystemDefinition>>
@@ -4672,10 +4672,10 @@ pub mod client_dll {
         pub const m_GroundParticle: usize = 0x1838; // CResourceNameTyped<CWeakHandle<InfoForResourceTypeIParticleSystemDefinition>>
     }
     pub mod CCitadel_Ability_LifeDrain {
-        pub const m_tDrainLifeStopTime: usize = 0xC80; // GameTime_t
+        pub const m_tDrainLifeStopTime: usize = 0xC90; // GameTime_t
     }
     pub mod CCitadel_Ability_StormCloud {
-        pub const m_bApplyingVerticalAirDrag: usize = 0xC80; // bool
+        pub const m_bApplyingVerticalAirDrag: usize = 0xC90; // bool
     }
     pub mod CCitadel_Modifier_SuperAcolytesGlove_VData {
         pub const m_DebuffModifier: usize = 0x638; // CEmbeddedSubclass<CBaseModifier>
@@ -4689,8 +4689,8 @@ pub mod client_dll {
     pub mod CCitadel_Modifier_Rutger_ForceField_Aura {
     }
     pub mod CCitadel_Ability_Chrono_PulseGrenade {
-        pub const m_vLaunchPosition: usize = 0xC80; // Vector
-        pub const m_qLaunchAngle: usize = 0xC8C; // QAngle
+        pub const m_vLaunchPosition: usize = 0xC90; // Vector
+        pub const m_qLaunchAngle: usize = 0xC9C; // QAngle
     }
     pub mod CCitadel_Modifier_Hornet_Sting {
         pub const m_flLastTickTime: usize = 0xC0; // GameTime_t
@@ -4710,9 +4710,9 @@ pub mod client_dll {
     pub mod CCitadel_Modifier_Cadence_SilenceContraptions {
     }
     pub mod CCitadel_Ability_Burrow {
-        pub const m_bInGround: usize = 0xD60; // bool
-        pub const m_SpinEndTime: usize = 0xD64; // GameTime_t
-        pub const m_nBurrowEffect: usize = 0xD68; // ParticleIndex_t
+        pub const m_bInGround: usize = 0xD70; // bool
+        pub const m_SpinEndTime: usize = 0xD74; // GameTime_t
+        pub const m_nBurrowEffect: usize = 0xD78; // ParticleIndex_t
     }
     pub mod CModifier_Citadel_Bull_Leap_LandingBonuses {
     }
@@ -4725,7 +4725,7 @@ pub mod client_dll {
     pub mod CUnitStatusOverlay {
     }
     pub mod CCitadel_WeaponUpgrade_WeaponEater {
-        pub const m_nWeaponPower: usize = 0xD78; // int32
+        pub const m_nWeaponPower: usize = 0xD88; // int32
     }
     pub mod CCitadel_Modifier_FireRateAura {
     }
@@ -4747,7 +4747,7 @@ pub mod client_dll {
     pub mod CCitadel_ArmorUpgrade_BulletArmorReductionAura {
     }
     pub mod CCitadel_Ability_Hornet_Snipe {
-        pub const m_flScopeStartTime: usize = 0xEC4; // GameTime_t
+        pub const m_flScopeStartTime: usize = 0xED4; // GameTime_t
     }
     pub mod CCitadel_Modifier_HornetMark {
     }
@@ -4797,8 +4797,8 @@ pub mod client_dll {
         pub const m_cameraSequenceGetUp: usize = 0x6F8; // CitadelCameraOperationsSequence_t
     }
     pub mod CCitadel_Ability_PrimaryWeapon_Slork {
-        pub const m_angAimAngles: usize = 0xEF0; // QAngle
-        pub const m_bNeedAimAngleReset: usize = 0xF20; // bool
+        pub const m_angAimAngles: usize = 0xF00; // QAngle
+        pub const m_bNeedAimAngleReset: usize = 0xF30; // bool
     }
     pub mod CModifier_Mirage_FireBeetles_Debuff_VData {
         pub const m_DebuffParticle: usize = 0x608; // CResourceNameTyped<CWeakHandle<InfoForResourceTypeIParticleSystemDefinition>>
@@ -4828,14 +4828,14 @@ pub mod client_dll {
         pub const m_flCrouchTime: usize = 0x18C; // float32
     }
     pub mod CCitadel_Ability_Shiv_KillingBlow {
-        pub const m_bActive: usize = 0xE40; // bool
-        pub const m_hCurrentTarget: usize = 0xE44; // CHandle<C_BaseEntity>
-        pub const m_vStartPosition: usize = 0xE48; // Vector
-        pub const m_vDeparturePosition: usize = 0xE54; // Vector
-        pub const m_flDepartureTime: usize = 0xE60; // CCitadelAutoScaledTime
-        pub const m_flArrivalTime: usize = 0xE78; // CCitadelAutoScaledTime
-        pub const m_vLastKnownSafePos: usize = 0xE90; // Vector
-        pub const m_flDrainSuppressEndTime: usize = 0xEA0; // GameTime_t
+        pub const m_bActive: usize = 0xE50; // bool
+        pub const m_hCurrentTarget: usize = 0xE54; // CHandle<C_BaseEntity>
+        pub const m_vStartPosition: usize = 0xE58; // Vector
+        pub const m_vDeparturePosition: usize = 0xE64; // Vector
+        pub const m_flDepartureTime: usize = 0xE70; // CCitadelAutoScaledTime
+        pub const m_flArrivalTime: usize = 0xE88; // CCitadelAutoScaledTime
+        pub const m_vLastKnownSafePos: usize = 0xEA0; // Vector
+        pub const m_flDrainSuppressEndTime: usize = 0xEB0; // GameTime_t
     }
     pub mod CAbilityWreckerSalvageVData {
         pub const m_SalvageEnemyModifier: usize = 0x1548; // CEmbeddedSubclass<CCitadelModifier>
@@ -4853,10 +4853,10 @@ pub mod client_dll {
         pub const m_SlowModifier: usize = 0x648; // CEmbeddedSubclass<CBaseModifier>
     }
     pub mod CCitadel_Ability_RocketBarrage {
-        pub const m_flCurrentTimeScale: usize = 0xE78; // float32
-        pub const m_vecAimPos: usize = 0xE7C; // Vector
-        pub const m_vecAimVel: usize = 0xE88; // Vector
-        pub const m_flLastUpdateTime: usize = 0xE94; // GameTime_t
+        pub const m_flCurrentTimeScale: usize = 0xE88; // float32
+        pub const m_vecAimPos: usize = 0xE8C; // Vector
+        pub const m_vecAimVel: usize = 0xE98; // Vector
+        pub const m_flLastUpdateTime: usize = 0xEA4; // GameTime_t
     }
     pub mod CAbilityBloodShardsVData {
         pub const m_DebuffModifier: usize = 0x1548; // CEmbeddedSubclass<CCitadelModifier>
@@ -4893,7 +4893,7 @@ pub mod client_dll {
         pub const m_flWindSpeedVariation: usize = 0x4; // float32
     }
     pub mod CCitadel_WeaponUpgrade_InstantReload {
-        pub const m_bIsManualReloading: usize = 0xC98; // bool
+        pub const m_bIsManualReloading: usize = 0xCA8; // bool
     }
     pub mod CCitadelModifierAura_Cone {
     }
@@ -4964,8 +4964,8 @@ pub mod client_dll {
         pub const m_bClientSideOnly: usize = 0x0; // bitfield:1
     }
     pub mod CCitadel_Ability_SettingSun {
-        pub const m_TargetPreviews: usize = 0xC80; // CUtlVector<ParticleIndex_t>
-        pub const m_bWasSelected: usize = 0xD48; // bool
+        pub const m_TargetPreviews: usize = 0xC90; // CUtlVector<ParticleIndex_t>
+        pub const m_bWasSelected: usize = 0xD58; // bool
     }
     pub mod CCitadel_Modifier_SilenceProc_Immunity {
     }
@@ -5041,7 +5041,7 @@ pub mod client_dll {
         pub const m_LockedOnParticle: usize = 0x6E8; // CResourceNameTyped<CWeakHandle<InfoForResourceTypeIParticleSystemDefinition>>
     }
     pub mod CCitadel_Ability_HornetMark {
-        pub const m_nFXIndex: usize = 0xC80; // ParticleIndex_t
+        pub const m_nFXIndex: usize = 0xC90; // ParticleIndex_t
     }
     pub mod CCitadel_UtilityUpgrade_HealthNova_VData {
         pub const m_HealingModifier: usize = 0x1590; // CEmbeddedSubclass<CCitadelModifier>
@@ -5088,8 +5088,8 @@ pub mod client_dll {
         pub const m_SlowModifier: usize = 0x1938; // CEmbeddedSubclass<CCitadelModifier>
     }
     pub mod CCitadel_Ability_FireBomb {
-        pub const m_flDetonateTime: usize = 0xCF8; // CCitadelAutoScaledTime
-        pub const m_flStartTime: usize = 0xD10; // GameTime_t
+        pub const m_flDetonateTime: usize = 0xD08; // CCitadelAutoScaledTime
+        pub const m_flStartTime: usize = 0xD20; // GameTime_t
     }
     pub mod CCitadel_Modifier_Item_SmokeBomb_PreCast {
     }
@@ -5132,14 +5132,14 @@ pub mod client_dll {
         pub const m_flGlowMinTime: usize = 0x1920; // float32
     }
     pub mod CCitadel_Ability_ShivDash {
-        pub const m_vStartPosition: usize = 0xC80; // Vector
-        pub const m_vDashDirection: usize = 0xC8C; // Vector
-        pub const m_bIsDashing: usize = 0xC98; // bool
-        pub const m_bStartedInAir: usize = 0xC99; // bool
-        pub const m_vecHitEnemies: usize = 0xCA0; // CUtlVector<CEntityIndex>
-        pub const m_vecLastPosition: usize = 0xCB8; // Vector
-        pub const m_nReductionsLeft: usize = 0xCC4; // int32
-        pub const m_flStuckTime: usize = 0xEF8; // GameTime_t
+        pub const m_vStartPosition: usize = 0xC90; // Vector
+        pub const m_vDashDirection: usize = 0xC9C; // Vector
+        pub const m_bIsDashing: usize = 0xCA8; // bool
+        pub const m_bStartedInAir: usize = 0xCA9; // bool
+        pub const m_vecHitEnemies: usize = 0xCB0; // CUtlVector<CEntityIndex>
+        pub const m_vecLastPosition: usize = 0xCC8; // Vector
+        pub const m_nReductionsLeft: usize = 0xCD4; // int32
+        pub const m_flStuckTime: usize = 0xF08; // GameTime_t
     }
     pub mod CCitadel_Ability_TrooperNeutralGrenade {
     }
@@ -5189,13 +5189,13 @@ pub mod client_dll {
     pub mod CCitadel_Modifier_Cadence_Gun_Spikes {
     }
     pub mod CCitadel_Ability_IceBeam {
-        pub const m_flNextDamageTick: usize = 0x1298; // GameTime_t
-        pub const m_vStart: usize = 0x129C; // Vector
-        pub const m_vEnd: usize = 0x12A8; // Vector
-        pub const m_vecEntitiesHit: usize = 0x12F0; // CUtlVector<CHandle<C_BaseEntity>>
-        pub const m_vBeamAimPos: usize = 0x1308; // Vector
-        pub const m_angBeamAngles: usize = 0x1318; // QAngle
-        pub const m_bNeedsBeamReset: usize = 0x1330; // bool
+        pub const m_flNextDamageTick: usize = 0x12A8; // GameTime_t
+        pub const m_vStart: usize = 0x12AC; // Vector
+        pub const m_vEnd: usize = 0x12B8; // Vector
+        pub const m_vecEntitiesHit: usize = 0x1300; // CUtlVector<CHandle<C_BaseEntity>>
+        pub const m_vBeamAimPos: usize = 0x1318; // Vector
+        pub const m_angBeamAngles: usize = 0x1328; // QAngle
+        pub const m_bNeedsBeamReset: usize = 0x1340; // bool
     }
     pub mod CCitadel_Modifier_Sleep {
     }
@@ -5296,7 +5296,7 @@ pub mod client_dll {
     pub mod CCitadel_HeroTestOrbSpawner {
     }
     pub mod CCitadel_Item_RescueBeam {
-        pub const m_bCanPull: usize = 0xC98; // bool
+        pub const m_bCanPull: usize = 0xCA8; // bool
     }
     pub mod CAbilityCadenceLullabyVData {
         pub const m_SleepAOEModifier: usize = 0x1548; // CEmbeddedSubclass<CCitadelModifier>
@@ -5452,10 +5452,10 @@ pub mod client_dll {
     pub mod CCitadelItemPickupRejuvHeroTestInfoSpawn {
     }
     pub mod CAbility_Synth_PlasmaFlux {
-        pub const m_bTeleported: usize = 0xC90; // bool
-        pub const m_flProjectileLaunchTime: usize = 0xC94; // GameTime_t
-        pub const m_flProjectileExpireTime: usize = 0xC98; // GameTime_t
-        pub const m_hActiveProjectile: usize = 0xC9C; // CHandle<C_BaseEntity>
+        pub const m_bTeleported: usize = 0xCA0; // bool
+        pub const m_flProjectileLaunchTime: usize = 0xCA4; // GameTime_t
+        pub const m_flProjectileExpireTime: usize = 0xCA8; // GameTime_t
+        pub const m_hActiveProjectile: usize = 0xCAC; // CHandle<C_BaseEntity>
     }
     pub mod CCitadel_Ability_ShivWeapon_VData {
         pub const m_flPushForce: usize = 0x1590; // float32
@@ -5534,7 +5534,7 @@ pub mod client_dll {
         pub const m_RadianceModifier: usize = 0x1548; // CEmbeddedSubclass<CCitadelModifier>
     }
     pub mod CCitadel_Ability_Perched_Predator {
-        pub const m_hActiveProjectile: usize = 0xC80; // CHandle<C_BaseEntity>
+        pub const m_hActiveProjectile: usize = 0xC90; // CHandle<C_BaseEntity>
     }
     pub mod ice_path_shard_model_desc_t {
         pub const m_nModelID: usize = 0x8; // int32
@@ -5583,27 +5583,27 @@ pub mod client_dll {
         pub const m_nHitIndex: usize = 0xB60; // int32
     }
     pub mod CCitadel_Ability_FlyingStrike {
-        pub const m_desatVolIdx: usize = 0xC88; // SatVolumeIndex_t
-        pub const m_bShadowFormCast: usize = 0xC8C; // bool
-        pub const m_vYamatoCastPos: usize = 0xC90; // Vector
-        pub const m_vTargetCastPos: usize = 0xC9C; // Vector
-        pub const m_flFlyingToTargetStartTime: usize = 0xCA8; // GameTime_t
-        pub const m_flEndAttackTime: usize = 0xCAC; // GameTime_t
-        pub const m_flGrappleStartTime: usize = 0xCB0; // GameTime_t
-        pub const m_flGrappleArriveTime: usize = 0xCB4; // GameTime_t
-        pub const m_flAttackLatchTime: usize = 0xCB8; // GameTime_t
-        pub const m_vAttackLatchPos: usize = 0xCBC; // Vector
-        pub const m_hTarget: usize = 0xCC8; // CHandle<C_BaseEntity>
-        pub const m_flGrappleShotAttackTime: usize = 0xCCC; // GameTime_t
-        pub const m_rgPath: usize = 0xCD4; // Vector[20]
-        pub const m_nPathIdx: usize = 0xDC4; // int32
-        pub const m_nPathSize: usize = 0xDC8; // int32
-        pub const m_flPathLength: usize = 0xDCC; // float32
-        pub const m_vFlyingInitialOffsetToPath: usize = 0xDD0; // Vector
-        pub const flDistFlown: usize = 0xDDC; // float32
-        pub const m_vLastSafePos: usize = 0xDE0; // Vector
-        pub const m_nGrappleTravelEffect: usize = 0xE98; // ParticleIndex_t
-        pub const m_bPathDirty: usize = 0xEF0; // bool
+        pub const m_desatVolIdx: usize = 0xC98; // SatVolumeIndex_t
+        pub const m_bShadowFormCast: usize = 0xC9C; // bool
+        pub const m_vYamatoCastPos: usize = 0xCA0; // Vector
+        pub const m_vTargetCastPos: usize = 0xCAC; // Vector
+        pub const m_flFlyingToTargetStartTime: usize = 0xCB8; // GameTime_t
+        pub const m_flEndAttackTime: usize = 0xCBC; // GameTime_t
+        pub const m_flGrappleStartTime: usize = 0xCC0; // GameTime_t
+        pub const m_flGrappleArriveTime: usize = 0xCC4; // GameTime_t
+        pub const m_flAttackLatchTime: usize = 0xCC8; // GameTime_t
+        pub const m_vAttackLatchPos: usize = 0xCCC; // Vector
+        pub const m_hTarget: usize = 0xCD8; // CHandle<C_BaseEntity>
+        pub const m_flGrappleShotAttackTime: usize = 0xCDC; // GameTime_t
+        pub const m_rgPath: usize = 0xCE4; // Vector[20]
+        pub const m_nPathIdx: usize = 0xDD4; // int32
+        pub const m_nPathSize: usize = 0xDD8; // int32
+        pub const m_flPathLength: usize = 0xDDC; // float32
+        pub const m_vFlyingInitialOffsetToPath: usize = 0xDE0; // Vector
+        pub const flDistFlown: usize = 0xDEC; // float32
+        pub const m_vLastSafePos: usize = 0xDF0; // Vector
+        pub const m_nGrappleTravelEffect: usize = 0xEA8; // ParticleIndex_t
+        pub const m_bPathDirty: usize = 0xF00; // bool
     }
     pub mod CCitadel_Modifier_ShivDash {
         pub const m_bUseTrail: usize = 0xF8; // bool
@@ -5780,16 +5780,16 @@ pub mod client_dll {
         pub const m_flTimeForHint: usize = 0x155C; // float32
     }
     pub mod CCitadel_Ability_SuperNeutralCharge {
-        pub const m_bPreparing: usize = 0xE40; // bool
-        pub const m_bTackling: usize = 0xE41; // bool
-        pub const m_flTackleStartTime: usize = 0xE44; // GameTime_t
-        pub const m_flTackleDuration: usize = 0xE48; // float32
-        pub const m_vecTackleDir: usize = 0xE4C; // Vector
-        pub const m_vecLastPosition: usize = 0xE58; // Vector
-        pub const m_nStuckFramesCount: usize = 0xE64; // int32
-        pub const m_vecHitEnemies: usize = 0xE68; // CUtlVector<CEntityIndex>
-        pub const m_flPrepareStartTime: usize = 0xE80; // GameTime_t
-        pub const m_nDistancePreview: usize = 0xE84; // ParticleIndex_t
+        pub const m_bPreparing: usize = 0xE50; // bool
+        pub const m_bTackling: usize = 0xE51; // bool
+        pub const m_flTackleStartTime: usize = 0xE54; // GameTime_t
+        pub const m_flTackleDuration: usize = 0xE58; // float32
+        pub const m_vecTackleDir: usize = 0xE5C; // Vector
+        pub const m_vecLastPosition: usize = 0xE68; // Vector
+        pub const m_nStuckFramesCount: usize = 0xE74; // int32
+        pub const m_vecHitEnemies: usize = 0xE78; // CUtlVector<CEntityIndex>
+        pub const m_flPrepareStartTime: usize = 0xE90; // GameTime_t
+        pub const m_nDistancePreview: usize = 0xE94; // ParticleIndex_t
     }
     pub mod STrooperFOWEntity {
         pub const m_nEntIndex: usize = 0x30; // CEntityIndex
@@ -5809,7 +5809,7 @@ pub mod client_dll {
     pub mod CCitadel_Modifier_HeldItemPickupAura {
     }
     pub mod CCitadel_Item_Bubble {
-        pub const m_flEndTime: usize = 0xC98; // GameTime_t
+        pub const m_flEndTime: usize = 0xCA8; // GameTime_t
     }
     pub mod C_EnvVolumetricFogController {
         pub const m_flScattering: usize = 0x560; // float32
@@ -5850,7 +5850,7 @@ pub mod client_dll {
     pub mod CCitadel_Ability_ShieldGuy_Ability01 {
     }
     pub mod CCitadel_Ability_WreckingBall {
-        pub const m_bHoldingBall: usize = 0xCB8; // bool
+        pub const m_bHoldingBall: usize = 0xCC8; // bool
     }
     pub mod CCitadel_Ability_PrimaryWeapon_BeamWeapon {
     }
@@ -5961,18 +5961,18 @@ pub mod client_dll {
         pub const m_TriggeredModifier: usize = 0x638; // CEmbeddedSubclass<CBaseModifier>
     }
     pub mod CCitadel_Ability_Dash {
-        pub const m_flDashAngle: usize = 0xC80; // float32
-        pub const m_GroundDashExecuteTime: usize = 0xC84; // GameTime_t
-        pub const m_nLastGroundDashTick: usize = 0xC88; // int32
-        pub const m_flGroundDashCastTime: usize = 0xC8C; // GameTime_t
-        pub const m_bTagCanActivateGroundDash: usize = 0xC90; // bool
-        pub const m_flGroundDashEndTime: usize = 0xC98; // CCitadelAutoScaledTime
-        pub const m_flAirDashCastTime: usize = 0xCB0; // GameTime_t
-        pub const m_flAirDashDragStartTime: usize = 0xCB4; // GameTime_t
-        pub const m_nConsecutiveAirDashes: usize = 0xCB8; // int8
-        pub const m_nConsecutiveDownDashes: usize = 0xCB9; // int8
-        pub const m_bDownAirDash: usize = 0xCBA; // bool
-        pub const m_hJumpAbility: usize = 0xE70; // CHandle<CCitadel_Ability_Jump>
+        pub const m_flDashAngle: usize = 0xC90; // float32
+        pub const m_GroundDashExecuteTime: usize = 0xC94; // GameTime_t
+        pub const m_nLastGroundDashTick: usize = 0xC98; // int32
+        pub const m_flGroundDashCastTime: usize = 0xC9C; // GameTime_t
+        pub const m_bTagCanActivateGroundDash: usize = 0xCA0; // bool
+        pub const m_flGroundDashEndTime: usize = 0xCA8; // CCitadelAutoScaledTime
+        pub const m_flAirDashCastTime: usize = 0xCC0; // GameTime_t
+        pub const m_flAirDashDragStartTime: usize = 0xCC4; // GameTime_t
+        pub const m_nConsecutiveAirDashes: usize = 0xCC8; // int8
+        pub const m_nConsecutiveDownDashes: usize = 0xCC9; // int8
+        pub const m_bDownAirDash: usize = 0xCCA; // bool
+        pub const m_hJumpAbility: usize = 0xE80; // CHandle<CCitadel_Ability_Jump>
     }
     pub mod CCitadel_Modifier_Tech_Shield {
     }
@@ -6010,8 +6010,8 @@ pub mod client_dll {
         pub const soundEventHash: usize = 0x74; // uint32
     }
     pub mod CCitadel_Item_BaseProjectileAOEModifier {
-        pub const m_vLaunchPosition: usize = 0xC98; // Vector
-        pub const m_qLaunchAngle: usize = 0xCA4; // QAngle
+        pub const m_vLaunchPosition: usize = 0xCA8; // Vector
+        pub const m_qLaunchAngle: usize = 0xCB4; // QAngle
     }
     pub mod CCitadel_Ability_HealingSlash {
     }
@@ -6022,7 +6022,7 @@ pub mod client_dll {
     pub mod C_NPC_FlyingDrone {
     }
     pub mod CCitadel_Item_DivinersKevlar {
-        pub const m_bExecuted: usize = 0xC98; // bool
+        pub const m_bExecuted: usize = 0xCA8; // bool
     }
     pub mod CModifier_Synth_Pulse_Escape {
     }
@@ -6047,11 +6047,11 @@ pub mod client_dll {
         pub const m_flVerticalCameraOffsetBias: usize = 0x6F4; // float32
     }
     pub mod CCitadel_Ability_Bull_Charge {
-        pub const m_anglesCharging: usize = 0xF20; // QAngle
-        pub const m_flChargeStartTime: usize = 0xF2C; // GameTime_t
-        pub const m_flFastChargeEndTime: usize = 0xF30; // GameTime_t
-        pub const m_bHitAPlayer: usize = 0xF34; // bool
-        pub const m_bFirstTick: usize = 0xF38; // bool
+        pub const m_anglesCharging: usize = 0xF30; // QAngle
+        pub const m_flChargeStartTime: usize = 0xF3C; // GameTime_t
+        pub const m_flFastChargeEndTime: usize = 0xF40; // GameTime_t
+        pub const m_bHitAPlayer: usize = 0xF44; // bool
+        pub const m_bFirstTick: usize = 0xF48; // bool
     }
     pub mod CCitadel_Ability_PrimaryWeapon_Empty {
     }
@@ -6174,7 +6174,7 @@ pub mod client_dll {
         pub const m_TargetAbilityID: usize = 0x34; // CUtlStringToken
     }
     pub mod CCitadel_Upgrade_AmmoScavenger {
-        pub const m_hLastOrbTarget: usize = 0xC98; // CHandle<C_BaseEntity>
+        pub const m_hLastOrbTarget: usize = 0xCA8; // CHandle<C_BaseEntity>
     }
     pub mod CAbilityTeleportToGangsterVData {
     }
@@ -6217,8 +6217,8 @@ pub mod client_dll {
         pub const m_szModifier: usize = 0x120; // CUtlString
     }
     pub mod CCitadel_Ability_Tengu_Urn {
-        pub const m_vLaunchPosition: usize = 0xC80; // Vector
-        pub const m_qLaunchAngle: usize = 0xC8C; // QAngle
+        pub const m_vLaunchPosition: usize = 0xC90; // Vector
+        pub const m_qLaunchAngle: usize = 0xC9C; // QAngle
     }
     pub mod CCitadel_Modifier_Killing_Blow_GlowVData {
         pub const m_ShivOnlyDeathStatus: usize = 0x608; // CResourceNameTyped<CWeakHandle<InfoForResourceTypeIParticleSystemDefinition>>
@@ -6346,11 +6346,11 @@ pub mod client_dll {
         pub const m_SlowModifier: usize = 0x1568; // CEmbeddedSubclass<CCitadelModifier>
     }
     pub mod CCitadel_Ability_LashDownStrike {
-        pub const m_ImpactTime: usize = 0xD28; // GameTime_t
-        pub const m_vDamagePos: usize = 0xD2C; // Vector
-        pub const m_PreviewEffect: usize = 0xD3C; // ParticleIndex_t
-        pub const m_vStrikeVel: usize = 0xF00; // Vector
-        pub const m_flStartHeight: usize = 0xF0C; // float32
+        pub const m_ImpactTime: usize = 0xD38; // GameTime_t
+        pub const m_vDamagePos: usize = 0xD3C; // Vector
+        pub const m_PreviewEffect: usize = 0xD4C; // ParticleIndex_t
+        pub const m_vStrikeVel: usize = 0xF10; // Vector
+        pub const m_flStartHeight: usize = 0xF1C; // float32
     }
     pub mod CModifierPsychicLiftVData {
         pub const m_LiftParticle: usize = 0x6E8; // CResourceNameTyped<CWeakHandle<InfoForResourceTypeIParticleSystemDefinition>>
@@ -6481,10 +6481,10 @@ pub mod client_dll {
         pub const m_bFinal: usize = 0xD5A; // bool
     }
     pub mod CItem_RestorativeLocket {
-        pub const m_nNumStacks: usize = 0xD40; // int32
+        pub const m_nNumStacks: usize = 0xD50; // int32
     }
     pub mod CCitadel_TechUpgrade_SuperAcolyteGloves {
-        pub const fl_StoredDamage: usize = 0xCD0; // float32
+        pub const fl_StoredDamage: usize = 0xCE0; // float32
     }
     pub mod CPointTemplate {
         pub const m_iszWorldName: usize = 0x560; // CUtlSymbolLarge
@@ -6567,11 +6567,11 @@ pub mod client_dll {
         pub const m_AmbushExplosionSound: usize = 0x1648; // CSoundEventName
     }
     pub mod CAbility_Synth_Blitz {
-        pub const m_vecSpecialShots: usize = 0xC80; // CUtlVector<ShotID_t>
-        pub const m_nFastFireBulletsLeft: usize = 0xC98; // int32
-        pub const m_flBlitzEndTime: usize = 0xCA0; // CCitadelAutoScaledTime
-        pub const m_bCanApplyTechAmp: usize = 0xCB8; // bool
-        pub const m_bCanLifesteal: usize = 0xCB9; // bool
+        pub const m_vecSpecialShots: usize = 0xC90; // CUtlVector<ShotID_t>
+        pub const m_nFastFireBulletsLeft: usize = 0xCA8; // int32
+        pub const m_flBlitzEndTime: usize = 0xCB0; // CCitadelAutoScaledTime
+        pub const m_bCanApplyTechAmp: usize = 0xCC8; // bool
+        pub const m_bCanLifesteal: usize = 0xCC9; // bool
     }
     pub mod CCitadel_Modifier_ConsumedProtectionRacket {
     }
@@ -6684,7 +6684,7 @@ pub mod client_dll {
         pub const m_Entity_bEnabled: usize = 0x640; // bool
     }
     pub mod CCitadel_Ability_Yakuza_Shakedown {
-        pub const m_IgnoreChannelSlow: usize = 0xC80; // int32
+        pub const m_IgnoreChannelSlow: usize = 0xC90; // int32
     }
     pub mod CCitadel_Item_CheatDeathVData {
         pub const m_DamagePulseParticle: usize = 0x1590; // CResourceNameTyped<CWeakHandle<InfoForResourceTypeIParticleSystemDefinition>>
@@ -6802,7 +6802,7 @@ pub mod client_dll {
         pub const m_iGoldReward: usize = 0xB78; // int32
     }
     pub mod CCitadel_Item_Intensifying_Clip {
-        pub const m_flSpinUpTime: usize = 0xCD0; // float32
+        pub const m_flSpinUpTime: usize = 0xCE0; // float32
     }
     pub mod CCitadel_Modifier_BreakablePropFireRatePickup {
     }
@@ -6832,12 +6832,12 @@ pub mod client_dll {
     pub mod CCitadel_Modifier_RocketBarrageVolley {
     }
     pub mod CCitadel_Ability_Melee_Base {
-        pub const m_bUsingThisMelee: usize = 0xC80; // bool
-        pub const m_bUsingMeleeTagActive: usize = 0xC81; // bool
-        pub const m_bHitWithThisAttack: usize = 0xC82; // bool
-        pub const m_flLastActivateTime: usize = 0xC84; // GameTime_t
-        pub const m_flNextAttackAllowedTime: usize = 0xC88; // GameTime_t
-        pub const m_flAttackTriggeredTime: usize = 0xC8C; // GameTime_t
+        pub const m_bUsingThisMelee: usize = 0xC90; // bool
+        pub const m_bUsingMeleeTagActive: usize = 0xC91; // bool
+        pub const m_bHitWithThisAttack: usize = 0xC92; // bool
+        pub const m_flLastActivateTime: usize = 0xC94; // GameTime_t
+        pub const m_flNextAttackAllowedTime: usize = 0xC98; // GameTime_t
+        pub const m_flAttackTriggeredTime: usize = 0xC9C; // GameTime_t
     }
     pub mod CCitadel_Modifier_PowerSurge_ChainLightning {
     }
@@ -6892,33 +6892,33 @@ pub mod client_dll {
         pub const m_DisarmModifier: usize = 0x1648; // CEmbeddedSubclass<CCitadelModifier>
     }
     pub mod CCitadel_Ability_GuidedArrow {
-        pub const m_hProjectile: usize = 0xC88; // CHandle<C_BaseEntity>
-        pub const m_flArrowSpeed: usize = 0xC8C; // float32
-        pub const m_flSnapAnglesBackTime: usize = 0xC90; // GameTime_t
-        pub const m_nBonusTechPower: usize = 0xC94; // int32
-        pub const m_flCastTime: usize = 0xC98; // GameTime_t
-        pub const m_bNeedsExplosion: usize = 0xC9C; // bool
-        pub const m_vProjectileRemovedOrigin: usize = 0xCA0; // Vector
-        pub const m_angCasterAnglesAtCastTime: usize = 0xCAC; // QAngle
-        pub const m_flTravelDistance: usize = 0xCB8; // float32
-        pub const m_bInKillFlow: usize = 0xCBC; // bool
-        pub const m_flProjectileTurnVel: usize = 0xCC0; // float32
+        pub const m_hProjectile: usize = 0xC98; // CHandle<C_BaseEntity>
+        pub const m_flArrowSpeed: usize = 0xC9C; // float32
+        pub const m_flSnapAnglesBackTime: usize = 0xCA0; // GameTime_t
+        pub const m_nBonusTechPower: usize = 0xCA4; // int32
+        pub const m_flCastTime: usize = 0xCA8; // GameTime_t
+        pub const m_bNeedsExplosion: usize = 0xCAC; // bool
+        pub const m_vProjectileRemovedOrigin: usize = 0xCB0; // Vector
+        pub const m_angCasterAnglesAtCastTime: usize = 0xCBC; // QAngle
+        pub const m_flTravelDistance: usize = 0xCC8; // float32
+        pub const m_bInKillFlow: usize = 0xCCC; // bool
+        pub const m_flProjectileTurnVel: usize = 0xCD0; // float32
     }
     pub mod CCitadel_Modifier_FireBombVData {
         pub const m_ChargeParticle: usize = 0x608; // CResourceNameTyped<CWeakHandle<InfoForResourceTypeIParticleSystemDefinition>>
         pub const m_GroundParticle: usize = 0x6E8; // CResourceNameTyped<CWeakHandle<InfoForResourceTypeIParticleSystemDefinition>>
     }
     pub mod CCitadel_Ability_HoldMelee {
-        pub const m_flParryWindowEndTime: usize = 0xD00; // GameTime_t
-        pub const m_flNextParryTime: usize = 0xD04; // GameTime_t
-        pub const m_flStateStartTime: usize = 0xD08; // GameTime_t
-        pub const m_flDashStartTime: usize = 0xD0C; // GameTime_t
-        pub const m_eCurrentAttackState: usize = 0xD10; // EMeleeHold_AttackState
-        pub const m_eCurrentAttackType: usize = 0xD14; // EMeleeHold_AttackType
-        pub const m_vAirDashDir: usize = 0xD18; // Vector
-        pub const m_bAttackStartedWhileSliding: usize = 0xD24; // bool
-        pub const m_bCreatedChargeEffects: usize = 0xD25; // bool
-        pub const m_angForced: usize = 0xD28; // QAngle
+        pub const m_flParryWindowEndTime: usize = 0xD10; // GameTime_t
+        pub const m_flNextParryTime: usize = 0xD14; // GameTime_t
+        pub const m_flStateStartTime: usize = 0xD18; // GameTime_t
+        pub const m_flDashStartTime: usize = 0xD1C; // GameTime_t
+        pub const m_eCurrentAttackState: usize = 0xD20; // EMeleeHold_AttackState
+        pub const m_eCurrentAttackType: usize = 0xD24; // EMeleeHold_AttackType
+        pub const m_vAirDashDir: usize = 0xD28; // Vector
+        pub const m_bAttackStartedWhileSliding: usize = 0xD34; // bool
+        pub const m_bCreatedChargeEffects: usize = 0xD35; // bool
+        pub const m_angForced: usize = 0xD38; // QAngle
     }
     pub mod CCitadelModifierApexWatcherVData {
         pub const m_BuffModifier: usize = 0x608; // CEmbeddedSubclass<CCitadelModifier>
@@ -7034,45 +7034,45 @@ pub mod client_dll {
         pub const m_flCollideRadius: usize = 0x6F8; // float32
     }
     pub mod CCitadel_Ability_PrimaryWeapon {
-        pub const m_flNextPrimaryAttack: usize = 0xC80; // GameTime_t
-        pub const m_iClip: usize = 0xC84; // int32
-        pub const m_iBonusClip: usize = 0xC88; // int32
-        pub const m_flSpreadPenalty: usize = 0xC8C; // float32
-        pub const m_flZoomTime: usize = 0xC90; // GameTime_t
-        pub const m_flZoomOutTime: usize = 0xC94; // GameTime_t
-        pub const m_iSpreadIndex: usize = 0xC98; // int8
-        pub const m_nShotRecoilIndex: usize = 0xC9A; // int16
-        pub const m_flNextShotRecoilRecoveryTime: usize = 0xC9C; // GameTime_t
-        pub const m_bIsZoomed: usize = 0xCA0; // bool
-        pub const m_nBurstShotsRemaining: usize = 0xCA1; // uint8
-        pub const m_nShotNumber: usize = 0xCA4; // uint32
-        pub const m_bInReload: usize = 0xCA8; // bool
-        pub const m_bSingleShotReloadFirstBullet: usize = 0xCA9; // bool
-        pub const m_reloadQueuedStartTime: usize = 0xCAC; // GameTime_t
-        pub const m_flReloadAvailableTime: usize = 0xCB0; // GameTime_t
-        pub const m_bCanActiveReload: usize = 0xCB4; // bool
-        pub const m_flLastAttackTime: usize = 0xCB8; // GameTime_t
-        pub const m_flNextAttackDelayStartTime: usize = 0xCBC; // GameTime_t
-        pub const m_flNextAttackDelayEndTime: usize = 0xCC0; // GameTime_t
-        pub const m_flAttackDelayPauseTotalTime: usize = 0xCC4; // float32
-        pub const m_flAttackDelayPauseEndTime: usize = 0xCC8; // GameTime_t
-        pub const m_eNextAttackDelayReason: usize = 0xCCC; // ENextAttackDelayReason_t
-        pub const m_bInputPressedWhileSelected: usize = 0xCD0; // bool
-        pub const m_eActiveFireMode: usize = 0xCD4; // EFireMode_t
-        pub const m_angRecoilAngles: usize = 0xCD8; // QAngle
-        pub const m_angRecoilToAdd: usize = 0xCE4; // QAngle
-        pub const m_angRecoilRecovery: usize = 0xCF0; // QAngle
-        pub const m_flRecoilStartTime: usize = 0xCFC; // GameTime_t
-        pub const m_flRecoilRecoverySpeed: usize = 0xD00; // float32
-        pub const m_flAddApproachSpeed: usize = 0xD04; // float32
-        pub const m_bFireBackwards: usize = 0xD08; // bool
-        pub const m_currentSpread: usize = 0xD0C; // float32
-        pub const m_currentMaxSpread: usize = 0xD10; // float32
-        pub const m_currentFireSpread: usize = 0xD14; // float32
-        pub const m_flCurrentSpinRate: usize = 0xD18; // float32
-        pub const m_fFireDuration: usize = 0xD20; // float32
-        pub const m_bFireOnEmpty: usize = 0xD25; // bool
-        pub const m_flNextDisarmSound: usize = 0xD28; // GameTime_t
+        pub const m_flNextPrimaryAttack: usize = 0xC90; // GameTime_t
+        pub const m_iClip: usize = 0xC94; // int32
+        pub const m_iBonusClip: usize = 0xC98; // int32
+        pub const m_flSpreadPenalty: usize = 0xC9C; // float32
+        pub const m_flZoomTime: usize = 0xCA0; // GameTime_t
+        pub const m_flZoomOutTime: usize = 0xCA4; // GameTime_t
+        pub const m_iSpreadIndex: usize = 0xCA8; // int8
+        pub const m_nShotRecoilIndex: usize = 0xCAA; // int16
+        pub const m_flNextShotRecoilRecoveryTime: usize = 0xCAC; // GameTime_t
+        pub const m_bIsZoomed: usize = 0xCB0; // bool
+        pub const m_nBurstShotsRemaining: usize = 0xCB1; // uint8
+        pub const m_nShotNumber: usize = 0xCB4; // uint32
+        pub const m_bInReload: usize = 0xCB8; // bool
+        pub const m_bSingleShotReloadFirstBullet: usize = 0xCB9; // bool
+        pub const m_reloadQueuedStartTime: usize = 0xCBC; // GameTime_t
+        pub const m_flReloadAvailableTime: usize = 0xCC0; // GameTime_t
+        pub const m_bCanActiveReload: usize = 0xCC4; // bool
+        pub const m_flLastAttackTime: usize = 0xCC8; // GameTime_t
+        pub const m_flNextAttackDelayStartTime: usize = 0xCCC; // GameTime_t
+        pub const m_flNextAttackDelayEndTime: usize = 0xCD0; // GameTime_t
+        pub const m_flAttackDelayPauseTotalTime: usize = 0xCD4; // float32
+        pub const m_flAttackDelayPauseEndTime: usize = 0xCD8; // GameTime_t
+        pub const m_eNextAttackDelayReason: usize = 0xCDC; // ENextAttackDelayReason_t
+        pub const m_bInputPressedWhileSelected: usize = 0xCE0; // bool
+        pub const m_eActiveFireMode: usize = 0xCE4; // EFireMode_t
+        pub const m_angRecoilAngles: usize = 0xCE8; // QAngle
+        pub const m_angRecoilToAdd: usize = 0xCF4; // QAngle
+        pub const m_angRecoilRecovery: usize = 0xD00; // QAngle
+        pub const m_flRecoilStartTime: usize = 0xD0C; // GameTime_t
+        pub const m_flRecoilRecoverySpeed: usize = 0xD10; // float32
+        pub const m_flAddApproachSpeed: usize = 0xD14; // float32
+        pub const m_bFireBackwards: usize = 0xD18; // bool
+        pub const m_currentSpread: usize = 0xD1C; // float32
+        pub const m_currentMaxSpread: usize = 0xD20; // float32
+        pub const m_currentFireSpread: usize = 0xD24; // float32
+        pub const m_flCurrentSpinRate: usize = 0xD28; // float32
+        pub const m_fFireDuration: usize = 0xD30; // float32
+        pub const m_bFireOnEmpty: usize = 0xD35; // bool
+        pub const m_flNextDisarmSound: usize = 0xD38; // GameTime_t
     }
     pub mod CCitadel_Modifier_SleepBombVData {
         pub const m_BombParticle: usize = 0x608; // CResourceNameTyped<CWeakHandle<InfoForResourceTypeIParticleSystemDefinition>>
@@ -7192,7 +7192,7 @@ pub mod client_dll {
         pub const m_flSpreadDuration: usize = 0xE8; // float32
     }
     pub mod CCitadel_ArmorUpgrade_DoubleJump {
-        pub const m_nTickJumped: usize = 0xC98; // int32
+        pub const m_nTickJumped: usize = 0xCA8; // int32
     }
     pub mod CCitadel_Modifier_PayloadCarrier {
     }
@@ -7202,9 +7202,9 @@ pub mod client_dll {
         pub const m_PrepareParticle: usize = 0x608; // CResourceNameTyped<CWeakHandle<InfoForResourceTypeIParticleSystemDefinition>>
     }
     pub mod CCitadel_Ability_MeleeParry {
-        pub const m_flParryStartTime: usize = 0xC80; // GameTime_t
-        pub const m_bAttackParried: usize = 0xC84; // bool
-        pub const m_flParrySuccessTime: usize = 0xC88; // GameTime_t
+        pub const m_flParryStartTime: usize = 0xC90; // GameTime_t
+        pub const m_bAttackParried: usize = 0xC94; // bool
+        pub const m_flParrySuccessTime: usize = 0xC98; // GameTime_t
     }
     pub mod CCitadel_Modifier_BerserkerDamageStack {
     }
@@ -7330,7 +7330,7 @@ pub mod client_dll {
     pub mod CModifier_Synth_Grasp_Caster {
     }
     pub mod CCitadel_Ability_RiotProtocol {
-        pub const m_bActive: usize = 0xC80; // bool
+        pub const m_bActive: usize = 0xC90; // bool
     }
     pub mod CCitadel_Modifier_ThrowSandProjectileVData {
         pub const m_DebuffModifier: usize = 0x608; // CEmbeddedSubclass<CCitadelModifier>
@@ -7471,13 +7471,13 @@ pub mod client_dll {
     pub mod CAbilityTargetdummy3VData {
     }
     pub mod CCitadel_Ability_Tengu_StoneForm {
-        pub const m_flStartTime: usize = 0xE40; // GameTime_t
-        pub const m_flLandedTime: usize = 0xE44; // GameTime_t
-        pub const m_bLanded: usize = 0xE48; // bool
-        pub const m_bFalling: usize = 0xE49; // bool
-        pub const m_bInStoneForm: usize = 0xE4A; // bool
-        pub const m_flStartHeight: usize = 0xE4C; // float32
-        pub const m_nStoneFormEffect: usize = 0xE50; // ParticleIndex_t
+        pub const m_flStartTime: usize = 0xE50; // GameTime_t
+        pub const m_flLandedTime: usize = 0xE54; // GameTime_t
+        pub const m_bLanded: usize = 0xE58; // bool
+        pub const m_bFalling: usize = 0xE59; // bool
+        pub const m_bInStoneForm: usize = 0xE5A; // bool
+        pub const m_flStartHeight: usize = 0xE5C; // float32
+        pub const m_nStoneFormEffect: usize = 0xE60; // ParticleIndex_t
     }
     pub mod CModifier_CheatDeathImmunity {
     }
@@ -7493,14 +7493,14 @@ pub mod client_dll {
         pub const m_BulletShieldModifier: usize = 0x1568; // CEmbeddedSubclass<CCitadelModifier>
     }
     pub mod CCitadel_Ability_Tokamak_DyingStar {
-        pub const m_nRollFXIndex: usize = 0xC80; // ParticleIndex_t
-        pub const m_bInFlight: usize = 0xC84; // bool
+        pub const m_nRollFXIndex: usize = 0xC90; // ParticleIndex_t
+        pub const m_bInFlight: usize = 0xC94; // bool
     }
     pub mod CCitadel_Modifier_Cadence_SleepingVData {
     }
     pub mod CCitadel_Ability_IceGrenade {
-        pub const m_vLaunchPosition: usize = 0xC80; // Vector
-        pub const m_qLaunchAngle: usize = 0xC8C; // QAngle
+        pub const m_vLaunchPosition: usize = 0xC90; // Vector
+        pub const m_qLaunchAngle: usize = 0xC9C; // QAngle
     }
     pub mod CCitadel_Modifier_ChargePullEnemy {
         pub const m_vecOffsetDir: usize = 0xC0; // Vector
@@ -7538,8 +7538,8 @@ pub mod client_dll {
     pub mod CCitadel_Modifier_Warden_CrowdControl_Debuff {
     }
     pub mod CCitadel_Ability_FlameDash {
-        pub const m_flDashEndTime: usize = 0xC80; // CCitadelAutoScaledTime
-        pub const m_bIsSpeedBursting: usize = 0xC98; // bool
+        pub const m_flDashEndTime: usize = 0xC90; // CCitadelAutoScaledTime
+        pub const m_bIsSpeedBursting: usize = 0xCA8; // bool
     }
     pub mod CCitadel_Modifier_ArcaneEaterDebuffVData {
         pub const m_DebuffParticle: usize = 0x608; // CResourceNameTyped<CWeakHandle<InfoForResourceTypeIParticleSystemDefinition>>
@@ -7786,25 +7786,25 @@ pub mod client_dll {
     pub mod CCitadel_Ability_Tokamak_Breach {
     }
     pub mod CCitadel_Ability_Jump {
-        pub const m_flLastTimeOnZipLine: usize = 0xC80; // GameTime_t
-        pub const m_flLastOnGroundTime: usize = 0xC84; // GameTime_t
-        pub const m_flPhaseStartTime: usize = 0xC88; // GameTime_t
-        pub const m_flJumpTime: usize = 0xC8C; // GameTime_t
-        pub const m_LastJumpType: usize = 0xC90; // EJumpType_t
-        pub const m_bShouldCreateAirJumpEffects: usize = 0xC91; // bool
-        pub const m_flDoubleJumpFailTime: usize = 0xC94; // GameTime_t
-        pub const m_eDoubleJumpFailReason: usize = 0xC98; // ECitadelAbilityOrders
-        pub const m_vWallJumpNormalUsed: usize = 0xC9C; // Vector
-        pub const m_flGroundDashJumpStartTime: usize = 0xDC0; // CCitadelAutoScaledTime
-        pub const m_flGroundDashJumpEndTime: usize = 0xDD8; // CCitadelAutoScaledTime
-        pub const m_bJumped: usize = 0xDF0; // bool
-        pub const m_bCanDashJump: usize = 0xDF1; // bool
-        pub const m_nDesiredAirJumpCount: usize = 0xDF4; // int32
-        pub const m_nExecutedAirJumpCount: usize = 0xDF8; // int32
-        pub const m_bInSlideJump: usize = 0xDFC; // bool
-        pub const m_nConsecutiveAirJumps: usize = 0xDFD; // int8
-        pub const m_nConsecutiveWallJumps: usize = 0xDFE; // int8
-        pub const m_vLastWallCollidedWithNormal: usize = 0xE00; // Vector
+        pub const m_flLastTimeOnZipLine: usize = 0xC90; // GameTime_t
+        pub const m_flLastOnGroundTime: usize = 0xC94; // GameTime_t
+        pub const m_flPhaseStartTime: usize = 0xC98; // GameTime_t
+        pub const m_flJumpTime: usize = 0xC9C; // GameTime_t
+        pub const m_LastJumpType: usize = 0xCA0; // EJumpType_t
+        pub const m_bShouldCreateAirJumpEffects: usize = 0xCA1; // bool
+        pub const m_flDoubleJumpFailTime: usize = 0xCA4; // GameTime_t
+        pub const m_eDoubleJumpFailReason: usize = 0xCA8; // ECitadelAbilityOrders
+        pub const m_vWallJumpNormalUsed: usize = 0xCAC; // Vector
+        pub const m_flGroundDashJumpStartTime: usize = 0xDD0; // CCitadelAutoScaledTime
+        pub const m_flGroundDashJumpEndTime: usize = 0xDE8; // CCitadelAutoScaledTime
+        pub const m_bJumped: usize = 0xE00; // bool
+        pub const m_bCanDashJump: usize = 0xE01; // bool
+        pub const m_nDesiredAirJumpCount: usize = 0xE04; // int32
+        pub const m_nExecutedAirJumpCount: usize = 0xE08; // int32
+        pub const m_bInSlideJump: usize = 0xE0C; // bool
+        pub const m_nConsecutiveAirJumps: usize = 0xE0D; // int8
+        pub const m_nConsecutiveWallJumps: usize = 0xE0E; // int8
+        pub const m_vLastWallCollidedWithNormal: usize = 0xE10; // Vector
     }
     pub mod CInfoTarget {
     }
@@ -7846,7 +7846,7 @@ pub mod client_dll {
         pub const m_vecCachedRenderMaxs: usize = 0xDF0; // Vector
     }
     pub mod CCitadel_ArmorUpgrade_SpellShield {
-        pub const fl_mSpellShieldBreakTime: usize = 0xC98; // GameTime_t
+        pub const fl_mSpellShieldBreakTime: usize = 0xCA8; // GameTime_t
     }
     pub mod CAbilityChargedTackleVData {
         pub const m_ChargePreviewParticle: usize = 0x1548; // CResourceNameTyped<CWeakHandle<InfoForResourceTypeIParticleSystemDefinition>>
@@ -7934,16 +7934,16 @@ pub mod client_dll {
         pub const m_WaterAuraParticle: usize = 0x618; // CResourceNameTyped<CWeakHandle<InfoForResourceTypeIParticleSystemDefinition>>
     }
     pub mod CCitadel_Ability_Nano_Pounce {
-        pub const m_bActive: usize = 0xEB0; // bool
-        pub const m_hCurrentTarget: usize = 0xEB4; // CHandle<C_BaseEntity>
-        pub const m_hLastCastTarget: usize = 0xEB8; // CHandle<C_BaseEntity>
-        pub const m_vStartPosition: usize = 0xEBC; // Vector
-        pub const m_vDeparturePosition: usize = 0xEC8; // Vector
-        pub const m_flDepartureTime: usize = 0xED8; // CCitadelAutoScaledTime
-        pub const m_flArrivalTime: usize = 0xEF0; // CCitadelAutoScaledTime
-        pub const m_vLastKnownSafePos: usize = 0xF08; // Vector
-        pub const m_bIsFirstCastCompleted: usize = 0xF16; // bool
-        pub const m_tDoubleCastWindow: usize = 0xF18; // GameTime_t
+        pub const m_bActive: usize = 0xEC0; // bool
+        pub const m_hCurrentTarget: usize = 0xEC4; // CHandle<C_BaseEntity>
+        pub const m_hLastCastTarget: usize = 0xEC8; // CHandle<C_BaseEntity>
+        pub const m_vStartPosition: usize = 0xECC; // Vector
+        pub const m_vDeparturePosition: usize = 0xED8; // Vector
+        pub const m_flDepartureTime: usize = 0xEE8; // CCitadelAutoScaledTime
+        pub const m_flArrivalTime: usize = 0xF00; // CCitadelAutoScaledTime
+        pub const m_vLastKnownSafePos: usize = 0xF18; // Vector
+        pub const m_bIsFirstCastCompleted: usize = 0xF26; // bool
+        pub const m_tDoubleCastWindow: usize = 0xF28; // GameTime_t
     }
     pub mod CCitadel_Item_AOERoot {
     }
@@ -8004,8 +8004,8 @@ pub mod client_dll {
     pub mod CCitadel_Ability_Protection_Racket {
     }
     pub mod CCitadel_Ability_InfinitySlash {
-        pub const m_flExplodeEndTime: usize = 0xCF8; // GameTime_t
-        pub const m_flBuffEndTime: usize = 0xCFC; // GameTime_t
+        pub const m_flExplodeEndTime: usize = 0xD08; // GameTime_t
+        pub const m_flBuffEndTime: usize = 0xD0C; // GameTime_t
     }
     pub mod CCitadelModifierProjectilePitchingLoopSoundThinker {
     }
@@ -8073,8 +8073,8 @@ pub mod client_dll {
         pub const m_flNoShieldLaserDPSToNPCs: usize = 0x1858; // float32
     }
     pub mod CCitadel_Ability_Hornet_Chain {
-        pub const m_vLaunchPosition: usize = 0xC80; // Vector
-        pub const m_qLaunchAngle: usize = 0xC8C; // QAngle
+        pub const m_vLaunchPosition: usize = 0xC90; // Vector
+        pub const m_qLaunchAngle: usize = 0xC9C; // QAngle
     }
     pub mod CItemSingleTargetStunVData {
         pub const m_StunDelayModifier: usize = 0x1590; // CEmbeddedSubclass<CCitadelModifier>
@@ -8198,7 +8198,7 @@ pub mod client_dll {
         pub const m_ConnectBeam: usize = 0x6E8; // CResourceNameTyped<CWeakHandle<InfoForResourceTypeIParticleSystemDefinition>>
     }
     pub mod CCitadel_Ability_HatTrick {
-        pub const m_hProjectile: usize = 0xC80; // CHandle<C_CitadelProjectile>
+        pub const m_hProjectile: usize = 0xC90; // CHandle<C_CitadelProjectile>
     }
     pub mod CCitadel_Modifier_Ricochet_ProcVData {
         pub const m_RicochetTracerParticle: usize = 0x638; // CResourceNameTyped<CWeakHandle<InfoForResourceTypeIParticleSystemDefinition>>
@@ -8409,10 +8409,10 @@ pub mod client_dll {
         pub const m_noGhostCollision: usize = 0xCE4; // bool
     }
     pub mod CCitadel_Ability_Lash_Ultimate {
-        pub const m_EGrappleState: usize = 0xDFA; // ELashGrappleState
-        pub const m_flStateEnterTime: usize = 0xDFC; // GameTime_t
-        pub const m_flNextStateTime: usize = 0xE00; // GameTime_t
-        pub const m_flBoostEndTime: usize = 0xE04; // GameTime_t
+        pub const m_EGrappleState: usize = 0xE0A; // ELashGrappleState
+        pub const m_flStateEnterTime: usize = 0xE0C; // GameTime_t
+        pub const m_flNextStateTime: usize = 0xE10; // GameTime_t
+        pub const m_flBoostEndTime: usize = 0xE14; // GameTime_t
     }
     pub mod CCitadelModifierItemPickupTimerVData {
         pub const m_TimerToSilence: usize = 0x608; // float32
@@ -8531,12 +8531,12 @@ pub mod client_dll {
     pub mod CCitadel_Ability_Tokamak_HeatSinks {
     }
     pub mod CCitadel_Ability_Tengu_AirLift {
-        pub const m_nHoldBombEffect: usize = 0xC80; // ParticleIndex_t
-        pub const m_bFlying: usize = 0xE80; // bool
-        pub const m_bFlyingStarted: usize = 0xE81; // bool
-        pub const m_bIsGrabbing: usize = 0xE82; // bool
-        pub const m_bIsHoldingBomb: usize = 0xE83; // bool
-        pub const m_flCurrentSpeed: usize = 0xE84; // float32
+        pub const m_nHoldBombEffect: usize = 0xC90; // ParticleIndex_t
+        pub const m_bFlying: usize = 0xE90; // bool
+        pub const m_bFlyingStarted: usize = 0xE91; // bool
+        pub const m_bIsGrabbing: usize = 0xE92; // bool
+        pub const m_bIsHoldingBomb: usize = 0xE93; // bool
+        pub const m_flCurrentSpeed: usize = 0xE94; // float32
     }
     pub mod CCitadel_Ability_Nikuman {
     }
@@ -8623,15 +8623,15 @@ pub mod client_dll {
         pub const m_flTargetAwayDistance: usize = 0x694; // float32
     }
     pub mod CCitadel_Ability_WreckerTeleport {
-        pub const m_hProjectile: usize = 0xC88; // CHandle<C_BaseEntity>
-        pub const m_flArrowSpeed: usize = 0xC8C; // float32
-        pub const m_flSnapAnglesBackTime: usize = 0xC90; // GameTime_t
-        pub const m_flCastTimeDamage: usize = 0xC94; // float32
-        pub const m_flCastTime: usize = 0xC98; // GameTime_t
-        pub const m_bNeedsExplosion: usize = 0xC9C; // bool
-        pub const m_vProjectileRemovedOrigin: usize = 0xCA0; // Vector
-        pub const m_angCasterAnglesAtCastTime: usize = 0xCAC; // QAngle
-        pub const m_flTravelDistance: usize = 0xCB8; // float32
+        pub const m_hProjectile: usize = 0xC98; // CHandle<C_BaseEntity>
+        pub const m_flArrowSpeed: usize = 0xC9C; // float32
+        pub const m_flSnapAnglesBackTime: usize = 0xCA0; // GameTime_t
+        pub const m_flCastTimeDamage: usize = 0xCA4; // float32
+        pub const m_flCastTime: usize = 0xCA8; // GameTime_t
+        pub const m_bNeedsExplosion: usize = 0xCAC; // bool
+        pub const m_vProjectileRemovedOrigin: usize = 0xCB0; // Vector
+        pub const m_angCasterAnglesAtCastTime: usize = 0xCBC; // QAngle
+        pub const m_flTravelDistance: usize = 0xCC8; // float32
     }
     pub mod CCitadel_Modifier_SnipeGlowVData {
         pub const m_GlowParticle: usize = 0x608; // CResourceNameTyped<CWeakHandle<InfoForResourceTypeIParticleSystemDefinition>>
@@ -8743,7 +8743,7 @@ pub mod client_dll {
     pub mod CCitadel_Modifier_SilenceProcWatcher {
     }
     pub mod CCitadel_Item {
-        pub const m_vecComponentsConsumed: usize = 0xC80; // C_NetworkUtlVectorBase<CUtlStringToken>
+        pub const m_vecComponentsConsumed: usize = 0xC90; // C_NetworkUtlVectorBase<CUtlStringToken>
     }
     pub mod CAbilityDustStormVData {
         pub const m_DustStormAura: usize = 0x1548; // CEmbeddedSubclass<CCitadelModifier>
@@ -8850,14 +8850,14 @@ pub mod client_dll {
     pub mod CModifier_Mirage_FireBeetles_Buff {
     }
     pub mod CCitadel_Ability_Viscous_Telepunch {
-        pub const m_vecTeleportPosition: usize = 0xE78; // Vector
-        pub const m_vecTeleportPositionNormal: usize = 0xE84; // Vector
-        pub const m_eTelepunchState: usize = 0xE90; // ETelepunchState_t
-        pub const m_flNextStateTime: usize = 0xE94; // GameTime_t
+        pub const m_vecTeleportPosition: usize = 0xE88; // Vector
+        pub const m_vecTeleportPositionNormal: usize = 0xE94; // Vector
+        pub const m_eTelepunchState: usize = 0xEA0; // ETelepunchState_t
+        pub const m_flNextStateTime: usize = 0xEA4; // GameTime_t
     }
     pub mod CCitadel_Ability_GooGrenade {
-        pub const m_vecPuddleModifiers: usize = 0xC80; // CUtlVector<CHandle<C_BaseEntity>>
-        pub const m_LastDetonateTime: usize = 0xEC8; // GameTime_t
+        pub const m_vecPuddleModifiers: usize = 0xC90; // CUtlVector<CHandle<C_BaseEntity>>
+        pub const m_LastDetonateTime: usize = 0xED8; // GameTime_t
     }
     pub mod CCitadel_Ability_ViscousWeapon_Alt_VData {
         pub const m_strChargingParticle: usize = 0x1548; // CResourceNameTyped<CWeakHandle<InfoForResourceTypeIParticleSystemDefinition>>
@@ -8868,17 +8868,17 @@ pub mod client_dll {
         pub const m_ShootSound: usize = 0x1808; // CSoundEventName
     }
     pub mod CCitadel_Ability_Chrono_TimeWall {
-        pub const m_hChargingParticle: usize = 0xC80; // ParticleIndex_t
-        pub const m_vSpawnPos: usize = 0xC84; // Vector
-        pub const m_qAngles: usize = 0xC90; // QAngle
-        pub const m_bAirCast: usize = 0xC9C; // bool
+        pub const m_hChargingParticle: usize = 0xC90; // ParticleIndex_t
+        pub const m_vSpawnPos: usize = 0xC94; // Vector
+        pub const m_qAngles: usize = 0xCA0; // QAngle
+        pub const m_bAirCast: usize = 0xCAC; // bool
     }
     pub mod CCitadel_Modifier_ServerOnly {
     }
     pub mod CCitadelBaseDashCastAbility {
-        pub const m_hAbilityToTrigger: usize = 0xC80; // CHandle<C_CitadelBaseAbility>
-        pub const m_flDashCastStartTime: usize = 0xC84; // GameTime_t
-        pub const m_vDashCastDir: usize = 0xC88; // Vector
+        pub const m_hAbilityToTrigger: usize = 0xC90; // CHandle<C_CitadelBaseAbility>
+        pub const m_flDashCastStartTime: usize = 0xC94; // GameTime_t
+        pub const m_vDashCastDir: usize = 0xC98; // Vector
     }
     pub mod C_SoundAreaEntityBase {
         pub const m_bDisabled: usize = 0x560; // bool
@@ -8947,9 +8947,9 @@ pub mod client_dll {
     pub mod CCitadel_ArmorUpgrade_ActiveBulletShield {
     }
     pub mod CCitadelBaseLockonAbility {
-        pub const m_vecLockonTargets: usize = 0xD98; // C_UtlVectorEmbeddedNetworkVar<LockonTarget_t>
-        pub const m_LockOnStartTime: usize = 0xDE8; // GameTime_t
-        pub const m_nTargetingLightEffect: usize = 0xDF0; // ParticleIndex_t
+        pub const m_vecLockonTargets: usize = 0xDA8; // C_UtlVectorEmbeddedNetworkVar<LockonTarget_t>
+        pub const m_LockOnStartTime: usize = 0xDF8; // GameTime_t
+        pub const m_nTargetingLightEffect: usize = 0xE00; // ParticleIndex_t
     }
     pub mod CAbility_Rutger_CheatDeath {
     }
@@ -9031,13 +9031,13 @@ pub mod client_dll {
         pub const m_vPush: usize = 0xC0; // Vector
     }
     pub mod CCitadel_Ability_Mantle {
-        pub const m_flVertOffset: usize = 0xC80; // float32
-        pub const m_flHorizGap: usize = 0xC84; // float32
-        pub const m_vStartPos: usize = 0xC88; // Vector
-        pub const m_vTargetPos: usize = 0xC94; // Vector
-        pub const m_angFacing: usize = 0xCA0; // QAngle
-        pub const m_nMantleTypeIndex: usize = 0xCAC; // int32
-        pub const m_flStartTime: usize = 0xCB0; // GameTime_t
+        pub const m_flVertOffset: usize = 0xC90; // float32
+        pub const m_flHorizGap: usize = 0xC94; // float32
+        pub const m_vStartPos: usize = 0xC98; // Vector
+        pub const m_vTargetPos: usize = 0xCA4; // Vector
+        pub const m_angFacing: usize = 0xCB0; // QAngle
+        pub const m_nMantleTypeIndex: usize = 0xCBC; // int32
+        pub const m_flStartTime: usize = 0xCC0; // GameTime_t
     }
     pub mod CCitadel_Modifier_NearDeathFXVData {
         pub const m_EnemyNearDeathParticle: usize = 0x608; // CResourceNameTyped<CWeakHandle<InfoForResourceTypeIParticleSystemDefinition>>
@@ -9061,8 +9061,8 @@ pub mod client_dll {
     pub mod CCitadel_Modifier_AirLiftExplodingAlly {
     }
     pub mod CCitadel_Ability_Wrecker_Ultimate {
-        pub const m_angBeamAngles: usize = 0xCA0; // QAngle
-        pub const m_bNeedsBeamReset: usize = 0xCB8; // bool
+        pub const m_angBeamAngles: usize = 0xCB0; // QAngle
+        pub const m_bNeedsBeamReset: usize = 0xCC8; // bool
     }
     pub mod CCitadelModifierChronoPulseGrenadePulseAreaVData {
         pub const m_DebuffModifier: usize = 0x608; // CEmbeddedSubclass<CCitadelModifier>
@@ -9075,9 +9075,9 @@ pub mod client_dll {
         pub const m_strHitSound: usize = 0x818; // CSoundEventName
     }
     pub mod CCitadel_Ability_HornetLeap {
-        pub const m_bLeaping: usize = 0xC82; // bool
-        pub const m_flLeapStartTime: usize = 0xC84; // GameTime_t
-        pub const m_nFXIndex: usize = 0xC88; // ParticleIndex_t
+        pub const m_bLeaping: usize = 0xC92; // bool
+        pub const m_flLeapStartTime: usize = 0xC94; // GameTime_t
+        pub const m_nFXIndex: usize = 0xC98; // ParticleIndex_t
     }
     pub mod CCitadel_Modifier_ChainLightningEffect {
     }
@@ -9125,7 +9125,7 @@ pub mod client_dll {
     pub mod CCitadel_Ability_GenericPerson_2 {
     }
     pub mod CCitadel_Ability_Ghost_BloodShards {
-        pub const m_vecDamagedTargets: usize = 0xDD0; // CUtlVector<CHandle<C_BaseEntity>>
+        pub const m_vecDamagedTargets: usize = 0xDE0; // CUtlVector<CHandle<C_BaseEntity>>
     }
     pub mod CCitadel_Modifier_Intrinsic_BaseVData {
     }
@@ -9209,10 +9209,10 @@ pub mod client_dll {
         pub const m_SelfBuffCastSound: usize = 0x16A8; // CSoundEventName
     }
     pub mod CCitadel_Ability_IcePath {
-        pub const m_bIcePathing: usize = 0xCF0; // bool
-        pub const m_qLastAngles: usize = 0xCF4; // QAngle
-        pub const m_vLastVelocity: usize = 0xD00; // Vector
-        pub const m_bFirstMovementTick: usize = 0xD0C; // bool
+        pub const m_bIcePathing: usize = 0xD00; // bool
+        pub const m_qLastAngles: usize = 0xD04; // QAngle
+        pub const m_vLastVelocity: usize = 0xD10; // Vector
+        pub const m_bFirstMovementTick: usize = 0xD1C; // bool
     }
     pub mod CCitadel_Modifier_LearningHeroAbility {
         pub const m_sDescription: usize = 0xC0; // CBufferString
@@ -9266,21 +9266,21 @@ pub mod client_dll {
     pub mod CAbility_Rutger_ForceField {
     }
     pub mod CCitadel_Ability_Slide {
-        pub const m_flGroundDashSlideTime: usize = 0xCD8; // CCitadelAutoScaledTime
-        pub const m_flSlowGetupStartTime: usize = 0xCF0; // GameTime_t
-        pub const m_bShouldTriggerSlowGetup: usize = 0xCF4; // bool
-        pub const m_bWantsSlide: usize = 0xCF5; // bool
-        pub const m_bAirborneWhenDuckPressed: usize = 0xCF6; // bool
-        pub const m_bIsSliding: usize = 0xCF7; // bool
-        pub const m_flSpeedAdjust: usize = 0xCF8; // float32
-        pub const m_flDuckPressedTime: usize = 0xCFC; // GameTime_t
-        pub const m_flSlideChangeTime: usize = 0xD00; // GameTime_t
-        pub const m_flSlidingOnFlatStartTime: usize = 0xD04; // GameTime_t
-        pub const m_nJumpsThisSlideSession: usize = 0xD08; // int32
-        pub const m_flOnGroundStartTime: usize = 0xD0C; // GameTime_t
-        pub const m_flDashSlideStartTime: usize = 0xD10; // GameTime_t
-        pub const m_bStartedSlideViaProbeSlope: usize = 0xD14; // bool
-        pub const m_nSlideEffectIndex: usize = 0xD18; // ParticleIndex_t
+        pub const m_flGroundDashSlideTime: usize = 0xCE8; // CCitadelAutoScaledTime
+        pub const m_flSlowGetupStartTime: usize = 0xD00; // GameTime_t
+        pub const m_bShouldTriggerSlowGetup: usize = 0xD04; // bool
+        pub const m_bWantsSlide: usize = 0xD05; // bool
+        pub const m_bAirborneWhenDuckPressed: usize = 0xD06; // bool
+        pub const m_bIsSliding: usize = 0xD07; // bool
+        pub const m_flSpeedAdjust: usize = 0xD08; // float32
+        pub const m_flDuckPressedTime: usize = 0xD0C; // GameTime_t
+        pub const m_flSlideChangeTime: usize = 0xD10; // GameTime_t
+        pub const m_flSlidingOnFlatStartTime: usize = 0xD14; // GameTime_t
+        pub const m_nJumpsThisSlideSession: usize = 0xD18; // int32
+        pub const m_flOnGroundStartTime: usize = 0xD1C; // GameTime_t
+        pub const m_flDashSlideStartTime: usize = 0xD20; // GameTime_t
+        pub const m_bStartedSlideViaProbeSlope: usize = 0xD24; // bool
+        pub const m_nSlideEffectIndex: usize = 0xD28; // ParticleIndex_t
     }
     pub mod C_NPC_Boss_Tier3 {
         pub const m_iLane: usize = 0x14B0; // int32
@@ -9318,10 +9318,10 @@ pub mod client_dll {
     pub mod C_Breakable {
     }
     pub mod CCitadel_Ability_Uppercut {
-        pub const m_bShouldUseResources: usize = 0xF30; // bool
+        pub const m_bShouldUseResources: usize = 0xF40; // bool
     }
     pub mod CCitadel_Ability_PsychicPulse {
-        pub const m_vecPulseTargets: usize = 0xCB8; // C_NetworkUtlVectorBase<CHandle<C_BaseEntity>>
+        pub const m_vecPulseTargets: usize = 0xCC8; // C_NetworkUtlVectorBase<CHandle<C_BaseEntity>>
     }
     pub mod C_TintController {
     }
@@ -9521,12 +9521,13 @@ pub mod client_dll {
     pub mod CCitadel_Ability_GoldenIdolVData {
         pub const m_sIdolDropOffSound: usize = 0x1628; // CSoundEventName
         pub const m_DropoffTimerModifier: usize = 0x1638; // CEmbeddedSubclass<CCitadelModifier>
-        pub const m_Bonus01: usize = 0x1648; // CEmbeddedSubclass<CCitadelModifier>
-        pub const m_Bonus02: usize = 0x1658; // CEmbeddedSubclass<CCitadelModifier>
-        pub const m_flInstantGoldPercentage: usize = 0x1668; // float32
-        pub const m_iComebackBounty: usize = 0x166C; // int32
-        pub const m_iComebackGoldThreshold: usize = 0x1670; // int32
-        pub const m_flCasterBonusPercent: usize = 0x1674; // float32
+        pub const m_HoldingIdolModifier: usize = 0x1648; // CEmbeddedSubclass<CCitadelModifier>
+        pub const m_Bonus01: usize = 0x1658; // CEmbeddedSubclass<CCitadelModifier>
+        pub const m_Bonus02: usize = 0x1668; // CEmbeddedSubclass<CCitadelModifier>
+        pub const m_flInstantGoldPercentage: usize = 0x1678; // float32
+        pub const m_iComebackBounty: usize = 0x167C; // int32
+        pub const m_iComebackGoldThreshold: usize = 0x1680; // int32
+        pub const m_flCasterBonusPercent: usize = 0x1684; // float32
     }
     pub mod CCitadel_Modifier_Slork_Visible {
     }
@@ -9541,7 +9542,7 @@ pub mod client_dll {
         pub const m_strAttackerHitSound: usize = 0x6E8; // CSoundEventName
     }
     pub mod CCitadel_Ability_CardToss {
-        pub const m_bCardIsFlying: usize = 0xF00; // bool
+        pub const m_bCardIsFlying: usize = 0xF10; // bool
     }
     pub mod CCitadel_Modifier_TeleportToObjectiveVData {
         pub const m_TeleportOriginParticle: usize = 0x608; // CResourceNameTyped<CWeakHandle<InfoForResourceTypeIParticleSystemDefinition>>

@@ -121,6 +121,8 @@ cargo build --release
 
 ![](images/4.png)![](preview)
 
+![](images/6.png)![](preview)
+
 ![](images/5.png)![](preview)
 
 <div align = "center">

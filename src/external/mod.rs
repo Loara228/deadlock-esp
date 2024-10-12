@@ -80,7 +80,9 @@ impl External
         self.update_players(target_bone);
         self.update_observers();
         self.update_entities();
-        Self::update_scripts(self);
+        if self.local_player_index != 0 {
+            Self::update_scripts(self);
+        }
     }
 
     fn update_scripts(game: &mut External) {

@@ -1,6 +1,6 @@
 use egui::{Align2, Color32, FontId};
 
-use crate::{external::{interfaces::enums::Hero, offsets::client_dll::CCitadel_Ability_Shiv_KillingBlow, External}, memory::read_memory};
+use crate::external::{interfaces::enums::Hero, External};
 
 pub trait HeroScript {
     fn update(&self, game: &External);

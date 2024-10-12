@@ -3,7 +3,7 @@ use std::{io::Read, path::PathBuf};
 use egui::{Context, FontData, FontDefinitions, Ui};
 use windows::Win32::UI::{Input::KeyboardAndMouse::GetAsyncKeyState, WindowsAndMessaging::SetForegroundWindow};
 
-use crate::{external::{cheat::aim, interfaces::enums::TargetBone}, input::keyboard::{Key, VirtualKeys}, settings::{self, mgr, structs::{AimProperties, AimSettings, Settings}}};
+use crate::{external::{cheat::aim, interfaces::enums::TargetBone}, input::keyboard::{Key, VirtualKeys}, settings::{self, mgr, structs::{AimProperties, AimSettings}}};
 use super::{localization::Lang, overlay::Overlay};
 
 pub fn draw_windows(overlay: &mut Overlay, ctx: &Context, ui: &mut Ui) {
@@ -14,14 +14,13 @@ pub fn draw_windows(overlay: &mut Overlay, ctx: &Context, ui: &mut Ui) {
 }
 
 fn draw_heroes(overlay: &mut Overlay, ctx: &Context, ui: &mut Ui) {
-    egui::Window::new("Scripts").show(ctx, |ui| {
+    // egui::Window::new("Scripts").show(ctx, |ui| {
         // ui.vertical_centered(|ui| {
-        //     ui.add(crate::egui_github_link_file_line!());
+            // ui.label("Shiv");
         // });
 
-        ui.label("Shiv");
         // todo
-    });
+    // });
 }
 
 fn draw_config(overlay: &mut Overlay, ui: &mut Ui) {

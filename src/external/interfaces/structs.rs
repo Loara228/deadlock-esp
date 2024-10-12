@@ -33,13 +33,24 @@ impl GameSceneNode
 }
 
 #[derive(Debug)]
-#[derive(Default)]
 pub struct Ability
 {
+    pub ptr: *mut c_void,
     pub index: usize,
     /// Кол-во потраченных поинтов на скилл
     pub points: i32,
     pub coodown: bool,
+}
+
+impl Default for Ability {
+    fn default() -> Self {
+        Self {
+            ptr: 0 as *mut c_void,
+            index: 0,
+            points: 0,
+            coodown: true,
+        }
+    }
 }
 
 #[derive(Debug)]
@@ -65,6 +76,7 @@ impl Abilities
                 let ability = from_handle(entity_list_ptr, ability_handle);
     
                 self.list.push(Ability {
+                    ptr: ability,
                     index: i,
                     points: read_memory(ability.add(C_CitadelBaseAbility::m_nUpgradeBits)),
                     coodown: read_memory(ability.add(C_CitadelBaseAbility::m_bIsCoolingDownInternal))

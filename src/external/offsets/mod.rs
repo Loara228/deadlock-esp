@@ -1,11 +1,11 @@
 #![allow(non_upper_case_globals, non_camel_case_types, non_snake_case, unused)]
 
 pub mod client {   
-    pub static mut dwEntityList: usize =  0x1f50ce8;
-    pub static mut dwViewMatrix: usize = 0x21105b0;
-    pub static mut dwLocalPlayerController: usize = 0x20fe8a8;
-    pub static mut CCitadelCameraManager: usize = 0x1f72c40;
-    pub static mut dwGlobalVars: usize = 0x1de79d0;
+    pub static mut dwEntityList: usize =  0x1fc4420;
+    pub static mut dwViewMatrix: usize = 0x218cfb0;
+    pub static mut dwLocalPlayerController: usize = 0x217b0b8;
+    pub static mut CCitadelCameraManager: usize = 0x1fe6e20;
+    pub static mut dwGlobalVars: usize = 0x1e58418;
 }
 
 pub mod client_dll {

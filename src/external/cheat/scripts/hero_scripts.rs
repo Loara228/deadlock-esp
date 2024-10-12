@@ -22,10 +22,16 @@ impl HeroScript for Shiv {
             return;
         }
         let ult_ability = ult_ability.unwrap();
+        if ult_ability.coodown {
+            return;
+        }
         let upgrade = ult_ability.points; // ульт (топор)
         let mut font = FontId::default();
         font.size = 32f32;
         for player in game.players.iter() {
+            if player.rect.max.x == 0 {
+                continue;
+            }
             if player.is_alive() && player.pawn.team != local_player.pawn.team {
                 let health_perc = 100f32 / player.pawn.max_health as f32 * player.pawn.health as f32;
                 let can_kill: bool = if upgrade < 7 {

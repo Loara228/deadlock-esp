@@ -3,12 +3,12 @@ pub (crate) mod interfaces;
 pub mod cheat;
 
 use self::cheat::aim::drawing;
-use std::{ffi::c_void, sync::Arc};
-use cheat::{esp::{boxes::draw_head, radar}, scripts::hero_scripts::{HeroScript, Shiv}};
+use std::{ffi::c_void, sync::{Arc, Mutex}};
+use cheat::{esp::{boxes::draw_head, radar}, scripts::{HeroScript, HeroScriptSettings}};
 use egui::Pos2;
-use interfaces::{entities::{Entity, Player}, enums::TargetBone, math::{Matrix, Vector3}, structs::{Camera, Observers}};
+use interfaces::{entities::{Entity, Player}, enums::{Hero, TargetBone}, math::{Matrix, Vector3}, structs::{Camera, Observers}};
 use offsets::client_dll::{CPlayer_CameraServices, C_BasePlayerPawn};
-use crate::{memory::{self, read_memory}, settings::structs::Settings};
+use crate::{input::keyboard::KeyState, memory::{self, read_memory}, settings::structs::Settings};
 
 const PLAYERS_LEN: usize = 12 + 1;
 
@@ -24,8 +24,7 @@ pub struct External
     pub screen: egui::Rect,
     pub aim_punch: Vector3,
     pub global_vars: GlobalVars,
-    pub observers: Observers,
-    pub hero_scripts: Vec<Arc<dyn HeroScript>>
+    pub observers: Observers
 }
 
 impl External
@@ -59,14 +58,12 @@ impl External
                 screen: egui::Rect::from_two_pos(Pos2::default(), Pos2::default()),
                 aim_punch: Vector3::default(),
                 global_vars: GlobalVars::default(),
-                observers: Observers::default(),
-                hero_scripts: vec![Arc::new(Shiv::default())]
-
+                observers: Observers::default()
             }
         }
     }
 
-    pub fn update(&mut self, target_bone: &TargetBone)
+    pub fn update(&mut self, hero_scripts: &mut Vec<(Arc<Mutex<dyn HeroScript>>, HeroScriptSettings)>, settings: &mut Settings)
     {
         self.global_vars.update(self.client_ptr);
         self.camera.update(self.client_ptr);
@@ -77,19 +74,32 @@ impl External
             let viewport = Matrix::get_viewport(egui::Vec2 { x: self.screen.max.x, y: self.screen.max.y });
             self.view_matrix = matrix * viewport;
         }
-        self.update_players(target_bone);
+        self.update_players(&settings.aim.aim_bone);
         self.update_observers();
         self.update_entities();
         if self.local_player_index != 0 {
-            Self::update_scripts(self);
+            Self::update_scripts(self, hero_scripts, settings);
         }
     }
 
-    fn update_scripts(game: &mut External) {
-        let local_player = game.get_local_player();
-        for hero_script in game.hero_scripts.iter() {
-            if hero_script.hero_id() == local_player.data.hero {
-                hero_script.update(game);}
+    fn update_scripts(game: &mut External, hero_scripts: &mut Vec<(Arc<Mutex<dyn HeroScript>>, HeroScriptSettings)>, settings: &mut Settings) {
+        let local_player = &game.players[game.local_player_index - 1];
+        for hero_script in hero_scripts.iter_mut() {
+            if !hero_script.1.enabled {
+                continue;
+            }
+            let hero = hero_script.0.lock().unwrap().hero_id();
+            if hero == Hero::None || hero == local_player.data.hero {
+                match &mut hero_script.1.key {
+                    Some(key) => {
+                        key.update();
+                        hero_script.0.lock().unwrap().update(game, key.state, settings);
+                    },
+                    None => {
+                        hero_script.0.lock().unwrap().update(game, KeyState::None, settings);
+                    }
+                }
+            }
         }
     }
 
@@ -129,7 +139,7 @@ impl External
         }
     }
 
-    pub fn draw(&mut self, g: &egui::Painter, settings: &Settings)
+    pub fn draw(&mut self, g: &egui::Painter, settings: &Settings, hero_scripts: &mut Vec<(Arc<Mutex<dyn HeroScript>>, HeroScriptSettings)>)
     {
         if self.local_player_index != 0
         {
@@ -152,16 +162,20 @@ impl External
                     }
                 }
             }
-            Self::draw_scripts(g, &self);
+            Self::draw_scripts(g, &self, hero_scripts);
         }
         radar::draw_radar(g, &settings.radar, &self);
     }
 
-    fn draw_scripts(g: &egui::Painter, game: &External) {
+    fn draw_scripts(g: &egui::Painter, game: &External, hero_scripts: &mut Vec<(Arc<Mutex<dyn HeroScript>>, HeroScriptSettings)>) {
         let local_player = game.get_local_player();
-        for hero_script in game.hero_scripts.iter() {
-            if hero_script.hero_id() == local_player.data.hero {
-                hero_script.draw(g, game);
+        for hero_script in hero_scripts.iter() {
+            if !hero_script.1.enabled {
+                continue;
+            }
+            let hero = hero_script.0.lock().unwrap().hero_id();
+            if hero == Hero::None || hero == local_player.data.hero {
+                hero_script.0.lock().unwrap().draw(g, game);
             }
         }
     }

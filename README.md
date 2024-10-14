@@ -67,46 +67,77 @@
    - Не используется WriteProcessMemory
    - События мыши отсылаются из другого процесса
    - Авто обновление указателей из памяти модуля игры
-   - В коде есть GlobalVars и Abilities, но не используются. Можете сами что-то запилить
+
+## Как добавить свой скрипт
+
+```rs
+pub struct MyScript {...}
+impl HeroScript for MyScript {
+    // Логика
+    fn update(&mut self, data: &External, _: KeyState, _: &mut Settings) {...}
+    // Отрисовываем
+    fn draw(&self, g: &egui::Painter, data: &External) {...}
+    // Возвращаем id героя. Hero::None - для всех
+    fn hero_id(&self) { Hero::Vindicta }
+    // Название для U
+    fn name(&self) -> &str {"name"}
+     // Клавиша
+    fn init_key_code(&self) -> Option<i32> {None}
+}
+```
+
+Далее переходим в конструктор оверлея и добавляем свой скрипт
+
+> <p>src>drawing>overlay.rs>impl Default for Overlay>fn default</p>
+
+```rs
+        let mut hero_scripts: Vec<(Arc<Mutex<dyn HeroScript>>, HeroScriptSettings)> = vec![
+            (Arc::new(Mutex::new(MyScript::default())), HeroScriptSettings::default())
+        ];
+```
 
 ## Todo
 
+<!--
 - [ ] Авто парирование
-- [ ] Скрипты
-   - [ ] Шмотки
-   - [x] Герои
-   - [ ] Клавиатура
-- [ ] Переключение приоритета
+- [ ] ? Чтение слотов
+- [ ] Переключение приоритета крипов (+ скрипт)
 - [ ] Отрисовка союзных крипов
-- [ ] Иконки персонажей
+- [ ] Иконки персонажей (+alt скрипт на радар)
+- [ ] Изменить стандарные настройки
 - [ ] Отображение героев вне экрана
-
-Если хотите предложить что-то своё - [тык](https://github.com/Loara228/deadlock-esp/issues/new)
+- [ ] ? udp input
+- [ ] Movement
+- [ ] Авто перезарядка (предмет)
+- [ ] Проверка на бессмертие
+-->
 
 <hr>
 
-# Запуск 
+## Запуск 
 
+0. Устанавливаем [Rust](https://www.rust-lang.org/ru/learn/get-started) и [Cargo](https://doc.rust-lang.org/cargo/getting-started/installation.html)
+1. Клонируем репозиторий
 1. Меняем имя приложения в [toml файле](https://github.com/Loara228/deadlock-esp/blob/master/Cargo.toml)
 
 ```txt 
 name = "{название программы}"
 ```
 
-2. Компилируем проект:
+3. Компилируем проект:
 
 ```txt
 cargo build --release
 ```
 
-3. Запускаем игру
-4. Запускаем чит
+4. Запускаем игру
+5. Запускаем чит
 
 ```txt
 {название программы} --offsets
 ```
 
-5. Для открытия/закрытия используется клавиша <kbd>HOME</kbd>
+6. Для открытия/закрытия используется клавиша <kbd>HOME</kbd>
 
 ## Offsets
 

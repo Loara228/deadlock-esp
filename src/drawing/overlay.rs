@@ -1,10 +1,10 @@
-use std::{ffi::CString, net::UdpSocket};
+use std::{ffi::CString, net::UdpSocket, sync::{Arc, Mutex}};
 use eframe::{NativeOptions, Renderer};
 use egui::{emath::Pos2, CentralPanel, Vec2, ViewportBuilder};
 use windows::{core::PCSTR, Win32::{Foundation::HWND, Graphics::Gdi::UpdateWindow, UI::WindowsAndMessaging::{FindWindowExA, GetForegroundWindow, SetForegroundWindow, SetWindowLongA, WINDOW_LONG_PTR_INDEX}}};
 
 use super::{localization::Lang, screen};
-use crate::{external::{cheat::esp::{self, radar::draw_radar_window}, External}, input::keyboard::{Key, KeyState}, settings::{self, structs::Settings}};
+use crate::{external::{cheat::{esp::{self, radar::draw_radar_window}, scripts::{hero_scripts::Shiv, HeroScript, HeroScriptSettings}}, External}, input::keyboard::{Key, KeyState}, settings::{self, structs::Settings}};
 
 pub struct Overlay {
     initialized: bool,
@@ -17,7 +17,8 @@ pub struct Overlay {
     pub lang: Lang,
     pub font_loaded: bool,
     pub current_config: String,
-    pub configs: Vec<String>
+    pub configs: Vec<String>,
+    pub hero_scripts: Vec<(Arc<Mutex<dyn HeroScript>>, HeroScriptSettings)>
 }
 
 impl eframe::App for Overlay
@@ -60,7 +61,7 @@ impl eframe::App for Overlay
             }
         }
         
-        self.game.update(&self.settings.aim.aim_bone);
+        self.game.update(&mut self.hero_scripts, &mut self.settings);
         
         let panel_frame = egui::Frame {
             fill: egui::Color32::TRANSPARENT,
@@ -74,14 +75,13 @@ impl eframe::App for Overlay
             draw_radar_window(&mut self.settings.radar, ctx);
         }
 
-        // todo: if spectators.enabled?
         if self.game.observers.spectator_list.len() > 0 || self.ui_mode {
             esp::spectators::draw_window(&self.game.observers, ctx, &mut self.settings, &self.lang, self.ui_mode);
         } 
 
         CentralPanel::default().frame(panel_frame).show(ctx, |ui|
         {
-            self.game.draw(ui.painter(), &self.settings);
+            self.game.draw(ui.painter(), &self.settings, &mut self.hero_scripts);
 
             if self.ui_mode
             {
@@ -99,6 +99,18 @@ impl Default for Overlay
         log::info!("Connecting...");
         let socket = UdpSocket::bind("127.0.0.1:229").unwrap();
         let configs: Vec<String> = settings::mgr::get_configs();
+
+        let mut hero_scripts: Vec<(Arc<Mutex<dyn HeroScript>>, HeroScriptSettings)> = vec![
+            (Arc::new(Mutex::new(Shiv::default())), HeroScriptSettings::default())
+        ];
+        
+        for script in hero_scripts.iter_mut() {
+            let key_code = script.0.lock().unwrap().init_key_code();
+            if key_code.is_some() {
+                script.1.key = Some(Key::new(key_code.unwrap()));
+            }
+        }
+        
         Self
         {
             initialized: false,
@@ -111,7 +123,8 @@ impl Default for Overlay
             lang: Lang::RU,
             font_loaded: false,
             current_config: "default".to_owned(),
-            configs
+            configs,
+            hero_scripts
         }
     }
 }

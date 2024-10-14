@@ -13,14 +13,23 @@ pub fn draw_windows(overlay: &mut Overlay, ctx: &Context, ui: &mut Ui) {
     draw_heroes(overlay, ctx, ui);
 }
 
-fn draw_heroes(overlay: &mut Overlay, ctx: &Context, ui: &mut Ui) {
-    // egui::Window::new("Scripts").show(ctx, |ui| {
-        // ui.vertical_centered(|ui| {
-            // ui.label("Shiv");
-        // });
+fn draw_heroes(overlay: &mut Overlay, ctx: &Context, _ui: &mut Ui) {
+    egui::Window::new("Скрипты").show(ctx, |ui| {
+        // todo: cfg, key, hero...
+        // for s in overlay.hero_scripts.iter_mut() {
+        //     let script = s.0.lock().unwrap();
+        //     let script_settings = &mut s.1;
 
-        // todo
-    // });
+        //     ui.group(|ui| {
+        //         ui.label(format!("герой: {:?}", script.hero_id()));
+        //         ui.label(format!("название: {}", script.name()));
+        //         ui.checkbox(&mut script_settings.enabled, overlay.lang.enable());
+        //         if script_settings.key.is_some() {
+        //             ui.label("ы");
+        //         }
+        //     });
+        // }
+    });
 }
 
 fn draw_config(overlay: &mut Overlay, ui: &mut Ui) {

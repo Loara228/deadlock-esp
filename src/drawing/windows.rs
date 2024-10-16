@@ -94,11 +94,9 @@ fn draw_main(overlay: &mut Overlay, ctx: &Context, _ui: &mut Ui) {
                             );
                             if ui.selectable_value(
                                 &mut overlay.lang,
-                                Lang::ZhCn,
+                                Lang::RU,
                                 "English",
                             ).clicked() {
-                                load_font(ctx);
-                                overlay.font_loaded = true;
                             };
                             if ui.selectable_value(
                                 &mut overlay.lang,

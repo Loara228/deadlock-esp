@@ -615,7 +615,7 @@ pub(super) mod ru
 // Burger
 pub(super) mod en
 {
-    pub const ENABLE: &str = "Hello. Can i get a... Big mac. No pickles. Extra... uhhhh Ketchup. Medium french fries. And also one extra large sprite.. Thanks. Are you getting a gun as a gift?";
+    pub const ENABLE: &str = "Enable";
     pub const COLOR: &str = "Color";
     pub const CONFIG: &str = "Config";
     pub const CONFIG_LOAD: &str = "Load";

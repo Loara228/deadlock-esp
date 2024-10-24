@@ -1,6 +1,9 @@
 #![allow(non_upper_case_globals, non_camel_case_types, non_snake_case, unused)]
 
+use egui::ImageSource;
 use serde::{Deserialize, Serialize};
+
+use crate::settings::structs::Priority;
 
 use super::math::Vector3;
 
@@ -144,6 +147,12 @@ pub enum Hero
     Dummy = 55
 }
 
+impl std::fmt::Display for Hero {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        write!(f, "{:?}", self)
+    }
+}
+
 impl Default for Hero
 {
     fn default() -> Self {
@@ -185,6 +194,38 @@ impl Hero
             _ => None
         }
     }
+
+    pub fn get_icon(self) -> ImageSource<'static> {
+        return match self {
+            Hero::None => egui::include_image!("../../../icons/None.png"),
+            Hero::Infernus => egui::include_image!("../../../icons/Infernus.png"),
+            Hero::Seven => egui::include_image!("../../../icons/Seven.png"),
+            Hero::Vindicta => egui::include_image!("../../../icons/Vindicta.png"),
+            Hero::LadyGeist => egui::include_image!("../../../icons/LadyGeist.png"),
+            Hero::Abrams => egui::include_image!("../../../icons/Abrams.png"),
+            Hero::Wraith => egui::include_image!("../../../icons/Wraith.png"),
+            Hero::McGinnis => egui::include_image!("../../../icons/McGinnis.png"),
+            Hero::Paradox => egui::include_image!("../../../icons/Paradox.png"),
+            Hero::Dynamo => egui::include_image!("../../../icons/Dynamo.png"),
+            Hero::Kelvin => egui::include_image!("../../../icons/Kelvin.png"),
+            Hero::Haze => egui::include_image!("../../../icons/Haze.png"),
+            // Hero::Holliday => egui::include_image!("../../../icons/None.png"),
+            Hero::Bebop => egui::include_image!("../../../icons/Bebop.png"),
+            Hero::GreyTalon => egui::include_image!("../../../icons/GreyTalon.png"),
+            Hero::MoAndKrill => egui::include_image!("../../../icons/MoAndKrill.png"),
+            Hero::Shiv => egui::include_image!("../../../icons/Shiv.png"),
+            Hero::Ivy => egui::include_image!("../../../icons/Ivy.png"),
+            Hero::Warden => egui::include_image!("../../../icons/Warden.png"),
+            Hero::Yamato => egui::include_image!("../../../icons/Yamato.png"),
+            Hero::Lash => egui::include_image!("../../../icons/Lash.png"),
+            Hero::Viscous => egui::include_image!("../../../icons/Viscous.png"),
+            // Hero::Wrecker => egui::include_image!("../../../icons/None.png"),
+            Hero::Pocket => egui::include_image!("../../../icons/Pocket.png"),
+            Hero::Mirage => egui::include_image!("../../../icons/Mirage.png"),
+            Hero::Dummy => egui::include_image!("../../../icons/None.png"),
+            _ => egui::include_image!("../../../icons/None.png")
+        };
+    }
 }
 
 impl TryFrom<i32> for Hero
@@ -219,7 +260,7 @@ impl TryFrom<i32> for Hero
             52 => Ok(Hero::Mirage),
             55 => Ok(Hero::Dummy),
             _ => {
-                log::warn!("unknown hero id: {}", value);
+                // log::error!("Unknown hero id: {}", value);
                 Err(())
             }
         }
@@ -263,4 +304,63 @@ impl EntityType
             EntityType::Soul => 2,
         }
     }
+
+    pub fn as_priority_2(self, priority: Priority) -> u8
+    {
+        if priority == Priority::Souls{
+            match self {
+                EntityType::None => 0,
+                EntityType::Creep => 1,
+                EntityType::Soul => 2,
+            }
+        } else {
+            match self {
+                EntityType::None => 0,
+                EntityType::Creep => 2,
+                EntityType::Soul => 1,
+            }
+        }
+    }
+}
+
+#[derive(Debug)]
+#[derive(PartialEq)]
+#[derive(Clone, Copy)]
+#[repr(u16)]
+pub enum AbilitySlot {
+    ESlot_Invalid = 0xffff,
+    ESlot_Signature_1 = 0x0,            // Абилки
+    ESlot_Signature_2 = 0x1,
+    ESlot_Signature_3 = 0x2,
+    ESlot_Signature_4 = 0x3,
+    ESlot_ActiveItem_1 = 0x4,           // Шмотки?
+    ESlot_ActiveItem_2 = 0x5,
+    ESlot_ActiveItem_3 = 0x6,
+    ESlot_ActiveItem_4 = 0x7,
+    ESlot_Ability_Held = 0x8,
+    ESlot_Ability_ZipLine = 0x9,
+    ESlot_Ability_Mantle = 0xa,
+    ESlot_Ability_ClimbRope = 0xb,
+    ESlot_Ability_Jump = 0xc,
+    ESlot_Ability_Slide = 0xd,
+    ESlot_Ability_Teleport = 0xe,
+    ESlot_Ability_ZipLineBoost = 0xf,
+    ESlot_Ability_Innate_1 = 0x10,
+    ESlot_Ability_Innate_2 = 0x11,
+    ESlot_Ability_Innate_3 = 0x12,
+    ESlot_Weapon_Secondary = 0x13,
+    ESlot_Weapon_Primary = 0x14,
+    ESlot_Weapon_Melee = 0x15,
+    ESlot_None = 0x16, // EMaxAbilitySlots
+}
+
+#[derive(Debug)]
+#[derive(PartialEq)]
+#[derive(Clone, Copy)]
+#[repr(u8)]
+pub enum EJumpType {
+    EJumpType_Ground = 0,
+    EJumpType_Air = 1,
+    EJumpType_Wall = 2,
+    EJumpType_DashJump = 3,
 }

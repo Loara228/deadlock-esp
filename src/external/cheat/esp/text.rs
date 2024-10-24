@@ -4,6 +4,8 @@ use crate::{
     external::interfaces::{entities::Player, math::Vector3}, settings::structs::{Settings, TextSettings},
 };
 
+use super::healthbar;
+
 pub fn draw(g: &egui::Painter, player: &Player, local_player: &Player, settings: &Settings) {
     let mut offsets = (0., 0., 0., 0.); // left, top, right, bottom
     draw_text(
@@ -68,7 +70,7 @@ fn draw_text(
         offsets.3 += 8f32;
         pos = Pos2 {
             x: rect.left() + rect.width() / 2.,
-            y: rect.bottom() + offsets.3,
+            y: rect.bottom() + offsets.3 + healthbar::get_height(rect.width()),
         };
     }
     let mut font = egui::FontId::default();

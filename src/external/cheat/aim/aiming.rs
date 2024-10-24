@@ -1,7 +1,7 @@
 #![allow(non_upper_case_globals, non_camel_case_types, non_snake_case, unused)]
 
 use std::{ffi::c_void, net::UdpSocket, thread, time::Duration};
-use egui::Pos2;
+use egui::{util::undoer::Settings, Pos2};
 use crate::{external::{interfaces::{entities::Player, enums::EntityType, math::{Plane3D, Vector3}, structs::Camera}, External}, input::{keyboard::KeyState, mouse}, settings::structs::{AimProperties, AimSettings}};
 
 use super::drawing;
@@ -83,10 +83,10 @@ unsafe fn update_targets(settings: &AimSettings, game: &External)
         {
             if !settings.creeps.targeting
             {
-                find_entity(game, game.get_local_player(), &settings.creeps);
+                find_entity(game, game.get_local_player(), &settings.creeps, settings);
             }
             if entity_array_index == None {
-                find_entity(game, game.get_local_player(), &settings.creeps);
+                find_entity(game, game.get_local_player(), &settings.creeps, settings);
                 if entity_array_index != None
                 {
                     return;
@@ -128,7 +128,7 @@ fn find_player(game: &External, local_player: &Player, settings: &AimProperties)
     }
 }
 
-fn find_entity(game: &External, local_player: &Player, settings: &AimProperties)
+fn find_entity(game: &External, local_player: &Player, settings: &AimProperties, global_settings: &AimSettings)
 {
     if !settings.targeting
     {
@@ -145,31 +145,27 @@ fn find_entity(game: &External, local_player: &Player, settings: &AimProperties)
             i += 1;
             continue;
         }
-        if ent.class.as_priority() >= priority
+        if ent.class.as_priority_2(global_settings.priority) >= priority
             {
-                if ent.class.as_priority() > priority
+                if ent.class.as_priority_2(global_settings.priority) > priority
                 {
                     distance = 9999f32;
                 }
                 let mut head_pos = ent.game_scene_node.position.clone();
                 if ent.class == EntityType::Creep
                 {
-                    head_pos.z += 45f32;
+                    head_pos.z += 35f32;
                 }
                 else
                 {
-                    // if ent.previous_pos == ent.game_scene_node.position
-                    // {
-                    //     i += 1;
-                    //     continue;
-                    // }
+                    // Добавить настройку: Проверка на видимось?
                 }
                 if !ent.game_scene_node.dormant && game.view_matrix.transform(&mut head_pos) && in_fov(head_pos, center, settings.fov)
                 {
                     let cur_distance = Vector3::distance_2d(head_pos, Vector3::from_pos2(center));
                     if cur_distance < distance && Vector3::distance(ent.game_scene_node.position, local_player.game_scene_node.position) < settings.range
                     {
-                        priority = ent.class.as_priority();
+                        priority = ent.class.as_priority_2(global_settings.priority);
                         distance = cur_distance;
                         unsafe {
                             entity_array_index = Some(i);
@@ -183,6 +179,9 @@ fn find_entity(game: &External, local_player: &Player, settings: &AimProperties)
 
 fn calc_velocity(world_pos: Vector3, velocity: Vector3, settings: &AimProperties) -> Vector3
 {
+    if !settings.velocity_prediction {
+        return world_pos;
+    }
     Vector3 {
         x: world_pos.x + velocity.x / settings.velocity_div_dav,
         y: world_pos.y + velocity.y / settings.velocity_div_dav,
@@ -199,7 +198,8 @@ fn aim_to(point_world: Vector3, angle_per_pixel: f32, game: &External, settings:
     }
 
     let aim_direction = get_aim_direction(game.client_ptr, aim_punch);
-    let aim_direction_desired = Vector3::normalize(point_world - game.camera.position);
+    let aim_direction_desired = Vector3::normalize(point_world - calc_velocity(game.camera.position, game.get_local_player().pawn.velocity, settings));
+    // let aim_direction_desired = Vector3::normalize(point_world - game.camera.position);
 
     let aim_angles = Vector3 {
         x: angle_to_signed(aim_direction_desired, aim_direction, Vector3 { x: 0f32, y: 0f32, z: 1f32 }),
@@ -315,5 +315,5 @@ fn in_fov(p: Vector3, c: Pos2, radius: f32) -> bool
 {
     Vector3::distance(p, Vector3::from_pos2(c)) <= radius
 }
-static mut player_index: Option<usize> = None;
+pub static mut player_index: Option<usize> = None;
 static mut entity_array_index: Option<usize> = None;

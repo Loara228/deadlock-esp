@@ -14,8 +14,8 @@ pub fn detect() -> (Vec2, Vec2)
             let height = GetDeviceCaps(hdc, VERTRES) as f32;
             
             let monitor_info = (
-                Vec2 { x: 0., y: 0. },
-                Vec2 { x: width, y: height - 1. }
+                Vec2 { x: 0f32, y: 0f32 },
+                Vec2 { x: width, y: height}
             );
             log::info!("Primary: {:?}", monitor_info);
             return  monitor_info;
@@ -23,8 +23,8 @@ pub fn detect() -> (Vec2, Vec2)
         let x = GetSystemMetrics(SYSTEM_METRICS_INDEX(0)) as f32;
         let y = GetSystemMetrics(SYSTEM_METRICS_INDEX(1)) as f32;
         let monitor_info = (
-            Vec2 { x: 0., y: 0. },
-            Vec2 { x: x, y: y - 1. }
+            Vec2 { x: 0f32, y: 0f32 },
+            Vec2 { x, y }
         );
         log::info!("Primary: {:?}", monitor_info);
         return  monitor_info;

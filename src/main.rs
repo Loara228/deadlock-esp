@@ -1,3 +1,5 @@
+// #![cfg_attr(not(debug_assertions), windows_subsystem = "windows")]
+
 mod drawing;
 mod input;
 mod memory;
@@ -58,10 +60,8 @@ pub mod connection
 #[derive(Parser)]
 #[command(version)]
 struct Cli {
-    #[arg(short, long, default_value = "false")]
-    offsets: bool,
     #[arg(short, long)]
-    dev: bool,
+    old_window: bool,
     #[arg(short, long)]
     mouse: bool,
 
@@ -96,26 +96,46 @@ fn main() {
     log::info!("Running main...");
 
     mgr::initialize();
-    memory::initialize(args.offsets);
-    drawing::overlay::run();
+    memory::initialize();
+    drawing::overlay::run(args.old_window);
 }
 
 fn check_processes()
 {
+    let cur_pid = std::process::id();
+
     let mut system = sysinfo::System::new();
     system.refresh_processes(sysinfo::ProcessesToUpdate::All);
-    let mut i = 0;
     
+    let mut i = 0;
     let cur_proc = module_path!();
-    for _ in system.processes_by_name(cur_proc.as_ref()) {
+    for p in system.processes_by_name(cur_proc.as_ref()) {
+        let pid = p.pid().as_u32();
+        if pid != cur_pid {
+            p.kill();
+        }
         i += 1;
     }
 
     if i > 1 {
-        let cur_file = get_current_file_name();
-        log::error!("Something went wrong. close all \"{}\" processes and restart program", cur_file);
+        log::error!("Something went wrong. Try restarting the program");
         std::process::exit(0);
     }
+}
+
+fn exit() {
+    let cur_pid = std::process::id();
+    let mut system = sysinfo::System::new();
+    system.refresh_processes(sysinfo::ProcessesToUpdate::All);
+    
+    let cur_proc = module_path!();
+    for p in system.processes_by_name(cur_proc.as_ref()) {
+        let pid = p.pid().as_u32();
+        if pid != cur_pid {
+            p.kill();
+        }
+    }
+    std::process::exit(0);
 }
 
 fn run_mouse_proc()
@@ -141,5 +161,30 @@ fn get_current_file_name() -> String
     exe_path.file_name().unwrap().to_str().unwrap().to_owned()
 }
 
-const ENT_LIST_END: i32 = 2000;
+const ENT_LIST_END: i32 = 2300;
 const ENT_LIST_START: i32 = 200;
+
+// Предупреждение при выборе кости.
+// offscreen (new)
+// шкала здоровья (dyn height, icons)
+// скрипты
+// local velocity
+// Приоритет крипов
+// Исправление багов (mouse proc, black screen, transparent...)
+// Убран --offsets (теперь используется по умолчанию)
+// Всякие мелочи
+
+// код
+// Улучшен код со скиллами и глобальными значениями
+// клавиатура
+// Добавлены новые enum'ки (типы перечислений) из игры
+// Немного изменил дампер и обновил схемы
+// Toasts
+
+// todo:
+// вынести lang в globalsettings. + добавить туда язык. spec and radar (wnd pos, size)
+// Локализация
+// web reqwest (если не работает и нужно обновить)
+// ? Активные эффексы, предметы
+// rosh timer, rosh health
+// C_CitadelItemPickup

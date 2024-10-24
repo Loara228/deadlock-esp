@@ -70,10 +70,11 @@ impl Signature
     }
 }
 
-pub fn initialize(find_offsets: bool)
+pub fn initialize()
 {
     unsafe
     {
+        let find_offsets = true;
         PROCESS_HANDLE = find_process();
         CLIENT_MODULE = find_module("client.dll");
         log::info!("Initialized");
@@ -94,6 +95,9 @@ pub fn initialize(find_offsets: bool)
 
             let global_vars_sig = Signature::new("48 8B 05 ? ? ? ? 44 3B 40", 3, 7);
             crate::external::offsets::client::dwGlobalVars = global_vars_sig.find(&client_memory, CLIENT_MODULE.lpBaseOfDll).1 as usize;
+            
+            let game_rules = Signature::new("48 89 1d ? ? ? ? ff 15 ? ? ? ? 84 c0", 3, 7);
+            crate::external::offsets::client::dwGameRules = game_rules.find(&client_memory, CLIENT_MODULE.lpBaseOfDll).1 as usize;
         }
     }
 }
@@ -113,7 +117,7 @@ unsafe fn find_process() -> HANDLE
                 let process = system.processes_by_name("project8".as_ref()).next();
                 process.unwrap().wait();
                 log::info!("Game exited. Bye!");
-                std::process::exit(0);
+                crate::exit();
             });
             let handle = OpenProcess(PROCESS_QUERY_INFORMATION | PROCESS_VM_READ, false, proc.pid().as_u32()).unwrap();
             log::info!("Process found: {:?}", handle);

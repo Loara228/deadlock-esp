@@ -1,10 +1,10 @@
 use core::f32;
 use std::ffi::c_void;
 
-use egui::{epaint::PathStroke, Color32, Pos2, Rect};
+use egui::{epaint::PathStroke, Color32, Pos2, Rect, Ui};
 
 use crate::{external::{cheat::esp::*, offsets::client_dll::CBasePlayerController}, memory::{read_memory, read_memory_bytes}, settings::structs::{AimSettings, Settings}};
-use super::{enums::{EntityType, TargetBone}, math::{Matrix, Vector3}, structs::{Abilities, Controller, GameSceneNode, Pawn, PlayerDataGlobal, Skeleton}};
+use super::{enums::{EntityType, TargetBone}, math::{Matrix, Vector3}, structs::{AbilitiesComponent, Controller, GameSceneNode, Pawn, PlayerDataGlobal, Skeleton}};
 
 trait EntityBase
 {
@@ -175,7 +175,7 @@ pub struct Player
 
     pub skeleton: Skeleton,
     pub data: PlayerDataGlobal,
-    pub abilities: Abilities
+    pub abilities: AbilitiesComponent
 }
 
 impl EntityBase for Player
@@ -194,7 +194,7 @@ impl Player
             skeleton: Skeleton::default(),
             data: PlayerDataGlobal::default(),
             rect: Rect { min: Pos2::default(), max: Pos2::default() },
-            abilities: Abilities::default()
+            abilities: AbilitiesComponent::default()
         }
     }
     
@@ -278,14 +278,14 @@ impl Player
         }
     }
 
-    pub fn draw(&self, matrix: &Matrix, g: &egui::Painter, settings: &Settings, local_player: &Player)
+    pub fn draw(&self, matrix: &Matrix, ui: &mut Ui, settings: &Settings, local_player: &Player)
     {
         let mut screen_pos = self.game_scene_node.position.clone();
         if matrix.transform(&mut screen_pos)
         {
-            boxes::draw_boxes(self.rect, g, settings);
-            healthbar::draw(g, self, &settings.healthbars);
-            text::draw(g, self, local_player, settings);
+            boxes::draw_boxes(self.rect, ui.painter(), settings);
+            text::draw(ui.painter(), self, local_player, settings);
+            healthbar::draw(ui, self, &settings.healthbars);
         }
     }
 }

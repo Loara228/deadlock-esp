@@ -1,7 +1,7 @@
 #![allow(non_upper_case_globals, non_camel_case_types, non_snake_case, unused)]
 
 use serde::{Deserialize, Serialize};
-use windows::Win32::UI::Input::KeyboardAndMouse::GetAsyncKeyState;
+use windows::Win32::UI::Input::KeyboardAndMouse::{GetAsyncKeyState, SendInput, INPUT, INPUT_KEYBOARD, KEYEVENTF_EXTENDEDKEY, KEYEVENTF_KEYUP, VIRTUAL_KEY};
 
 #[derive(Clone, Copy)]
 #[derive(Debug)]
@@ -405,4 +405,45 @@ impl Key
             }
         }
     }
+}
+
+pub fn send_key(vk_code: VirtualKeys) {
+    let mut input_down = INPUT::default();
+    input_down.r#type = INPUT_KEYBOARD;
+    input_down.Anonymous.ki.wVk = VIRTUAL_KEY(vk_code as u16);
+    input_down.Anonymous.ki.dwFlags = KEYEVENTF_EXTENDEDKEY;
+    
+    let mut input_up = INPUT::default();
+    input_up.r#type = INPUT_KEYBOARD;
+    input_up.Anonymous.ki.wVk = VIRTUAL_KEY(vk_code as u16);
+    input_up.Anonymous.ki.dwFlags = KEYEVENTF_KEYUP;
+
+    let inputs = [input_down, input_up];
+    unsafe {
+        SendInput(&inputs, std::mem::size_of::<INPUT>() as i32);
+    }
+}
+
+
+pub fn send_key_thread(vk_code: VirtualKeys) {
+    let mut input_down = INPUT::default();
+    input_down.r#type = INPUT_KEYBOARD;
+    input_down.Anonymous.ki.wVk = VIRTUAL_KEY(vk_code as u16);
+    input_down.Anonymous.ki.dwFlags = KEYEVENTF_EXTENDEDKEY;
+    
+    let mut input_up = INPUT::default();
+    input_up.r#type = INPUT_KEYBOARD;
+    input_up.Anonymous.ki.wVk = VIRTUAL_KEY(vk_code as u16);
+    input_up.Anonymous.ki.dwFlags = KEYEVENTF_KEYUP;
+
+    let inputs_down = [input_down];
+    let inputs_up = [input_up];
+
+    std::thread::spawn(move || {
+        unsafe {
+            SendInput(&inputs_down, std::mem::size_of::<INPUT>() as i32);
+            std::thread::sleep(std::time::Duration::from_millis(50));
+            SendInput(&inputs_up, std::mem::size_of::<INPUT>() as i32);
+        };
+    });
 }

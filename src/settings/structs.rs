@@ -39,8 +39,10 @@ pub struct RadarSettings {
     pub color_border: Color32,
     pub player_radius: f32,
     pub scale: f32,
+    pub icon_size: f32,
     pub color_enemy: Color32,
     pub color_team: Color32,
+    pub icons: bool
 }
 
 #[derive(Debug)]
@@ -50,9 +52,23 @@ pub struct Settings {
     pub global: GlobalSettings,
     pub esp_players: EspPlayers,
     pub healthbars: HealthbarSettings,
+    pub offscreen: OffscreenSettings,
     pub radar: RadarSettings,
     pub aim: AimSettings,
     pub spectators: bool
+}
+
+#[derive(Debug)]
+#[derive(Serialize, Deserialize)]
+pub struct OffscreenSettings {
+    pub enable: bool,
+    pub enable_health: bool,
+    pub enable_rect: bool,
+    pub enable_icon: bool,
+    pub enable_distance: bool,
+    pub rect_color: Color32,
+    pub radius: f32,
+    pub icon_size: f32,
 }
 
 #[derive(Debug)]
@@ -65,6 +81,7 @@ pub struct AimSettings
     pub creep_color: Color32,
     pub soul_color: Color32,
     pub aim_bone: TargetBone,
+    pub priority: Priority
 }
 
 #[derive(Debug)]
@@ -116,4 +133,13 @@ pub struct HealthbarSettings
     pub background_color: Color32,
     pub outline_color: Color32,
     pub hp_color: Color32
+}
+
+#[derive(Debug)]
+#[derive(Serialize, Deserialize)]
+#[derive(PartialEq)]
+#[derive(Clone, Copy)]
+pub enum Priority {
+    Creeps,
+    Souls
 }

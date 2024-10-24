@@ -451,6 +451,14 @@ impl Lang {
         }
     }
     
+    pub fn esp_radar_icon_size(self) -> &'static str {
+        "Размер иконки"
+    }
+    
+    pub fn esp_radar_glow(self) -> &'static str {
+        "Подсветка здоровья"
+    }
+    
     pub fn esp_radar_color_enemy(self) -> &'static str {
         match self {
             Lang::RU => ru::ESP_RADAR_COLOR_ENEMY,
@@ -540,6 +548,30 @@ impl Lang {
 			Lang::ZhTw => zhtw::BONE_CHEST,
         }
     }
+
+    pub fn config_loaded(self) -> &'static str {
+        return "Конфиг загружен";
+    }
+    
+    pub fn config_failed(self) -> &'static str {
+        return "Не удалось загрузить конфиг";
+    }
+
+    pub fn config_saved(self) -> &'static str {
+        return "Конфиг сохранен";
+    }
+
+    pub fn config_deleted(self) -> &'static str {
+        return "Конфиг удалён";
+    }
+    
+    pub fn creeps(self) -> &'static str {
+        return "Крипы";
+    }
+    
+    pub fn souls(self) -> &'static str {
+        return "Души";
+    }
 }
 
 pub(super) mod ru
@@ -608,14 +640,15 @@ pub(super) mod ru
     pub const BONE: &str = "Кость";
     pub const BONE_HEAD: &str = "Голова";
     pub const BONE_NECK: &str = "Шея";
-    pub const BONE_CHEST: &str = "Сиська";
-    pub const BONE_PELVIS: &str = "Жопа";
+    pub const BONE_CHEST: &str = "Грудь";
+    pub const BONE_PELVIS: &str = "Член"; // Иногда наводится на рот
 }
 
 // Burger
 pub(super) mod en
 {
-    pub const ENABLE: &str = "Hello. Can i get a... Big mac. No pickles. Extra... uhhhh Ketchup. Medium french fries. And also one extra large sprite.. Thanks. Are you getting a gun as a gift?";
+    pub const ENABLE: &str = "Enable";
+    // pub const ENABLE: &str = "Hello. Can i get a... Big mac. No pickles. Extra... uhhhh Ketchup. Medium french fries. And also one extra large sprite.. Thanks. Are you getting a gun as a gift?";
     pub const COLOR: &str = "Color";
     pub const CONFIG: &str = "Config";
     pub const CONFIG_LOAD: &str = "Load";

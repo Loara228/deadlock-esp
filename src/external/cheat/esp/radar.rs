@@ -1,7 +1,7 @@
 use crate::{
     external::{interfaces::entities::Player, External}, settings::structs::RadarSettings,
 };
-use egui::{epaint::PathShape, Pos2, Rect, Stroke};
+use egui::{epaint::PathShape, pos2, Pos2, Rect, Rounding, Stroke};
 
 pub fn draw_radar_window(settings: &mut RadarSettings, ctx: &egui::Context)
 {    let window = egui::Window::new("Radar");
@@ -18,37 +18,38 @@ pub fn draw_radar_window(settings: &mut RadarSettings, ctx: &egui::Context)
     });
 }
 
-pub fn draw_radar(g: &egui::Painter, settings: &RadarSettings, game: &External) {
+pub fn draw_radar(ui: &mut egui::Ui, settings: &RadarSettings, game: &External) {
     if game.local_player_index == 0 || !settings.enable {
         return;
     }
     let mut rounding = egui::Rounding::same(8.);
     rounding.nw = 0.;
     rounding.ne = 0.;
-    let stroke = egui::Stroke::new(1., settings.color_border);
-    g.rect_filled(settings.rect, rounding, settings.color_background);
+    let stroke = egui::Stroke::new(2., settings.color_border);
+    ui.painter().rect_filled(settings.rect, rounding, settings.color_background);
+
+    ui.painter().line_segment([settings.rect.center(), settings.rect.left_top()], stroke);
+    ui.painter().line_segment([settings.rect.center(), settings.rect.right_top()], stroke);
+    ui.painter().rect_stroke(settings.rect, rounding, stroke);
 
     for player in game.players.iter() {
         if player.is_alive() {
             let local_player: &Player = &game.players[game.local_player_index - 1];
             if local_player.index != player.index {
                 draw_player(
-                    g,
+                    ui,
                     player,
                     local_player,
                     settings,
                     game.camera.view_angles.y - 90.,
-                );}
+                );
+            }
         }
     }
-
-    g.line_segment([settings.rect.center(), settings.rect.left_top()], stroke);
-    g.line_segment([settings.rect.center(), settings.rect.right_top()], stroke);
-    g.rect_stroke(settings.rect, rounding, stroke);
 }
 
 fn draw_player(
-    g: &egui::Painter,
+    ui: &mut egui::Ui,
     player: &Player,
     local_player: &Player,
     settings: &RadarSettings,
@@ -71,10 +72,22 @@ fn draw_player(
         true => settings.color_enemy,
         false => settings.color_team,
     };
-    
-    let player_view_angle = ((player.game_scene_node.view_angle_y) * -1f32) + angle;
-    draw_direction(g, radar_pos.x, radar_pos.y, player_view_angle, settings.player_radius * 3f32, color);
-    g.circle_filled(radar_pos, settings.player_radius, color);
+
+    if settings.icons {
+        let num: f32 = settings.icon_size / 2f32;
+        let icon_rect = Rect {
+            min: pos2(radar_pos.x - num, radar_pos.y - num),
+            max: pos2(radar_pos.x + num, radar_pos.y + num),
+        };
+        
+        ui.painter().circle_filled(radar_pos, num + 1f32, color);
+        let image = egui::Image::new(player.data.hero.get_icon());
+        image.rounding(Rounding::same(num)).paint_at(ui, icon_rect);
+    } else {
+        let player_view_angle = ((player.game_scene_node.view_angle_y) * -1f32) + angle;
+        draw_direction(ui.painter(), radar_pos.x, radar_pos.y, player_view_angle, settings.player_radius * 3f32, color);
+        ui.painter().circle_filled(radar_pos, settings.player_radius, color);
+    }
 }
 
 fn transform(point_to_rotate: Pos2, center: Pos2, radar_rect: Rect, angle: f32) -> Pos2 {

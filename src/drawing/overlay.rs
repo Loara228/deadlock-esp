@@ -1,10 +1,11 @@
 use std::{ffi::CString, net::UdpSocket, sync::{Arc, Mutex}};
 use eframe::{NativeOptions, Renderer};
 use egui::{emath::Pos2, CentralPanel, Vec2, ViewportBuilder};
+use egui_notify::Toasts;
 use windows::{core::PCSTR, Win32::{Foundation::HWND, Graphics::Gdi::UpdateWindow, UI::WindowsAndMessaging::{FindWindowExA, GetForegroundWindow, SetForegroundWindow, SetWindowLongA, WINDOW_LONG_PTR_INDEX}}};
 
 use super::{localization::Lang, screen};
-use crate::{external::{cheat::{esp::{self, radar::draw_radar_window}, scripts::{hero_scripts::Shiv, HeroScript, HeroScriptSettings}}, External}, input::keyboard::{Key, KeyState}, settings::{self, structs::Settings}};
+use crate::{external::{cheat::{esp::{self, radar::draw_radar_window}, scripts::{self, hero_scripts::Shiv, scripts::{AutoReload, EntityPriorityToggle, RadarToggle}, HeroScript, HeroScriptSettings}}, External}, input::keyboard::{Key, KeyState}, settings::{self, structs::Settings}};
 
 pub struct Overlay {
     initialized: bool,
@@ -18,7 +19,8 @@ pub struct Overlay {
     pub font_loaded: bool,
     pub current_config: String,
     pub configs: Vec<String>,
-    pub hero_scripts: Vec<(Arc<Mutex<dyn HeroScript>>, HeroScriptSettings)>
+    pub hero_scripts: Vec<(Arc<Mutex<dyn HeroScript>>, HeroScriptSettings)>,
+    pub toasts: Toasts
 }
 
 impl eframe::App for Overlay
@@ -81,13 +83,14 @@ impl eframe::App for Overlay
 
         CentralPanel::default().frame(panel_frame).show(ctx, |ui|
         {
-            self.game.draw(ui.painter(), &self.settings, &mut self.hero_scripts);
+            self.game.draw(ui, &self.settings, &mut self.hero_scripts, &mut self.toasts);
 
             if self.ui_mode
             {
                 draw_background(ctx, ui);
                 super::windows::draw_windows(self, ctx, ui);
             }
+            self.toasts.show(ctx);
             ctx.request_repaint();
         });
     }
@@ -99,10 +102,7 @@ impl Default for Overlay
         log::info!("Connecting...");
         let socket = UdpSocket::bind("127.0.0.1:229").unwrap();
         let configs: Vec<String> = settings::mgr::get_configs();
-
-        let mut hero_scripts: Vec<(Arc<Mutex<dyn HeroScript>>, HeroScriptSettings)> = vec![
-            (Arc::new(Mutex::new(Shiv::default())), HeroScriptSettings::default())
-        ];
+        let mut hero_scripts = scripts::get_scripts();
         
         for script in hero_scripts.iter_mut() {
             let key_code = script.0.lock().unwrap().init_key_code();
@@ -124,7 +124,8 @@ impl Default for Overlay
             font_loaded: false,
             current_config: "default".to_owned(),
             configs,
-            hero_scripts
+            hero_scripts,
+            toasts: Toasts::default()
         }
     }
 }
@@ -190,7 +191,7 @@ impl Overlay
     }
 }
 
-pub fn run()
+pub fn run(old_window_options: bool)
 {
     let monitor = screen::detect();
     let mut native_options = NativeOptions::default();
@@ -199,8 +200,9 @@ pub fn run()
         .with_taskbar(true)
         .with_always_on_top()
         .with_position(Pos2 { x: monitor.0.x, y: monitor.0.y })
-        .with_inner_size(Vec2 { x: monitor.1.x, y: monitor.1.y })
+        .with_inner_size(Vec2 { x: monitor.1.x, y: monitor.1.y - 1f32 })
         .with_active(false)
+        .with_fullscreen(!old_window_options)
         .with_transparent(true);
     native_options.renderer = Renderer::Glow;
     native_options.vsync = false;
@@ -208,7 +210,8 @@ pub fn run()
     let _ = eframe::run_native(
         "overlay egui",
         native_options,
-        Box::new(|_| {
+        Box::new(|cc| {
+            egui_extras::install_image_loaders(&cc.egui_ctx);
             Ok(Box::<Overlay>::default())
         })
     );

@@ -1,34 +1,63 @@
 use std::{io::Read, path::PathBuf};
 
 use egui::{Context, FontData, FontDefinitions, Ui};
+use egui_notify::Toasts;
 use windows::Win32::UI::{Input::KeyboardAndMouse::GetAsyncKeyState, WindowsAndMessaging::SetForegroundWindow};
 
-use crate::{external::{cheat::aim, interfaces::enums::TargetBone}, input::keyboard::{Key, VirtualKeys}, settings::{self, mgr, structs::{AimProperties, AimSettings}}};
+use crate::{external::{cheat::aim, interfaces::enums::{Hero, TargetBone}}, input::keyboard::{Key, VirtualKeys}, settings::{self, mgr, structs::{AimProperties, AimSettings, Priority}}};
 use super::{localization::Lang, overlay::Overlay};
 
 pub fn draw_windows(overlay: &mut Overlay, ctx: &Context, ui: &mut Ui) {
     draw_main(overlay, ctx, ui);
     draw_esp(overlay, ctx, ui);
     draw_aim(overlay, ctx, ui);
-    draw_heroes(overlay, ctx, ui);
+    draw_scripts(overlay, ctx, ui);
 }
 
-fn draw_heroes(overlay: &mut Overlay, ctx: &Context, _ui: &mut Ui) {
-    egui::Window::new("Скрипты").show(ctx, |ui| {
-        // todo: cfg, key, hero...
-        // for s in overlay.hero_scripts.iter_mut() {
-        //     let script = s.0.lock().unwrap();
-        //     let script_settings = &mut s.1;
-
-        //     ui.group(|ui| {
-        //         ui.label(format!("герой: {:?}", script.hero_id()));
-        //         ui.label(format!("название: {}", script.name()));
-        //         ui.checkbox(&mut script_settings.enabled, overlay.lang.enable());
-        //         if script_settings.key.is_some() {
-        //             ui.label("ы");
-        //         }
-        //     });
-        // }
+fn draw_scripts(overlay: &mut Overlay, ctx: &Context, _ui: &mut Ui) {
+    egui::Window::new("Scripts").auto_sized().max_height(250f32).show(ctx, |ui| {
+        egui::ScrollArea::vertical().auto_shrink(true).show(ui, |ui| {
+            egui::Grid::new("script_grid").num_columns(1).min_col_width(200f32).max_col_width(200f32).show(ui, |ui| {
+                for s in overlay.hero_scripts.iter_mut() {
+                    let script = s.0.lock().unwrap();
+                    let script_settings = &mut s.1;
+    
+                    ui.group(|ui| {
+                        ui.vertical(|ui| {
+                            let hero = script.hero_id();
+                            if hero == Hero::None {
+                                ui.label(format!("Hero: Any"));
+                            }
+                            else {
+                                ui.label(format!("Hero: {:?}", hero));
+                            }
+                            ui.label(format!("Name: {}", script.name()));
+                            ui.checkbox(&mut script_settings.enabled, overlay.lang.enable());
+                            if script_settings.key.is_some() {
+                                ui.label(format!("{:?}", script_settings.key));
+                            }
+                            ui.horizontal(|ui| {
+                                ui.add_space(200f32);
+                            });
+                        });
+                    });
+                    ui.end_row();
+                }
+            });
+        });
+        ui.horizontal(|ui| {
+            
+            if ui.button("включить всё").clicked() {
+                for s in overlay.hero_scripts.iter_mut() {
+                    s.1.enabled = true;
+                }
+            }
+            if ui.button("выключить всё").clicked() {
+                for s in overlay.hero_scripts.iter_mut() {
+                    s.1.enabled = false;
+                }
+            }
+        });
     });
 }
 
@@ -45,6 +74,7 @@ fn draw_config(overlay: &mut Overlay, ui: &mut Ui) {
             let mut conf_name = overlay.current_config.to_owned();
             conf_name.push_str(".cjson");
             mgr::save(&mut overlay.settings, &conf_name);
+            overlay.toasts.info(overlay.lang.config_saved());
             overlay.configs = settings::mgr::get_configs();
         }
     });
@@ -55,13 +85,18 @@ fn draw_config(overlay: &mut Overlay, ui: &mut Ui) {
                 if ui.button(overlay.lang.config_load()).clicked() {
                     let mut conf_name = c.to_owned();
                     conf_name.push_str(".cjson");
-                    mgr::change(&mut overlay.settings, &conf_name);
+                    if mgr::change(&mut overlay.settings, &conf_name) {
+                        overlay.toasts.info(overlay.lang.config_loaded());
+                    } else {
+                        overlay.toasts.error(overlay.lang.config_failed());
+                    }
                 }
                 if ui.button(overlay.lang.config_delete()).clicked() {
                     let mut conf_name = c.to_owned();
                     conf_name.push_str(".cjson");
                     mgr::delete(&conf_name);
                     deleted = true;
+                    overlay.toasts.info(overlay.lang.config_deleted());
                 }
                 ui.add_space(10f32);
                 ui.label(c);
@@ -92,14 +127,11 @@ fn draw_main(overlay: &mut Overlay, ctx: &Context, _ui: &mut Ui) {
                                 Lang::RU,
                                 "Русский",
                             );
-                            if ui.selectable_value(
+                            ui.selectable_value(
                                 &mut overlay.lang,
-                                Lang::ZhCn,
+                                Lang::EN,
                                 "English",
-                            ).clicked() {
-                                load_font(ctx);
-                                overlay.font_loaded = true;
-                            };
+                            );
                             if ui.selectable_value(
                                 &mut overlay.lang,
                                 Lang::ZhCn,
@@ -127,7 +159,7 @@ fn draw_main(overlay: &mut Overlay, ctx: &Context, _ui: &mut Ui) {
             ui.hyperlink_to(overlay.lang.repository(), "https://github.com/Loara228/deadlock-esp");
             ui.separator();
             if ui.button(overlay.lang.close()).clicked() {
-                std::process::exit(0);
+                crate::exit();
             }
         });
 }
@@ -150,10 +182,10 @@ fn draw_aim(overlay: &mut Overlay, ctx: &Context, _ui: &mut Ui) {
             }
 
             ui.collapsing(overlay.lang.aim_players(), |ui| {
-                aim_element(ui, &mut overlay.settings.aim, false, &overlay.lang);
+                aim_element(ui, &mut overlay.settings.aim, false, &overlay.lang, &mut overlay.toasts);
             });
             ui.collapsing(overlay.lang.aim_creeps(), |ui| {
-                aim_element(ui, &mut overlay.settings.aim, true, &overlay.lang);
+                aim_element(ui, &mut overlay.settings.aim, true, &overlay.lang, &mut overlay.toasts);
             });
         }
     );
@@ -166,6 +198,7 @@ fn draw_esp(overlay: &mut Overlay, ctx: &Context, _ui: &mut Ui) {
         .show(ctx, |ui| {
             esp::esp_players(ui, overlay);
             esp::esp_healthbar(ui, overlay);
+            esp::esp_offscreen(ui, overlay);
             esp::esp_radar(ui, overlay);
             esp::esp_text(ui, overlay);
         });
@@ -203,27 +236,32 @@ fn system_font_dir() -> Option<PathBuf> {
     })
 }
 
-pub fn aim_element(ui: &mut Ui, global_aim_settings: &mut AimSettings, entities: bool, lang: &Lang)
+pub fn aim_element(ui: &mut Ui, global_aim_settings: &mut AimSettings, entities: bool, lang: &Lang, toasts: &mut Toasts)
 {
     let settings: &mut AimProperties = match entities {
         true => &mut global_aim_settings.creeps,
         false => &mut global_aim_settings.players,
     };
-
     if !entities {
         egui::ComboBox::from_id_salt("aim_bone")
                         .selected_text(format!("{} {:?}", lang.bone(), global_aim_settings.aim_bone))
                         .show_ui(ui, |ui| {
-                            ui.selectable_value(
+                            if ui.selectable_value(
                                 &mut global_aim_settings.aim_bone,
                                 TargetBone::Head,
                                 lang.bone_head(),
-                            );
-                            ui.selectable_value(
+                            ).changed() {
+                                toasts.error("If hit only in the head. You can be turned into a frog and banned!");
+                                toasts.error("If hit only in the head. You can be turned into a frog and banned!");
+                                toasts.error("If hit only in the head. You can be turned into a frog and banned!");
+                            }
+                            if ui.selectable_value(
                                 &mut global_aim_settings.aim_bone,
                                 TargetBone::Neck,
                                 lang.bone_neck(),
-                            );
+                            ).changed() {
+                                toasts.warning("There is a very small chance of a ban. (1%)");
+                            }
                             ui.selectable_value(
                                 &mut global_aim_settings.aim_bone,
                                 TargetBone::Chest,
@@ -235,6 +273,11 @@ pub fn aim_element(ui: &mut Ui, global_aim_settings: &mut AimSettings, entities:
                                 lang.bone_pelvis(),
                             );
                         });
+    } else {
+        ui.horizontal(|ui| {
+            ui.radio_value(&mut global_aim_settings.priority, Priority::Souls, lang.souls());
+            ui.radio_value(&mut global_aim_settings.priority, Priority::Creeps, lang.creeps());
+        });
     }
 
     btn_read_key(ui, &mut settings.key, lang);
@@ -257,7 +300,7 @@ pub fn aim_element(ui: &mut Ui, global_aim_settings: &mut AimSettings, entities:
         egui::Slider::new(&mut settings.fov, 20.0..=800.0).show_value(true).text(lang.aim_fov())
     );
     ui.add(
-        egui::Slider::new(&mut settings.smooth, 1.25..=10.0).show_value(true).text(lang.aim_smooth())
+        egui::Slider::new(&mut settings.smooth, 1.1..=10.0).show_value(true).text(lang.aim_smooth())
     );
     ui.add(
         egui::Slider::new(&mut settings.velocity_div_dav, 1f32..=30.0).show_value(true).text(lang.aim_velocity_prediction())
@@ -321,9 +364,18 @@ mod esp {
                 .min_col_width(150.)
                 .max_col_width(150.)
                 .show(ui, |ui| {
-                    ui.checkbox(&mut overlay.settings.radar.enable, overlay.lang.enable());
+                    ui.checkbox(&mut overlay.settings.radar.enable, overlay.lang.esp_radar());
                     ui.label(overlay.lang.enable());
                     ui.end_row();
+
+                    if ui.add(egui::RadioButton::new(overlay.settings.radar.icons == false, "Стрелки")).clicked() {
+                        overlay.settings.radar.icons = false;
+                    }
+                    if ui.add(egui::RadioButton::new(overlay.settings.radar.icons == true, "Иконки")).clicked() {
+                        overlay.settings.radar.icons = true;
+                    }
+                    ui.end_row();
+
                     ui.add(
                         egui::Slider::new(&mut overlay.settings.radar.player_radius, 1.0..=8.0)
                             .show_value(true)
@@ -354,6 +406,14 @@ mod esp {
 
                     ui.color_edit_button_srgba(&mut overlay.settings.radar.color_border);
                     ui.label(overlay.lang.esp_radar_color_stroke());
+                    ui.end_row();
+                    
+                    // icons
+                    ui.add(
+                        egui::Slider::new(&mut overlay.settings.radar.icon_size, 10.0..=40.0)
+                            .show_value(true)
+                    );
+                    ui.label(overlay.lang.esp_radar_icon_size());
                     ui.end_row();
                 })
         });
@@ -416,14 +476,14 @@ mod esp {
             ui.end_row();
             
             ui.add(
-                egui::Slider::new(&mut overlay.settings.esp_players.shadow_size, 4.0..=10.0)
+                egui::Slider::new(&mut overlay.settings.esp_players.shadow_size, 1.0..=30.0)
                     .show_value(true)
                     .text(lang.esp_players_rect_shadow_value()),
             );
             ui.end_row();
             
             ui.add(
-                egui::Slider::new(&mut overlay.settings.esp_players.shadow_blur, 1.0..=10.)
+                egui::Slider::new(&mut overlay.settings.esp_players.shadow_blur, 1.0..=15.)
                     .show_value(true)
                     .text(lang.esp_players_rect_shadow_blur_value()),
             );
@@ -459,6 +519,55 @@ mod esp {
                     ui.label(lang.esp_players_rect_shadow());
                     ui.end_row();
                 });
+        });
+    }
+
+    pub fn esp_offscreen(ui: &mut Ui, overlay: &mut Overlay) {
+        let lang = &overlay.lang;
+        ui.collapsing("offscreen", |ui| {
+            egui::Grid::new("offscreen_grid")
+            .num_columns(2)
+            .min_col_width(150.)
+            .max_col_width(150.)
+            .show(ui, |ui| {
+                ui.checkbox(&mut overlay.settings.offscreen.enable, lang.enable());
+                ui.end_row();
+                
+                ui.add(
+                    egui::Slider::new(&mut overlay.settings.offscreen.radius, 50f32..=500f32)
+                        .show_value(true)
+                        .text("radius"),
+                );
+
+                ui.end_row();
+
+                ui.checkbox(&mut overlay.settings.offscreen.enable_rect, "rectangle");
+                ui.label(lang.enable());
+                ui.end_row();
+
+                ui.color_edit_button_srgba(&mut overlay.settings.offscreen.rect_color);
+                ui.label("rect color");
+                ui.end_row();
+
+                ui.checkbox(&mut overlay.settings.offscreen.enable_icon, "icon");
+                ui.label(lang.enable());
+                ui.end_row();
+
+                ui.add(
+                    egui::Slider::new(&mut overlay.settings.offscreen.icon_size, 15f32..=50f32)
+                        .show_value(true)
+                        .text("icon size"),
+                );
+                ui.end_row();
+
+                ui.checkbox(&mut overlay.settings.offscreen.enable_health, "healthbar");
+                ui.label(lang.enable());
+                ui.end_row();
+
+                ui.checkbox(&mut overlay.settings.offscreen.enable_distance, "distance");
+                ui.label(lang.enable());
+                ui.end_row();
+            });
         });
     }
 

@@ -1,6 +1,6 @@
 use std::{ffi::c_void, fmt::Debug};
 use crate::{external::{offsets::{client::*, client_dll::*}, PLAYERS_LEN}, memory::read_memory};
-use super::{entities::Player, enums::{Hero, TargetBone}, math::Vector3};
+use super::{entities::Player, enums::{AbilitySlot, Hero, TargetBone}, math::Vector3};
 
 pub unsafe fn from_handle(entity_list_ptr: *mut c_void, handle: *mut c_void) -> *mut c_void
 {
@@ -40,6 +40,7 @@ pub struct Ability
     /// Кол-во потраченных поинтов на скилл
     pub points: i32,
     pub coodown: bool,
+    pub slot: AbilitySlot
 }
 
 impl Default for Ability {
@@ -49,25 +50,26 @@ impl Default for Ability {
             index: 0,
             points: 0,
             coodown: true,
+            slot: AbilitySlot::ESlot_Invalid
         }
     }
 }
 
 #[derive(Debug)]
 #[derive(Default)]
-pub struct Abilities
+pub struct AbilitiesComponent
 {
     pub list: Vec<Ability>
 }
 
-impl Abilities
+impl AbilitiesComponent
 {
     pub fn update(&mut self, entity_list_ptr: *mut c_void, pawn_ptr: *mut c_void) {
         self.list.clear();
         unsafe {
             let ability_component = pawn_ptr.add(C_CitadelPlayerPawn::m_CCitadelAbilityComponent);
             let vec_abilities: *mut c_void = read_memory(ability_component.add(CCitadelAbilityComponent::m_vecAbilities + 0x8));
-            for i in 12..16 {
+            for i in 0..22 {
                 let ability_handle: *mut c_void = read_memory(vec_abilities.add(0x4 * i));
                 if ability_handle as i32 == 0
                 {
@@ -79,10 +81,20 @@ impl Abilities
                     ptr: ability,
                     index: i,
                     points: read_memory(ability.add(C_CitadelBaseAbility::m_nUpgradeBits)),
-                    coodown: read_memory(ability.add(C_CitadelBaseAbility::m_bIsCoolingDownInternal))
+                    coodown: read_memory(ability.add(C_CitadelBaseAbility::m_bIsCoolingDownInternal)),
+                    slot: read_memory(ability.add(C_CitadelBaseAbility::m_eAbilitySlot))
                 });
             }
         }
+    }
+
+    pub fn get(&self, slot: AbilitySlot) -> Option<&Ability> {
+        for ability in self.list.iter() {
+            if ability.slot == slot {
+                return Some(ability);
+            }
+        }
+        None
     }
 }
 
@@ -177,7 +189,7 @@ impl PlayerDataGlobal
             match Hero::try_from(hero_id)  {
                 Ok(hero) => self.hero = hero,
                 Err(_) => {
-                    log::warn!("Unknown hero index: {}", hero_id);
+                    // log::warn!("Unknown hero index: {}", hero_id);
                     self.hero = Hero::None
                 }
             }
@@ -271,7 +283,7 @@ impl Skeleton
 
 pub struct Controller
 {
-    pub(super) ptr: *mut c_void,
+    pub(crate) ptr: *mut c_void,
     pub local: bool
 }
 

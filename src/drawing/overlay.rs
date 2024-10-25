@@ -5,7 +5,7 @@ use egui_notify::Toasts;
 use windows::{core::PCSTR, Win32::{Foundation::HWND, Graphics::Gdi::UpdateWindow, UI::WindowsAndMessaging::{FindWindowExA, GetForegroundWindow, SetForegroundWindow, SetWindowLongA, WINDOW_LONG_PTR_INDEX}}};
 
 use super::{localization::Lang, screen};
-use crate::{external::{cheat::{esp::{self, radar::draw_radar_window}, scripts::{self, hero_scripts::Shiv, scripts::{AutoReload, EntityPriorityToggle, RadarToggle}, HeroScript, HeroScriptSettings}}, External}, input::keyboard::{Key, KeyState}, settings::{self, structs::Settings}};
+use crate::{external::{cheat::{esp::{self, radar::draw_radar_window}, scripts::{self, HeroScript, HeroScriptSettings}}, External}, input::keyboard::{Key, KeyState}, settings::{self, structs::Settings}};
 
 pub struct Overlay {
     initialized: bool,

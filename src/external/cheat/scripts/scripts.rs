@@ -1,7 +1,7 @@
-use std::{sync::{Arc, Mutex}, time::Instant};
+use std::time::Instant;
 
 use egui_notify::Toasts;
-use crate::{external::{interfaces::{entities::Player, enums::{AbilitySlot, EJumpType, Hero}, math::Vector3, structs::Ability}, offsets::client_dll::{CCitadel_Ability_Dash, CCitadel_Ability_Jump, CCitadel_Ability_PrimaryWeapon, CCitadel_Ability_Slide}}, input::keyboard::{self, KeyState, VirtualKeys}, memory::read_memory, settings::structs::Priority};
+use crate::{external::{interfaces::{entities::Player, enums::{AbilitySlot, Hero}, structs::Ability}, offsets::client_dll::{CCitadel_Ability_PrimaryWeapon, CCitadel_Ability_Slide}}, input::keyboard::{self, KeyState, VirtualKeys}, memory::read_memory, settings::structs::Priority};
 use super::HeroScript;
 
 pub struct EntityPriorityToggle {
@@ -196,7 +196,7 @@ impl HeroScript for MovementScript {
         }
     }
 
-    fn draw(&mut self, g: &egui::Painter, _game: &crate::external::External, toasts: &mut Toasts) {
+    fn draw(&mut self, _g: &egui::Painter, _game: &crate::external::External, toasts: &mut Toasts) {
         if self.jmp {
             self.jmp = false;
             toasts.info("bhop");

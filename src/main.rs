@@ -5,6 +5,7 @@ mod input;
 mod memory;
 pub mod settings;
 pub mod external;
+mod dev;
 
 use std::env;
 
@@ -82,6 +83,7 @@ impl Cli {
 }
 
 fn main() {
+    dev::debug();
     let args = parse_arguments();
     if args.mouse {
         log::info!("Running server...");
@@ -163,28 +165,3 @@ fn get_current_file_name() -> String
 
 const ENT_LIST_END: i32 = 2300;
 const ENT_LIST_START: i32 = 200;
-
-// Предупреждение при выборе кости.
-// offscreen (new)
-// шкала здоровья (dyn height, icons)
-// скрипты
-// local velocity
-// Приоритет крипов
-// Исправление багов (mouse proc, black screen, transparent...)
-// Убран --offsets (теперь используется по умолчанию)
-// Всякие мелочи
-
-// код
-// Улучшен код со скиллами и глобальными значениями
-// клавиатура
-// Добавлены новые enum'ки (типы перечислений) из игры
-// Немного изменил дампер и обновил схемы
-// Toasts
-
-// todo:
-// вынести lang в globalsettings. + добавить туда язык. spec and radar (wnd pos, size)
-// Локализация
-// web reqwest (если не работает и нужно обновить)
-// ? Активные эффексы, предметы
-// rosh timer, rosh health
-// C_CitadelItemPickup

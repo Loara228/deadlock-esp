@@ -15,8 +15,8 @@
 
 Could you buy me a beer or some cigarettes?<br>A donation of $100 will delete this repository (If you don't like cheaters)
 
-You can reach me here by writing to me: https://t.me/hellocsharp
-Report your problem: https://github.com/Loara228/deadlock-esp/issues/new
+You can reach me here by writing to me: https://t.me/hellocsharp<br>
+Report your problem: https://github.com/Loara228/deadlock-esp/issues/new<br>
 Offset changes: https://github.com/Loara228/deadlock-esp/issues/18
 
 ## How to use

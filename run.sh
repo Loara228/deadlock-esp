@@ -8,8 +8,7 @@ cargo build
 read -p "continue (y/n)? " answer
 case ${answer:0:1} in
     y|Y )
-        # ./target/debug/aaa123  --offsets --dev
-        ./target/debug/aaa123
+        # ./target/debug/app123 --dev
     ;;
     * )
         echo "k"

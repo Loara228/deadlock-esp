@@ -156,7 +156,7 @@ cargo build --release
 
 ![](images/3.png)![](preview)
 
-![](images/4.png)![](preview)
+![](images/ui.png)![](preview)
 
 ![](images/6.png)![](preview)
 

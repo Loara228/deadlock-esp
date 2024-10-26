@@ -167,7 +167,7 @@ impl MovementScript {
         let sliding: bool = read_memory(ability_slide.ptr.add(CCitadel_Ability_Slide::m_bIsSliding));
         if sliding {
             let vel = (f32::abs(local_player.pawn.velocity.x).powf(2f32) + f32::abs(local_player.pawn.velocity.y).powf(2f32) + f32::abs(local_player.pawn.velocity.z).powf(2f32)).sqrt();
-            if vel > 570f32 && self.timer.elapsed().as_millis() > 1500 {
+            if vel > 610f32 && self.timer.elapsed().as_millis() > 1500 {
                 self.timer = Instant::now();
                 self.jmp = true;
                 keyboard::send_key_thread(VirtualKeys::SPACE);

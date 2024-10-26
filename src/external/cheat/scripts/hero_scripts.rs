@@ -86,5 +86,3 @@ impl HeroScript for Shiv {
         None
     }
 }
-
-//CCitadel_Projectile_Bebop_Hook ? 

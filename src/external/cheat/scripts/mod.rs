@@ -17,6 +17,7 @@ pub fn get_scripts() -> Vec<(Arc<Mutex<dyn HeroScript>>, HeroScriptSettings)> {
 
         // для героев
         (Arc::new(Mutex::new(Shiv::default())), HeroScriptSettings::default()),
+        (Arc::new(Mutex::new(VindictaUlt::default())), HeroScriptSettings::default()),
     ]
 }
 

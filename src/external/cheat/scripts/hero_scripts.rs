@@ -1,6 +1,6 @@
 use egui::{Align2, Color32, FontId};
 use egui_notify::Toasts;
-use crate::{external::{cheat::aim::{self, aiming}, interfaces::{entities::Player, enums::{AbilitySlot, Hero}, math::Vector3}, External}, input::keyboard::{self, KeyState, VirtualKeys}, settings::structs::Settings};
+use crate::{external::{cheat::aim::{self, aiming}, interfaces::{entities::Player, enums::{AbilitySlot, Hero}, math::Vector3}, External}, input::{keyboard::{self, KeyState, VirtualKeys}, mouse}, settings::structs::{AimProperties, Settings}};
 use super::HeroScript;
 
 #[derive(Default)]
@@ -79,10 +79,58 @@ impl HeroScript for Shiv {
     }
     
     fn name(&self) -> &str {
-        "Description on github"
+        "Ульта, криво, но работает"
     }
 
     fn init_key_code(&self) -> Option<i32> {
         None
+    }
+}
+
+#[derive(Default)]
+pub struct VindictaUlt { 
+ }
+
+impl HeroScript for VindictaUlt {
+    fn update(&mut self, game: &External, key_state: KeyState, settings: &mut Settings) {
+        if key_state == KeyState::Pressed {
+            aim::aiming::find_player(game, game.get_local_player(), &AimProperties {
+                fov: 800f32,
+                range: 9999f32,
+                targeting: false,
+                ..Default::default()
+            });
+            unsafe {
+                if aim::aiming::player_index.is_some() {
+                    let p = game.get_player_by_index(aim::aiming::player_index.unwrap());
+                    let mut pos = p.skeleton.head_pos;
+                    pos.z -= 20f32;
+                    aim::aiming::simpled_aim_to(pos, settings.aim.angle_per_pixel, game);
+                    keyboard::send_key(VirtualKeys::KEY_4);
+                    std::thread::sleep(std::time::Duration::from_millis(17)); // 16.666 ms frame
+                    mouse::left_click();
+                    std::thread::spawn(|| {
+                        std::thread::sleep(std::time::Duration::from_millis(350));
+                        keyboard::send_key(VirtualKeys::KEY_4);
+                    });
+                }
+            }
+        }
+    }
+
+    fn draw(&mut self, _g: &egui::Painter, _game: &External, _toasts: &mut Toasts) {
+        
+    }
+
+    fn hero_id(&self) -> Hero {
+        Hero::Vindicta
+    }
+
+    fn name(&self) -> &str {
+        "Vindicta fast ult"
+    }
+
+    fn init_key_code(&self) -> Option<i32> {
+        Some(VirtualKeys::KEY_Z as i32)
     }
 }

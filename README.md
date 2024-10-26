@@ -56,6 +56,10 @@ cargo build --release
 ./{example} --old-window
 ```
 
+8. Откалибруйте аим (ВОТ ТАК)
+
+![](images/calibrate.png)![](preview)
+
 <hr>
 
 <details>

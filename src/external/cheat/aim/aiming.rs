@@ -100,7 +100,7 @@ unsafe fn update_targets(settings: &AimSettings, game: &External)
     }
 }
 
-fn find_player(game: &External, local_player: &Player, settings: &AimProperties)
+pub fn find_player(game: &External, local_player: &Player, settings: &AimProperties)
 {
     if !settings.targeting
     {
@@ -223,6 +223,28 @@ fn aim_to(point_world: Vector3, angle_per_pixel: f32, game: &External, settings:
     }
 }
 
+pub fn simpled_aim_to(point_world: Vector3, angle_per_pixel: f32, game: &External) {
+    let aim_direction = get_aim_direction(game.client_ptr, Vector3::default());
+    let aim_direction_desired = Vector3::normalize(point_world - game.camera.position);
+
+    let aim_angles = Vector3 {
+        x: angle_to_signed(aim_direction_desired, aim_direction, Vector3 { x: 0f32, y: 0f32, z: 1f32 }),
+        y: angle_to_signed(aim_direction_desired, aim_direction, Vector3::normalize(Vector3::cross(aim_direction_desired, Vector3 { x: 0f32, y: 0f32, z: 1f32 }))),
+        z: 0f32,
+    };
+
+    // Могут быть проблемы, FOV 90
+    let aim_pixels = Pos2 {
+        x: (aim_angles.x / angle_per_pixel).round(),
+        y: (aim_angles.y / angle_per_pixel).round(),
+    };
+
+    if aim_pixels.x != 0f32 || aim_pixels.y != 0f32
+    {
+        mouse::send_move(aim_pixels.x as i32, aim_pixels.y as i32);
+    }
+}
+
 fn get_aim_direction(client_ptr: *mut c_void, punch: Vector3) -> Vector3
 {
     let mut camera = Camera::default();
@@ -308,7 +330,7 @@ pub fn calibrate(game: &mut External) -> f32
     let sum: f32 = angles.iter().sum();
     let average = sum / angles.len() as f32;
     log::info!("Angles avg: {average}");
-    average
+    average / 1.08f32
 }
 
 fn in_fov(p: Vector3, c: Pos2, radius: f32) -> bool

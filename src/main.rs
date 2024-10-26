@@ -83,7 +83,6 @@ impl Cli {
 }
 
 fn main() {
-    dev::debug();
     let args = parse_arguments();
     if args.mouse {
         log::info!("Running server...");

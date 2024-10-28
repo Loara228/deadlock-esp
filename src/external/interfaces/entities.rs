@@ -153,8 +153,12 @@ impl Entity
                     }
                     let stroke = PathStroke::new(2f32, color);
                     for line in lines.iter_mut() {
-                        matrix.transform(&mut line[0]);
-                        matrix.transform(&mut line[1]);
+                        if !matrix.transform(&mut line[0]) {
+                            continue;
+                        }
+                        if !matrix.transform(&mut line[1]) {
+                            continue;
+                        }
                         g.line_segment([line[0].to_pos2(), line[1].to_pos2()], stroke.clone());
                     }
                 }

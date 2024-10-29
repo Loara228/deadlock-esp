@@ -14,12 +14,13 @@ use settings::mgr;
 
 pub mod connection
 {
-    use std::net::UdpSocket;
+    use std::{net::UdpSocket, time::Instant};
 
     pub fn run_server()
     {
         let socket = UdpSocket::bind("127.0.0.1:228").unwrap();
         let mut buf = [0; 8];
+        let mut timer = Instant::now();
         loop {
             socket.recv_from(&mut buf).unwrap();
             let mut i = 0;
@@ -37,7 +38,11 @@ pub mod connection
             }
             let x: i32 = i32::from_ne_bytes(x_buf);
             let y: i32 = i32::from_ne_bytes(y_buf);
-            crate::input::mouse::send_move(x, y); // отправляем ОС
+            // Время можно уменьшить, если у вас много FPS. У меня 60, я ставлю 16.6 ms
+            if timer.elapsed().as_millis() > 16 {
+                crate::input::mouse::send_move(x, y); // отправляем ОС
+                timer = Instant::now();
+            }
         }
     }
 

@@ -161,6 +161,3 @@ fn get_current_file_name() -> String
     let exe_path = env::current_exe().unwrap();
     exe_path.file_name().unwrap().to_str().unwrap().to_owned()
 }
-
-const ENT_LIST_END: i32 = 2300;
-const ENT_LIST_START: i32 = 200;

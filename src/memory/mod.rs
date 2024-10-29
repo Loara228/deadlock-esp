@@ -91,13 +91,18 @@ pub fn initialize()
             crate::external::offsets::client::dwLocalPlayerController = local_player_sig.find(&client_memory, CLIENT_MODULE.lpBaseOfDll).1 as usize;
 
             let camera_sig = Signature::new("48 8D 3D ? ? ? ? 8B D9", 3, 7);
-            crate::external::offsets::client::CCitadelCameraManager = camera_sig.find(&client_memory, CLIENT_MODULE.lpBaseOfDll).1 as usize;
+            crate::external::offsets::client::dwCCitadelCameraManager = camera_sig.find(&client_memory, CLIENT_MODULE.lpBaseOfDll).1 as usize;
 
             let global_vars_sig = Signature::new("48 8B 05 ? ? ? ? 44 3B 40", 3, 7);
             crate::external::offsets::client::dwGlobalVars = global_vars_sig.find(&client_memory, CLIENT_MODULE.lpBaseOfDll).1 as usize;
+            let game_rules_sig = Signature::new("48 89 1d ? ? ? ? ff 15 ? ? ? ? 84 c0", 3, 7);
+            crate::external::offsets::client::dwGameRules = game_rules_sig.find(&client_memory, CLIENT_MODULE.lpBaseOfDll).1 as usize;
             
-            let game_rules = Signature::new("48 89 1d ? ? ? ? ff 15 ? ? ? ? 84 c0", 3, 7);
-            crate::external::offsets::client::dwGameRules = game_rules.find(&client_memory, CLIENT_MODULE.lpBaseOfDll).1 as usize;
+            // let game_entity_system_sig = Signature::new("48 8B 1D ? ? ? ? 48 89 1D", 3, 7);
+            // crate::external::offsets::client::dwGameEntitySystem = game_entity_system_sig.find(&client_memory, CLIENT_MODULE.lpBaseOfDll).1 as usize;
+
+            // 2 байта
+            // // 8B 81 ? ? ? ? 89 02 48 8B C2 C3 CC CC CC CC 48 89 5C 24 ? 48 89 6C 24
         }
     }
 }

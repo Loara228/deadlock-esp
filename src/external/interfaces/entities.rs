@@ -3,7 +3,7 @@ use std::ffi::c_void;
 
 use egui::{epaint::PathStroke, Color32, Pos2, Rect, Ui};
 
-use crate::{external::{cheat::esp::*, offsets::client_dll::CBasePlayerController}, memory::{read_memory, read_memory_bytes}, settings::structs::{AimSettings, Settings}};
+use crate::{external::{cheat::esp::*, offsets::client_dll::{CBasePlayerController, CEntityIdentity}}, memory::{read_memory, read_memory_bytes}, settings::structs::{AimSettings, Settings}};
 use super::{enums::{EntityType, TargetBone}, math::{Matrix, Vector3}, structs::{AbilitiesComponent, Controller, GameSceneNode, Pawn, PlayerDataGlobal, Skeleton}};
 
 trait EntityBase
@@ -22,7 +22,7 @@ pub struct Entity
     pub pawn: Pawn,
     pub class: EntityType,
     pub game_scene_node: GameSceneNode,
-    pub previous_pos: Vector3
+    entry: *mut c_void
 }
 
 impl EntityBase for Entity
@@ -31,35 +31,37 @@ impl EntityBase for Entity
 
 impl Entity
 {
-    pub fn new(index: i32) -> Self
+    pub fn new(index: i32, entity_list_ptr: *mut c_void) -> Self
     {
-        Self {
-            index,
-            pawn: Pawn::default(),
-            class: EntityType::None,
-            game_scene_node: GameSceneNode::default(),
-            previous_pos: Vector3::default()
+        unsafe {
+            Self {
+                index,
+                pawn: Pawn::default(),
+                class: EntityType::None,
+                game_scene_node: GameSceneNode::default(),
+                entry: read_memory(entity_list_ptr.add((((index & 0x7FFF) >> 9) * 8 + 16) as usize))
+            }
         }
     }
 
-    pub fn update(&mut self, entity_list_ptr: usize)
+    // #[deprecated(note="entities?")]
+    pub fn update(&mut self)
     {
         self.class = EntityType::None;
         self.game_scene_node.dormant = false;
-
-        let entity_list_ptr = entity_list_ptr as *mut c_void;
-        let base_ptr = self.read_base(self.index, entity_list_ptr);
-        self.pawn.update(base_ptr, self.index as usize);
+        self.pawn.update_entity(self.entry, self.index as usize);
         
-        if self.pawn.ptr as usize == 0 || (self.pawn.health < 0)
+        if self.pawn.ptr == std::ptr::null_mut() || (self.pawn.health < 0)
         {
             return;
         }
-        match EntityType::from_class_name(self.read_class_name())
+        let entity_identity = self.get_identity();
+        let class_name = self.get_class_name(entity_identity);
+        
+        match EntityType::from_class_name(class_name)
         {
             Some(class_type) => 
             {
-                self.previous_pos = self.game_scene_node.position;
                 self.class = class_type;
             },
             None => {
@@ -70,12 +72,26 @@ impl Entity
         self.game_scene_node.update(self.pawn.ptr as *mut c_void);
     }
 
-    pub fn read_class_name(&self) -> Vec<u8>
+    pub fn get_identity(&self) -> *mut c_void
     {
         unsafe {
             let entity_identity: *mut c_void = read_memory((self.pawn.ptr as *mut c_void).add(0x10));
+            return entity_identity;
+        }
+    }
+
+    pub fn get_class_name(&self, entity_identity: *mut c_void) -> Vec<u8> {
+        unsafe {
             let class_name_ptr: *mut c_void = read_memory(entity_identity.add(0x20));
             read_memory_bytes(class_name_ptr, 7)
+        }
+    }
+
+    pub fn is_last(&self, entity_identity: *mut c_void) -> bool {
+        unsafe {
+            let next: *mut c_void = read_memory(entity_identity.add(CEntityIdentity::m_pNext));
+            println!("{} {next:?}", self.index);
+            false
         }
     }
 

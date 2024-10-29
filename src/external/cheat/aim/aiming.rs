@@ -1,12 +1,12 @@
 #![allow(non_upper_case_globals, non_camel_case_types, non_snake_case, unused)]
 
-use std::{ffi::c_void, net::UdpSocket, thread, time::Duration};
+use std::{ffi::c_void, net::UdpSocket, thread, time::{Duration, Instant}};
 use egui::{util::undoer::Settings, Pos2};
 use crate::{external::{interfaces::{entities::Player, enums::EntityType, math::{Plane3D, Vector3}, structs::Camera}, External}, input::{keyboard::KeyState, mouse}, settings::structs::{AimProperties, AimSettings}};
 
 use super::drawing;
 
-pub fn update(settings: &AimSettings, game: &External, socket: &UdpSocket)
+pub fn update(settings: &AimSettings, game: &mut External, socket: &UdpSocket)
 {
     unsafe {
         drawing::DISPLAY_POS = Vector3 { x: 0f32, y: 0f32, z: 0f32 };
@@ -53,7 +53,7 @@ pub fn update(settings: &AimSettings, game: &External, socket: &UdpSocket)
     }
 }
 
-unsafe fn update_targets(settings: &AimSettings, game: &External)
+unsafe fn update_targets(settings: &AimSettings, game: &mut External)
 {
     if settings.players.enable
     {
@@ -81,6 +81,7 @@ unsafe fn update_targets(settings: &AimSettings, game: &External)
     {
         if player_index == None && settings.creeps.key.state == KeyState::Down || settings.creeps.key.state == KeyState::Pressed
         {
+            game.last_ent_aim_time = Instant::now();
             if !settings.creeps.targeting
             {
                 find_entity(game, game.get_local_player(), &settings.creeps, settings);

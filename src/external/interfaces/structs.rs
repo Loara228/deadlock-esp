@@ -161,7 +161,7 @@ impl Camera
     pub fn update(&mut self, client_ptr: *mut c_void)
     {
         unsafe {
-            let camera_ptr: *mut c_void = read_memory(client_ptr.add(CCitadelCameraManager + 0x28));
+            let camera_ptr: *mut c_void = read_memory(client_ptr.add(dwCCitadelCameraManager + 0x28));
             self.view_angles = read_memory(camera_ptr.add(0x44));
             self.position = read_memory(camera_ptr.add(0x38));
         }
@@ -348,15 +348,28 @@ impl Pawn
     {
         unsafe {
             self.ptr = self.get_ptr(entry, pawn_handle as usize);
-            let ptr = self.ptr as *mut c_void;
-            if self.ptr as usize == 0
+            if self.ptr == std::ptr::null_mut()
             {
                 return;
             }
-            self.health = read_memory(ptr.add(C_BaseEntity::m_iHealth));
-            self.max_health = read_memory(ptr.add(C_BaseEntity::m_iMaxHealth));
-            self.team = read_memory(ptr.add(C_BaseEntity::m_iTeamNum));
-            self.velocity = read_memory(ptr.add(C_BaseEntity::m_vecVelocity));
+            self.health = read_memory(self.ptr.add(C_BaseEntity::m_iHealth));
+            self.max_health = read_memory(self.ptr.add(C_BaseEntity::m_iMaxHealth));
+            self.team = read_memory(self.ptr.add(C_BaseEntity::m_iTeamNum));
+            self.velocity = read_memory(self.ptr.add(C_BaseEntity::m_vecVelocity));
+        }
+    }
+
+    pub fn update_entity(&mut self, entry: *mut c_void, pawn_handle: usize)
+    {
+        unsafe {
+            self.ptr = self.get_ptr(entry, pawn_handle as usize);
+            if self.ptr == std::ptr::null_mut()
+            {
+                return;
+            }
+            self.health = read_memory(self.ptr.add(C_BaseEntity::m_iHealth));
+            self.team = read_memory(self.ptr.add(C_BaseEntity::m_iTeamNum));
+            self.velocity = read_memory(self.ptr.add(C_BaseEntity::m_vecVelocity));
         }
     }
 }

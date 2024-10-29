@@ -2,7 +2,7 @@ pub (crate) mod offsets;
 pub (crate) mod interfaces;
 pub mod cheat;
 
-use std::{ffi::c_void, sync::{Arc, Mutex}};
+use std::{ffi::c_void, sync::{Arc, Mutex}, time::Instant};
 use cheat::{aim, esp::{boxes::draw_head, offscreen, radar}, scripts::{HeroScript, HeroScriptSettings}};
 use egui::{Pos2, Ui};
 use egui_notify::Toasts;
@@ -25,7 +25,8 @@ pub struct External
     pub aim_punch: Vector3,
     pub global_vars: GlobalVars,
     pub game_rules: GameRules,
-    pub observers: Observers
+    pub observers: Observers,
+    pub last_ent_aim_time: Instant
 }
 
 impl External
@@ -42,11 +43,6 @@ impl External
                Player::new(7), Player::new(8), Player::new(9),
                Player::new(10), Player::new(11), Player::new(12), Player::new(13) // на всякий еще добавил
             ];
-            let mut entities: Vec<Entity> = Vec::new();
-            for i in crate::ENT_LIST_START..crate::ENT_LIST_END
-            {
-                entities.push(Entity::new(i));
-            }
             Self
             {
                 client_ptr,
@@ -55,12 +51,13 @@ impl External
                 view_matrix: Matrix::default(),
                 local_player_index: 0,
                 camera: Camera::default(),
-                entities,
+                entities: Vec::new(),
                 screen: egui::Rect::from_two_pos(Pos2::default(), Pos2::default()),
                 aim_punch: Vector3::default(),
                 global_vars: GlobalVars::default(),
                 game_rules: GameRules::default(),
-                observers: Observers::default()
+                observers: Observers::default(),
+                last_ent_aim_time: Instant::now()
             }
         }
     }
@@ -116,9 +113,27 @@ impl External
 
     fn update_entities(&mut self)
     {
-        for i in 0..self.entities.len()
+        if self.local_player_index == 0 { return; }
+
+        let count = if self.last_ent_aim_time.elapsed().as_secs_f32() > 3f32 {
+            0
+        } else {
+            unsafe {
+                read_memory::<i32>(self.entity_list_ptr.add(offsets::client::highestEntityIndex))
+            }
+        };
+
+        let mut entities: Vec<Entity> = Vec::new();
+        unsafe {
+            for i in 0..count {
+                entities.push(Entity::new(i, memory::read_memory(self.client_ptr.add(offsets::client::dwEntityList))));
+            }
+        }
+
+        self.entities = entities;
+        for i in 0..self.entities.len() // CEntInfo
         {
-            self.entities[i].update(self.entity_list_ptr as usize);
+            self.entities[i].update();
         }
     }
 

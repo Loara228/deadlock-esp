@@ -71,7 +71,7 @@ impl eframe::App for Overlay
         };
         
         if self.game.local_player_index != 0 {
-            crate::external::cheat::aim::aiming::update(&self.settings.aim, &self.game, &self.udp_socket);
+            crate::external::cheat::aim::aiming::update(&self.settings.aim, &mut self.game, &self.udp_socket);
         }
         if self.settings.radar.enable && self.ui_mode {
             draw_radar_window(&mut self.settings.radar, ctx);

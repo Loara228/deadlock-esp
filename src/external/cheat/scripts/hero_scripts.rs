@@ -79,7 +79,7 @@ impl HeroScript for Shiv {
     }
     
     fn name(&self) -> &str {
-        "Ульта, криво, но работает"
+        "Enemy health threshold"
     }
 
     fn init_key_code(&self) -> Option<i32> {
@@ -127,7 +127,7 @@ impl HeroScript for VindictaUlt {
     }
 
     fn name(&self) -> &str {
-        "Vindicta fast ult"
+        "Quick ult"
     }
 
     fn init_key_code(&self) -> Option<i32> {

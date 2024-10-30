@@ -37,7 +37,7 @@ impl HeroScript for EntityPriorityToggle {
 
     fn draw(&mut self, _: &egui::Painter, _: &crate::external::External, toasts: &mut Toasts) {
         if self.toggle {
-            toasts.info(format!("Приоритет изменен на {:?}", self.priority));
+            toasts.info(format!("Priority: {:?}", self.priority));
             self.toggle = false;
         }
     }
@@ -47,7 +47,7 @@ impl HeroScript for EntityPriorityToggle {
     }
 
     fn name(&self) -> &str {
-        "Бинд на изменение приоритета в наведении"
+        "A bind to change the aim priority"
     }
 
     fn init_key_code(&self) -> Option<i32> {
@@ -110,7 +110,7 @@ impl HeroScript for AutoReload {
     }
 
     fn name(&self) -> &str {
-        "Авто перезарядка"
+        "Active reload (item)"
     }
 
     fn init_key_code(&self) -> Option<i32> {
@@ -199,10 +199,10 @@ impl HeroScript for MovementScript {
     fn draw(&mut self, _g: &egui::Painter, _game: &crate::external::External, toasts: &mut Toasts) {
         if self.jmp {
             self.jmp = false;
-            toasts.info("bhop");
+            toasts.info("Bhop");
         } else if self.dash {
             self.dash = false;
-            toasts.info("dash");
+            toasts.info("Dash");
         }
     }
 

@@ -18,6 +18,14 @@ impl Lang {
 			Lang::ZhTw => zhtw::ENABLE,
         }
     }
+    pub fn radius(self) -> &'static str {
+        match self {
+            Lang::RU => ru::RADIUS,
+            Lang::EN => en::RADIUS,
+			Lang::ZhCn => zhcn::RADIUS,
+			Lang::ZhTw => zhtw::RADIUS,
+        }
+    }
     
     pub fn color(self) -> &'static str {
         match self {
@@ -451,14 +459,6 @@ impl Lang {
         }
     }
     
-    pub fn esp_radar_icon_size(self) -> &'static str {
-        "Размер иконки"
-    }
-    
-    pub fn esp_radar_glow(self) -> &'static str {
-        "Подсветка здоровья"
-    }
-    
     pub fn esp_radar_color_enemy(self) -> &'static str {
         match self {
             Lang::RU => ru::ESP_RADAR_COLOR_ENEMY,
@@ -548,35 +548,121 @@ impl Lang {
 			Lang::ZhTw => zhtw::BONE_CHEST,
         }
     }
+    
+    pub fn esp_radar_icon_size(self) -> &'static str {
+        match self {
+            Lang::RU => ru::ESP_RADAR_ICON_SIZE,
+            Lang::EN => en::ESP_RADAR_ICON_SIZE,
+			Lang::ZhCn => zhcn::ESP_RADAR_ICON_SIZE,
+			Lang::ZhTw => zhtw::ESP_RADAR_ICON_SIZE,
+        }
+    }
 
     pub fn config_loaded(self) -> &'static str {
-        return "Конфиг загружен";
+        match self {
+            Lang::RU => ru::CONFIG_LOADED,
+            Lang::EN => en::CONFIG_LOADED,
+			Lang::ZhCn => zhcn::CONFIG_LOADED,
+			Lang::ZhTw => zhtw::CONFIG_LOADED,
+        }
     }
     
     pub fn config_failed(self) -> &'static str {
-        return "Не удалось загрузить конфиг";
+        match self {
+            Lang::RU => ru::CONFIG_FAILED,
+            Lang::EN => en::CONFIG_FAILED,
+			Lang::ZhCn => zhcn::CONFIG_FAILED,
+			Lang::ZhTw => zhtw::CONFIG_FAILED,
+        }
     }
 
     pub fn config_saved(self) -> &'static str {
-        return "Конфиг сохранен";
+        match self {
+            Lang::RU => ru::CONFIG_SAVED,
+            Lang::EN => en::CONFIG_SAVED,
+			Lang::ZhCn => zhcn::CONFIG_SAVED,
+			Lang::ZhTw => zhtw::CONFIG_SAVED,
+        }
     }
 
     pub fn config_deleted(self) -> &'static str {
-        return "Конфиг удалён";
+        match self {
+            Lang::RU => ru::CONFIG_DELETED,
+            Lang::EN => en::CONFIG_DELETED,
+			Lang::ZhCn => zhcn::CONFIG_DELETED,
+			Lang::ZhTw => zhtw::CONFIG_DELETED,
+        }
     }
     
     pub fn creeps(self) -> &'static str {
-        return "Крипы";
+        match self {
+            Lang::RU => ru::AIM_PRIORITY_CREEPS,
+            Lang::EN => en::AIM_PRIORITY_CREEPS,
+			Lang::ZhCn => zhcn::AIM_PRIORITY_CREEPS,
+			Lang::ZhTw => zhtw::AIM_PRIORITY_CREEPS,
+        }
     }
     
     pub fn souls(self) -> &'static str {
-        return "Души";
+        match self {
+            Lang::RU => ru::AIM_PRIORITY_SOULS,
+            Lang::EN => en::AIM_PRIORITY_SOULS,
+			Lang::ZhCn => zhcn::AIM_PRIORITY_SOULS,
+			Lang::ZhTw => zhtw::AIM_PRIORITY_SOULS,
+        }
+    }
+    
+    pub fn icon(self) -> &'static str {
+        match self {
+            Lang::RU => ru::ICON,
+            Lang::EN => en::ICON,
+			Lang::ZhCn => zhcn::ICON,
+			Lang::ZhTw => zhtw::ICON,
+        }
+    }
+    
+    pub fn esp_offscreen(self) -> &'static str {
+        match self {
+            Lang::RU => ru::ESP_OFFSCREEN,
+            Lang::EN => en::ESP_OFFSCREEN,
+			Lang::ZhCn => zhcn::ESP_OFFSCREEN,
+			Lang::ZhTw => zhtw::ESP_OFFSCREEN,
+        }
+    }
+    
+    pub fn script_enable_all(self) -> &'static str {
+        match self {
+            Lang::RU => ru::SCRIPT_ENABLE_ALL,
+            Lang::EN => en::SCRIPT_ENABLE_ALL,
+			Lang::ZhCn => zhcn::SCRIPT_ENABLE_ALL,
+			Lang::ZhTw => zhtw::SCRIPT_ENABLE_ALL,
+        }
+    }
+    
+    pub fn script_disable_all(self) -> &'static str {
+        match self {
+            Lang::RU => ru::SCRIPT_DISABLE_ALL,
+            Lang::EN => en::SCRIPT_DISABLE_ALL,
+			Lang::ZhCn => zhcn::SCRIPT_DISABLE_ALL,
+			Lang::ZhTw => zhtw::SCRIPT_DISABLE_ALL,
+        }
+    }
+    
+    pub fn script_hero(self) -> &'static str {
+        match self {
+            Lang::RU => ru::SCRIPT_HERO,
+            Lang::EN => en::SCRIPT_HERO,
+			Lang::ZhCn => zhcn::SCRIPT_HERO,
+			Lang::ZhTw => zhtw::SCRIPT_HERO,
+        }
     }
 }
 
 pub(super) mod ru
 {
     pub const ENABLE: &str = "Включить";
+    pub const RADIUS: &str = "Радиус";
+    pub const ICON: &str = "Иконка";
     pub const COLOR: &str = "Цвет";
     pub const CONFIG: &str = "Настройки";
     pub const CONFIG_LOAD: &str = "Загрузить";
@@ -606,6 +692,8 @@ pub(super) mod ru
     pub const AIM_SMOOTH: &str = "Плавность";
     pub const AIM_MAX_DISTANCE: &str = "Максимальная дистанция";
     pub const AIM_METERS: &str = "метров";
+    pub const AIM_PRIORITY_CREEPS: &str = "Крипы";
+    pub const AIM_PRIORITY_SOULS: &str = "Души";
 
     pub const ESP_PLAYERS_RECTANGLE: &str = "Прямоугольник";
     pub const ESP_PLAYERS_RECTANGLE_TYPE: &str = "Тип прямоугольника";
@@ -636,6 +724,18 @@ pub(super) mod ru
     pub const ESP_RADAR_COLOR_TEAMMATE: &str = "Цвет союзника";
     pub const ESP_RADAR_COLOR_BACKGROUND: &str = "Цвет фона";
     pub const ESP_RADAR_COLOR_STROKE: &str = "Цвет обводки";
+    pub const ESP_RADAR_ICON_SIZE: &str = "Размер иконки";
+    
+    pub const CONFIG_LOADED: &str = "Конфиг загружен";
+    pub const CONFIG_FAILED: &str = "Не удалось загрузить конфиг";
+    pub const CONFIG_SAVED: &str = "Конфиг сохранен";
+    pub const CONFIG_DELETED: &str = "Конфиг удалён";
+    
+    pub const ESP_OFFSCREEN: &str = "Герои вне экрана";
+
+    pub const SCRIPT_ENABLE_ALL: &str = "Включить всё";
+    pub const SCRIPT_DISABLE_ALL: &str = "Выключить всё";
+    pub const SCRIPT_HERO: &str = "Герой";
 
     pub const BONE: &str = "Кость";
     pub const BONE_HEAD: &str = "Голова";
@@ -649,12 +749,14 @@ pub(super) mod en
 {
     pub const ENABLE: &str = "Enable";
     // pub const ENABLE: &str = "Hello. Can i get a... Big mac. No pickles. Extra... uhhhh Ketchup. Medium french fries. And also one extra large sprite.. Thanks. Are you getting a gun as a gift?";
+    pub const RADIUS: &str = "Radius";
+    pub const ICON: &str = "Icon";
     pub const COLOR: &str = "Color";
     pub const CONFIG: &str = "Config";
     pub const CONFIG_LOAD: &str = "Load";
     pub const CONFIG_SAVE: &str = "Save";
-    pub const CONFIG_CREATE: &str = "Создать";
-    pub const CONFIG_DELETE: &str = "Удалить";
+    pub const CONFIG_CREATE: &str = "Create";
+    pub const CONFIG_DELETE: &str = "Delete";
     pub const CONFIG_DEFAULT: &str = "Load default config";
     pub const REPOSITORY: &str = "Repository (source code & updates)";
     pub const CLOSE: &str = "Close";
@@ -678,6 +780,8 @@ pub(super) mod en
     pub const AIM_SMOOTH: &str = "Smooth";
     pub const AIM_MAX_DISTANCE: &str = "Maximum distance";
     pub const AIM_METERS: &str = "meters";
+    pub const AIM_PRIORITY_CREEPS: &str = "Creeps";
+    pub const AIM_PRIORITY_SOULS: &str = "Souls";
 
     pub const ESP_PLAYERS_RECTANGLE: &str = "Rectangle";
     pub const ESP_PLAYERS_RECTANGLE_TYPE: &str = "Rectangle type";
@@ -708,6 +812,18 @@ pub(super) mod en
     pub const ESP_RADAR_COLOR_TEAMMATE: &str = "Teammate color";
     pub const ESP_RADAR_COLOR_BACKGROUND: &str = "Bacgkround color";
     pub const ESP_RADAR_COLOR_STROKE: &str = "Stroke color";
+    pub const ESP_RADAR_ICON_SIZE: &str = "Icon size";
+    
+    pub const CONFIG_LOADED: &str = "Config loaded";
+    pub const CONFIG_FAILED: &str = "Failed to load config";
+    pub const CONFIG_SAVED: &str = "Config saved";
+    pub const CONFIG_DELETED: &str = "Config deleted";
+    
+    pub const ESP_OFFSCREEN: &str = "Offscreen";
+
+    pub const SCRIPT_ENABLE_ALL: &str = "Enable all";
+    pub const SCRIPT_DISABLE_ALL: &str = "Disable all";
+    pub const SCRIPT_HERO: &str = "Hero";
 
     pub const BONE: &str = "Bone";
     pub const BONE_HEAD: &str = "Head";
@@ -719,6 +835,8 @@ pub(super) mod en
 pub (super) mod zhcn
 {
 	pub const ENABLE: &str = "启用";
+    pub const RADIUS: &str = "Radius";
+    pub const ICON: &str = "Icon";
 	pub const COLOR: &str = "颜色";
 	pub const CONFIG: &str = "设置";
 	pub const CONFIG_LOAD: &str = "加载";
@@ -748,6 +866,8 @@ pub (super) mod zhcn
 	pub const AIM_SMOOTH: &str = "自瞄平滑";
 	pub const AIM_MAX_DISTANCE: &str = "最大距离";
 	pub const AIM_METERS: &str = "米";
+    pub const AIM_PRIORITY_CREEPS: &str = "Creeps";
+    pub const AIM_PRIORITY_SOULS: &str = "Souls";
 
 	pub const ESP_PLAYERS_RECTANGLE: &str = "矩形";
 	pub const ESP_PLAYERS_RECTANGLE_TYPE: &str = "矩形类型";
@@ -778,6 +898,18 @@ pub (super) mod zhcn
 	pub const ESP_RADAR_COLOR_TEAMMATE: &str = "队友颜色";
 	pub const ESP_RADAR_COLOR_BACKGROUND: &str = "背景颜色";
 	pub const ESP_RADAR_COLOR_STROKE: &str = "描边颜色";
+    pub const ESP_RADAR_ICON_SIZE: &str = "Icon size";
+    
+    pub const CONFIG_LOADED: &str = "Config loaded";
+    pub const CONFIG_FAILED: &str = "Failed to load config";
+    pub const CONFIG_SAVED: &str = "Config saved";
+    pub const CONFIG_DELETED: &str = "Config deleted";
+    
+    pub const ESP_OFFSCREEN: &str = "Offscreen";
+
+    pub const SCRIPT_ENABLE_ALL: &str = "Enable all";
+    pub const SCRIPT_DISABLE_ALL: &str = "Disable all";
+    pub const SCRIPT_HERO: &str = "Hero";
 
     pub const BONE: &str = "骨骼";
     pub const BONE_HEAD: &str = "头部";
@@ -790,6 +922,8 @@ pub (super) mod zhcn
 pub (super) mod zhtw
 {
 	pub const ENABLE: &str = "啟用";
+    pub const RADIUS: &str = "Radius";
+    pub const ICON: &str = "Icon";
 	pub const COLOR: &str = "顏色";
 	pub const CONFIG: &str = "設定";
 	pub const CONFIG_LOAD: &str = "加载";
@@ -819,6 +953,8 @@ pub (super) mod zhtw
 	pub const AIM_SMOOTH: &str = "自瞄平滑";
 	pub const AIM_MAX_DISTANCE: &str = "最大距離";
 	pub const AIM_METERS: &str = "公尺";
+    pub const AIM_PRIORITY_CREEPS: &str = "Creeps";
+    pub const AIM_PRIORITY_SOULS: &str = "Souls";
 
 	pub const ESP_PLAYERS_RECTANGLE: &str = "矩形";
 	pub const ESP_PLAYERS_RECTANGLE_TYPE: &str = "矩形類型";
@@ -849,6 +985,18 @@ pub (super) mod zhtw
 	pub const ESP_RADAR_COLOR_TEAMMATE: &str = "隊友顏色";
 	pub const ESP_RADAR_COLOR_BACKGROUND: &str = "背景顏色";
 	pub const ESP_RADAR_COLOR_STROKE: &str = "描邊顏色";
+    pub const ESP_RADAR_ICON_SIZE: &str = "Icon size";
+    
+    pub const CONFIG_LOADED: &str = "Config loaded";
+    pub const CONFIG_FAILED: &str = "Failed to load config";
+    pub const CONFIG_SAVED: &str = "Config saved";
+    pub const CONFIG_DELETED: &str = "Config deleted";
+    
+    pub const ESP_OFFSCREEN: &str = "Offscreen";
+
+    pub const SCRIPT_ENABLE_ALL: &str = "Enable all";
+    pub const SCRIPT_DISABLE_ALL: &str = "Disable all";
+    pub const SCRIPT_HERO: &str = "Hero";
 
     pub const BONE: &str = "骨骼";
     pub const BONE_HEAD: &str = "头部";

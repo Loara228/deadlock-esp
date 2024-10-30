@@ -366,6 +366,7 @@ pub enum KeyState
 
 #[derive(Debug)]
 #[derive(Serialize, Deserialize)]
+#[derive(Clone, Copy)]
 pub struct Key
 {
     pub state: KeyState,

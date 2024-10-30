@@ -26,15 +26,15 @@ fn draw_scripts(overlay: &mut Overlay, ctx: &Context, _ui: &mut Ui) {
                         ui.vertical(|ui| {
                             let hero = script.hero_id();
                             if hero == Hero::None {
-                                ui.label(format!("Hero: Any"));
+                                ui.label(format!("{}: Any", overlay.lang.script_hero()));
                             }
                             else {
-                                ui.label(format!("Hero: {:?}", hero));
+                                ui.label(format!("{}: {:?}", overlay.lang.script_hero(), hero));
                             }
-                            ui.label(format!("Name: {}", script.name()));
+                            ui.label(format!("{}", script.name())); //ui.label(format!("Name: {}", script.name()));
                             ui.checkbox(&mut script_settings.enabled, overlay.lang.enable());
-                            if script_settings.key.is_some() {
-                                ui.label(format!("{:?}", script_settings.key));
+                            if script_settings.key.clone().is_some() {
+                                ui.label(format!("key code: {}", script_settings.key.unwrap().code));
                             }
                             ui.horizontal(|ui| {
                                 ui.add_space(200f32);
@@ -47,12 +47,12 @@ fn draw_scripts(overlay: &mut Overlay, ctx: &Context, _ui: &mut Ui) {
         });
         ui.horizontal(|ui| {
             
-            if ui.button("включить всё").clicked() {
+            if ui.button(overlay.lang.script_enable_all()).clicked() {
                 for s in overlay.hero_scripts.iter_mut() {
                     s.1.enabled = true;
                 }
             }
-            if ui.button("выключить всё").clicked() {
+            if ui.button(overlay.lang.script_disable_all()).clicked() {
                 for s in overlay.hero_scripts.iter_mut() {
                     s.1.enabled = false;
                 }
@@ -79,37 +79,36 @@ fn draw_config(overlay: &mut Overlay, ui: &mut Ui) {
         }
     });
     let mut deleted = false;
-    for c in overlay.configs.iter() {
-        ui.horizontal(|ui| {
-            ui.group(|ui| {
-                if ui.button(overlay.lang.config_load()).clicked() {
-                    let mut conf_name = c.to_owned();
-                    conf_name.push_str(".cjson");
-                    if mgr::change(&mut overlay.settings, &conf_name) {
-                        overlay.toasts.info(overlay.lang.config_loaded());
-                    } else {
-                        overlay.toasts.error(overlay.lang.config_failed());
+    ui.group(|ui| {
+        for c in overlay.configs.iter() {
+            ui.horizontal(|ui| {
+                    if ui.button(overlay.lang.config_load()).clicked() {
+                        let mut conf_name = c.to_owned();
+                        conf_name.push_str(".cjson");
+                        if mgr::change(&mut overlay.settings, &conf_name) {
+                            overlay.toasts.info(overlay.lang.config_loaded());
+                        } else {
+                            overlay.toasts.error(overlay.lang.config_failed());
+                        }
                     }
-                }
-                if ui.button(overlay.lang.config_delete()).clicked() {
-                    let mut conf_name = c.to_owned();
-                    conf_name.push_str(".cjson");
-                    mgr::delete(&conf_name);
-                    deleted = true;
-                    overlay.toasts.info(overlay.lang.config_deleted());
-                }
-                ui.add_space(10f32);
-                ui.label(c);
-            });
+                    if ui.button(overlay.lang.config_delete()).clicked() {
+                        let mut conf_name = c.to_owned();
+                        conf_name.push_str(".cjson");
+                        mgr::delete(&conf_name);
+                        deleted = true;
+                        overlay.toasts.info(overlay.lang.config_deleted());
+                    }
+                    ui.add_space(10f32);
+                    ui.label(c);
+                });
+        }
+        ui.horizontal(|ui| {
+            ui.add_space(250f32);
         });
-    }
-    // if ui.button(overlay.lang.config_default()).clicked() {
-    //     overlay.settings = Settings::default();
-    // }
+    });
     if deleted {
         overlay.configs = settings::mgr::get_configs();
     }
-    ui.separator();
 }
 
 fn draw_main(overlay: &mut Overlay, ctx: &Context, _ui: &mut Ui) {
@@ -117,7 +116,7 @@ fn draw_main(overlay: &mut Overlay, ctx: &Context, _ui: &mut Ui) {
         .resizable(false)
         .collapsible(false)
         .show(ctx, |ui| {
-            ui.separator();
+            // ui.separator();
             ui.label("Language");
             egui::ComboBox::from_id_salt("lang_selector")
                         .selected_text(format!("{:?}", overlay.lang))
@@ -154,13 +153,9 @@ fn draw_main(overlay: &mut Overlay, ctx: &Context, _ui: &mut Ui) {
                             };
                         });
 
-            ui.separator();
+            // ui.separator();
             draw_config(overlay, ui);
             ui.hyperlink_to(overlay.lang.repository(), "https://github.com/Loara228/deadlock-esp");
-            ui.separator();
-            if ui.button(overlay.lang.close()).clicked() {
-                crate::exit();
-            }
         });
 }
 
@@ -524,7 +519,7 @@ mod esp {
 
     pub fn esp_offscreen(ui: &mut Ui, overlay: &mut Overlay) {
         let lang = &overlay.lang;
-        ui.collapsing("offscreen", |ui| {
+        ui.collapsing(lang.esp_offscreen(), |ui| {
             egui::Grid::new("offscreen_grid")
             .num_columns(2)
             .min_col_width(150.)
@@ -536,36 +531,35 @@ mod esp {
                 ui.add(
                     egui::Slider::new(&mut overlay.settings.offscreen.radius, 50f32..=500f32)
                         .show_value(true)
-                        .text("radius"),
                 );
-
+                ui.label(lang.radius());
                 ui.end_row();
 
-                ui.checkbox(&mut overlay.settings.offscreen.enable_rect, "rectangle");
-                ui.label(lang.enable());
+                ui.checkbox(&mut overlay.settings.offscreen.enable_rect, lang.enable());
+                ui.label(lang.esp_players_rect());
                 ui.end_row();
 
                 ui.color_edit_button_srgba(&mut overlay.settings.offscreen.rect_color);
-                ui.label("rect color");
+                ui.label(lang.color());
                 ui.end_row();
 
-                ui.checkbox(&mut overlay.settings.offscreen.enable_icon, "icon");
-                ui.label(lang.enable());
+                ui.checkbox(&mut overlay.settings.offscreen.enable_icon, lang.enable());
+                ui.label(lang.icon());
                 ui.end_row();
 
                 ui.add(
                     egui::Slider::new(&mut overlay.settings.offscreen.icon_size, 15f32..=50f32)
                         .show_value(true)
-                        .text("icon size"),
                 );
+                ui.label(lang.esp_radar_icon_size());
                 ui.end_row();
 
-                ui.checkbox(&mut overlay.settings.offscreen.enable_health, "healthbar");
-                ui.label(lang.enable());
+                ui.checkbox(&mut overlay.settings.offscreen.enable_health, lang.enable());
+                ui.label(lang.esp_healthbar());
                 ui.end_row();
 
-                ui.checkbox(&mut overlay.settings.offscreen.enable_distance, "distance");
-                ui.label(lang.enable());
+                ui.checkbox(&mut overlay.settings.offscreen.enable_distance, lang.enable());
+                ui.label(lang.esp_text_distance());
                 ui.end_row();
             });
         });

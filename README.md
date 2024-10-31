@@ -7,15 +7,6 @@
 > The use of cheat programs is strictly prohibited by Gaben. This may result in your account being banned!<br>
 > If you care about your account, then do not use any cheats, including this one
 
-
-#### Donate
-
-| USDT TRC20 | TKNG57YXPBxHG9MwD4jMMYqV8paNHGuih6 |
-|------------|------------------------------------|
-
-Could you buy me a beer or some cigarettes?<br>A donation of $100 will delete this repository (If you don't like cheaters)
-
-You can reach me here by writing to me: https://t.me/hellocsharp<br>
 Report your problem: https://github.com/Loara228/deadlock-esp/issues/new<br>
 Offset changes: https://github.com/Loara228/deadlock-esp/issues/18
 
@@ -56,7 +47,7 @@ cargo build --release
 ./{example} --old-window
 ```
 
-8. Откалибруйте аим (ВОТ ТАК)
+8. Calibrate as shown in the picture
 
 ![](images/calibrate.png)![](preview)
 
@@ -120,6 +111,7 @@ cargo build --release
    - Английский (Hamburger edition)
 + Скрипты
    - Shiv - Скрипт для ульты. (Работает только с квикастами). Отображает низкий порог здоровья и приминяет ульт. (работает криво)
+   - Vindicta - Скрипт для ульты. Быстый выстрел.
    - Active Reload - Скрипт для прожатия перезарядки в нужный момент, работает когда есть предмет "Активная перезарядка"
    - Переключение приоритета entity - При нажатии на <kbd>F5</kbd> меняет приоритет для наведения. Крипы / Души
    - RadarToggle - При зажатии клавиши <kbd>ALT</kbd>, на радаре отображаются иконки героев (как в доте)

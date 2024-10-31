@@ -17,7 +17,7 @@ pub fn draw(ui: &mut Ui, player: &Player, local_player: &Player, matrix: &Matrix
     let x: f32 = screen_center.x - screen_point.x;
     let y: f32 = screen_center.y - screen_point.y;
     let radius: f32 = radius + (ord as f32 * (icon_size * 1.5f32));
-    if in_fov(screen_point, screen_center, radius) {
+    if !behind && in_fov(screen_point, screen_center, radius) {
         return;
     }
     let mut dir = Vector3::mul(Vector3::normalize(Vector3 { x, y, z: 0f32 }), -1f32);

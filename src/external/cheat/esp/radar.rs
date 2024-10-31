@@ -13,6 +13,7 @@ pub fn draw_radar_window(settings: &mut RadarSettings, ctx: &egui::Context)
           .max_size(egui::Vec2 { x: 500., y: 500. })
           .title_bar(true)
           .default_size(settings.rect.size())
+          .default_open(false)
           .show(ctx, |ui| {
             settings.rect = ui.available_rect_before_wrap();
     });

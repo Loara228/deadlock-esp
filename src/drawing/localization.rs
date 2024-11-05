@@ -898,18 +898,18 @@ pub (super) mod zhcn
 	pub const ESP_RADAR_COLOR_TEAMMATE: &str = "队友颜色";
 	pub const ESP_RADAR_COLOR_BACKGROUND: &str = "背景颜色";
 	pub const ESP_RADAR_COLOR_STROKE: &str = "描边颜色";
-    pub const ESP_RADAR_ICON_SIZE: &str = "Icon size";
+    pub const ESP_RADAR_ICON_SIZE: &str = "图标大小";
     
-    pub const CONFIG_LOADED: &str = "Config loaded";
-    pub const CONFIG_FAILED: &str = "Failed to load config";
-    pub const CONFIG_SAVED: &str = "Config saved";
-    pub const CONFIG_DELETED: &str = "Config deleted";
+    pub const CONFIG_LOADED: &str = "配置已加载";
+    pub const CONFIG_FAILED: &str = "配置加载失败";
+    pub const CONFIG_SAVED: &str = "配置已保存";
+    pub const CONFIG_DELETED: &str = "配置已删除";
     
-    pub const ESP_OFFSCREEN: &str = "Offscreen";
+    pub const ESP_OFFSCREEN: &str = "离屏";
 
-    pub const SCRIPT_ENABLE_ALL: &str = "Enable all";
-    pub const SCRIPT_DISABLE_ALL: &str = "Disable all";
-    pub const SCRIPT_HERO: &str = "Hero";
+    pub const SCRIPT_ENABLE_ALL: &str = "启用全部";
+    pub const SCRIPT_DISABLE_ALL: &str = "禁用全部";
+    pub const SCRIPT_HERO: &str = "英雄";
 
     pub const BONE: &str = "骨骼";
     pub const BONE_HEAD: &str = "头部";
@@ -985,18 +985,18 @@ pub (super) mod zhtw
 	pub const ESP_RADAR_COLOR_TEAMMATE: &str = "隊友顏色";
 	pub const ESP_RADAR_COLOR_BACKGROUND: &str = "背景顏色";
 	pub const ESP_RADAR_COLOR_STROKE: &str = "描邊顏色";
-    pub const ESP_RADAR_ICON_SIZE: &str = "Icon size";
+    pub const ESP_RADAR_ICON_SIZE: &str = "圖標大小";
     
-    pub const CONFIG_LOADED: &str = "Config loaded";
-    pub const CONFIG_FAILED: &str = "Failed to load config";
-    pub const CONFIG_SAVED: &str = "Config saved";
-    pub const CONFIG_DELETED: &str = "Config deleted";
+    pub const CONFIG_LOADED: &str = "配置已載入";
+    pub const CONFIG_FAILED: &str = "配置載入失敗";
+    pub const CONFIG_SAVED: &str = "配置已保存";
+    pub const CONFIG_DELETED: &str = "配置已刪除";
     
-    pub const ESP_OFFSCREEN: &str = "Offscreen";
+    pub const ESP_OFFSCREEN: &str = "離屏";
 
-    pub const SCRIPT_ENABLE_ALL: &str = "Enable all";
-    pub const SCRIPT_DISABLE_ALL: &str = "Disable all";
-    pub const SCRIPT_HERO: &str = "Hero";
+    pub const SCRIPT_ENABLE_ALL: &str = "啟用全部";
+    pub const SCRIPT_DISABLE_ALL: &str = "禁用全部";
+    pub const SCRIPT_HERO: &str = "英雄";
 
     pub const BONE: &str = "骨骼";
     pub const BONE_HEAD: &str = "头部";

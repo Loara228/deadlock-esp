@@ -5,7 +5,6 @@ mod input;
 mod memory;
 pub mod settings;
 pub mod external;
-mod dev;
 
 use std::env;
 

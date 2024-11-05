@@ -242,25 +242,6 @@ dependencies = [
 ]
 
 [[package]]
-name = "app123"
-version = "0.1.1"
-dependencies = [
- "clap",
- "eframe",
- "egui",
- "egui-notify",
- "egui_extras",
- "emath",
- "env_logger",
- "log",
- "reqwest",
- "serde",
- "serde_json",
- "sysinfo",
- "windows 0.58.0",
-]
-
-[[package]]
 name = "arboard"
 version = "3.4.1"
 source = "registry+https://github.com/rust-lang/crates.io-index"
@@ -2234,6 +2215,25 @@ dependencies = [
  "proc-macro2",
  "quote",
  "syn 2.0.79",
+]
+
+[[package]]
+name = "o4ko_negra"
+version = "0.1.1"
+dependencies = [
+ "clap",
+ "eframe",
+ "egui",
+ "egui-notify",
+ "egui_extras",
+ "emath",
+ "env_logger",
+ "log",
+ "reqwest",
+ "serde",
+ "serde_json",
+ "sysinfo",
+ "windows 0.58.0",
 ]
 
 [[package]]

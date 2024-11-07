@@ -2218,25 +2218,6 @@ dependencies = [
 ]
 
 [[package]]
-name = "o4ko_negra"
-version = "0.1.1"
-dependencies = [
- "clap",
- "eframe",
- "egui",
- "egui-notify",
- "egui_extras",
- "emath",
- "env_logger",
- "log",
- "reqwest",
- "serde",
- "serde_json",
- "sysinfo",
- "windows 0.58.0",
-]
-
-[[package]]
 name = "objc"
 version = "0.2.7"
 source = "registry+https://github.com/rust-lang/crates.io-index"
@@ -2718,6 +2699,25 @@ source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "b5b9d34b8991d19d98081b46eacdd8eb58c6f2b201139f7c5f643cc155a633af"
 dependencies = [
  "proc-macro2",
+]
+
+[[package]]
+name = "qwerty"
+version = "0.1.1"
+dependencies = [
+ "clap",
+ "eframe",
+ "egui",
+ "egui-notify",
+ "egui_extras",
+ "emath",
+ "env_logger",
+ "log",
+ "reqwest",
+ "serde",
+ "serde_json",
+ "sysinfo",
+ "windows 0.58.0",
 ]
 
 [[package]]

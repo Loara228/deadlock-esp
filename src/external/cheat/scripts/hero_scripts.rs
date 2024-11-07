@@ -9,14 +9,14 @@ pub struct Shiv {}
 impl Shiv {
     fn can_kill(&self, local_player: &Player, player: &Player, upgrade: i32) -> bool {
         if player.is_alive() && player.pawn.team != local_player.pawn.team {
-            let health_perc = 100f32 / player.pawn.max_health as f32 * player.pawn.health as f32;
+            let health_perc = 100f32 / player.data.max_health as f32 * player.data.health as f32;
             let can_kill: bool = if upgrade < 7 {
                 health_perc < 19.9f32 // 20%
             }
             else {
                 health_perc < 27.9f32 // 28%
             };
-            if player.pawn.health <= 195 || can_kill {
+            if player.data.health <= 195 || can_kill {
                 return true;
             }
         }

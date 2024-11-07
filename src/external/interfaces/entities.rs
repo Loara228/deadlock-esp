@@ -51,7 +51,7 @@ impl Entity
         self.game_scene_node.dormant = false;
         self.pawn.update_entity(self.entry, self.index as usize);
         
-        if self.pawn.ptr == std::ptr::null_mut() || (self.pawn.health < 0)
+        if self.pawn.ptr == std::ptr::null_mut() || (self.pawn.pawn_health < 0)
         {
             return;
         }
@@ -104,7 +104,7 @@ impl Entity
     {
         if self.class == EntityType::Creep
         {
-            if self.pawn.health == 0
+            if self.pawn.pawn_health == 0
             {
                 return true;
             }
@@ -159,11 +159,11 @@ impl Entity
                         lines.push([Vector3 { x, y, z }, Vector3 { x: x2, y: y2, z: z2 }]);
                     }
                     let mut color = Color32::WHITE;
-                    if self.pawn.health < 150
+                    if self.pawn.pawn_health < 150
                     {
                         color = Color32::ORANGE;
                     }
-                    if self.pawn.health <= 50
+                    if self.pawn.pawn_health <= 50
                     {
                         color = Color32::RED;
                     }
@@ -225,7 +225,7 @@ impl Player
 
     pub fn is_alive(&self) -> bool
     {
-        self.data.alive && self.pawn.health > 0
+        self.data.alive && self.data.health > 0
     }
 
     pub fn dead(&mut self)
@@ -250,9 +250,9 @@ impl Player
                     self.pawn.update(list_entry, pawn_handle as usize);
                     if self.pawn.ptr as i32 != 0
                     {
-                        if self.pawn.health > self.pawn.max_health
+                        if self.data.health > self.data.max_health
                         {
-                            self.pawn.max_health = self.pawn.health
+                            self.data.max_health = self.data.health
                         }
                         self.game_scene_node.update(self.pawn.ptr as *mut c_void);
                         self.data.update(self.controller.ptr);

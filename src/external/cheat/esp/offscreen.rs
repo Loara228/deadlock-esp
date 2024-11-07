@@ -63,7 +63,7 @@ fn draw_healthbar(g: &Painter, player: &Player, icon_rect: Rect, settings: &Heal
 
     let hp_rect = Rect {
         min: rect_hp_max.min,
-        max: pos2(rect_hp_max.min.x +  rect_hp_max.width() / player.pawn.max_health as f32 * player.pawn.health as f32, rect_hp_max.max.y),
+        max: pos2(rect_hp_max.min.x +  rect_hp_max.width() / player.data.max_health as f32 * player.data.health as f32, rect_hp_max.max.y),
     };
     
     g.rect_filled(rect_hp_max, rounding, settings.background_color); // background

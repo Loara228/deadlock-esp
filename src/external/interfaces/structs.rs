@@ -173,7 +173,9 @@ pub struct PlayerDataGlobal
 {
     pub hero: Hero,
     pub alive: bool,
-    pub ult_cd_time_end: f32
+    pub ult_cd_time_end: f32,
+    pub health: i32,
+    pub max_health: i32,
 }
 
 impl PlayerDataGlobal
@@ -185,6 +187,8 @@ impl PlayerDataGlobal
             let hero_id: i32 = read_memory(struct_offset.add(PlayerDataGlobal_t::m_nHeroID));
             self.alive = read_memory(struct_offset.add(PlayerDataGlobal_t::m_bAlive));
             self.ult_cd_time_end = read_memory(struct_offset.add(PlayerDataGlobal_t::m_flUltimateCooldownEnd));
+            self.health = read_memory(struct_offset.add(PlayerDataGlobal_t::m_iHealth));
+            self.max_health = read_memory(struct_offset.add(PlayerDataGlobal_t::m_iHealthMax));
 
             match Hero::try_from(hero_id)  {
                 Ok(hero) => self.hero = hero,
@@ -318,10 +322,9 @@ impl Controller
 pub struct Pawn
 {
     pub(crate) ptr: *mut c_void,
-    pub health: i32,
-    pub max_health: i32,
     pub team: i32,
-    pub velocity: Vector3
+    pub velocity: Vector3,
+    pub pawn_health: i32,
 }
 
 impl Default for Pawn
@@ -329,10 +332,9 @@ impl Default for Pawn
     fn default() -> Self {
         Self {
             ptr: 0 as *mut c_void,
-            health: 0,
-            max_health: 0,
             team: 0,
-            velocity: Vector3::default()
+            velocity: Vector3::default(),
+            pawn_health: 0,
         }
     }
 }
@@ -352,8 +354,6 @@ impl Pawn
             {
                 return;
             }
-            self.health = read_memory(self.ptr.add(C_BaseEntity::m_iHealth));
-            self.max_health = read_memory(self.ptr.add(C_BaseEntity::m_iMaxHealth));
             self.team = read_memory(self.ptr.add(C_BaseEntity::m_iTeamNum));
             self.velocity = read_memory(self.ptr.add(C_BaseEntity::m_vecVelocity));
         }
@@ -367,7 +367,7 @@ impl Pawn
             {
                 return;
             }
-            self.health = read_memory(self.ptr.add(C_BaseEntity::m_iHealth));
+            self.pawn_health = read_memory(self.ptr.add(C_BaseEntity::m_iHealth));
             self.team = read_memory(self.ptr.add(C_BaseEntity::m_iTeamNum));
             self.velocity = read_memory(self.ptr.add(C_BaseEntity::m_vecVelocity));
         }

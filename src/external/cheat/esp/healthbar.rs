@@ -12,7 +12,7 @@ pub fn draw(ui: &mut Ui, player: &Player, settings: &HealthbarSettings)
     let height: f32 = get_height(player.rect.width());
     let rounding = Rounding::same(height / 2f32);
     let hp_rect_max = get_hpbar_rect(player.rect, 1, 1);
-    let hp_rect = get_hpbar_rect(player.rect, player.pawn.health, player.pawn.max_health);
+    let hp_rect = get_hpbar_rect(player.rect, player.data.health, player.data.max_health);
     g.rect_filled(hp_rect_max, rounding, settings.background_color); // background
     g.rect_filled(hp_rect, rounding, settings.hp_color); // hp
     g.rect_stroke(hp_rect_max, rounding, Stroke::new(1f32, settings.outline_color)); // stroke

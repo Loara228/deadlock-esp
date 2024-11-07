@@ -19,7 +19,7 @@ pub fn draw(g: &egui::Painter, player: &Player, local_player: &Player, settings:
         g,
         player.rect,
         &settings.esp_players.text_health,
-        format!("{}/{}", player.pawn.health, player.pawn.max_health),
+        format!("{}/{}", player.data.health, player.data.max_health),
         &mut offsets,
     );
     draw_text(

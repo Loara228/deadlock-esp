@@ -1,6 +1,6 @@
 [package]
 # меняйте имя тут! (до 15-ти символов)
-name = "qwerty"
+name = "ysataya_krisa"
 version = "0.1.1"
 edition = "2021"
 
@@ -28,4 +28,4 @@ windows = { version = "0.58.0", features = [
     "Win32_UI_Input_KeyboardAndMouse"
     ] }
 egui-notify = "0.17.0"
-reqwest = { version = "0.12.8", features = ["blocking"]}
+# reqwest = { version = "0.12.8", features = ["blocking"]}

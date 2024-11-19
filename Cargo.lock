@@ -233,6 +233,24 @@ dependencies = [
 ]
 
 [[package]]
+name = "app123"
+version = "0.1.1"
+dependencies = [
+ "clap",
+ "eframe",
+ "egui",
+ "egui-notify",
+ "egui_extras",
+ "emath",
+ "env_logger",
+ "log",
+ "serde",
+ "serde_json",
+ "sysinfo",
+ "windows 0.58.0",
+]
+
+[[package]]
 name = "arboard"
 version = "3.4.1"
 source = "registry+https://github.com/rust-lang/crates.io-index"
@@ -3847,24 +3865,6 @@ name = "xml-rs"
 version = "0.8.22"
 source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "af4e2e2f7cba5a093896c1e150fbfe177d1883e7448200efb81d40b9d339ef26"
-
-[[package]]
-name = "ysataya_krisa"
-version = "0.1.1"
-dependencies = [
- "clap",
- "eframe",
- "egui",
- "egui-notify",
- "egui_extras",
- "emath",
- "env_logger",
- "log",
- "serde",
- "serde_json",
- "sysinfo",
- "windows 0.58.0",
-]
 
 [[package]]
 name = "zbus"

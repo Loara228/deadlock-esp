@@ -1,4 +1,5 @@
 /target
 /configs
-/dumper
+/dumper/dump
+/dumper/cs2-dumper.log
 /src/dev.rs

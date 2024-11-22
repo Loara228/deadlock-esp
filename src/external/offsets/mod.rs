@@ -8,7 +8,8 @@ pub mod client {
     pub static mut dwGlobalVars: usize = 0x0;
     pub static mut dwGameRules: usize = 0x0;
     pub static mut dwGameEntitySystem: usize = 0x0;
-    pub static mut highestEntityIndex: usize = 0x1530;
+    pub static mut dwGameTraceManager: usize = 0x0;
+    pub static mut highestEntityIndex: usize = 0x2100;
 }
 
 pub mod client_dll {
@@ -3523,20 +3524,20 @@ pub mod client_dll {
     pub mod CBasePlayerController {
         pub const m_nFinalPredictedTick: usize = 0x570; // int32
         pub const m_CommandContext: usize = 0x578; // C_CommandContext
-        pub const m_nInButtonsWhichAreToggles: usize = 0x610; // uint64
-        pub const m_nTickBase: usize = 0x618; // uint32
-        pub const m_hPawn: usize = 0x61C; // CHandle<C_BasePlayerPawn>
-        pub const m_bKnownTeamMismatch: usize = 0x620; // bool
-        pub const m_hPredictedPawn: usize = 0x624; // CHandle<C_BasePlayerPawn>
-        pub const m_nSplitScreenSlot: usize = 0x628; // CSplitScreenSlot
-        pub const m_hSplitOwner: usize = 0x62C; // CHandle<CBasePlayerController>
-        pub const m_hSplitScreenPlayers: usize = 0x630; // CUtlVector<CHandle<CBasePlayerController>>
-        pub const m_bIsHLTV: usize = 0x648; // bool
-        pub const m_iConnected: usize = 0x64C; // PlayerConnectedState
-        pub const m_iszPlayerName: usize = 0x650; // char[128]
-        pub const m_steamID: usize = 0x6D8; // uint64
-        pub const m_bIsLocalPlayerController: usize = 0x6E0; // bool
-        pub const m_iDesiredFOV: usize = 0x6E4; // uint32
+        pub const m_nInButtonsWhichAreToggles: usize = 0x630; // uint64
+        pub const m_nTickBase: usize = 0x638; // uint32
+        pub const m_hPawn: usize = 0x63C; // CHandle<C_BasePlayerPawn>
+        pub const m_bKnownTeamMismatch: usize = 0x640; // bool
+        pub const m_hPredictedPawn: usize = 0x644; // CHandle<C_BasePlayerPawn>
+        pub const m_nSplitScreenSlot: usize = 0x648; // CSplitScreenSlot
+        pub const m_hSplitOwner: usize = 0x64C; // CHandle<CBasePlayerController>
+        pub const m_hSplitScreenPlayers: usize = 0x650; // CUtlVector<CHandle<CBasePlayerController>>
+        pub const m_bIsHLTV: usize = 0x668; // bool
+        pub const m_iConnected: usize = 0x66C; // PlayerConnectedState
+        pub const m_iszPlayerName: usize = 0x670; // char[128]
+        pub const m_steamID: usize = 0x6F8; // uint64
+        pub const m_bIsLocalPlayerController: usize = 0x700; // bool
+        pub const m_iDesiredFOV: usize = 0x704; // uint32
     }
     // Parent: C_CitadelBaseAbility
     // Field count: 0
@@ -12789,36 +12790,36 @@ pub mod client_dll {
     // Parent: CBasePlayerController
     // Field count: 30
     pub mod CCitadelPlayerController {
-        pub const m_ePlayState: usize = 0x700; // EPlayerPlayState
-        pub const m_iGuidedBotMatchLastHits: usize = 0x704; // int32
-        pub const m_iGuidedBotMatchOrbsSecured: usize = 0x708; // int32
-        pub const m_iGuidedBotMatchOrbsDenied: usize = 0x70C; // int32
-        pub const m_iGuidedBotMatchDamageToGuardians: usize = 0x710; // int32
-        pub const m_iGuidedBotMatchDamageToPlayers: usize = 0x714; // int32
-        pub const m_iGuidedBotMatchDamageTaken: usize = 0x718; // int32
-        pub const m_iGuidedBotMatchNetWorth: usize = 0x71C; // int32
-        pub const m_iGuidedBotMatchModsPurchased: usize = 0x720; // int32
-        pub const m_iGuidedBotMatchAbilityUpgrades: usize = 0x724; // int32
-        pub const m_flGuideBotMatchLastTaskNagVO: usize = 0x728; // float32
-        pub const m_flGuideBotLastTimeTaskCompleted: usize = 0x72C; // float32
-        pub const m_eGuidedBotMatchObjective: usize = 0x730; // EGuidedBotMatchObjective
-        pub const m_nCurrentRank: usize = 0x734; // int32
-        pub const m_nAssignedLane: usize = 0x738; // int8
-        pub const m_nOriginalLaneAssignment: usize = 0x739; // int8
-        pub const m_bIsKingPanda: usize = 0x73A; // bool
-        pub const m_bBotDisconnectTakeover: usize = 0x73B; // bool
-        pub const m_bInTeamChat: usize = 0x73C; // bool
-        pub const m_bInPartyChat: usize = 0x73D; // bool
-        pub const m_unHeroBuildID: usize = 0x740; // HeroBuildID_t
-        pub const m_bLaneSwapLocked: usize = 0x744; // bool
-        pub const m_vecLaneSwapRequests: usize = 0x748; // C_NetworkUtlVectorBase<CHandle<C_BaseEntity>>
-        pub const m_vecLaneSwapRejects: usize = 0x760; // C_NetworkUtlVectorBase<CHandle<C_BaseEntity>>
-        pub const m_hHeroPawn: usize = 0x778; // CHandle<C_CitadelPlayerPawn>
-        pub const m_PlayerDataGlobal: usize = 0x7B0; // PlayerDataGlobal_t
-        pub const m_nDeathReplayAvailable: usize = 0x9D0; // int8
-        pub const m_unLobbyPlayerSlot: usize = 0x9D1; // CitadelLobbyPlayerSlot_t
-        pub const m_bHasCheckedFriendName: usize = 0x9D2; // bool
-        pub const m_sFriendName: usize = 0x9D8; // CUtlString
+        pub const m_ePlayState: usize = 0x720; // EPlayerPlayState
+        pub const m_iGuidedBotMatchLastHits: usize = 0x724; // int32
+        pub const m_iGuidedBotMatchOrbsSecured: usize = 0x728; // int32
+        pub const m_iGuidedBotMatchOrbsDenied: usize = 0x72C; // int32
+        pub const m_iGuidedBotMatchDamageToGuardians: usize = 0x730; // int32
+        pub const m_iGuidedBotMatchDamageToPlayers: usize = 0x734; // int32
+        pub const m_iGuidedBotMatchDamageTaken: usize = 0x738; // int32
+        pub const m_iGuidedBotMatchNetWorth: usize = 0x73C; // int32
+        pub const m_iGuidedBotMatchModsPurchased: usize = 0x740; // int32
+        pub const m_iGuidedBotMatchAbilityUpgrades: usize = 0x744; // int32
+        pub const m_flGuideBotMatchLastTaskNagVO: usize = 0x748; // float32
+        pub const m_flGuideBotLastTimeTaskCompleted: usize = 0x74C; // float32
+        pub const m_eGuidedBotMatchObjective: usize = 0x750; // EGuidedBotMatchObjective
+        pub const m_nCurrentRank: usize = 0x754; // int32
+        pub const m_nAssignedLane: usize = 0x758; // int8
+        pub const m_nOriginalLaneAssignment: usize = 0x759; // int8
+        pub const m_bIsKingPanda: usize = 0x75A; // bool
+        pub const m_bBotDisconnectTakeover: usize = 0x75B; // bool
+        pub const m_bInTeamChat: usize = 0x75C; // bool
+        pub const m_bInPartyChat: usize = 0x75D; // bool
+        pub const m_unHeroBuildID: usize = 0x760; // HeroBuildID_t
+        pub const m_bLaneSwapLocked: usize = 0x764; // bool
+        pub const m_vecLaneSwapRequests: usize = 0x768; // C_NetworkUtlVectorBase<CHandle<C_BaseEntity>>
+        pub const m_vecLaneSwapRejects: usize = 0x780; // C_NetworkUtlVectorBase<CHandle<C_BaseEntity>>
+        pub const m_hHeroPawn: usize = 0x798; // CHandle<C_CitadelPlayerPawn>
+        pub const m_PlayerDataGlobal: usize = 0x7D0; // PlayerDataGlobal_t
+        pub const m_nDeathReplayAvailable: usize = 0x9F0; // int8
+        pub const m_unLobbyPlayerSlot: usize = 0x9F1; // CitadelLobbyPlayerSlot_t
+        pub const m_bHasCheckedFriendName: usize = 0x9F2; // bool
+        pub const m_sFriendName: usize = 0x9F8; // CUtlString
     }
     // Parent: C_CitadelBaseAbility
     // Field count: 0

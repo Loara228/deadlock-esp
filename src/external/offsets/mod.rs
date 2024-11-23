@@ -1,21 +1,22 @@
 #![allow(non_upper_case_globals, non_camel_case_types, non_snake_case, unused)]
 
-pub mod client {   
-    pub static mut dwEntityList: usize =  0x0;
+pub mod client {
+    pub static mut dwEntityList: usize = 0x0;
     pub static mut dwViewMatrix: usize = 0x0;
     pub static mut dwLocalPlayerController: usize = 0x0;
     pub static mut dwCCitadelCameraManager: usize = 0x0;
     pub static mut dwGlobalVars: usize = 0x0;
     pub static mut dwGameRules: usize = 0x0;
     pub static mut dwGameEntitySystem: usize = 0x0;
-    pub static mut highestEntityIndex: usize = 0x1530;
+    pub static mut dwGameTraceManager: usize = 0x0;
+    pub static mut highestEntityIndex: usize = 0x2100;
 }
 
 pub mod client_dll {
     // Parent: C_PhysicsProp
     // Field count: 1
     pub mod C_ItemCrate {
-        pub const m_eLootType: usize = 0xC98; // int32
+        pub const m_eLootType: usize = 0xC90; // int32
     }
     // Parent: CCitadelModifier
     // Field count: 1
@@ -32,16 +33,16 @@ pub mod client_dll {
     }
     // Parent: CCitadelModifier
     // Field count: 0
-    pub mod CCitadel_Modifier_Warden_RiotProtocol_CastDelay {
-    }
+    pub mod CCitadel_Modifier_Warden_RiotProtocol_CastDelay {}
     // Parent: CCitadelModifier
     // Field count: 0
-    pub mod CCitadel_Modifier_StatStealBase {
-    }
+    pub mod CCitadel_Modifier_Upgrade_SpiritSnatch_Buff {}
+    // Parent: CCitadelModifier
+    // Field count: 0
+    pub mod CCitadel_Modifier_StatStealBase {}
     // Parent: CCitadelModifierAura
     // Field count: 0
-    pub mod CCitadel_Modifier_TimeWall_Aura {
-    }
+    pub mod CCitadel_Modifier_TimeWall_Aura {}
     // Parent: CCitadelModifier
     // Field count: 3
     pub mod CCitadel_Modifier_Rutger_ForceField_PushOut {
@@ -65,21 +66,18 @@ pub mod client_dll {
     }
     // Parent: CCitadelModifier
     // Field count: 0
-    pub mod CCitadel_Modifier_LingeringAssist {
-    }
+    pub mod CCitadel_Modifier_LingeringAssist {}
+    // Parent: C_BaseTrigger
+    // Field count: 0
+    pub mod C_TriggerLerpObject {}
     // Parent: C_BaseToggle
     // Field count: 0
-    pub mod C_FuncMover {
-    }
+    pub mod C_FuncMover {}
     // Parent: C_PointClientUIWorldPanel
     // Field count: 2
     pub mod CInWorldItemPanel {
         pub const m_hTrackedEntity: usize = 0xAC0; // CHandle<C_BaseEntity>
         pub const m_nTrackedEntity: usize = 0xAC4; // int32
-    }
-    // Parent: C_BaseTrigger
-    // Field count: 0
-    pub mod C_TriggerLerpObject {
     }
     // Parent: CitadelAbilityVData
     // Field count: 7
@@ -107,8 +105,7 @@ pub mod client_dll {
     }
     // Parent: CCitadel_Modifier_Base
     // Field count: 0
-    pub mod CCitadel_Modifier_MagicCarpet_Shields {
-    }
+    pub mod CCitadel_Modifier_MagicCarpet_Shields {}
     // Parent: CCitadelModifier
     // Field count: 1
     pub mod CCitadel_Modifier_HollowPoint_Proc {
@@ -134,20 +131,22 @@ pub mod client_dll {
     // Parent: C_BaseTrigger
     // Field count: 1
     pub mod C_TriggerItemShop {
-        pub const m_iszSoundName: usize = 0x868; // CUtlSymbolLarge
+        pub const m_iszSoundName: usize = 0x9A0; // CUtlSymbolLarge
+    }
+    // Parent: CBaseFilter
+    // Field count: 1
+    pub mod CFilterName {
+        pub const m_iFilterName: usize = 0x5C0; // CUtlSymbolLarge
     }
     // Parent: C_CitadelBaseAbility
     // Field count: 0
-    pub mod CCitadel_Ability_Kobun {
-    }
+    pub mod CCitadel_Ability_Kobun {}
     // Parent: C_CitadelBaseAbility
     // Field count: 0
-    pub mod CCitadel_Ability_Disruptive_Charge {
-    }
+    pub mod CCitadel_Ability_Disruptive_Charge {}
     // Parent: C_CitadelBaseAbility
     // Field count: 0
-    pub mod CCitadel_Ability_Vandal_Pillar {
-    }
+    pub mod CCitadel_Ability_Vandal_Pillar {}
     // Parent: CitadelAbilityVData
     // Field count: 2
     pub mod CCitadel_Ability_Viper_DebuffDaggerVData {
@@ -163,8 +162,7 @@ pub mod client_dll {
     }
     // Parent: CCitadelModifier
     // Field count: 0
-    pub mod CCitadel_Modifier_Tech_Defender_Shredders_Debuff {
-    }
+    pub mod CCitadel_Modifier_Tech_Defender_Shredders_Debuff {}
     // Parent: C_SoundEventEntity
     // Field count: 1
     pub mod C_SoundEventPathCornerEntity {
@@ -186,12 +184,10 @@ pub mod client_dll {
     }
     // Parent: C_CitadelBaseAbility
     // Field count: 0
-    pub mod CCitadel_Ability_Dust_Storm {
-    }
+    pub mod CCitadel_Ability_Dust_Storm {}
     // Parent: C_CitadelBaseAbility
     // Field count: 0
-    pub mod CCitadel_Ability_ImmobilizeTrap {
-    }
+    pub mod CCitadel_Ability_ImmobilizeTrap {}
     // Parent: CCitadel_Modifier_BaseBulletPreRollProcVData
     // Field count: 2
     pub mod CCitadel_Modifier_ChainLightningVData {
@@ -200,8 +196,7 @@ pub mod client_dll {
     }
     // Parent: CCitadelModifier
     // Field count: 0
-    pub mod CCitadel_Modifier_MagicShield_SpiritBuff {
-    }
+    pub mod CCitadel_Modifier_MagicShield_SpiritBuff {}
     // Parent: CitadelAbilityVData
     // Field count: 3
     pub mod CAbilityMedicHealVData {
@@ -211,17 +206,15 @@ pub mod client_dll {
     }
     // Parent: C_BaseEntity
     // Field count: 0
-    pub mod CCitadelSpectateNode {
-    }
+    pub mod CCitadelSpectateNode {}
     // Parent: CBaseAnimGraph
     // Field count: 1
     pub mod C_Citadel_Ice_Dome_Blocker {
-        pub const m_flTurnSolidTime: usize = 0xB08; // GameTime_t
+        pub const m_flTurnSolidTime: usize = 0xB00; // GameTime_t
     }
     // Parent: CCitadelModifierAuraVData
     // Field count: 0
-    pub mod CCitadel_Modifier_ItemPickupAuraVData {
-    }
+    pub mod CCitadel_Modifier_ItemPickupAuraVData {}
     // Parent: CCitadelModifierVData
     // Field count: 2
     pub mod CModifier_Thumper_BulletWatcherVData {
@@ -239,6 +232,13 @@ pub mod client_dll {
     pub mod CBodyComponentSkeletonInstance {
         pub const m_skeletonInstance: usize = 0x80; // CSkeletonInstance
     }
+    // Parent: CBaseFilter
+    // Field count: 3
+    pub mod FilterHealth {
+        pub const m_bAdrenalineActive: usize = 0x5C0; // bool
+        pub const m_iHealthMin: usize = 0x5C4; // int32
+        pub const m_iHealthMax: usize = 0x5C8; // int32
+    }
     // Parent: C_CitadelProjectile
     // Field count: 2
     pub mod C_Projectile_Stomp_Projectile {
@@ -253,8 +253,7 @@ pub mod client_dll {
     }
     // Parent: CCitadelModifier
     // Field count: 0
-    pub mod CCitadel_Modifier_Bull_Leap_Boosting_Crash {
-    }
+    pub mod CCitadel_Modifier_Bull_Leap_Boosting_Crash {}
     // Parent: CitadelAbilityVData
     // Field count: 4
     pub mod CAbilityPowerSurgeVData {
@@ -277,18 +276,13 @@ pub mod client_dll {
     }
     // Parent: CCitadelModifier
     // Field count: 0
-    pub mod CCitadel_Modifier_AirDamping {
-    }
-    // Parent: CCitadel_Modifier_InvisVData
-    // Field count: 2
-    pub mod CCitadel_Modifier_ReefdwellerHarpoon_LatchedVData {
-        pub const m_flMaxCameraAngleForSeeing: usize = 0x8D0; // float32
-        pub const m_flMaxDistanceForSeeing: usize = 0x8D4; // float32
-    }
+    pub mod CCitadel_Modifier_ScalingPowerUp {}
+    // Parent: CCitadelModifier
+    // Field count: 0
+    pub mod CCitadel_Modifier_AirDamping {}
     // Parent: C_CitadelBaseAbility
     // Field count: 0
-    pub mod CCitadel_Ability_ShieldGuy_Ability03 {
-    }
+    pub mod CCitadel_Ability_ShieldGuy_Ability03 {}
     // Parent: CCitadel_Modifier_InvisVData
     // Field count: 5
     pub mod CCitadelModifierShadowStepVData {
@@ -300,8 +294,7 @@ pub mod client_dll {
     }
     // Parent: CCitadelModifier
     // Field count: 0
-    pub mod CCitadel_Modifier_PowerSurge {
-    }
+    pub mod CCitadel_Modifier_PowerSurge {}
     // Parent: CCitadelModifierVData
     // Field count: 5
     pub mod CCitadel_Modifier_PowerSurgeVData {
@@ -312,7 +305,7 @@ pub mod client_dll {
         pub const m_DebuffModifier: usize = 0x7E8; // CEmbeddedSubclass<CCitadelModifier>
     }
     // Parent: C_CitadelBaseAbility
-    // Field count: 19
+    // Field count: 20
     pub mod CCitadel_Ability_ZipLine {
         pub const m_flActivatePressTime: usize = 0x1098; // GameTime_t
         pub const m_bThinking: usize = 0x109C; // bool
@@ -333,11 +326,11 @@ pub mod client_dll {
         pub const m_bDroppedFromZipline: usize = 0x1118; // bool
         pub const m_hAttachZipLine: usize = 0x1119; // AttachmentHandle_t
         pub const m_vAttachZipLineOffset: usize = 0x111C; // Vector
+        pub const m_flZiplineAirDrag: usize = 0x1128; // float32
     }
     // Parent: CCitadelBaseAbilityServerOnly
     // Field count: 0
-    pub mod CCitadel_Ability_SuperNeutralIncendiary {
-    }
+    pub mod CCitadel_Ability_SuperNeutralIncendiary {}
     // Parent: CCitadelModifierVData
     // Field count: 2
     pub mod CCitadel_Modifier_TeamRelativeParticleVData {
@@ -351,8 +344,7 @@ pub mod client_dll {
     }
     // Parent: CCitadel_Modifier_Silenced
     // Field count: 0
-    pub mod CCitadel_Modifier_Targeted_Silence_Debuff {
-    }
+    pub mod CCitadel_Modifier_Targeted_Silence_Debuff {}
     // Parent: C_ParticleSystem
     // Field count: 4
     pub mod C_TeamRelativeParticleSystem {
@@ -360,10 +352,6 @@ pub mod client_dll {
         pub const m_iszEnemyEffectName: usize = 0xE30; // CUtlSymbolLarge
         pub const m_iFriendlyEffectIndex: usize = 0xE38; // CStrongHandle<InfoForResourceTypeIParticleSystemDefinition>
         pub const m_iEnemyEffectIndex: usize = 0xE40; // CStrongHandle<InfoForResourceTypeIParticleSystemDefinition>
-    }
-    // Parent: CCitadel_Modifier_PowerUp
-    // Field count: 0
-    pub mod CCitadel_Modifier_BreakablePropCooldownReduction {
     }
     // Parent: CCitadelModifier
     // Field count: 1
@@ -450,16 +438,13 @@ pub mod client_dll {
     }
     // Parent: CCitadelModifierVData
     // Field count: 0
-    pub mod CModifier_Synth_Blitz_TechAmp_VData {
-    }
+    pub mod CModifier_Synth_Blitz_TechAmp_VData {}
     // Parent: CCitadelModifier
     // Field count: 0
-    pub mod CCitadel_Modifier_WreckingBall_Debuff {
-    }
+    pub mod CCitadel_Modifier_WreckingBall_Debuff {}
     // Parent: CCitadelModifier
     // Field count: 0
-    pub mod CCitadel_Modifier_Puddle {
-    }
+    pub mod CCitadel_Modifier_Puddle {}
     // Parent: CitadelItemVData
     // Field count: 4
     pub mod CCitadel_Item_TechDamagePulseVData {
@@ -470,12 +455,10 @@ pub mod client_dll {
     }
     // Parent: CCitadelModifier
     // Field count: 0
-    pub mod CCitadel_Modifier_BulletArmorReduction {
-    }
+    pub mod CCitadel_Modifier_BulletArmorReduction {}
     // Parent: CScaleFunctionBase
     // Field count: 0
-    pub mod CScaleFunctionAbilityProperty_TechRange {
-    }
+    pub mod CScaleFunctionAbilityProperty_TechRange {}
     // Parent: C_BaseModelEntity
     // Field count: 2
     pub mod C_SpotlightEnd {
@@ -484,8 +467,7 @@ pub mod client_dll {
     }
     // Parent: CCitadelModifier
     // Field count: 0
-    pub mod CCitadel_Modifier_Bolo_Leech {
-    }
+    pub mod CCitadel_Modifier_Bolo_Leech {}
     // Parent: C_CitadelBaseAbility
     // Field count: 8
     pub mod CCitadel_Ability_BulletFlurry {
@@ -501,21 +483,17 @@ pub mod client_dll {
     // Parent: C_AI_CitadelNPC
     // Field count: 6
     pub mod C_NPC_Boss_Tier2 {
-        pub const m_iLane: usize = 0x1478; // int32
-        pub const m_flFadeOutStart: usize = 0x147C; // GameTime_t
-        pub const m_flFadeOutEnd: usize = 0x1480; // GameTime_t
-        pub const m_hTargetedEnemy: usize = 0x1484; // CHandle<C_BaseEntity>
-        pub const m_vecElectricBeamLookTarget: usize = 0x1488; // Vector
-        pub const m_nElectricBeamCasts: usize = 0x14A0; // int32
+        pub const m_iLane: usize = 0x1470; // int32
+        pub const m_flFadeOutStart: usize = 0x1474; // GameTime_t
+        pub const m_flFadeOutEnd: usize = 0x1478; // GameTime_t
+        pub const m_hTargetedEnemy: usize = 0x147C; // CHandle<C_BaseEntity>
+        pub const m_vecElectricBeamLookTarget: usize = 0x1480; // Vector
+        pub const m_nElectricBeamCasts: usize = 0x1498; // int32
     }
     // Parent: CCitadelModifierAuraVData
     // Field count: 1
     pub mod CCitadelModifierAirLiftExplodeAuraVData {
         pub const m_empWaveParticle: usize = 0x648; // CResourceNameTyped<CWeakHandle<InfoForResourceTypeIParticleSystemDefinition>>
-    }
-    // Parent: CCitadelModifier
-    // Field count: 0
-    pub mod CCitadel_Modifier_BreakablePropExtraGoldPickup {
     }
     // Parent: C_BaseEntity
     // Field count: 26
@@ -549,8 +527,7 @@ pub mod client_dll {
     }
     // Parent: C_CitadelBaseAbility
     // Field count: 0
-    pub mod CCitadel_Ability_Rutger_Pulse {
-    }
+    pub mod CCitadel_Ability_Rutger_Pulse {}
     // Parent: CCitadelModifierVData
     // Field count: 1
     pub mod CCitadelModifierAerialAssaultWatcherVData {
@@ -563,24 +540,29 @@ pub mod client_dll {
     }
     // Parent: CCitadelModifier
     // Field count: 0
-    pub mod CCitadel_Modifier_PreventHealing {
-    }
+    pub mod CCitadel_Modifier_PreventHealing {}
     // Parent: C_LightEntity
     // Field count: 0
-    pub mod C_LightSpotEntity {
-    }
+    pub mod C_LightSpotEntity {}
     // Parent: CCitadel_Item
     // Field count: 0
-    pub mod CCitadel_WeaponUpgrade_HeadshotBooster {
+    pub mod CCitadel_WeaponUpgrade_HeadshotBooster {}
+    // Parent: CCitadelModifierVData
+    // Field count: 0
+    pub mod CCitadel_Modifier_Cadence_Crescendo_PostAOE_VData {}
+    // Parent: CCitadel_Modifier_BaseBulletPreRollProcVData
+    // Field count: 6
+    pub mod CCitadel_Modifier_SalvoBulletVData {
+        pub const m_DebuffModifier: usize = 0x738; // CEmbeddedSubclass<CCitadelModifier>
+        pub const m_ExplosionParticle: usize = 0x748; // CResourceNameTyped<CWeakHandle<InfoForResourceTypeIParticleSystemDefinition>>
+        pub const m_ExplosionVictimParticle: usize = 0x828; // CResourceNameTyped<CWeakHandle<InfoForResourceTypeIParticleSystemDefinition>>
+        pub const m_SalvoWeaponParticle: usize = 0x908; // CResourceNameTyped<CWeakHandle<InfoForResourceTypeIParticleSystemDefinition>>
+        pub const m_ShotVictimSound: usize = 0x9E8; // CSoundEventName
+        pub const m_ShotConfirmationSound: usize = 0x9F8; // CSoundEventName
     }
     // Parent: CCitadelModifierVData
     // Field count: 0
-    pub mod CCitadel_Modifier_Cadence_Crescendo_PostAOE_VData {
-    }
-    // Parent: CCitadelModifierVData
-    // Field count: 0
-    pub mod CModifierRapidFireAirJuggleVData {
-    }
+    pub mod CModifierRapidFireAirJuggleVData {}
     // Parent: CitadelAbilityVData
     // Field count: 3
     pub mod CAbilityCrowdControlVData {
@@ -619,8 +601,7 @@ pub mod client_dll {
     }
     // Parent: CCitadelModifierVData
     // Field count: 0
-    pub mod CModifierTier3BossLaserBeamVData {
-    }
+    pub mod CModifierTier3BossLaserBeamVData {}
     // Parent: C_CitadelBaseAbility
     // Field count: 12
     pub mod CCitadel_Ability_Climb_Rope {
@@ -638,13 +619,14 @@ pub mod client_dll {
         pub const m_ClimbCount: usize = 0xD34; // int32
     }
     // Parent: C_Team
-    // Field count: 5
+    // Field count: 6
     pub mod C_CitadelTeam {
         pub const m_hPayload: usize = 0x620; // CHandle<C_BaseEntity>
         pub const m_nBossesAlive: usize = 0x624; // int32
         pub const m_nBossesMax: usize = 0x628; // int32
         pub const m_nFlexSlotsUnlocked: usize = 0x62C; // EFlexSlotTypes_t
-        pub const m_vecFOWEntities: usize = 0x630; // C_UtlVectorEmbeddedNetworkVar<STeamFOWEntity>
+        pub const m_nBaseGuardianLanesCleared: usize = 0x630; // int32
+        pub const m_vecFOWEntities: usize = 0x638; // C_UtlVectorEmbeddedNetworkVar<STeamFOWEntity>
     }
     // Parent: C_BaseEntity
     // Field count: 1
@@ -693,71 +675,85 @@ pub mod client_dll {
     }
     // Parent: CCitadelModifier
     // Field count: 0
-    pub mod CCitadel_Modifier_SlowImmunity {
-    }
+    pub mod CCitadel_Modifier_SlowImmunity {}
     // Parent: CCitadelModifier
     // Field count: 0
-    pub mod CCitadel_Modifier_VisibleDuration {
-    }
+    pub mod CCitadel_Modifier_VisibleDuration {}
     // Parent: CAI_CitadelNPCVData
     // Field count: 40
     pub mod CAI_NPC_TrooperVData {
-        pub const m_TrooperType: usize = 0xFB0; // TrooperType_t
-        pub const m_flTrooperDamageResistPct: usize = 0xFB4; // float32
-        pub const m_flT1BossDamageResistPct: usize = 0xFB8; // float32
-        pub const m_flT2BossDamageResistPct: usize = 0xFBC; // float32
-        pub const m_flBarrackGuardianDamageResistPct: usize = 0xFC0; // float32
-        pub const m_flNearDeathDuration: usize = 0xFC4; // float32
-        pub const m_flFlySpeed: usize = 0xFC8; // float32
-        pub const m_flFlyHeight: usize = 0xFCC; // float32
-        pub const m_flMeleeDamage: usize = 0xFD0; // float32
-        pub const m_flMeleeDuration: usize = 0xFD4; // float32
-        pub const m_flMeleeChargeRange: usize = 0xFD8; // float32
-        pub const m_flAttackT1BossMaxRange: usize = 0xFDC; // float32
-        pub const m_flAttackTrooperMaxRange: usize = 0xFE0; // float32
-        pub const m_flShieldDamageResistPct: usize = 0xFE4; // float32
-        pub const m_flHealthBarOffsetDucking: usize = 0xFE8; // float32
-        pub const m_flTrooperDPS: usize = 0xFEC; // float32
-        pub const m_flPlayerDPS: usize = 0xFF0; // float32
-        pub const m_flT1BossDPS: usize = 0xFF4; // float32
-        pub const m_flT1BossDPSBaseResist: usize = 0xFF8; // float32
-        pub const m_flT1BossDPSMaxResist: usize = 0xFFC; // float32
-        pub const m_flT1BossDPSMaxResistTimeInSeconds: usize = 0x1000; // float32
-        pub const m_flT2BossDPS: usize = 0x1004; // float32
-        pub const m_flT2BossDPSBaseResist: usize = 0x1008; // float32
-        pub const m_flT2BossDPSMaxResist: usize = 0x100C; // float32
-        pub const m_flT2BossDPSMaxResistTimeInSeconds: usize = 0x1010; // float32
-        pub const m_flT3BossDPS: usize = 0x1014; // float32
-        pub const m_flBarrackBossDPS: usize = 0x1018; // float32
-        pub const m_flGeneratorBossDPS: usize = 0x101C; // float32
-        pub const m_BossAttackParticle: usize = 0x1020; // CResourceNameTyped<CWeakHandle<InfoForResourceTypeIParticleSystemDefinition>>
-        pub const m_LastHitParticle: usize = 0x1100; // CResourceNameTyped<CWeakHandle<InfoForResourceTypeIParticleSystemDefinition>>
-        pub const m_TargetingLaserParticle: usize = 0x11E0; // CResourceNameTyped<CWeakHandle<InfoForResourceTypeIParticleSystemDefinition>>
-        pub const m_TargetingEyeFlashParticle: usize = 0x12C0; // CResourceNameTyped<CWeakHandle<InfoForResourceTypeIParticleSystemDefinition>>
-        pub const m_sZiplineContainerBreakFromDamageParticle: usize = 0x13A0; // CResourceNameTyped<CWeakHandle<InfoForResourceTypeIParticleSystemDefinition>>
-        pub const m_sZiplineContainerBreakFromLandingParticle: usize = 0x1480; // CResourceNameTyped<CWeakHandle<InfoForResourceTypeIParticleSystemDefinition>>
-        pub const m_MedicHealActiveParticle: usize = 0x1560; // CResourceNameTyped<CWeakHandle<InfoForResourceTypeIParticleSystemDefinition>>
-        pub const m_sPlayerLastHitSound: usize = 0x1640; // CSoundEventName
-        pub const m_sCelebrationSound: usize = 0x1650; // CSoundEventName
-        pub const m_sZiplineContainerBreakSound: usize = 0x1660; // CSoundEventName
-        pub const m_NearDeathModifier: usize = 0x1670; // CEmbeddedSubclass<CCitadelModifier>
-        pub const m_TrooperBossInvulnModifier: usize = 0x1680; // CEmbeddedSubclass<CCitadelModifier>
+        pub const m_TrooperType: usize = 0x10D8; // TrooperType_t
+        pub const m_flTrooperDamageResistPct: usize = 0x10DC; // float32
+        pub const m_flT1BossDamageResistPct: usize = 0x10E0; // float32
+        pub const m_flT2BossDamageResistPct: usize = 0x10E4; // float32
+        pub const m_flBarrackGuardianDamageResistPct: usize = 0x10E8; // float32
+        pub const m_flNearDeathDuration: usize = 0x10EC; // float32
+        pub const m_flFlySpeed: usize = 0x10F0; // float32
+        pub const m_flFlyHeight: usize = 0x10F4; // float32
+        pub const m_flMeleeDamage: usize = 0x10F8; // float32
+        pub const m_flMeleeDuration: usize = 0x10FC; // float32
+        pub const m_flMeleeChargeRange: usize = 0x1100; // float32
+        pub const m_flAttackT1BossMaxRange: usize = 0x1104; // float32
+        pub const m_flAttackTrooperMaxRange: usize = 0x1108; // float32
+        pub const m_flShieldDamageResistPct: usize = 0x110C; // float32
+        pub const m_flHealthBarOffsetDucking: usize = 0x1110; // float32
+        pub const m_flTrooperDPS: usize = 0x1114; // float32
+        pub const m_flPlayerDPS: usize = 0x1118; // float32
+        pub const m_flT1BossDPS: usize = 0x111C; // float32
+        pub const m_flT1BossDPSBaseResist: usize = 0x1120; // float32
+        pub const m_flT1BossDPSMaxResist: usize = 0x1124; // float32
+        pub const m_flT1BossDPSMaxResistTimeInSeconds: usize = 0x1128; // float32
+        pub const m_flT2BossDPS: usize = 0x112C; // float32
+        pub const m_flT2BossDPSBaseResist: usize = 0x1130; // float32
+        pub const m_flT2BossDPSMaxResist: usize = 0x1134; // float32
+        pub const m_flT2BossDPSMaxResistTimeInSeconds: usize = 0x1138; // float32
+        pub const m_flT3BossDPS: usize = 0x113C; // float32
+        pub const m_flBarrackBossDPS: usize = 0x1140; // float32
+        pub const m_flGeneratorBossDPS: usize = 0x1144; // float32
+        pub const m_BossAttackParticle: usize = 0x1148; // CResourceNameTyped<CWeakHandle<InfoForResourceTypeIParticleSystemDefinition>>
+        pub const m_LastHitParticle: usize = 0x1228; // CResourceNameTyped<CWeakHandle<InfoForResourceTypeIParticleSystemDefinition>>
+        pub const m_TargetingLaserParticle: usize = 0x1308; // CResourceNameTyped<CWeakHandle<InfoForResourceTypeIParticleSystemDefinition>>
+        pub const m_TargetingEyeFlashParticle: usize = 0x13E8; // CResourceNameTyped<CWeakHandle<InfoForResourceTypeIParticleSystemDefinition>>
+        pub const m_sZiplineContainerBreakFromDamageParticle: usize = 0x14C8; // CResourceNameTyped<CWeakHandle<InfoForResourceTypeIParticleSystemDefinition>>
+        pub const m_sZiplineContainerBreakFromLandingParticle: usize = 0x15A8; // CResourceNameTyped<CWeakHandle<InfoForResourceTypeIParticleSystemDefinition>>
+        pub const m_MedicHealActiveParticle: usize = 0x1688; // CResourceNameTyped<CWeakHandle<InfoForResourceTypeIParticleSystemDefinition>>
+        pub const m_sPlayerLastHitSound: usize = 0x1768; // CSoundEventName
+        pub const m_sCelebrationSound: usize = 0x1778; // CSoundEventName
+        pub const m_sZiplineContainerBreakSound: usize = 0x1788; // CSoundEventName
+        pub const m_NearDeathModifier: usize = 0x1798; // CEmbeddedSubclass<CCitadelModifier>
+        pub const m_TrooperBossInvulnModifier: usize = 0x17A8; // CEmbeddedSubclass<CCitadelModifier>
+    }
+    // Parent: CCitadel_Modifier_ScalingPowerUp
+    // Field count: 1
+    pub mod CCitadel_Modifier_PowerUp_Movement {
+        pub const m_bFilled: usize = 0xC0; // bool
     }
     // Parent: CitadelAbilityVData
-    // Field count: 3
+    // Field count: 9
     pub mod CAbility_Fathom_ReefdwellerHarpoon_VData {
-        pub const m_AttachedToWallModifier: usize = 0x1560; // CEmbeddedSubclass<CCitadel_Modifier_ReefdwellerHarpoon_Latched>
-        pub const m_RegenModifier: usize = 0x1570; // CEmbeddedSubclass<CCitadelModifier>
-        pub const m_strSwapStarted: usize = 0x1580; // CSoundEventName
+        pub const m_DetachBuff: usize = 0x1560; // CEmbeddedSubclass<CCitadel_Modifier_ReefdwellerHarpoon_DetachBuff>
+        pub const m_strSwapStarted: usize = 0x1570; // CSoundEventName
+        pub const m_cameraSequenceFlying: usize = 0x1580; // CitadelCameraOperationsSequence_t
+        pub const m_flAirSpeedMax: usize = 0x1608; // float32
+        pub const m_flFallSpeedMax: usize = 0x160C; // float32
+        pub const m_flAirDrag: usize = 0x1610; // float32
+        pub const m_flInitialSlowSpeed: usize = 0x1614; // float32
+        pub const m_flInitialSpeedBias: usize = 0x1618; // float32
+        pub const m_flMaxSurfacePitch: usize = 0x161C; // float32
     }
     // Parent: CCitadelModifier
     // Field count: 0
-    pub mod CModifier_Mirage_SandPhantom_WhirlwindEvasion {
+    pub mod CModifier_Mirage_SandPhantom_WhirlwindEvasion {}
+    // Parent: CitadelAbilityVData
+    // Field count: 3
+    pub mod CCitadel_Ability_Gunslinger_SalvoVData {
+        pub const m_BulletWarningParticle: usize = 0x1560; // CResourceNameTyped<CWeakHandle<InfoForResourceTypeIParticleSystemDefinition>>
+        pub const m_ProcWatcherModifier: usize = 0x1640; // CEmbeddedSubclass<CCitadelModifier>
+        pub const m_VictimWarningModifier: usize = 0x1650; // CEmbeddedSubclass<CCitadelModifier>
     }
     // Parent: CCitadelModifier
     // Field count: 0
-    pub mod CCitadel_Modifier_LifeDrain {
-    }
+    pub mod CCitadel_Modifier_LifeDrain {}
     // Parent: CCitadelModifierVData
     // Field count: 2
     pub mod CCitadel_Modifier_StaticChargeVData {
@@ -771,24 +767,16 @@ pub mod client_dll {
     }
     // Parent: CCitadelModifier
     // Field count: 0
-    pub mod CCitadel_Modifier_Hero_Testing_Damage_AuraDebuff {
-    }
+    pub mod CCitadel_Modifier_Hero_Testing_Damage_AuraDebuff {}
     // Parent: CCitadelModifier
     // Field count: 0
-    pub mod CCitadel_Modifier_PowerUp {
-    }
+    pub mod CCitadel_Modifier_PowerUp {}
     // Parent: C_BaseEntity
     // Field count: 0
-    pub mod C_GameRulesProxy {
-    }
+    pub mod C_GameRulesProxy {}
     // Parent: CCitadelModifier
     // Field count: 0
-    pub mod CCitadel_Modifier_AirLift_LandBuff {
-    }
-    // Parent: CCitadelModifier
-    // Field count: 0
-    pub mod CCitadel_Modifier_ChargingGun {
-    }
+    pub mod CCitadel_Modifier_ChargingGun {}
     // Parent: CCitadelModifierVData
     // Field count: 2
     pub mod CItemSmokeBombPreCastModifierVData {
@@ -797,31 +785,23 @@ pub mod client_dll {
     }
     // Parent: CCitadel_Modifier_BaseEventProc
     // Field count: 0
-    pub mod CCitadel_Modifier_TechBurst_Proc {
-    }
+    pub mod CCitadel_Modifier_TechBurst_Proc {}
     // Parent: C_BaseFlex
     // Field count: 6
     pub mod C_BaseCombatCharacter {
-        pub const m_hMyWearables: usize = 0xCA0; // C_NetworkUtlVectorBase<CHandle<C_EconWearable>>
-        pub const m_leftFootAttachment: usize = 0xCB8; // AttachmentHandle_t
-        pub const m_rightFootAttachment: usize = 0xCB9; // AttachmentHandle_t
-        pub const m_nWaterWakeMode: usize = 0xCBC; // C_BaseCombatCharacter::WaterWakeMode_t
-        pub const m_flWaterWorldZ: usize = 0xCC0; // float32
-        pub const m_flWaterNextTraceTime: usize = 0xCC4; // float32
+        pub const m_hMyWearables: usize = 0xC98; // C_NetworkUtlVectorBase<CHandle<C_EconWearable>>
+        pub const m_leftFootAttachment: usize = 0xCB0; // AttachmentHandle_t
+        pub const m_rightFootAttachment: usize = 0xCB1; // AttachmentHandle_t
+        pub const m_nWaterWakeMode: usize = 0xCB4; // C_BaseCombatCharacter::WaterWakeMode_t
+        pub const m_flWaterWorldZ: usize = 0xCB8; // float32
+        pub const m_flWaterNextTraceTime: usize = 0xCBC; // float32
     }
     // Parent: CCitadelBaseTriggerAbility
     // Field count: 0
-    pub mod CCitadel_Ability_WreckingBallThrow {
-    }
-    // Parent: CCitadelModifierVData
-    // Field count: 1
-    pub mod CCitadel_Modifier_BreakablePropFireRatePickupVData {
-        pub const m_flFireRate: usize = 0x608; // float32
-    }
+    pub mod CCitadel_Ability_WreckingBallThrow {}
     // Parent: CEnvSoundscape
     // Field count: 0
-    pub mod CEnvSoundscapeTriggerable {
-    }
+    pub mod CEnvSoundscapeTriggerable {}
     // Parent: C_SoundEventEntity
     // Field count: 1
     pub mod C_SoundEventSphereEntity {
@@ -829,12 +809,10 @@ pub mod client_dll {
     }
     // Parent: C_CitadelBaseAbility
     // Field count: 0
-    pub mod CCitadel_Ability_Cadence_Crescendo {
-    }
+    pub mod CCitadel_Ability_Cadence_Crescendo {}
     // Parent: CCitadelModifier
     // Field count: 0
-    pub mod CCitadel_Modifier_SpilledBloodThinker {
-    }
+    pub mod CCitadel_Modifier_SpilledBloodThinker {}
     // Parent: CitadelItemVData
     // Field count: 1
     pub mod CCitadel_Upgrade_StabilizingTripodVData {
@@ -848,8 +826,7 @@ pub mod client_dll {
     }
     // Parent: C_DynamicProp
     // Field count: 0
-    pub mod C_DynamicPropAlias_cable_dynamic {
-    }
+    pub mod C_DynamicPropAlias_cable_dynamic {}
     // Parent: CCitadelModifierVData
     // Field count: 2
     pub mod CModifierItemPickupAuraTargetVData {
@@ -874,8 +851,7 @@ pub mod client_dll {
     }
     // Parent: C_CitadelBaseAbility
     // Field count: 0
-    pub mod CCitadel_Ability_Trapper_Fear {
-    }
+    pub mod CCitadel_Ability_Trapper_Fear {}
     // Parent: CitadelAbilityVData
     // Field count: 5
     pub mod CCitadel_Ability_Tokamak_DyingStarVData {
@@ -907,8 +883,7 @@ pub mod client_dll {
     }
     // Parent: CCitadel_Modifier_BaseEventProc
     // Field count: 0
-    pub mod CModifier_SiphonBullets {
-    }
+    pub mod CModifier_SiphonBullets {}
     // Parent: CCitadel_Item_BubbleVData
     // Field count: 1
     pub mod CCitadel_Item_Stasis_BombVData {
@@ -939,6 +914,9 @@ pub mod client_dll {
         pub const m_hActivePostProcessingVolume: usize = 0x214; // CHandle<C_PostProcessingVolume>
         pub const m_angDemoViewAngles: usize = 0x218; // QAngle
     }
+    // Parent: C_BaseTrigger
+    // Field count: 0
+    pub mod C_TriggerMultiple {}
     // Parent: C_FuncBrush
     // Field count: 8
     pub mod C_FuncMonitor {
@@ -953,12 +931,10 @@ pub mod client_dll {
     }
     // Parent: CCitadelModifier
     // Field count: 0
-    pub mod CCitadel_Modifier_PowerGenerator {
-    }
-    // Parent: C_BaseTrigger
+    pub mod CCitadel_Modifier_PowerGenerator {}
+    // Parent: CCitadel_Modifier_Burning
     // Field count: 0
-    pub mod C_TriggerMultiple {
-    }
+    pub mod CCitadel_Modifier_SpreadingFire_DOT {}
     // Parent: CitadelAbilityVData
     // Field count: 3
     pub mod CCitadel_Ability_Chrono_PulseGrenade_VData {
@@ -968,8 +944,7 @@ pub mod client_dll {
     }
     // Parent: CCitadelBaseAbilityServerOnly
     // Field count: 0
-    pub mod CCitadel_Ability_Tier2Boss_Stomp {
-    }
+    pub mod CCitadel_Ability_Tier2Boss_Stomp {}
     // Parent: None
     // Field count: 1
     pub mod C_RopeKeyframe__CPhysicsDelegate {
@@ -1016,16 +991,15 @@ pub mod client_dll {
     pub mod CCitadel_Modifier_DivinersKevlarBuff_VData {
         pub const m_KevlarChannelParticle: usize = 0x608; // CResourceNameTyped<CWeakHandle<InfoForResourceTypeIParticleSystemDefinition>>
     }
-    // Parent: CCitadel_Modifier_BaseShield
-    // Field count: 0
-    pub mod CCitadel_Modifier_RegeneratingTechShield {
-    }
     // Parent: CitadelItemVData
     // Field count: 2
     pub mod CItem_Infuser_VData {
         pub const m_BuffModifier: usize = 0x15A8; // CEmbeddedSubclass<CCitadelModifier>
         pub const m_CastParticle: usize = 0x15B8; // CResourceNameTyped<CWeakHandle<InfoForResourceTypeIParticleSystemDefinition>>
     }
+    // Parent: CCitadel_Modifier_BaseShield
+    // Field count: 0
+    pub mod CCitadel_Modifier_RegeneratingTechShield {}
     // Parent: CEntityComponent
     // Field count: 2
     pub mod CBodyComponent {
@@ -1034,12 +1008,10 @@ pub mod client_dll {
     }
     // Parent: CCitadel_Item
     // Field count: 0
-    pub mod CCitadel_Upgrade_OverdriveClip {
-    }
+    pub mod CCitadel_Upgrade_OverdriveClip {}
     // Parent: C_BaseModelEntity
     // Field count: 0
-    pub mod CCitadelModelEntity {
-    }
+    pub mod CCitadelModelEntity {}
     // Parent: C_SoundAreaEntityBase
     // Field count: 1
     pub mod C_SoundAreaEntitySphere {
@@ -1047,8 +1019,7 @@ pub mod client_dll {
     }
     // Parent: CCitadelModifier
     // Field count: 0
-    pub mod CCitadel_Modifier_VoidSphere_Buff {
-    }
+    pub mod CCitadel_Modifier_VoidSphere_Buff {}
     // Parent: CCitadelModifierVData
     // Field count: 1
     pub mod CCitadel_Modifier_StunnedVData {
@@ -1056,17 +1027,10 @@ pub mod client_dll {
     }
     // Parent: CCitadelModifier
     // Field count: 0
-    pub mod CCitadel_Modifier_EscalatingExposure {
-    }
+    pub mod CCitadel_Modifier_EscalatingExposure {}
     // Parent: CCitadelModifier
     // Field count: 0
-    pub mod CCitadel_Modifier_ItemPickupAuraTarget {
-    }
-    // Parent: CCitadelModifier
-    // Field count: 1
-    pub mod CCitadel_Modifier_BreakablePropClipSizePickup {
-        pub const nClipRemaining: usize = 0xC0; // int32
-    }
+    pub mod CCitadel_Modifier_ItemPickupAuraTarget {}
     // Parent: C_BaseModelEntity
     // Field count: 8
     pub mod C_LightGlow {
@@ -1081,8 +1045,7 @@ pub mod client_dll {
     }
     // Parent: C_CitadelBaseAbility
     // Field count: 0
-    pub mod CCitadel_Ability_Wrecker_Salvage {
-    }
+    pub mod CCitadel_Ability_Wrecker_Salvage {}
     // Parent: CitadelAbilityVData
     // Field count: 6
     pub mod CAbilityCrackshotVData {
@@ -1095,8 +1058,7 @@ pub mod client_dll {
     }
     // Parent: C_CitadelBaseAbility
     // Field count: 0
-    pub mod CCitadel_Ability_Charged_Bomb {
-    }
+    pub mod CCitadel_Ability_Charged_Bomb {}
     // Parent: CCitadel_Modifier_BaseEventProcVData
     // Field count: 1
     pub mod CCitadel_Modifier_SlowingTech_ProcVData {
@@ -1125,6 +1087,9 @@ pub mod client_dll {
     pub mod CAbilityMantleVData {
         pub const m_vecMantleTypes: usize = 0x1560; // CUtlVector<MantleType_t>
     }
+    // Parent: CCitadel_Modifier_RegeneratingTechShield
+    // Field count: 0
+    pub mod CCitadel_ModifierTempTechShield {}
     // Parent: CCitadelModifier
     // Field count: 5
     pub mod CCitadel_Modifier_Basic_RangedArmorBonus {
@@ -1150,8 +1115,7 @@ pub mod client_dll {
     }
     // Parent: C_BaseModelEntity
     // Field count: 0
-    pub mod C_ConditionalCollidable {
-    }
+    pub mod C_ConditionalCollidable {}
     // Parent: C_CitadelBaseAbility
     // Field count: 3
     pub mod CCitadel_Ability_Thumper_1 {
@@ -1161,20 +1125,16 @@ pub mod client_dll {
     }
     // Parent: CCitadel_Modifier_Sleep
     // Field count: 0
-    pub mod CCitadel_Modifier_Cadence_Sleeping {
-    }
+    pub mod CCitadel_Modifier_Cadence_Sleeping {}
     // Parent: C_CitadelBaseAbility
     // Field count: 0
-    pub mod CCitadel_Ability_SnakeDash {
-    }
+    pub mod CCitadel_Ability_SnakeDash {}
     // Parent: C_CitadelBaseAbility
     // Field count: 0
-    pub mod CCitadel_Ability_Running_Decoy {
-    }
+    pub mod CCitadel_Ability_Running_Decoy {}
     // Parent: CCitadel_Modifier_BaseEventProc
     // Field count: 0
-    pub mod CCitadel_Modifier_PoisonBullet_ShotWatcher {
-    }
+    pub mod CCitadel_Modifier_PoisonBullet_ShotWatcher {}
     // Parent: CitadelAbilityVData
     // Field count: 1
     pub mod CCitadel_Ability_PuddleVData {
@@ -1182,8 +1142,7 @@ pub mod client_dll {
     }
     // Parent: CCitadel_Modifier_IceDome_AuraModifierBase
     // Field count: 0
-    pub mod CCitadel_Modifier_IceDomeFriendly {
-    }
+    pub mod CCitadel_Modifier_IceDomeFriendly {}
     // Parent: CCitadel_Modifier_Intrinsic_Base
     // Field count: 3
     pub mod CCitadel_Modifier_NapalmProjectile {
@@ -1204,8 +1163,7 @@ pub mod client_dll {
     }
     // Parent: CCitadelModifier
     // Field count: 0
-    pub mod CCitadel_Modifier_Berserker {
-    }
+    pub mod CCitadel_Modifier_Berserker {}
     // Parent: CCitadelModifierVData
     // Field count: 2
     pub mod CCitadel_Modifier_BerserkerDamageStackVData {
@@ -1215,25 +1173,27 @@ pub mod client_dll {
     // Parent: CBaseAnimGraph
     // Field count: 14
     pub mod C_ClientRagdoll {
-        pub const m_bFadeOut: usize = 0xB08; // bool
-        pub const m_bImportant: usize = 0xB09; // bool
-        pub const m_flEffectTime: usize = 0xB0C; // GameTime_t
-        pub const m_gibDespawnTime: usize = 0xB10; // GameTime_t
-        pub const m_iCurrentFriction: usize = 0xB14; // int32
-        pub const m_iMinFriction: usize = 0xB18; // int32
-        pub const m_iMaxFriction: usize = 0xB1C; // int32
-        pub const m_iFrictionAnimState: usize = 0xB20; // int32
-        pub const m_bReleaseRagdoll: usize = 0xB24; // bool
-        pub const m_iEyeAttachment: usize = 0xB25; // AttachmentHandle_t
-        pub const m_bFadingOut: usize = 0xB26; // bool
-        pub const m_flScaleEnd: usize = 0xB28; // float32[10]
-        pub const m_flScaleTimeStart: usize = 0xB50; // GameTime_t[10]
-        pub const m_flScaleTimeEnd: usize = 0xB78; // GameTime_t[10]
+        pub const m_bFadeOut: usize = 0xB00; // bool
+        pub const m_bImportant: usize = 0xB01; // bool
+        pub const m_flEffectTime: usize = 0xB04; // GameTime_t
+        pub const m_gibDespawnTime: usize = 0xB08; // GameTime_t
+        pub const m_iCurrentFriction: usize = 0xB0C; // int32
+        pub const m_iMinFriction: usize = 0xB10; // int32
+        pub const m_iMaxFriction: usize = 0xB14; // int32
+        pub const m_iFrictionAnimState: usize = 0xB18; // int32
+        pub const m_bReleaseRagdoll: usize = 0xB1C; // bool
+        pub const m_iEyeAttachment: usize = 0xB1D; // AttachmentHandle_t
+        pub const m_bFadingOut: usize = 0xB1E; // bool
+        pub const m_flScaleEnd: usize = 0xB20; // float32[10]
+        pub const m_flScaleTimeStart: usize = 0xB48; // GameTime_t[10]
+        pub const m_flScaleTimeEnd: usize = 0xB70; // GameTime_t[10]
     }
     // Parent: CCitadel_Item_TrackingProjectileApplyModifier
     // Field count: 0
-    pub mod CCitadel_Item_Containment {
-    }
+    pub mod CCitadel_Item_Containment {}
+    // Parent: C_CitadelBaseAbility
+    // Field count: 0
+    pub mod CCitadel_Ability_Magician_Escape {}
     // Parent: C_CitadelBaseAbility
     // Field count: 2
     pub mod CCitadel_Ability_IceDome {
@@ -1242,8 +1202,7 @@ pub mod client_dll {
     }
     // Parent: CCitadel_Modifier_BaseEventProc
     // Field count: 0
-    pub mod CCitadel_Modifier_DetentionAmmo {
-    }
+    pub mod CCitadel_Modifier_DetentionAmmo {}
     // Parent: CGameSceneNode
     // Field count: 8
     pub mod CSkeletonInstance {
@@ -1258,18 +1217,22 @@ pub mod client_dll {
     }
     // Parent: CCitadelAnimatingModelEntity
     // Field count: 0
-    pub mod C_Citadel_RestorativeGooCube {
-    }
+    pub mod C_Citadel_RestorativeGooCube {}
     // Parent: CCitadel_Item
     // Field count: 0
-    pub mod CCitadel_WeaponUpgrade_Ricochet {
-    }
+    pub mod CCitadel_WeaponUpgrade_Ricochet {}
     // Parent: CEntitySubclassVDataBase
     // Field count: 3
     pub mod CCitadel_SpiderAnimatingVData {
         pub const m_sModelName: usize = 0x28; // CResourceNameTyped<CWeakHandle<InfoForResourceTypeCModel>>
         pub const m_flModelScale: usize = 0x108; // float32
         pub const m_cGlowColor: usize = 0x10C; // Color
+    }
+    // Parent: CCitadel_Modifier_Invis
+    // Field count: 2
+    pub mod CCitadel_Modifier_LurkersAmbush_Invis {
+        pub const m_mapStartLookTime: usize = 0x268; // CUtlOrderedMap<C_CitadelPlayerPawn*,GameTime_t>
+        pub const m_flStartSpotted: usize = 0x290; // GameTime_t
     }
     // Parent: CitadelAbilityVData
     // Field count: 2
@@ -1299,8 +1262,8 @@ pub mod client_dll {
     // Parent: CCitadelAnimatingModelEntity
     // Field count: 2
     pub mod C_CitadelPayload {
-        pub const m_flProgress: usize = 0xB10; // float32
-        pub const m_nNumPushers: usize = 0xB14; // int32
+        pub const m_flProgress: usize = 0xB08; // float32
+        pub const m_nNumPushers: usize = 0xB0C; // int32
     }
     // Parent: C_CitadelBaseAbility
     // Field count: 2
@@ -1310,8 +1273,7 @@ pub mod client_dll {
     }
     // Parent: CCitadelModifier
     // Field count: 0
-    pub mod CCitadel_Modifier_RapidFire_AirJuggle {
-    }
+    pub mod CCitadel_Modifier_RapidFire_AirJuggle {}
     // Parent: CCitadel_Modifier_Stunned
     // Field count: 1
     pub mod CCitadel_Modifier_Pillar {
@@ -1325,13 +1287,7 @@ pub mod client_dll {
     }
     // Parent: CCitadel_Item_TrackingProjectileApplyModifier
     // Field count: 0
-    pub mod CItem_WitheringWhip {
-    }
-    // Parent: CCitadel_Modifier_PowerUp
-    // Field count: 1
-    pub mod CCitadel_Modifier_BreakablePropExtraStamina {
-        pub const m_bFilled: usize = 0xC0; // bool
-    }
+    pub mod CItem_WitheringWhip {}
     // Parent: CCitadelModifier
     // Field count: 1
     pub mod CCitadel_Modifier_Haze_StackingDamage {
@@ -1367,24 +1323,19 @@ pub mod client_dll {
     }
     // Parent: CCitadel_Item
     // Field count: 0
-    pub mod CCitadel_Ability_Shield {
-    }
+    pub mod CCitadel_Ability_Shield {}
     // Parent: CCitadel_Item
     // Field count: 0
-    pub mod CCitadel_Item_Savior {
-    }
+    pub mod CCitadel_Item_Savior {}
     // Parent: C_SoundEventEntity
     // Field count: 0
-    pub mod C_SoundEventEntityAlias_snd_event_point {
-    }
+    pub mod C_SoundEventEntityAlias_snd_event_point {}
     // Parent: CitadelAbilityVData
     // Field count: 0
-    pub mod CCitadel_Ability_SnakeDashVData {
-    }
+    pub mod CCitadel_Ability_SnakeDashVData {}
     // Parent: C_CitadelBaseAbility
     // Field count: 0
-    pub mod CCitadel_Ability_Intimidate {
-    }
+    pub mod CCitadel_Ability_Intimidate {}
     // Parent: C_CitadelBaseAbility
     // Field count: 4
     pub mod CCitadel_Ability_ProximityRitual {
@@ -1395,8 +1346,7 @@ pub mod client_dll {
     }
     // Parent: CCitadel_Modifier_ChainLightning
     // Field count: 0
-    pub mod CCitadel_Modifier_Galvanic_Storm {
-    }
+    pub mod CCitadel_Modifier_Galvanic_Storm {}
     // Parent: CCitadelModifierVData
     // Field count: 3
     pub mod CCitadel_Modifier_GalvanicStormTechShieldVData {
@@ -1406,8 +1356,7 @@ pub mod client_dll {
     }
     // Parent: CCitadelModifier
     // Field count: 0
-    pub mod CCitadel_Modifier_PullDownToGround {
-    }
+    pub mod CCitadel_Modifier_PullDownToGround {}
     // Parent: CEntitySubclassVDataBase
     // Field count: 26
     pub mod CModifierVData {
@@ -1440,20 +1389,16 @@ pub mod client_dll {
     }
     // Parent: C_NPC_FlyingDrone
     // Field count: 0
-    pub mod C_NPC_SurveillanceDrone {
-    }
+    pub mod C_NPC_SurveillanceDrone {}
     // Parent: CCitadelModifier
     // Field count: 0
-    pub mod CCitadel_Modifier_Yamato_InfinitySlash_BuffTimer {
-    }
+    pub mod CCitadel_Modifier_Yamato_InfinitySlash_BuffTimer {}
     // Parent: C_CitadelBaseAbility
     // Field count: 0
-    pub mod CCitadel_Ability_LockDown {
-    }
+    pub mod CCitadel_Ability_LockDown {}
     // Parent: CCitadelModifier
     // Field count: 0
-    pub mod CCitadel_Modifier_Uppercutted {
-    }
+    pub mod CCitadel_Modifier_Uppercutted {}
     // Parent: C_CitadelBaseAbility
     // Field count: 5
     pub mod CCitadel_Ability_Bounce_Pad {
@@ -1478,8 +1423,7 @@ pub mod client_dll {
     }
     // Parent: C_AI_CitadelNPC
     // Field count: 0
-    pub mod CNPC_YakuzaGangster {
-    }
+    pub mod CNPC_YakuzaGangster {}
     // Parent: C_CitadelBaseAbility
     // Field count: 1
     pub mod CAbility_Mirage_SandPhantom {
@@ -1490,18 +1434,18 @@ pub mod client_dll {
     pub mod CCitadel_Modifier_ThrowSandDebuffVData {
         pub const m_DebuffParticle: usize = 0x608; // CResourceNameTyped<CWeakHandle<InfoForResourceTypeIParticleSystemDefinition>>
     }
+    // Parent: CCitadelModifier
+    // Field count: 0
+    pub mod CCitadel_Modifier_Upgrade_SpiritSnatch_Debuff {}
     // Parent: C_BasePlayerPawn
     // Field count: 0
-    pub mod CCitadelPlayerPawnBase {
-    }
+    pub mod CCitadelPlayerPawnBase {}
     // Parent: CBaseAnimGraph
     // Field count: 0
-    pub mod C_ItemFlare {
-    }
+    pub mod C_ItemFlare {}
     // Parent: CCitadel_Item
     // Field count: 0
-    pub mod CCitadel_ArmorUpgrade_ReturnFire {
-    }
+    pub mod CCitadel_ArmorUpgrade_ReturnFire {}
     // Parent: CCitadel_Modifier_Stunned
     // Field count: 7
     pub mod CCitadel_Modifier_Knockdown {
@@ -1535,16 +1479,13 @@ pub mod client_dll {
     }
     // Parent: CCitadelModifier
     // Field count: 0
-    pub mod CCitadel_Modifier_Trapper_Immobilize {
-    }
+    pub mod CCitadel_Modifier_Trapper_Immobilize {}
     // Parent: CCitadelModifier
     // Field count: 0
-    pub mod CCitadel_Modifier_Thumper_EnemyPulled {
-    }
+    pub mod CCitadel_Modifier_Thumper_EnemyPulled {}
     // Parent: C_CitadelBaseAbility
     // Field count: 0
-    pub mod CCitadel_Ability_RapidFire {
-    }
+    pub mod CCitadel_Ability_RapidFire {}
     // Parent: CEntitySubclassVDataBase
     // Field count: 2
     pub mod CCitadel_CatAnimatingVData {
@@ -1552,30 +1493,41 @@ pub mod client_dll {
         pub const m_cGlowColor: usize = 0x108; // Color
     }
     // Parent: C_CitadelBaseAbility
+    // Field count: 0
+    pub mod CCitadel_Ability_WreckerGarbageSuck {}
+    // Parent: C_CitadelBaseAbility
     // Field count: 1
     pub mod CCitadel_Ability_RestorativeGoo {
         pub const m_flSelfCastEndTime: usize = 0xCA0; // GameTime_t
     }
     // Parent: CCitadelModifier
     // Field count: 0
-    pub mod CCitadel_Modifier_Idol_Return {
-    }
+    pub mod CCitadel_Modifier_Idol_Return {}
     // Parent: C_RagdollProp
     // Field count: 7
     pub mod C_RagdollPropAttached {
-        pub const m_boneIndexAttached: usize = 0xB80; // uint32
-        pub const m_ragdollAttachedObjectIndex: usize = 0xB84; // uint32
-        pub const m_attachmentPointBoneSpace: usize = 0xB88; // Vector
-        pub const m_attachmentPointRagdollSpace: usize = 0xB94; // Vector
-        pub const m_vecOffset: usize = 0xBA0; // Vector
-        pub const m_parentTime: usize = 0xBAC; // float32
-        pub const m_bHasParent: usize = 0xBB0; // bool
+        pub const m_boneIndexAttached: usize = 0xB78; // uint32
+        pub const m_ragdollAttachedObjectIndex: usize = 0xB7C; // uint32
+        pub const m_attachmentPointBoneSpace: usize = 0xB80; // Vector
+        pub const m_attachmentPointRagdollSpace: usize = 0xB8C; // Vector
+        pub const m_vecOffset: usize = 0xB98; // Vector
+        pub const m_parentTime: usize = 0xBA4; // float32
+        pub const m_bHasParent: usize = 0xBA8; // bool
     }
     // Parent: C_BaseToggle
-    // Field count: 2
+    // Field count: 11
     pub mod C_BaseTrigger {
-        pub const m_bDisabled: usize = 0x860; // bool
-        pub const m_bClientSidePredicted: usize = 0x861; // bool
+        pub const m_OnStartTouch: usize = 0x860; // CEntityIOOutput
+        pub const m_OnStartTouchAll: usize = 0x888; // CEntityIOOutput
+        pub const m_OnEndTouch: usize = 0x8B0; // CEntityIOOutput
+        pub const m_OnEndTouchAll: usize = 0x8D8; // CEntityIOOutput
+        pub const m_OnTouching: usize = 0x900; // CEntityIOOutput
+        pub const m_OnTouchingEachEntity: usize = 0x928; // CEntityIOOutput
+        pub const m_OnNotTouching: usize = 0x950; // CEntityIOOutput
+        pub const m_hTouchingEntities: usize = 0x978; // CUtlVector<CHandle<C_BaseEntity>>
+        pub const m_iFilterName: usize = 0x990; // CUtlSymbolLarge
+        pub const m_hFilter: usize = 0x998; // CHandle<CBaseFilter>
+        pub const m_bDisabled: usize = 0x99C; // bool
     }
     // Parent: CitadelAbilityVData
     // Field count: 1
@@ -1587,18 +1539,17 @@ pub mod client_dll {
     pub mod CCitadel_Modifier_ZiplineBoost {
         pub const m_bIsBoosting: usize = 0xC0; // bool
     }
-    // Parent: CCitadelModifierVData
-    // Field count: 2
-    pub mod CCitadel_Modifier_BreakablePropSpeedPickupVData {
-        pub const m_flSpeedBoost: usize = 0x608; // float32
-        pub const m_flSprintBoost: usize = 0x60C; // float32
-    }
     // Parent: None
     // Field count: 3
     pub mod C_EconEntity__AttachedParticleInfo_t {
         pub const m_nAttachedParticleIndex: usize = 0x0; // ParticleIndex_t
         pub const m_customType: usize = 0x4; // CUtlStringToken
         pub const m_bShouldDestroyImmediately: usize = 0x8; // bool
+    }
+    // Parent: CCitadel_Modifier_BaseBulletPreRollProc
+    // Field count: 1
+    pub mod CCitadel_Modifier_SalvoBullet {
+        pub const m_BuffedShotId: usize = 0x1F8; // ShotID_t
     }
     // Parent: CCitadelModifierVData
     // Field count: 2
@@ -1618,8 +1569,7 @@ pub mod client_dll {
     }
     // Parent: CCitadelModifier
     // Field count: 0
-    pub mod CCitadel_Modifier_DeathTaxTechAmp {
-    }
+    pub mod CCitadel_Modifier_DeathTaxTechAmp {}
     // Parent: CitadelItemVData
     // Field count: 1
     pub mod CCitadel_Item_BaseProjectileAOEModifierVData {
@@ -1637,12 +1587,10 @@ pub mod client_dll {
     }
     // Parent: CCitadelModifierVData
     // Field count: 0
-    pub mod CCitadel_Modifier_PermanentPickupVData {
-    }
+    pub mod CCitadel_Modifier_PermanentPickupVData {}
     // Parent: C_CitadelBaseAbility
     // Field count: 0
-    pub mod CCitadel_Ability_Magician_ShadowClone {
-    }
+    pub mod CCitadel_Ability_Magician_ShadowClone {}
     // Parent: CitadelAbilityVData
     // Field count: 2
     pub mod CAbility_Mirage_SandPhantom_VData {
@@ -1651,7 +1599,13 @@ pub mod client_dll {
     }
     // Parent: C_CitadelBaseAbility
     // Field count: 0
-    pub mod CCitadel_Ability_Cadence_GrandFinale {
+    pub mod CCitadel_Ability_Cadence_GrandFinale {}
+    // Parent: C_CitadelBaseAbility
+    // Field count: 3
+    pub mod CCitadel_Ability_Gunslinger_Salvo {
+        pub const m_CastTarget: usize = 0xCA4; // CHandle<C_BaseEntity>
+        pub const m_iCurrentShots: usize = 0xCA8; // int32
+        pub const m_iTotalShots: usize = 0xCAC; // int32
     }
     // Parent: CCitadelModifier
     // Field count: 1
@@ -1715,20 +1669,16 @@ pub mod client_dll {
     }
     // Parent: CCitadelModifierAuraVData
     // Field count: 0
-    pub mod CModifierSleepBombAuraVData {
-    }
+    pub mod CModifierSleepBombAuraVData {}
     // Parent: CCitadel_Modifier_Burning
     // Field count: 0
-    pub mod CCitadel_Modifier_Tokamak_HeatSinks_DOT {
-    }
+    pub mod CCitadel_Modifier_Tokamak_HeatSinks_DOT {}
     // Parent: CitadelAbilityVData
     // Field count: 0
-    pub mod CAbilitySummonGangsterVData {
-    }
+    pub mod CAbilitySummonGangsterVData {}
     // Parent: C_CitadelBaseAbility
     // Field count: 0
-    pub mod CCitadel_Ability_ViperVenom {
-    }
+    pub mod CCitadel_Ability_ViperVenom {}
     // Parent: CCitadelModifierVData
     // Field count: 1
     pub mod CCitadel_Modifier_MagicCarpet_SummonVData {
@@ -1736,44 +1686,43 @@ pub mod client_dll {
     }
     // Parent: CCitadelBaseAbilityServerOnly
     // Field count: 0
-    pub mod CCitadel_Ability_SuperNeutralShield {
-    }
+    pub mod CCitadel_Ability_SuperNeutralShield {}
     // Parent: CCitadelPlayerPawnBase
     // Field count: 0
-    pub mod C_CitadelObserverPawn {
-    }
+    pub mod C_CitadelObserverPawn {}
     // Parent: C_CitadelBaseAbility
     // Field count: 0
-    pub mod CCitadel_Ability_SpiderShield {
-    }
+    pub mod CCitadel_Ability_SpiderShield {}
     // Parent: CitadelAbilityVData
-    // Field count: 25
+    // Field count: 27
     pub mod CCitadel_Ability_ZipLine_VData {
-        pub const m_flMinButtonHoldTimeToActivate: usize = 0x1560; // float32
-        pub const m_flCrouchDropSpeedFraction: usize = 0x1564; // float32
-        pub const m_flCrouchDropAirDragSuppressDuration: usize = 0x1568; // float32
-        pub const m_flDetachDisallowedTime: usize = 0x156C; // float32
-        pub const m_flCameraWobbleIntensity: usize = 0x1570; // float32
-        pub const m_DOFWhileZiplining: usize = 0x1574; // DOFDesc_t
+        pub const m_flZiplineAirDrag: usize = 0x1560; // float32
+        pub const m_flMinButtonHoldTimeToActivate: usize = 0x1564; // float32
+        pub const m_flCrouchDropSpeedFraction: usize = 0x1568; // float32
+        pub const m_flCrouchDropAirDragSuppressDuration: usize = 0x156C; // float32
+        pub const m_flDetachDisallowedTime: usize = 0x1570; // float32
+        pub const m_flCameraWobbleIntensity: usize = 0x1574; // float32
+        pub const m_DOFWhileZiplining: usize = 0x1578; // DOFDesc_t
         pub const m_ZipLinePreviewParticle: usize = 0x1588; // CResourceNameTyped<CWeakHandle<InfoForResourceTypeIParticleSystemDefinition>>
         pub const m_ZipLineSpeedParticle: usize = 0x1668; // CResourceNameTyped<CWeakHandle<InfoForResourceTypeIParticleSystemDefinition>>
         pub const m_ZipLineTetherParticle: usize = 0x1748; // CResourceNameTyped<CWeakHandle<InfoForResourceTypeIParticleSystemDefinition>>
         pub const m_ZipLineTetherAttachParticle: usize = 0x1828; // CResourceNameTyped<CWeakHandle<InfoForResourceTypeIParticleSystemDefinition>>
-        pub const m_ZipLineEnemyKnockdownProtectionParticle: usize = 0x1908; // CResourceNameTyped<CWeakHandle<InfoForResourceTypeIParticleSystemDefinition>>
-        pub const m_ZipLineSelfKnockdownProtectionParticle: usize = 0x19E8; // CResourceNameTyped<CWeakHandle<InfoForResourceTypeIParticleSystemDefinition>>
-        pub const m_ZipLineKnockdownProtectionStatusParticle: usize = 0x1AC8; // CResourceNameTyped<CWeakHandle<InfoForResourceTypeIParticleSystemDefinition>>
-        pub const m_strZipLineSummonSound: usize = 0x1BA8; // CSoundEventName
-        pub const m_strZipLineLatchedSound: usize = 0x1BB8; // CSoundEventName
-        pub const m_strZipLineStartSound: usize = 0x1BC8; // CSoundEventName
-        pub const m_RidingZipLineModifier: usize = 0x1BD8; // CEmbeddedSubclass<CCitadelModifier>
-        pub const m_KnockedOffSlowModifier: usize = 0x1BE8; // CEmbeddedSubclass<CCitadelModifier>
-        pub const m_ZipLineIntroModifier: usize = 0x1BF8; // CEmbeddedSubclass<CCitadelModifier>
-        pub const m_ZipLineKnockdownImmuneModifier: usize = 0x1C08; // CEmbeddedSubclass<CCitadelModifier>
-        pub const m_ZipLineSlowModifier: usize = 0x1C18; // CEmbeddedSubclass<CCitadelModifier>
-        pub const m_cameraSequenceAwaitingTether: usize = 0x1C28; // CitadelCameraOperationsSequence_t
-        pub const m_cameraSequenceLatched: usize = 0x1CB0; // CitadelCameraOperationsSequence_t
-        pub const m_cameraSequenceAttached: usize = 0x1D38; // CitadelCameraOperationsSequence_t
-        pub const m_cameraSequenceClear: usize = 0x1DC0; // CitadelCameraOperationsSequence_t
+        pub const m_ZipLineTetherStartParticle: usize = 0x1908; // CResourceNameTyped<CWeakHandle<InfoForResourceTypeIParticleSystemDefinition>>
+        pub const m_ZipLineEnemyKnockdownProtectionParticle: usize = 0x19E8; // CResourceNameTyped<CWeakHandle<InfoForResourceTypeIParticleSystemDefinition>>
+        pub const m_ZipLineSelfKnockdownProtectionParticle: usize = 0x1AC8; // CResourceNameTyped<CWeakHandle<InfoForResourceTypeIParticleSystemDefinition>>
+        pub const m_ZipLineKnockdownProtectionStatusParticle: usize = 0x1BA8; // CResourceNameTyped<CWeakHandle<InfoForResourceTypeIParticleSystemDefinition>>
+        pub const m_strZipLineSummonSound: usize = 0x1C88; // CSoundEventName
+        pub const m_strZipLineLatchedSound: usize = 0x1C98; // CSoundEventName
+        pub const m_strZipLineStartSound: usize = 0x1CA8; // CSoundEventName
+        pub const m_RidingZipLineModifier: usize = 0x1CB8; // CEmbeddedSubclass<CCitadelModifier>
+        pub const m_KnockedOffSlowModifier: usize = 0x1CC8; // CEmbeddedSubclass<CCitadelModifier>
+        pub const m_ZipLineIntroModifier: usize = 0x1CD8; // CEmbeddedSubclass<CCitadelModifier>
+        pub const m_ZipLineKnockdownImmuneModifier: usize = 0x1CE8; // CEmbeddedSubclass<CCitadelModifier>
+        pub const m_ZipLineSlowModifier: usize = 0x1CF8; // CEmbeddedSubclass<CCitadelModifier>
+        pub const m_cameraSequenceAwaitingTether: usize = 0x1D08; // CitadelCameraOperationsSequence_t
+        pub const m_cameraSequenceLatched: usize = 0x1D90; // CitadelCameraOperationsSequence_t
+        pub const m_cameraSequenceAttached: usize = 0x1E18; // CitadelCameraOperationsSequence_t
+        pub const m_cameraSequenceClear: usize = 0x1EA0; // CitadelCameraOperationsSequence_t
     }
     // Parent: CitadelItemVData
     // Field count: 1
@@ -1792,8 +1741,7 @@ pub mod client_dll {
     }
     // Parent: C_CitadelProjectile
     // Field count: 0
-    pub mod CItemExplosiveBarrel {
-    }
+    pub mod CItemExplosiveBarrel {}
     // Parent: C_CitadelBaseAbility
     // Field count: 3
     pub mod CCitadel_Ability_Trapper_SpiderJar {
@@ -1809,8 +1757,7 @@ pub mod client_dll {
     }
     // Parent: C_CitadelBaseAbility
     // Field count: 0
-    pub mod CCitadel_Ability_Stomp {
-    }
+    pub mod CCitadel_Ability_Stomp {}
     // Parent: CCitadelModifierVData
     // Field count: 6
     pub mod CCitadel_Modifier_FissureWallVData {
@@ -1823,14 +1770,16 @@ pub mod client_dll {
     }
     // Parent: CCitadelModifier
     // Field count: 0
-    pub mod CCitadel_Modifier_Guiding_Arrow_KillCheck {
-    }
+    pub mod CCitadel_Modifier_Guiding_Arrow_KillCheck {}
     // Parent: CCitadelModifier
     // Field count: 2
     pub mod CCitadel_Modifier_Stunned {
         pub const m_bEnabled: usize = 0xC0; // bool
         pub const m_bWasEnabled: usize = 0xC1; // bool
     }
+    // Parent: CCitadelModifier
+    // Field count: 0
+    pub mod CCitadel_Modifier_ThermalDetonator_Debuff {}
     // Parent: CCitadel_Modifier_BaseEventProcVData
     // Field count: 1
     pub mod CCitadel_Modifier_EscalatingExposureProcWatcherVData {
@@ -1838,17 +1787,18 @@ pub mod client_dll {
     }
     // Parent: CCitadelBaseAbilityServerOnly
     // Field count: 0
-    pub mod CCitadel_Ability_Tier2Boss_LaserBeam {
-    }
+    pub mod CCitadel_Ability_Tier2Boss_LaserBeam {}
     // Parent: C_NPC_Trooper
     // Field count: 0
-    pub mod C_NPC_SuperTrooper {
-    }
+    pub mod C_NPC_SuperTrooper {}
     // Parent: CCitadel_Item
     // Field count: 1
     pub mod CCitadel_Item_PowerShard {
         pub const m_hLastSignatureToActivate: usize = 0xCB8; // CHandle<C_CitadelBaseAbility>
     }
+    // Parent: CCitadel_Modifier_ScalingPowerUp
+    // Field count: 0
+    pub mod CCitadel_Modifier_PowerUp_Casting {}
     // Parent: C_BaseToggle
     // Field count: 3
     pub mod C_BaseButton {
@@ -1858,13 +1808,7 @@ pub mod client_dll {
     }
     // Parent: CCitadel_Modifier_StatStealBase
     // Field count: 0
-    pub mod CCitadel_Modifier_Mirage_FireScarabs_Watcher {
-    }
-    // Parent: CCitadelModifier
-    // Field count: 1
-    pub mod CModifier_Synth_Pulse_BulletShield {
-        pub const m_fBulletShield: usize = 0xC0; // float32
-    }
+    pub mod CCitadel_Modifier_Mirage_FireScarabs_Watcher {}
     // Parent: C_CitadelBaseAbility
     // Field count: 2
     pub mod CCitadel_Ability_Tokamak_CrimsonCannon {
@@ -1873,16 +1817,13 @@ pub mod client_dll {
     }
     // Parent: CCitadelModifierAura
     // Field count: 0
-    pub mod CCitadel_Modifier_Cadence_GrandFinaleAOE {
-    }
+    pub mod CCitadel_Modifier_Cadence_GrandFinaleAOE {}
     // Parent: C_CitadelProjectile
     // Field count: 0
-    pub mod C_Citadel_Projectile_Wrecker_Teleport {
-    }
+    pub mod C_Citadel_Projectile_Wrecker_Teleport {}
     // Parent: C_PointEntity
     // Field count: 0
-    pub mod CInfoParticleTarget {
-    }
+    pub mod CInfoParticleTarget {}
     // Parent: C_CitadelBaseAbility
     // Field count: 3
     pub mod CCitadel_Ability_Mirage_FireBeetles {
@@ -1890,6 +1831,9 @@ pub mod client_dll {
         pub const m_qLaunchAngle: usize = 0xCAC; // QAngle
         pub const m_flCastStartTime: usize = 0xCB8; // GameTime_t
     }
+    // Parent: C_CitadelBaseAbility
+    // Field count: 0
+    pub mod CCitadel_Ability_Gunslinger_SpreadingFire {}
     // Parent: CCitadelModifier
     // Field count: 1
     pub mod CCitadel_Modifier_LightningBall {
@@ -1914,22 +1858,19 @@ pub mod client_dll {
     // Parent: C_NPC_SimpleAnimatingAI
     // Field count: 3
     pub mod C_NPC_ShieldedSentry {
-        pub const m_CCitadelAbilityComponent: usize = 0xB10; // CCitadelAbilityComponent
-        pub const m_flAttackRange: usize = 0xCB4; // float32
-        pub const m_flAimPitch: usize = 0xCB8; // float32
+        pub const m_CCitadelAbilityComponent: usize = 0xB08; // CCitadelAbilityComponent
+        pub const m_flAttackRange: usize = 0xCAC; // float32
+        pub const m_flAimPitch: usize = 0xCB0; // float32
     }
     // Parent: CEnvSoundscapeProxy
     // Field count: 0
-    pub mod CEnvSoundscapeProxyAlias_snd_soundscape_proxy {
-    }
+    pub mod CEnvSoundscapeProxyAlias_snd_soundscape_proxy {}
     // Parent: CCitadel_Item
     // Field count: 0
-    pub mod CCitadel_Item_ColdFront {
-    }
+    pub mod CCitadel_Item_ColdFront {}
     // Parent: C_CitadelBaseAbility
     // Field count: 0
-    pub mod CCitadel_Ability_BaseHeldItem {
-    }
+    pub mod CCitadel_Ability_BaseHeldItem {}
     // Parent: C_BaseClientUIEntity
     // Field count: 28
     pub mod C_PointClientUIWorldPanel {
@@ -1970,12 +1911,10 @@ pub mod client_dll {
     }
     // Parent: CCitadelModifier
     // Field count: 0
-    pub mod CCitadel_Modifier_PoisonJar_Debuff {
-    }
+    pub mod CCitadel_Modifier_PoisonJar_Debuff {}
     // Parent: CCitadelModifier
     // Field count: 0
-    pub mod CCitadel_Modifier_Fathom_ScaldingSpray_Target {
-    }
+    pub mod CCitadel_Modifier_Fathom_ScaldingSpray_Target {}
     // Parent: CitadelAbilityVData
     // Field count: 8
     pub mod CAbility_Synth_PlasmaFlux_VData {
@@ -2025,8 +1964,7 @@ pub mod client_dll {
     }
     // Parent: CCitadelModifier
     // Field count: 0
-    pub mod CCitadel_Modifier_ClimbRopeSpeed {
-    }
+    pub mod CCitadel_Modifier_ClimbRopeSpeed {}
     // Parent: CCitadelModifierVData
     // Field count: 1
     pub mod CCitadelModifierProjectilePitchingLoopSoundThinkerVData {
@@ -2035,17 +1973,15 @@ pub mod client_dll {
     // Parent: C_NPC_SimpleAnimatingAI
     // Field count: 2
     pub mod C_NPC_FieldSentry {
-        pub const m_flAttackRange: usize = 0xB14; // float32
-        pub const m_flAimPitch: usize = 0xB18; // float32
+        pub const m_flAttackRange: usize = 0xB0C; // float32
+        pub const m_flAimPitch: usize = 0xB10; // float32
     }
     // Parent: CCitadelAnimatingModelEntity
     // Field count: 0
-    pub mod C_Citadel_SpiderAnimating {
-    }
+    pub mod C_Citadel_SpiderAnimating {}
     // Parent: CCitadel_Item
     // Field count: 0
-    pub mod CCitadel_Item_ComboBreaker {
-    }
+    pub mod CCitadel_Item_ComboBreaker {}
     // Parent: CCitadelModifierVData
     // Field count: 10
     pub mod CCitadel_Modifier_Mirage_SandPhantom_Passive_Victim_VData {
@@ -2062,16 +1998,13 @@ pub mod client_dll {
     }
     // Parent: C_CitadelBaseAbility
     // Field count: 0
-    pub mod CCitadel_Ability_Astro_Shotgun_Toggle {
-    }
+    pub mod CCitadel_Ability_Astro_Shotgun_Toggle {}
     // Parent: CCitadel_Modifier_Intrinsic_Base
     // Field count: 0
-    pub mod CCitadel_Modifier_WeaponEaterStack {
-    }
+    pub mod CCitadel_Modifier_WeaponEaterStack {}
     // Parent: C_SoundOpvarSetPointEntity
     // Field count: 0
-    pub mod C_SoundOpvarSetAABBEntity {
-    }
+    pub mod C_SoundOpvarSetAABBEntity {}
     // Parent: None
     // Field count: 4
     pub mod C_GameRules {
@@ -2082,12 +2015,10 @@ pub mod client_dll {
     }
     // Parent: C_BasePropDoor
     // Field count: 0
-    pub mod C_PropDoorRotating {
-    }
+    pub mod C_PropDoorRotating {}
     // Parent: C_CitadelProjectile
     // Field count: 0
-    pub mod CCitadel_Projectile_WebWall {
-    }
+    pub mod CCitadel_Projectile_WebWall {}
     // Parent: C_BaseEntity
     // Field count: 4
     pub mod C_Team {
@@ -2127,12 +2058,10 @@ pub mod client_dll {
     }
     // Parent: CCitadelModifier
     // Field count: 0
-    pub mod CCitadel_Modifier_Aerial_Assault_Watcher {
-    }
+    pub mod CCitadel_Modifier_Aerial_Assault_Watcher {}
     // Parent: CCitadelModifier
     // Field count: 0
-    pub mod CCitadel_Modifier_GlowToTeammates {
-    }
+    pub mod CCitadel_Modifier_GlowToTeammates {}
     // Parent: CCitadelModifierAura
     // Field count: 3
     pub mod CCitadel_Modifier_AirLift_ExplodeAura {
@@ -2141,34 +2070,41 @@ pub mod client_dll {
         pub const m_flSpreadDuration: usize = 0xE8; // float32
     }
     // Parent: CAI_CitadelNPCVData
-    // Field count: 26
+    // Field count: 33
     pub mod CNPC_Boss_Tier2VData {
-        pub const m_flPlayerInitialSightRange: usize = 0xFB0; // float32
-        pub const m_strWIPModelName: usize = 0xFB8; // CResourceNameTyped<CWeakHandle<InfoForResourceTypeCModel>>
-        pub const m_vecWeakPoints: usize = 0x1098; // CUtlVector<WeakPointParams_t>
-        pub const m_BeamChargingEffect: usize = 0x10B0; // CResourceNameTyped<CWeakHandle<InfoForResourceTypeIParticleSystemDefinition>>
-        pub const m_BeamPreviewEffect: usize = 0x1190; // CResourceNameTyped<CWeakHandle<InfoForResourceTypeIParticleSystemDefinition>>
-        pub const m_BeamActiveEffect: usize = 0x1270; // CResourceNameTyped<CWeakHandle<InfoForResourceTypeIParticleSystemDefinition>>
-        pub const m_StompImpactEffect: usize = 0x1350; // CResourceNameTyped<CWeakHandle<InfoForResourceTypeIParticleSystemDefinition>>
-        pub const m_StompWarningEffect: usize = 0x1430; // CResourceNameTyped<CWeakHandle<InfoForResourceTypeIParticleSystemDefinition>>
-        pub const m_flTossSpeed: usize = 0x1510; // float32
-        pub const m_flStompDamage: usize = 0x1514; // float32
-        pub const m_flStompTossUpMagnitude: usize = 0x1518; // float32
-        pub const m_flStunDuration: usize = 0x151C; // float32
-        pub const m_flStompImpactRadius: usize = 0x1520; // float32
-        pub const m_flStompImpactHeight: usize = 0x1524; // float32
-        pub const m_flSweepRadius: usize = 0x1528; // float32
-        pub const m_flSweepSpeed: usize = 0x152C; // float32
-        pub const m_flSweepZScale: usize = 0x1530; // float32
-        pub const m_flSweepMaxAngle: usize = 0x1534; // float32
-        pub const m_flSweepMaxRange: usize = 0x1538; // float32
-        pub const m_flSweepAdjustSpeed: usize = 0x153C; // float32
-        pub const m_flBurstDuration: usize = 0x1540; // float32
-        pub const m_flBurstCooldown: usize = 0x1544; // float32
-        pub const m_BackdoorProtectionModifier: usize = 0x1548; // CEmbeddedSubclass<CCitadelModifier>
-        pub const m_flBackDoorProtectionRange: usize = 0x1558; // float32
-        pub const m_InvulModifier: usize = 0x1560; // CEmbeddedSubclass<CCitadelModifier>
-        pub const m_flInvulModifierRange: usize = 0x1570; // float32
+        pub const m_flPlayerInitialSightRange: usize = 0x10D8; // float32
+        pub const m_strWIPModelName: usize = 0x10E0; // CResourceNameTyped<CWeakHandle<InfoForResourceTypeCModel>>
+        pub const m_vecWeakPoints: usize = 0x11C0; // CUtlVector<WeakPointParams_t>
+        pub const m_BeamChargingEffect: usize = 0x11D8; // CResourceNameTyped<CWeakHandle<InfoForResourceTypeIParticleSystemDefinition>>
+        pub const m_BeamPreviewEffect: usize = 0x12B8; // CResourceNameTyped<CWeakHandle<InfoForResourceTypeIParticleSystemDefinition>>
+        pub const m_BeamActiveEffect: usize = 0x1398; // CResourceNameTyped<CWeakHandle<InfoForResourceTypeIParticleSystemDefinition>>
+        pub const m_StompImpactEffect: usize = 0x1478; // CResourceNameTyped<CWeakHandle<InfoForResourceTypeIParticleSystemDefinition>>
+        pub const m_StompWarningEffect: usize = 0x1558; // CResourceNameTyped<CWeakHandle<InfoForResourceTypeIParticleSystemDefinition>>
+        pub const m_flTossSpeed: usize = 0x1638; // float32
+        pub const m_flStompDamage: usize = 0x163C; // float32
+        pub const m_flStompDamageMaxHealthPercent: usize = 0x1640; // float32
+        pub const m_flStompTossUpMagnitude: usize = 0x1644; // float32
+        pub const m_flStunDuration: usize = 0x1648; // float32
+        pub const m_flStompImpactRadius: usize = 0x164C; // float32
+        pub const m_flStompImpactHeight: usize = 0x1650; // float32
+        pub const m_flSweepRadius: usize = 0x1654; // float32
+        pub const m_flSweepSpeed: usize = 0x1658; // float32
+        pub const m_flSweepZScale: usize = 0x165C; // float32
+        pub const m_flSweepMaxAngle: usize = 0x1660; // float32
+        pub const m_flSweepMaxRange: usize = 0x1664; // float32
+        pub const m_flSweepAdjustSpeed: usize = 0x1668; // float32
+        pub const m_flBurstDuration: usize = 0x166C; // float32
+        pub const m_flBurstCooldown: usize = 0x1670; // float32
+        pub const m_BackdoorProtectionModifier: usize = 0x1678; // CEmbeddedSubclass<CCitadelModifier>
+        pub const m_flBackDoorProtectionRange: usize = 0x1688; // float32
+        pub const m_InvulModifier: usize = 0x1690; // CEmbeddedSubclass<CCitadelModifier>
+        pub const m_flInvulModifierRange: usize = 0x16A0; // float32
+        pub const m_FriendlyAuraModifier: usize = 0x16A8; // CEmbeddedSubclass<CCitadelModifier>
+        pub const m_flRangeArmorMaxResist: usize = 0x16B8; // float32
+        pub const m_flRangeArmorMinResist: usize = 0x16BC; // float32
+        pub const m_flRangeArmorMaxDist: usize = 0x16C0; // float32
+        pub const m_flRangeArmorMinDist: usize = 0x16C4; // float32
+        pub const m_NearbyEnemyResist: usize = 0x16C8; // CEmbeddedSubclass<CCitadelModifier>
     }
     // Parent: C_SoundAreaEntityBase
     // Field count: 2
@@ -2185,7 +2121,12 @@ pub mod client_dll {
     }
     // Parent: CCitadelModifier
     // Field count: 0
-    pub mod CModifier_SiphonBullets_HealthLoss {
+    pub mod CModifier_SiphonBullets_HealthLoss {}
+    // Parent: CCitadelModifierVData
+    // Field count: 2
+    pub mod CModifier_Upgrade_ArcaneSurge_VData {
+        pub const m_WeaponBuffModifier: usize = 0x608; // CEmbeddedSubclass<CCitadelModifier>
+        pub const m_AbilityWatcherModifier: usize = 0x618; // CEmbeddedSubclass<CCitadelModifier>
     }
     // Parent: CCitadel_Modifier_BaseEventProcVData
     // Field count: 1
@@ -2199,8 +2140,7 @@ pub mod client_dll {
     }
     // Parent: CCitadelAnimatingModelEntity
     // Field count: 0
-    pub mod C_Citadel_CatAnimating {
-    }
+    pub mod C_Citadel_CatAnimating {}
     // Parent: C_BaseModelEntity
     // Field count: 8
     pub mod C_TextureBasedAnimatable {
@@ -2215,16 +2155,16 @@ pub mod client_dll {
     }
     // Parent: CCitadelModifier
     // Field count: 0
-    pub mod CCitadel_Modifier_IdolReturnTimer {
-    }
+    pub mod CCitadel_Modifier_IdolReturnTimer {}
+    // Parent: CCitadel_Modifier_ScalingPowerUp
+    // Field count: 0
+    pub mod CCitadel_Modifier_PowerUp_Gun {}
     // Parent: CCitadelModifier
     // Field count: 0
-    pub mod CCitadel_Modifier_ShadowClone {
-    }
+    pub mod CCitadel_Modifier_ShadowClone {}
     // Parent: C_CitadelBaseAbility
     // Field count: 0
-    pub mod CCitadel_Ability_Targetdummy_2 {
-    }
+    pub mod CCitadel_Ability_Targetdummy_2 {}
     // Parent: CCitadelModifierVData
     // Field count: 3
     pub mod CModifierRiotProtocolBuffVData {
@@ -2237,10 +2177,17 @@ pub mod client_dll {
     pub mod CModifierCrowdControlDebuffVData {
         pub const m_DebuffParticle: usize = 0x608; // CResourceNameTyped<CWeakHandle<InfoForResourceTypeIParticleSystemDefinition>>
     }
+    // Parent: CCitadel_Modifier_Stunned
+    // Field count: 4
+    pub mod CCitadel_Modifier_GarbageAuraTarget {
+        pub const m_flMaxDist: usize = 0x138; // float32
+        pub const m_vecOffsetDir: usize = 0x13C; // Vector
+        pub const m_vecStartPosition: usize = 0x148; // Vector
+        pub const m_flAOERadius: usize = 0x154; // float32
+    }
     // Parent: CCitadel_Modifier_BaseEventProc
     // Field count: 0
-    pub mod CCitadel_Modifier_AirRaid {
-    }
+    pub mod CCitadel_Modifier_AirRaid {}
     // Parent: CCitadelModifierVData
     // Field count: 1
     pub mod CCitadelModifierIdolReturnTimerVData {
@@ -2261,32 +2208,27 @@ pub mod client_dll {
     }
     // Parent: CCitadelModifier
     // Field count: 0
-    pub mod CCitadel_Modifier_MeleeTarget {
-    }
+    pub mod CCitadel_Modifier_MeleeTarget {}
     // Parent: CNPC_TrooperNeutralVData
     // Field count: 4
     pub mod CNPC_TrooperNeutralNodeMoverVData {
-        pub const m_bEnableMovementToNodes: usize = 0x1318; // bool
-        pub const m_flExposedDuration: usize = 0x131C; // CRangeFloat
-        pub const m_flHideDuration: usize = 0x1324; // CRangeFloat
-        pub const m_HidingModifier: usize = 0x1330; // CEmbeddedSubclass<CCitadelModifier>
+        pub const m_bEnableMovementToNodes: usize = 0x1440; // bool
+        pub const m_flExposedDuration: usize = 0x1444; // CRangeFloat
+        pub const m_flHideDuration: usize = 0x144C; // CRangeFloat
+        pub const m_HidingModifier: usize = 0x1458; // CEmbeddedSubclass<CCitadelModifier>
     }
     // Parent: C_SoundOpvarSetPointBase
     // Field count: 0
-    pub mod C_SoundOpvarSetPointEntity {
-    }
+    pub mod C_SoundOpvarSetPointEntity {}
     // Parent: C_NPC_TrooperNeutral
     // Field count: 0
-    pub mod C_NPC_MidBossHeroTest {
-    }
+    pub mod C_NPC_MidBossHeroTest {}
     // Parent: C_LightEntity
     // Field count: 0
-    pub mod C_LightOrthoEntity {
-    }
+    pub mod C_LightOrthoEntity {}
     // Parent: CCitadel_Modifier_PowerUp
     // Field count: 0
-    pub mod CCitadel_Modifier_PermanentPickup {
-    }
+    pub mod CCitadel_Modifier_PermanentPickup {}
     // Parent: CCitadelModifierVData
     // Field count: 3
     pub mod CModifier_Mirage_Tornado_Aura_Apply_VData {
@@ -2313,8 +2255,7 @@ pub mod client_dll {
     }
     // Parent: CCitadelModifier
     // Field count: 0
-    pub mod CCitadel_Modifier_HealingPulse_Tracker {
-    }
+    pub mod CCitadel_Modifier_HealingPulse_Tracker {}
     // Parent: CitadelItemVData
     // Field count: 2
     pub mod CCitadel_Item_TechCleaveVData {
@@ -2329,8 +2270,7 @@ pub mod client_dll {
     }
     // Parent: CCitadelItemPickupRejuvVData
     // Field count: 0
-    pub mod CCitadelItemPickupRejuvHeroTestVData {
-    }
+    pub mod CCitadelItemPickupRejuvHeroTestVData {}
     // Parent: C_BaseEntity
     // Field count: 2
     pub mod CSkyboxReference {
@@ -2339,8 +2279,7 @@ pub mod client_dll {
     }
     // Parent: C_TonemapController2
     // Field count: 0
-    pub mod C_TonemapController2Alias_env_tonemap_controller2 {
-    }
+    pub mod C_TonemapController2Alias_env_tonemap_controller2 {}
     // Parent: CCitadelModifierAuraVData
     // Field count: 2
     pub mod CCitadelModifierAura_ConeVData {
@@ -2349,12 +2288,10 @@ pub mod client_dll {
     }
     // Parent: CCitadelModifier
     // Field count: 0
-    pub mod CCitadel_Modifier_ControlPointCapturerAuraTarget {
-    }
+    pub mod CCitadel_Modifier_ControlPointCapturerAuraTarget {}
     // Parent: CCitadelModifier
     // Field count: 0
-    pub mod CCitadel_Modifier_Dust_Storm_Thrown {
-    }
+    pub mod CCitadel_Modifier_Dust_Storm_Thrown {}
     // Parent: CitadelItemVData
     // Field count: 4
     pub mod CCitadel_ArmorUpgrade_PersonalRejuvenatorVData {
@@ -2366,24 +2303,24 @@ pub mod client_dll {
     // Parent: CCitadelModifier
     // Field count: 18
     pub mod CCitadel_Modifier_Tier2Boss_LaserBeam {
-        pub const m_bPreview: usize = 0x130; // bool
-        pub const m_flSoundStartTime: usize = 0x13C; // GameTime_t
-        pub const m_vStart: usize = 0x144; // Vector
-        pub const m_vEnd: usize = 0x150; // Vector
-        pub const m_vPrevEnd: usize = 0x15C; // Vector
-        pub const m_flAngleBetweenTrace: usize = 0x168; // float32
-        pub const m_flDamagePerTick: usize = 0x16C; // float32
-        pub const m_flCreepDamagePerTick: usize = 0x170; // float32
-        pub const m_flNextDamageTick: usize = 0x174; // GameTime_t
-        pub const m_vecEntitiesHit: usize = 0x178; // CUtlVector<CHandle<C_BaseEntity>>
-        pub const m_flDamageTickRate: usize = 0x190; // float32
-        pub const m_flLastShakeTime: usize = 0x194; // GameTime_t
-        pub const m_bSweepRightFirst: usize = 0x198; // bool
-        pub const m_angBeamAim: usize = 0x19C; // QAngle
-        pub const m_vecBeamTarget: usize = 0x1A8; // Vector
-        pub const m_flLastBeamUpdateTime: usize = 0x1B4; // GameTime_t
-        pub const m_flTargetingTaskStartTime: usize = 0x1D0; // GameTime_t
-        pub const m_flTrackVel: usize = 0x1D4; // float32
+        pub const m_bPreview: usize = 0x168; // bool
+        pub const m_flSoundStartTime: usize = 0x174; // GameTime_t
+        pub const m_vStart: usize = 0x17C; // Vector
+        pub const m_vEnd: usize = 0x188; // Vector
+        pub const m_vPrevEnd: usize = 0x194; // Vector
+        pub const m_flAngleBetweenTrace: usize = 0x1A0; // float32
+        pub const m_flDamagePerTick: usize = 0x1A4; // float32
+        pub const m_flCreepDamagePerTick: usize = 0x1A8; // float32
+        pub const m_flNextDamageTick: usize = 0x1AC; // GameTime_t
+        pub const m_vecEntitiesHit: usize = 0x1B0; // CUtlVector<CHandle<C_BaseEntity>>
+        pub const m_flDamageTickRate: usize = 0x1C8; // float32
+        pub const m_flLastShakeTime: usize = 0x1CC; // GameTime_t
+        pub const m_bSweepRightFirst: usize = 0x1D0; // bool
+        pub const m_angBeamAim: usize = 0x1D4; // QAngle
+        pub const m_vecBeamTarget: usize = 0x1E0; // Vector
+        pub const m_flLastBeamUpdateTime: usize = 0x1EC; // GameTime_t
+        pub const m_flTargetingTaskStartTime: usize = 0x208; // GameTime_t
+        pub const m_flTrackVel: usize = 0x20C; // float32
     }
     // Parent: None
     // Field count: 30
@@ -2421,11 +2358,19 @@ pub mod client_dll {
     }
     // Parent: CCitadelModifierAura
     // Field count: 0
-    pub mod CCitadel_Modifier_Cadence_SleepAOE {
-    }
+    pub mod CCitadel_Modifier_Cadence_SleepAOE {}
     // Parent: CCitadel_Item
     // Field count: 0
-    pub mod CCitadel_WeaponUpgrade_FireRateAura {
+    pub mod CCitadel_WeaponUpgrade_FireRateAura {}
+    // Parent: CCitadel_Modifier_BaseBulletPreRollProcVData
+    // Field count: 6
+    pub mod CCitadel_Modifier_EmpowerBulletVData {
+        pub const m_DebuffModifier: usize = 0x738; // CEmbeddedSubclass<CCitadelModifier>
+        pub const m_ExplosionParticle: usize = 0x748; // CResourceNameTyped<CWeakHandle<InfoForResourceTypeIParticleSystemDefinition>>
+        pub const m_ExplosionVictimParticle: usize = 0x828; // CResourceNameTyped<CWeakHandle<InfoForResourceTypeIParticleSystemDefinition>>
+        pub const m_EmpowerWeaponParticle: usize = 0x908; // CResourceNameTyped<CWeakHandle<InfoForResourceTypeIParticleSystemDefinition>>
+        pub const m_ShotVictimSound: usize = 0x9E8; // CSoundEventName
+        pub const m_ShotConfirmationSound: usize = 0x9F8; // CSoundEventName
     }
     // Parent: CCitadelModifierVData
     // Field count: 2
@@ -2447,16 +2392,13 @@ pub mod client_dll {
     }
     // Parent: CCitadelBaseAbilityServerOnly
     // Field count: 0
-    pub mod CCitadel_Ability_TrooperGrenade {
-    }
+    pub mod CCitadel_Ability_TrooperGrenade {}
     // Parent: CCitadelModifier
     // Field count: 0
-    pub mod CCitadel_Modifier_BaseShield {
-    }
+    pub mod CCitadel_Modifier_BaseShield {}
     // Parent: C_NPC_TrooperNeutral
     // Field count: 0
-    pub mod C_NPC_TrooperNeutralNodeMover {
-    }
+    pub mod C_NPC_TrooperNeutralNodeMover {}
     // Parent: CAttributeManager
     // Field count: 1
     pub mod CAttributeContainer {
@@ -2471,8 +2413,7 @@ pub mod client_dll {
     }
     // Parent: CCitadelModifier
     // Field count: 0
-    pub mod CCitadel_Modifier_Lash_Flog_Debuff {
-    }
+    pub mod CCitadel_Modifier_Lash_Flog_Debuff {}
     // Parent: CCitadelModifierVData
     // Field count: 4
     pub mod CCitadel_Modifier_FlameDashVData {
@@ -2483,8 +2424,7 @@ pub mod client_dll {
     }
     // Parent: CCitadelModifier
     // Field count: 0
-    pub mod CCitadel_Modifier_Stabilizing_Tripod {
-    }
+    pub mod CCitadel_Modifier_Stabilizing_Tripod {}
     // Parent: CitadelItemVData
     // Field count: 1
     pub mod CCitadel_ArmorUpgrade_VexBarrierVData {
@@ -2492,15 +2432,28 @@ pub mod client_dll {
     }
     // Parent: CCitadelModifier
     // Field count: 0
-    pub mod CCitadel_Modifier_HollowPoint_Stack {
+    pub mod CCitadel_Modifier_HollowPoint_Stack {}
+    // Parent: CCitadel_Modifier_BaseEventProcVData
+    // Field count: 4
+    pub mod CCitadel_Modifier_SpiritSnatch_VData {
+        pub const m_BuffModifier: usize = 0x638; // CEmbeddedSubclass<CBaseModifier>
+        pub const m_DebuffModifier: usize = 0x648; // CEmbeddedSubclass<CBaseModifier>
+        pub const m_SwingParticle: usize = 0x658; // CResourceNameTyped<CWeakHandle<InfoForResourceTypeIParticleSystemDefinition>>
+        pub const m_HitParticle: usize = 0x738; // CResourceNameTyped<CWeakHandle<InfoForResourceTypeIParticleSystemDefinition>>
     }
     // Parent: CCitadel_Item
     // Field count: 0
-    pub mod CCitadel_ArmorUpgrade_SlowImmunity {
-    }
+    pub mod CCitadel_ArmorUpgrade_SlowImmunity {}
     // Parent: C_PathParticleRope
     // Field count: 0
-    pub mod C_PathParticleRopeAlias_path_particle_rope_clientside {
+    pub mod C_PathParticleRopeAlias_path_particle_rope_clientside {}
+    // Parent: CBaseFilter
+    // Field count: 4
+    pub mod CFilterMultiple {
+        pub const m_nFilterType: usize = 0x5C0; // filter_t
+        pub const m_iFilterName: usize = 0x5C8; // CUtlSymbolLarge[10]
+        pub const m_hFilter: usize = 0x618; // CHandle<C_BaseEntity>[10]
+        pub const m_nFilterCount: usize = 0x640; // int32
     }
     // Parent: CCitadelModifierVData
     // Field count: 1
@@ -2517,8 +2470,7 @@ pub mod client_dll {
     }
     // Parent: CCitadel_Modifier_Intrinsic_Base
     // Field count: 0
-    pub mod CCitadel_Modifier_MagicStormWatcher {
-    }
+    pub mod CCitadel_Modifier_MagicStormWatcher {}
     // Parent: CCitadelModifierVData
     // Field count: 1
     pub mod CCitadel_Modifier_DiscordVData {
@@ -2526,12 +2478,13 @@ pub mod client_dll {
     }
     // Parent: CCitadelModifier
     // Field count: 0
-    pub mod CCitadel_Modifier_TechRangeClamp {
-    }
+    pub mod CCitadel_Modifier_TechRangeClamp {}
     // Parent: CPlayerPawnComponent
     // Field count: 0
-    pub mod CPlayer_UseServices {
-    }
+    pub mod CPlayer_UseServices {}
+    // Parent: C_Citadel_BreakblePropModifierPickup
+    // Field count: 0
+    pub mod C_Citadel_PunchablePowerup {}
     // Parent: CCitadelModifierVData
     // Field count: 1
     pub mod CModifier_Synth_Grasp_Caster_VData {
@@ -2555,10 +2508,14 @@ pub mod client_dll {
         pub const m_vTargetPosition: usize = 0xCA4; // Vector
         pub const m_vTargetAngles: usize = 0xCB0; // QAngle
     }
+    // Parent: CCitadelModifier
+    // Field count: 1
+    pub mod CModifier_Upgrade_ArcaneSurge_WeaponBuff {
+        pub const m_nBonusClip: usize = 0xC0; // int32
+    }
     // Parent: CCitadelModifierVData
     // Field count: 0
-    pub mod CCitadel_Modifier_BulletArmorReductionVData {
-    }
+    pub mod CCitadel_Modifier_BulletArmorReductionVData {}
     // Parent: CEntityComponent
     // Field count: 1
     pub mod CScriptComponent {
@@ -2587,12 +2544,10 @@ pub mod client_dll {
     }
     // Parent: CitadelAbilityVData
     // Field count: 0
-    pub mod CAbilityGenericPerson4VData {
-    }
+    pub mod CAbilityGenericPerson4VData {}
     // Parent: CCitadel_Modifier_Sleep
     // Field count: 0
-    pub mod CCitadel_Modifier_SleepDagger_Asleep {
-    }
+    pub mod CCitadel_Modifier_SleepDagger_Asleep {}
     // Parent: CCitadelModifier
     // Field count: 4
     pub mod CCitadel_Modifier_Chrono_KineticCarbine {
@@ -2664,10 +2619,6 @@ pub mod client_dll {
         pub const m_strDaggerExplodeSound: usize = 0x1820; // CSoundEventName
     }
     // Parent: CCitadelModifier
-    // Field count: 0
-    pub mod CCitadel_Modifier_Hook_Shield {
-    }
-    // Parent: CCitadelModifier
     // Field count: 3
     pub mod CCitadel_Modifier_FireBomb {
         pub const m_flSideMoveSpeed: usize = 0x130; // float32
@@ -2676,8 +2627,7 @@ pub mod client_dll {
     }
     // Parent: CCitadelModifier
     // Field count: 0
-    pub mod CCitadel_Modifier_Item_AOESilence_Target {
-    }
+    pub mod CCitadel_Modifier_Item_AOESilence_Target {}
     // Parent: CCitadel_Modifier_BaseEventProcVData
     // Field count: 1
     pub mod CCitadel_Modifier_TechBurst_ProcVData {
@@ -2685,16 +2635,13 @@ pub mod client_dll {
     }
     // Parent: CCitadelModifier
     // Field count: 0
-    pub mod CCitadel_Modifier_RespawnCredit {
-    }
+    pub mod CCitadel_Modifier_RespawnCredit {}
     // Parent: CCitadel_Item
     // Field count: 0
-    pub mod CCitadel_Item_HealthRegenAura {
-    }
+    pub mod CCitadel_Item_HealthRegenAura {}
     // Parent: C_CitadelProjectile
     // Field count: 0
-    pub mod C_CitadelTrackedProjectile {
-    }
+    pub mod C_CitadelTrackedProjectile {}
     // Parent: CCitadel_Modifier_BaseEventProcVData
     // Field count: 3
     pub mod CCitadel_Modifier_FearWatcherVData {
@@ -2709,8 +2656,7 @@ pub mod client_dll {
     }
     // Parent: CCitadelModifier
     // Field count: 0
-    pub mod CCitadel_Modifier_VeilWalkerMovespeed {
-    }
+    pub mod CCitadel_Modifier_VeilWalkerMovespeed {}
     // Parent: CCitadel_Modifier_Intrinsic_Base
     // Field count: 1
     pub mod CCitadel_Modifier_ReinforcingCasings {
@@ -2737,12 +2683,20 @@ pub mod client_dll {
     }
     // Parent: CCitadel_Item
     // Field count: 0
-    pub mod CCitadel_UtilityUpgrade_DebuffImmunity {
-    }
+    pub mod CCitadel_UtilityUpgrade_DebuffImmunity {}
     // Parent: C_BaseEntity
     // Field count: 1
     pub mod CRagdollManager {
         pub const m_iCurrentMaxRagdollCount: usize = 0x568; // int8
+    }
+    // Parent: CitadelAbilityVData
+    // Field count: 5
+    pub mod CCitadel_Ability_Magician_EscapeVData {
+        pub const m_EscapedModifier: usize = 0x1560; // CEmbeddedSubclass<CCitadelModifier>
+        pub const m_PoofParticle: usize = 0x1570; // CResourceNameTyped<CWeakHandle<InfoForResourceTypeIParticleSystemDefinition>>
+        pub const m_TetherParticle: usize = 0x1650; // CResourceNameTyped<CWeakHandle<InfoForResourceTypeIParticleSystemDefinition>>
+        pub const m_strEscaped: usize = 0x1730; // CSoundEventName
+        pub const m_cameraSequenceTeleport: usize = 0x1740; // CitadelCameraOperationsSequence_t
     }
     // Parent: CitadelAbilityVData
     // Field count: 1
@@ -2756,8 +2710,7 @@ pub mod client_dll {
     }
     // Parent: CCitadel_Modifier_BaseEventProc
     // Field count: 0
-    pub mod CCitadel_Modifier_Arcane_Eater_Proc {
-    }
+    pub mod CCitadel_Modifier_Arcane_Eater_Proc {}
     // Parent: CitadelItemVData
     // Field count: 1
     pub mod CItemMetalSkinVData {
@@ -2842,8 +2795,7 @@ pub mod client_dll {
     }
     // Parent: C_CitadelBaseAbility
     // Field count: 0
-    pub mod CCitadel_Ability_ExplosiveBarrel {
-    }
+    pub mod CCitadel_Ability_ExplosiveBarrel {}
     // Parent: CitadelAbilityVData
     // Field count: 5
     pub mod CAbilityVacuumVData {
@@ -2878,8 +2830,7 @@ pub mod client_dll {
     }
     // Parent: C_CitadelBaseAbility
     // Field count: 0
-    pub mod CCitadel_Ability_Tenacity {
-    }
+    pub mod CCitadel_Ability_Tenacity {}
     // Parent: CCitadelYamatoBaseVData
     // Field count: 12
     pub mod CCitadel_Ability_InfinitySlashVData {
@@ -2928,8 +2879,7 @@ pub mod client_dll {
     }
     // Parent: C_CitadelBaseAbility
     // Field count: 0
-    pub mod CCitadel_Ability_Puddle {
-    }
+    pub mod CCitadel_Ability_Puddle {}
     // Parent: CitadelAbilityVData
     // Field count: 24
     pub mod CCitadel_Ability_Bull_LeapVData {
@@ -2994,12 +2944,11 @@ pub mod client_dll {
     // Parent: C_NPC_SimpleAnimatingAI
     // Field count: 1
     pub mod C_NPC_TeslaCoil {
-        pub const m_CCitadelAbilityComponent: usize = 0xB10; // CCitadelAbilityComponent
+        pub const m_CCitadelAbilityComponent: usize = 0xB08; // CCitadelAbilityComponent
     }
     // Parent: C_ModelPointEntity
     // Field count: 0
-    pub mod C_EnvProjectedTexture {
-    }
+    pub mod C_EnvProjectedTexture {}
     // Parent: C_BaseEntity
     // Field count: 2
     pub mod CPathSimple {
@@ -3013,6 +2962,17 @@ pub mod client_dll {
         pub const m_TurretModifier: usize = 0x1570; // CEmbeddedSubclass<CBaseModifier>
         pub const m_strCastEffect: usize = 0x1580; // CResourceNameTyped<CWeakHandle<InfoForResourceTypeIParticleSystemDefinition>>
     }
+    // Parent: C_CitadelBaseAbility
+    // Field count: 7
+    pub mod CAbility_Fathom_LurkersAmbush {
+        pub const m_hRegenModifier: usize = 0xE28; // CModifierHandleTyped<CCitadelModifier>
+        pub const m_hInvisModifier: usize = 0xE40; // CModifierHandleTyped<CCitadelModifier>
+        pub const m_bIsVisibleOnMinimap: usize = 0xE58; // bool
+        pub const m_flStoppedMovingStartTime: usize = 0xE5C; // GameTime_t
+        pub const m_vLastPos: usize = 0xE60; // Vector
+        pub const m_flImmobilizeDuration: usize = 0xE6C; // float32
+        pub const m_flChannelTimeStarted: usize = 0xE70; // GameTime_t
+    }
     // Parent: CCitadel_Modifier_Stunned
     // Field count: 1
     pub mod CCitadel_Modifier_UltCombo_Target {
@@ -3020,8 +2980,7 @@ pub mod client_dll {
     }
     // Parent: CCitadelModifier
     // Field count: 0
-    pub mod CCitadel_Modifier_WreckingBall_AutoThrow {
-    }
+    pub mod CCitadel_Modifier_WreckingBall_AutoThrow {}
     // Parent: CCitadelModifier
     // Field count: 7
     pub mod CCitadel_Modifier_Bebop_LaserBeam {
@@ -3040,8 +2999,7 @@ pub mod client_dll {
     }
     // Parent: CCitadelModifier
     // Field count: 0
-    pub mod CCitadel_Modifier_Kelvin_Frozen {
-    }
+    pub mod CCitadel_Modifier_Kelvin_Frozen {}
     // Parent: CitadelAbilityVData
     // Field count: 4
     pub mod CCitadel_Ability_Chrono_KineticCarbineVData {
@@ -3090,11 +3048,12 @@ pub mod client_dll {
         pub const m_strExpiredSound: usize = 0x3D8; // CSoundEventName
     }
     // Parent: CitadelAbilityVData
-    // Field count: 3
+    // Field count: 4
     pub mod CCitadel_Ability_SmokeBombVData {
         pub const m_InvisModifier: usize = 0x1560; // CEmbeddedSubclass<CCitadelModifier>
         pub const m_BuffModifier: usize = 0x1570; // CEmbeddedSubclass<CCitadelModifier>
-        pub const m_PurgeParticle: usize = 0x1580; // CResourceNameTyped<CWeakHandle<InfoForResourceTypeIParticleSystemDefinition>>
+        pub const m_PhaseOutModifier: usize = 0x1580; // CEmbeddedSubclass<CCitadelModifier>
+        pub const m_PurgeParticle: usize = 0x1590; // CResourceNameTyped<CWeakHandle<InfoForResourceTypeIParticleSystemDefinition>>
     }
     // Parent: CCitadelModifier
     // Field count: 12
@@ -3117,10 +3076,14 @@ pub mod client_dll {
     pub mod CCitadel_Modifier_Siphon_Bullets_WatcherVData {
         pub const m_HealModifier: usize = 0x628; // CEmbeddedSubclass<CCitadelModifier>
     }
+    // Parent: CitadelItemVData
+    // Field count: 1
+    pub mod CItemSilenceGlyphVData {
+        pub const m_DebuffModifier: usize = 0x15A8; // CEmbeddedSubclass<CCitadelModifier>
+    }
     // Parent: CCitadelModifier
     // Field count: 0
-    pub mod CCitadel_Modifier_Upgrade_Magic_Storm {
-    }
+    pub mod CCitadel_Modifier_Upgrade_Magic_Storm {}
     // Parent: CPlayer_MovementServices
     // Field count: 2
     pub mod CCitadelObserver_MovementServices {
@@ -3129,8 +3092,7 @@ pub mod client_dll {
     }
     // Parent: CBodyComponentSkeletonInstance
     // Field count: 0
-    pub mod CBodyComponentBaseModelEntity {
-    }
+    pub mod CBodyComponentBaseModelEntity {}
     // Parent: CitadelAbilityVData
     // Field count: 2
     pub mod CCitadel_Ability_Trapper_FearVData {
@@ -3139,12 +3101,13 @@ pub mod client_dll {
     }
     // Parent: CCitadelModifier
     // Field count: 0
-    pub mod CCitadel_Modifier_IceDome_AuraModifierBase {
-    }
+    pub mod CCitadel_Modifier_IceDome_AuraModifierBase {}
     // Parent: CCitadelModifier
     // Field count: 0
-    pub mod CCitadel_Modifier_TechCleave {
-    }
+    pub mod CCitadel_Modifier_SilenceProc_Debuff {}
+    // Parent: CCitadelModifier
+    // Field count: 0
+    pub mod CCitadel_Modifier_TechCleave {}
     // Parent: None
     // Field count: 75
     pub mod CitadelHeroData_t {
@@ -3234,8 +3197,7 @@ pub mod client_dll {
     }
     // Parent: C_BaseModelEntity
     // Field count: 0
-    pub mod C_World {
-    }
+    pub mod C_World {}
     // Parent: CCitadelModifierAuraVData
     // Field count: 4
     pub mod CModifierVacuumAuraVData {
@@ -3316,20 +3278,21 @@ pub mod client_dll {
     }
     // Parent: C_BaseTrigger
     // Field count: 0
-    pub mod C_CitadelIdolReturnTrigger {
-    }
+    pub mod C_CitadelIdolReturnTrigger {}
     // Parent: C_BaseTrigger
     // Field count: 0
-    pub mod C_CitadelClimbRopeTrigger {
+    pub mod C_CitadelClimbRopeTrigger {}
+    // Parent: CBaseFilter
+    // Field count: 1
+    pub mod CFilterTeam {
+        pub const m_iFilterTeam: usize = 0x5C0; // int32
     }
     // Parent: CCitadel_Item
     // Field count: 0
-    pub mod CCitadel_Item_Refresher {
-    }
+    pub mod CCitadel_Item_Refresher {}
     // Parent: CCitadelModifier
     // Field count: 0
-    pub mod CCitadel_Modifier_KnockbackAura {
-    }
+    pub mod CCitadel_Modifier_KnockbackAura {}
     // Parent: CEntitySubclassVDataBase
     // Field count: 4
     pub mod CCitadelItemPickupRejuvVData {
@@ -3373,32 +3336,29 @@ pub mod client_dll {
     }
     // Parent: C_NPC_HeroCloneTrooper
     // Field count: 0
-    pub mod C_NPC_HeroDecoy {
-    }
+    pub mod C_NPC_HeroDecoy {}
     // Parent: C_BaseTrigger
     // Field count: 12
     pub mod C_PostProcessingVolume {
-        pub const m_hPostSettings: usize = 0x878; // CStrongHandle<InfoForResourceTypeCPostProcessingResource>
-        pub const m_flFadeDuration: usize = 0x880; // float32
-        pub const m_flMinLogExposure: usize = 0x884; // float32
-        pub const m_flMaxLogExposure: usize = 0x888; // float32
-        pub const m_flMinExposure: usize = 0x88C; // float32
-        pub const m_flMaxExposure: usize = 0x890; // float32
-        pub const m_flExposureCompensation: usize = 0x894; // float32
-        pub const m_flExposureFadeSpeedUp: usize = 0x898; // float32
-        pub const m_flExposureFadeSpeedDown: usize = 0x89C; // float32
-        pub const m_flTonemapEVSmoothingRange: usize = 0x8A0; // float32
-        pub const m_bMaster: usize = 0x8A4; // bool
-        pub const m_bExposureControl: usize = 0x8A5; // bool
+        pub const m_hPostSettings: usize = 0x9B0; // CStrongHandle<InfoForResourceTypeCPostProcessingResource>
+        pub const m_flFadeDuration: usize = 0x9B8; // float32
+        pub const m_flMinLogExposure: usize = 0x9BC; // float32
+        pub const m_flMaxLogExposure: usize = 0x9C0; // float32
+        pub const m_flMinExposure: usize = 0x9C4; // float32
+        pub const m_flMaxExposure: usize = 0x9C8; // float32
+        pub const m_flExposureCompensation: usize = 0x9CC; // float32
+        pub const m_flExposureFadeSpeedUp: usize = 0x9D0; // float32
+        pub const m_flExposureFadeSpeedDown: usize = 0x9D4; // float32
+        pub const m_flTonemapEVSmoothingRange: usize = 0x9D8; // float32
+        pub const m_bMaster: usize = 0x9DC; // bool
+        pub const m_bExposureControl: usize = 0x9DD; // bool
     }
     // Parent: CCitadelModifier
     // Field count: 0
-    pub mod CCitadel_Modifier_BullCharging {
-    }
+    pub mod CCitadel_Modifier_BullCharging {}
     // Parent: C_CitadelBaseAbility
     // Field count: 0
-    pub mod CCitadel_Ability_LightningBall {
-    }
+    pub mod CCitadel_Ability_LightningBall {}
     // Parent: CCitadelModifierVData
     // Field count: 1
     pub mod CCitadel_Modifier_Passive_CloakVData {
@@ -3414,16 +3374,13 @@ pub mod client_dll {
     }
     // Parent: CCitadelModifier
     // Field count: 0
-    pub mod CCitadel_Modifier_InShopTunnel {
-    }
+    pub mod CCitadel_Modifier_InShopTunnel {}
     // Parent: CPlayerPawnComponent
     // Field count: 0
-    pub mod CPlayer_FlashlightServices {
-    }
+    pub mod CPlayer_FlashlightServices {}
     // Parent: CCitadelItemPickupRejuv
     // Field count: 0
-    pub mod CCitadelItemPickupRejuvHeroTest {
-    }
+    pub mod CCitadelItemPickupRejuvHeroTest {}
     // Parent: CUnitStatusOverlay
     // Field count: 1
     pub mod CUnitStatusOverlayNew {
@@ -3431,8 +3388,7 @@ pub mod client_dll {
     }
     // Parent: C_BaseModelEntity
     // Field count: 0
-    pub mod CServerOnlyModelEntity {
-    }
+    pub mod CServerOnlyModelEntity {}
     // Parent: CCitadelModifier
     // Field count: 3
     pub mod CCitadel_Modifier_IcePath {
@@ -3459,23 +3415,24 @@ pub mod client_dll {
     }
     // Parent: C_CitadelBaseAbility
     // Field count: 0
-    pub mod CCitadel_Ability_TriggerTower {
-    }
+    pub mod CCitadel_Ability_TriggerTower {}
     // Parent: C_PhysicsProp
     // Field count: 0
-    pub mod C_ItemParachute {
-    }
+    pub mod C_ItemParachute {}
     // Parent: C_BaseModelEntity
     // Field count: 0
-    pub mod C_FuncRotating {
-    }
+    pub mod C_FuncRotating {}
     // Parent: CCitadelModifier
     // Field count: 0
-    pub mod CModifier_Mirage_Tornado_Aura_Apply {
-    }
+    pub mod CModifier_Mirage_Tornado_Aura_Apply {}
     // Parent: CCitadel_Modifier_Base
     // Field count: 0
-    pub mod CModifier_Synth_Blitz_TechAmp {
+    pub mod CModifier_Synth_Blitz_TechAmp {}
+    // Parent: CCitadelModifierVData
+    // Field count: 2
+    pub mod CCitadel_Modifier_SpreadingFire_DOT_VData {
+        pub const m_sSpreadingFireParticle: usize = 0x608; // CResourceNameTyped<CWeakHandle<InfoForResourceTypeIParticleSystemDefinition>>
+        pub const m_sSpreadingFireTetherParticle: usize = 0x6E8; // CResourceNameTyped<CWeakHandle<InfoForResourceTypeIParticleSystemDefinition>>
     }
     // Parent: CCitadelModifierVData
     // Field count: 1
@@ -3513,8 +3470,7 @@ pub mod client_dll {
     }
     // Parent: C_CitadelBaseAbility
     // Field count: 0
-    pub mod CCitadel_Ability_BloodBomb {
-    }
+    pub mod CCitadel_Ability_BloodBomb {}
     // Parent: CCitadelModifierVData
     // Field count: 1
     pub mod CModifierStimPakVData {
@@ -3522,8 +3478,7 @@ pub mod client_dll {
     }
     // Parent: CCitadel_Modifier_BaseEventProc
     // Field count: 0
-    pub mod CCitadel_Modifier_MagicShock_Proc {
-    }
+    pub mod CCitadel_Modifier_MagicShock_Proc {}
     // Parent: C_CitadelBaseAbility
     // Field count: 6
     pub mod CCitadel_Ability_Sprint {
@@ -3541,8 +3496,7 @@ pub mod client_dll {
     }
     // Parent: CCitadelModifier
     // Field count: 0
-    pub mod CCitadel_Modifier_Healing_Disabled {
-    }
+    pub mod CCitadel_Modifier_Healing_Disabled {}
     // Parent: C_BaseEntity
     // Field count: 4
     pub mod C_BaseFire {
@@ -3553,12 +3507,10 @@ pub mod client_dll {
     }
     // Parent: CCitadel_Item
     // Field count: 0
-    pub mod CCitadel_ArmorUpgrade_DebuffReducer {
-    }
+    pub mod CCitadel_ArmorUpgrade_DebuffReducer {}
     // Parent: C_CitadelBaseAbility
     // Field count: 0
-    pub mod CCitadel_Ability_Empty {
-    }
+    pub mod CCitadel_Ability_Empty {}
     // Parent: C_CitadelTrackedProjectile
     // Field count: 1
     pub mod C_CitadelPositionHomingProjectile {
@@ -3566,32 +3518,30 @@ pub mod client_dll {
     }
     // Parent: CCitadelModifier
     // Field count: 0
-    pub mod CGameModifier_FireUserEntityIO {
-    }
+    pub mod CGameModifier_FireUserEntityIO {}
     // Parent: C_BaseEntity
     // Field count: 16
     pub mod CBasePlayerController {
         pub const m_nFinalPredictedTick: usize = 0x570; // int32
         pub const m_CommandContext: usize = 0x578; // C_CommandContext
-        pub const m_nInButtonsWhichAreToggles: usize = 0x610; // uint64
-        pub const m_nTickBase: usize = 0x618; // uint32
-        pub const m_hPawn: usize = 0x61C; // CHandle<C_BasePlayerPawn>
-        pub const m_bKnownTeamMismatch: usize = 0x620; // bool
-        pub const m_hPredictedPawn: usize = 0x624; // CHandle<C_BasePlayerPawn>
-        pub const m_nSplitScreenSlot: usize = 0x628; // CSplitScreenSlot
-        pub const m_hSplitOwner: usize = 0x62C; // CHandle<CBasePlayerController>
-        pub const m_hSplitScreenPlayers: usize = 0x630; // CUtlVector<CHandle<CBasePlayerController>>
-        pub const m_bIsHLTV: usize = 0x648; // bool
-        pub const m_iConnected: usize = 0x64C; // PlayerConnectedState
-        pub const m_iszPlayerName: usize = 0x650; // char[128]
-        pub const m_steamID: usize = 0x6D8; // uint64
-        pub const m_bIsLocalPlayerController: usize = 0x6E0; // bool
-        pub const m_iDesiredFOV: usize = 0x6E4; // uint32
+        pub const m_nInButtonsWhichAreToggles: usize = 0x630; // uint64
+        pub const m_nTickBase: usize = 0x638; // uint32
+        pub const m_hPawn: usize = 0x63C; // CHandle<C_BasePlayerPawn>
+        pub const m_bKnownTeamMismatch: usize = 0x640; // bool
+        pub const m_hPredictedPawn: usize = 0x644; // CHandle<C_BasePlayerPawn>
+        pub const m_nSplitScreenSlot: usize = 0x648; // CSplitScreenSlot
+        pub const m_hSplitOwner: usize = 0x64C; // CHandle<CBasePlayerController>
+        pub const m_hSplitScreenPlayers: usize = 0x650; // CUtlVector<CHandle<CBasePlayerController>>
+        pub const m_bIsHLTV: usize = 0x668; // bool
+        pub const m_iConnected: usize = 0x66C; // PlayerConnectedState
+        pub const m_iszPlayerName: usize = 0x670; // char[128]
+        pub const m_steamID: usize = 0x6F8; // uint64
+        pub const m_bIsLocalPlayerController: usize = 0x700; // bool
+        pub const m_iDesiredFOV: usize = 0x704; // uint32
     }
     // Parent: C_CitadelBaseAbility
     // Field count: 0
-    pub mod CCitadel_Ability_GenericPerson_3 {
-    }
+    pub mod CCitadel_Ability_GenericPerson_3 {}
     // Parent: CCitadelModifierVData
     // Field count: 1
     pub mod CCitadel_Modifier_HealthSwapVData {
@@ -3599,16 +3549,13 @@ pub mod client_dll {
     }
     // Parent: CCitadelModifier
     // Field count: 0
-    pub mod CCitadel_Modifier_Muted {
-    }
+    pub mod CCitadel_Modifier_Muted {}
     // Parent: CCitadelModifier
     // Field count: 0
-    pub mod CCitadel_Modifier_Silenced {
-    }
+    pub mod CCitadel_Modifier_Silenced {}
     // Parent: CCitadel_Modifier_BaseEventProc
     // Field count: 0
-    pub mod CCitadel_Modifier_TechBleed_Proc {
-    }
+    pub mod CCitadel_Modifier_TechBleed_Proc {}
     // Parent: CCitadel_Modifier_BaseEventProcVData
     // Field count: 3
     pub mod CCitadel_Modifier_ApplyDebuff_ProcVData {
@@ -3618,20 +3565,16 @@ pub mod client_dll {
     }
     // Parent: CBaseModifier
     // Field count: 0
-    pub mod CCitadelModifier {
-    }
+    pub mod CCitadelModifier {}
     // Parent: None
     // Field count: 0
-    pub mod CPointTemplateAPI {
-    }
+    pub mod CPointTemplateAPI {}
     // Parent: CBaseAnimGraph
     // Field count: 0
-    pub mod C_WaterBullet {
-    }
+    pub mod C_WaterBullet {}
     // Parent: CCitadelModifier
     // Field count: 0
-    pub mod CModifier_Synth_Affliction_Debuff {
-    }
+    pub mod CModifier_Synth_Affliction_Debuff {}
     // Parent: CCitadelModifierVData
     // Field count: 6
     pub mod CModifierGangActivityAbilitySwapVData {
@@ -3658,8 +3601,7 @@ pub mod client_dll {
     }
     // Parent: CCitadelModifier
     // Field count: 0
-    pub mod CCitadel_Modifier_Chrono_PulseGrenade_Debuff {
-    }
+    pub mod CCitadel_Modifier_Chrono_PulseGrenade_Debuff {}
     // Parent: CCitadelModifier
     // Field count: 5
     pub mod CCitadel_Modifier_BeltFed_Magazine {
@@ -3671,8 +3613,7 @@ pub mod client_dll {
     }
     // Parent: CCitadelModifier
     // Field count: 0
-    pub mod CCitadel_Modifier_ItemWalkBack {
-    }
+    pub mod CCitadel_Modifier_ItemWalkBack {}
     // Parent: CSkeletonAnimationController
     // Field count: 14
     pub mod CBaseAnimGraphController {
@@ -3713,8 +3654,7 @@ pub mod client_dll {
     }
     // Parent: CCitadelModifierAura
     // Field count: 0
-    pub mod CCitadel_Modifier_Hero_Testing_Damage_Aura {
-    }
+    pub mod CCitadel_Modifier_Hero_Testing_Damage_Aura {}
     // Parent: CModifierVData_BaseAura
     // Field count: 2
     pub mod CCitadelModifierAuraVData {
@@ -3744,8 +3684,7 @@ pub mod client_dll {
     }
     // Parent: C_CitadelBaseAbility
     // Field count: 0
-    pub mod CCitadel_Ability_PsychicDagger {
-    }
+    pub mod CCitadel_Ability_PsychicDagger {}
     // Parent: C_BaseModelEntity
     // Field count: 15
     pub mod CBaseAnimGraph {
@@ -3762,8 +3701,8 @@ pub mod client_dll {
         pub const m_RagdollPose: usize = 0x938; // PhysicsRagdollPose_t
         pub const m_bRagdollClientSide: usize = 0x980; // bool
         pub const m_bHasAnimatedMaterialAttributes: usize = 0x990; // bool
-        pub const m_animGraph2SerializeData: usize = 0xAE0; // C_NetworkUtlVectorBase<uint8>
-        pub const m_nAnimGraph2SerializeDataSizeBytes: usize = 0xAF8; // int32
+        pub const m_animGraph2SerializeData: usize = 0xAD8; // C_NetworkUtlVectorBase<uint8>
+        pub const m_nAnimGraph2SerializeDataSizeBytes: usize = 0xAF0; // int32
     }
     // Parent: CCitadelModifierVData
     // Field count: 2
@@ -3782,8 +3721,7 @@ pub mod client_dll {
     }
     // Parent: C_CitadelBaseAbility
     // Field count: 0
-    pub mod CCitadel_Ability_Gravity_Lasso {
-    }
+    pub mod CCitadel_Ability_Gravity_Lasso {}
     // Parent: CCitadelModifierVData
     // Field count: 6
     pub mod CCitadel_Modifier_IceDomeVData {
@@ -3807,24 +3745,19 @@ pub mod client_dll {
     }
     // Parent: CCitadelModifier
     // Field count: 0
-    pub mod CCitadel_Modifier_MeleeDamageOnly {
-    }
+    pub mod CCitadel_Modifier_MeleeDamageOnly {}
     // Parent: CCitadelModifierAura
     // Field count: 0
-    pub mod CModifier_Mirage_Tornado_Aura {
-    }
+    pub mod CModifier_Mirage_Tornado_Aura {}
     // Parent: CCitadelModifierAura
     // Field count: 0
-    pub mod CCitadel_Modifier_MobileResupplyAura {
-    }
+    pub mod CCitadel_Modifier_MobileResupplyAura {}
     // Parent: C_CitadelProjectile
     // Field count: 0
-    pub mod C_Citadel_Projectile_Guided_Arrow {
-    }
+    pub mod C_Citadel_Projectile_Guided_Arrow {}
     // Parent: C_BaseEntity
     // Field count: 0
-    pub mod C_PointEntity {
-    }
+    pub mod C_PointEntity {}
     // Parent: CCitadel_Modifier_StunnedVData
     // Field count: 4
     pub mod CCitadel_Modifier_PetrifyVData {
@@ -3845,16 +3778,13 @@ pub mod client_dll {
     }
     // Parent: C_GameRules
     // Field count: 0
-    pub mod C_MultiplayRules {
-    }
+    pub mod C_MultiplayRules {}
     // Parent: None
     // Field count: 0
-    pub mod CBasePlayerControllerAPI {
-    }
+    pub mod CBasePlayerControllerAPI {}
     // Parent: CCitadelModifierAura
     // Field count: 0
-    pub mod CCitadel_Modifier_ControlPointBlockerAura {
-    }
+    pub mod CCitadel_Modifier_ControlPointBlockerAura {}
     // Parent: CCitadel_Item
     // Field count: 1
     pub mod CCitadel_Item_WarpStone {
@@ -3892,8 +3822,7 @@ pub mod client_dll {
     }
     // Parent: CCitadelModifier
     // Field count: 0
-    pub mod CCitadel_Modifier_ThrownShiv_Slow_Debuff {
-    }
+    pub mod CCitadel_Modifier_ThrownShiv_Slow_Debuff {}
     // Parent: CCitadelModifierVData
     // Field count: 3
     pub mod CCitadel_Modifier_SilencedVData {
@@ -3915,52 +3844,49 @@ pub mod client_dll {
     }
     // Parent: CCitadelModifier
     // Field count: 0
-    pub mod CCitadel_Modifier_Backdoor_Protection {
-    }
+    pub mod CCitadel_Modifier_Backdoor_Protection {}
     // Parent: CAI_CitadelNPCVData
     // Field count: 32
     pub mod CNPC_TrooperNeutralVData {
-        pub const m_eTrooperType: usize = 0xFB0; // ENeutralTrooperType
-        pub const m_flGoldReward: usize = 0xFB4; // float32
-        pub const m_flGoldRewardBonusPercentPerMinute: usize = 0xFB8; // float32
-        pub const m_bGiveGoldOnHit: usize = 0xFBC; // bool
-        pub const m_bOrbDropper: usize = 0xFBD; // bool
-        pub const m_bCapSimultanousAttackers: usize = 0xFBE; // bool
-        pub const m_flShieldReactivateDelay: usize = 0xFC0; // float32
-        pub const m_flDyingDuration: usize = 0xFC4; // float32
-        pub const m_bDamagedByBullets: usize = 0xFC8; // bool
-        pub const m_bDamagedByMelee: usize = 0xFC9; // bool
-        pub const m_bDamagedByAbilities: usize = 0xFCA; // bool
-        pub const m_bFixedMeleeDamage: usize = 0xFCB; // bool
-        pub const m_ShieldParticle: usize = 0xFD0; // CResourceNameTyped<CWeakHandle<InfoForResourceTypeIParticleSystemDefinition>>
-        pub const m_flRetaliateDamage: usize = 0x10B0; // float32
-        pub const m_flRetaliateCooldown: usize = 0x10B4; // float32
-        pub const m_retaliateParticle: usize = 0x10B8; // CResourceNameTyped<CWeakHandle<InfoForResourceTypeIParticleSystemDefinition>>
-        pub const m_bHasAOEAttack: usize = 0x1198; // bool
-        pub const m_flAOERadius: usize = 0x119C; // float32
-        pub const m_flAOEDamage: usize = 0x11A0; // float32
-        pub const m_flAOEAttackCooldown: usize = 0x11A4; // float32
-        pub const m_AOEParticle: usize = 0x11A8; // CResourceNameTyped<CWeakHandle<InfoForResourceTypeIParticleSystemDefinition>>
-        pub const m_AOEDebuffToApply: usize = 0x1288; // CEmbeddedSubclass<CCitadelModifier>
-        pub const m_AOEInitiateSound: usize = 0x1298; // CSoundEventName
-        pub const m_AOESound: usize = 0x12A8; // CSoundEventName
-        pub const m_AOEDebuffDuration: usize = 0x12B8; // float32
-        pub const m_vecRandomBodyGroup: usize = 0x12C0; // CUtlVector<CUtlString>
-        pub const m_vecRandomSkin: usize = 0x12D8; // CUtlVector<CUtlString>
-        pub const m_flHullCapsuleRadius: usize = 0x12F0; // float32
-        pub const m_flHullCapsuleHeight: usize = 0x12F4; // float32
-        pub const m_bFaceEnemyWhileIdle: usize = 0x12F8; // bool
-        pub const m_IdleLoopSound: usize = 0x1300; // CSoundEventName
-        pub const m_MoveType: usize = 0x1310; // MoveType_t
+        pub const m_eTrooperType: usize = 0x10D8; // ENeutralTrooperType
+        pub const m_flGoldReward: usize = 0x10DC; // float32
+        pub const m_flGoldRewardBonusPercentPerMinute: usize = 0x10E0; // float32
+        pub const m_bGiveGoldOnHit: usize = 0x10E4; // bool
+        pub const m_bOrbDropper: usize = 0x10E5; // bool
+        pub const m_bCapSimultanousAttackers: usize = 0x10E6; // bool
+        pub const m_flShieldReactivateDelay: usize = 0x10E8; // float32
+        pub const m_flDyingDuration: usize = 0x10EC; // float32
+        pub const m_bDamagedByBullets: usize = 0x10F0; // bool
+        pub const m_bDamagedByMelee: usize = 0x10F1; // bool
+        pub const m_bDamagedByAbilities: usize = 0x10F2; // bool
+        pub const m_bFixedMeleeDamage: usize = 0x10F3; // bool
+        pub const m_ShieldParticle: usize = 0x10F8; // CResourceNameTyped<CWeakHandle<InfoForResourceTypeIParticleSystemDefinition>>
+        pub const m_flRetaliateDamage: usize = 0x11D8; // float32
+        pub const m_flRetaliateCooldown: usize = 0x11DC; // float32
+        pub const m_retaliateParticle: usize = 0x11E0; // CResourceNameTyped<CWeakHandle<InfoForResourceTypeIParticleSystemDefinition>>
+        pub const m_bHasAOEAttack: usize = 0x12C0; // bool
+        pub const m_flAOERadius: usize = 0x12C4; // float32
+        pub const m_flAOEDamage: usize = 0x12C8; // float32
+        pub const m_flAOEAttackCooldown: usize = 0x12CC; // float32
+        pub const m_AOEParticle: usize = 0x12D0; // CResourceNameTyped<CWeakHandle<InfoForResourceTypeIParticleSystemDefinition>>
+        pub const m_AOEDebuffToApply: usize = 0x13B0; // CEmbeddedSubclass<CCitadelModifier>
+        pub const m_AOEInitiateSound: usize = 0x13C0; // CSoundEventName
+        pub const m_AOESound: usize = 0x13D0; // CSoundEventName
+        pub const m_AOEDebuffDuration: usize = 0x13E0; // float32
+        pub const m_vecRandomBodyGroup: usize = 0x13E8; // CUtlVector<CUtlString>
+        pub const m_vecRandomSkin: usize = 0x1400; // CUtlVector<CUtlString>
+        pub const m_flHullCapsuleRadius: usize = 0x1418; // float32
+        pub const m_flHullCapsuleHeight: usize = 0x141C; // float32
+        pub const m_bFaceEnemyWhileIdle: usize = 0x1420; // bool
+        pub const m_IdleLoopSound: usize = 0x1428; // CSoundEventName
+        pub const m_MoveType: usize = 0x1438; // MoveType_t
     }
     // Parent: C_CitadelProjectile
     // Field count: 0
-    pub mod CCitadel_Projectile_RocketLauncher_Rocket {
-    }
+    pub mod CCitadel_Projectile_RocketLauncher_Rocket {}
     // Parent: CCitadel_Ability_BaseHeldItem
     // Field count: 0
-    pub mod CCitadel_Ability_GoldenIdol {
-    }
+    pub mod CCitadel_Ability_GoldenIdol {}
     // Parent: C_BaseModelEntity
     // Field count: 16
     pub mod C_CitadelProjectile {
@@ -3983,8 +3909,7 @@ pub mod client_dll {
     }
     // Parent: C_CitadelBaseAbility
     // Field count: 0
-    pub mod CCitadel_Ability_Targetdummy_3 {
-    }
+    pub mod CCitadel_Ability_Targetdummy_3 {}
     // Parent: CitadelAbilityVData
     // Field count: 3
     pub mod CAbilityVandalSurgeVData {
@@ -4000,16 +3925,13 @@ pub mod client_dll {
     }
     // Parent: CCitadelModifier
     // Field count: 0
-    pub mod CModifier_Upgrade_KineticSash {
-    }
+    pub mod CModifier_Upgrade_KineticSash {}
     // Parent: CCitadel_Item
     // Field count: 0
-    pub mod CCitadel_ArmorUpgrade_CloakingDevice {
-    }
+    pub mod CCitadel_ArmorUpgrade_CloakingDevice {}
     // Parent: CCitadel_Item
     // Field count: 0
-    pub mod CCitadel_ArmorUpgrade_RegenerativeArmor {
-    }
+    pub mod CCitadel_ArmorUpgrade_RegenerativeArmor {}
     // Parent: C_SoundEventEntity
     // Field count: 2
     pub mod C_SoundEventAABBEntity {
@@ -4059,13 +3981,7 @@ pub mod client_dll {
     }
     // Parent: CCitadelModifier
     // Field count: 0
-    pub mod CCitadel_Modifier_DebuffImmunity {
-    }
-    // Parent: CCitadelModifierVData
-    // Field count: 1
-    pub mod CCitadel_Modifier_ConsumedProtectionRacketVData {
-        pub const m_strShieldBreakSound: usize = 0x608; // CSoundEventName
-    }
+    pub mod CCitadel_Modifier_DebuffImmunity {}
     // Parent: CCitadel_Modifier_Stunned
     // Field count: 1
     pub mod CCitadel_Modifier_Wrecker_Ultimate_ThrowEnemy {
@@ -4125,8 +4041,7 @@ pub mod client_dll {
     }
     // Parent: CEnvSoundscape
     // Field count: 0
-    pub mod CEnvSoundscapeAlias_snd_soundscape {
-    }
+    pub mod CEnvSoundscapeAlias_snd_soundscape {}
     // Parent: CCitadelModifierAuraVData
     // Field count: 2
     pub mod CCitadel_Modifier_FlameDashGroundAuraVData {
@@ -4135,12 +4050,10 @@ pub mod client_dll {
     }
     // Parent: CCitadel_Item
     // Field count: 0
-    pub mod CCitadel_Item_QuickSilver {
-    }
+    pub mod CCitadel_Item_QuickSilver {}
     // Parent: CCitadel_Item
     // Field count: 0
-    pub mod CCitadel_Item_AOE_Tech_Shield {
-    }
+    pub mod CCitadel_Item_AOE_Tech_Shield {}
     // Parent: CCitadelModifier
     // Field count: 1
     pub mod CGameModifier_SetMoveType {
@@ -4148,28 +4061,22 @@ pub mod client_dll {
     }
     // Parent: CCitadel_Modifier_Base
     // Field count: 0
-    pub mod CCitadel_Modifier_TangoTetherTarget {
-    }
+    pub mod CCitadel_Modifier_TangoTetherTarget {}
     // Parent: CCitadelModifier
     // Field count: 0
-    pub mod CCitadel_Modifier_PristineEmblem {
-    }
+    pub mod CCitadel_Modifier_PristineEmblem {}
     // Parent: CCitadelModifier
     // Field count: 0
-    pub mod CCitadel_Modifier_Objective_Bullet_Resist {
-    }
+    pub mod CCitadel_Modifier_Objective_Bullet_Resist {}
     // Parent: CCitadelModifierAura
     // Field count: 0
-    pub mod CCitadel_Modifier_Tokamak_AllySmokeAOE {
-    }
+    pub mod CCitadel_Modifier_Tokamak_AllySmokeAOE {}
     // Parent: CCitadel_Item_TrackingProjectileApplyModifier
     // Field count: 0
-    pub mod CCitadel_Item_Disarm {
-    }
+    pub mod CCitadel_Item_Disarm {}
     // Parent: CCitadelModifierVData
     // Field count: 0
-    pub mod CModifier_Synth_Barrage_Caster_VData {
-    }
+    pub mod CModifier_Synth_Barrage_Caster_VData {}
     // Parent: CitadelAbilityVData
     // Field count: 1
     pub mod CAbilityGangActivityCancelVData {
@@ -4193,16 +4100,16 @@ pub mod client_dll {
         pub const m_SleepBombModifier: usize = 0x1660; // CEmbeddedSubclass<CCitadelModifier>
     }
     // Parent: CitadelAbilityVData
-    // Field count: 3
+    // Field count: 4
     pub mod CAbilityLashFlogVData {
         pub const m_FlogParticle: usize = 0x1560; // CResourceNameTyped<CWeakHandle<InfoForResourceTypeIParticleSystemDefinition>>
         pub const m_FlogLifeLeachParticle: usize = 0x1640; // CResourceNameTyped<CWeakHandle<InfoForResourceTypeIParticleSystemDefinition>>
-        pub const m_FlogDebuffModifier: usize = 0x1720; // CEmbeddedSubclass<CCitadelModifier>
+        pub const m_strHitConfirmSound: usize = 0x1720; // CSoundEventName
+        pub const m_FlogDebuffModifier: usize = 0x1730; // CEmbeddedSubclass<CCitadelModifier>
     }
     // Parent: CCitadel_Modifier_BaseEventProc
     // Field count: 0
-    pub mod CCitadel_Modifier_BoxingGlove {
-    }
+    pub mod CCitadel_Modifier_BoxingGlove {}
     // Parent: CCitadel_Modifier_BaseEventProcVData
     // Field count: 1
     pub mod CCitadel_Modifier_Inhibitor_ProcVData {
@@ -4216,18 +4123,17 @@ pub mod client_dll {
     // Parent: CBaseAnimGraph
     // Field count: 7
     pub mod C_BasePlayerWeapon {
-        pub const m_nNextPrimaryAttackTick: usize = 0xB08; // GameTick_t
-        pub const m_flNextPrimaryAttackTickRatio: usize = 0xB0C; // float32
-        pub const m_nNextSecondaryAttackTick: usize = 0xB10; // GameTick_t
-        pub const m_flNextSecondaryAttackTickRatio: usize = 0xB14; // float32
-        pub const m_iClip1: usize = 0xB18; // int32
-        pub const m_iClip2: usize = 0xB1C; // int32
-        pub const m_pReserveAmmo: usize = 0xB20; // int32[2]
+        pub const m_nNextPrimaryAttackTick: usize = 0xB00; // GameTick_t
+        pub const m_flNextPrimaryAttackTickRatio: usize = 0xB04; // float32
+        pub const m_nNextSecondaryAttackTick: usize = 0xB08; // GameTick_t
+        pub const m_flNextSecondaryAttackTickRatio: usize = 0xB0C; // float32
+        pub const m_iClip1: usize = 0xB10; // int32
+        pub const m_iClip2: usize = 0xB14; // int32
+        pub const m_pReserveAmmo: usize = 0xB18; // int32[2]
     }
     // Parent: CCitadel_Item
     // Field count: 0
-    pub mod CCitadel_UtilityUpgrade_HealthNova {
-    }
+    pub mod CCitadel_UtilityUpgrade_HealthNova {}
     // Parent: CCitadelModifierVData
     // Field count: 4
     pub mod CModifierSpiderShieldBuffVData {
@@ -4280,34 +4186,33 @@ pub mod client_dll {
     // Parent: CBaseAnimGraph
     // Field count: 23
     pub mod C_Fish {
-        pub const m_pos: usize = 0xB08; // Vector
-        pub const m_vel: usize = 0xB14; // Vector
-        pub const m_angles: usize = 0xB20; // QAngle
-        pub const m_localLifeState: usize = 0xB2C; // int32
-        pub const m_deathDepth: usize = 0xB30; // float32
-        pub const m_deathAngle: usize = 0xB34; // float32
-        pub const m_buoyancy: usize = 0xB38; // float32
-        pub const m_wiggleTimer: usize = 0xB40; // CountdownTimer
-        pub const m_wigglePhase: usize = 0xB58; // float32
-        pub const m_wiggleRate: usize = 0xB5C; // float32
-        pub const m_actualPos: usize = 0xB60; // Vector
-        pub const m_actualAngles: usize = 0xB6C; // QAngle
-        pub const m_poolOrigin: usize = 0xB78; // Vector
-        pub const m_waterLevel: usize = 0xB84; // float32
-        pub const m_gotUpdate: usize = 0xB88; // bool
-        pub const m_x: usize = 0xB8C; // float32
-        pub const m_y: usize = 0xB90; // float32
-        pub const m_z: usize = 0xB94; // float32
-        pub const m_angle: usize = 0xB98; // float32
-        pub const m_errorHistory: usize = 0xB9C; // float32[20]
-        pub const m_errorHistoryIndex: usize = 0xBEC; // int32
-        pub const m_errorHistoryCount: usize = 0xBF0; // int32
-        pub const m_averageError: usize = 0xBF4; // float32
+        pub const m_pos: usize = 0xB00; // Vector
+        pub const m_vel: usize = 0xB0C; // Vector
+        pub const m_angles: usize = 0xB18; // QAngle
+        pub const m_localLifeState: usize = 0xB24; // int32
+        pub const m_deathDepth: usize = 0xB28; // float32
+        pub const m_deathAngle: usize = 0xB2C; // float32
+        pub const m_buoyancy: usize = 0xB30; // float32
+        pub const m_wiggleTimer: usize = 0xB38; // CountdownTimer
+        pub const m_wigglePhase: usize = 0xB50; // float32
+        pub const m_wiggleRate: usize = 0xB54; // float32
+        pub const m_actualPos: usize = 0xB58; // Vector
+        pub const m_actualAngles: usize = 0xB64; // QAngle
+        pub const m_poolOrigin: usize = 0xB70; // Vector
+        pub const m_waterLevel: usize = 0xB7C; // float32
+        pub const m_gotUpdate: usize = 0xB80; // bool
+        pub const m_x: usize = 0xB84; // float32
+        pub const m_y: usize = 0xB88; // float32
+        pub const m_z: usize = 0xB8C; // float32
+        pub const m_angle: usize = 0xB90; // float32
+        pub const m_errorHistory: usize = 0xB94; // float32[20]
+        pub const m_errorHistoryIndex: usize = 0xBE4; // int32
+        pub const m_errorHistoryCount: usize = 0xBE8; // int32
+        pub const m_averageError: usize = 0xBEC; // float32
     }
     // Parent: C_CitadelProjectile
     // Field count: 0
-    pub mod C_Citadel_Projectile_Archer_ChargedShot {
-    }
+    pub mod C_Citadel_Projectile_Archer_ChargedShot {}
     // Parent: CCitadelModifierAura
     // Field count: 3
     pub mod CCitadel_Modifier_Item_AOESilence {
@@ -4330,8 +4235,7 @@ pub mod client_dll {
     }
     // Parent: CCitadelModifier
     // Field count: 0
-    pub mod CCitadel_Modifier_Shiv_KillingBlow_Leap {
-    }
+    pub mod CCitadel_Modifier_Shiv_KillingBlow_Leap {}
     // Parent: CitadelAbilityVData
     // Field count: 4
     pub mod CAbilityLightningBallVData {
@@ -4342,8 +4246,7 @@ pub mod client_dll {
     }
     // Parent: CScaleFunctionVData
     // Field count: 0
-    pub mod CScaleFunctionAbilityPropertySingleStatVData {
-    }
+    pub mod CScaleFunctionAbilityPropertySingleStatVData {}
     // Parent: IntervalTimer
     // Field count: 7
     pub mod CTimeline {
@@ -4357,8 +4260,7 @@ pub mod client_dll {
     }
     // Parent: CBaseAnimGraph
     // Field count: 0
-    pub mod C_Citadel_DeployablePreview {
-    }
+    pub mod C_Citadel_DeployablePreview {}
     // Parent: CCitadelModifierAura
     // Field count: 1
     pub mod CCitadel_Item_StasisBomb_Aura {
@@ -4366,12 +4268,10 @@ pub mod client_dll {
     }
     // Parent: C_CitadelBaseAbility
     // Field count: 0
-    pub mod CCitadel_Ability_Targetdummy_1 {
-    }
+    pub mod CCitadel_Ability_Targetdummy_1 {}
     // Parent: CCitadelModifier
     // Field count: 0
-    pub mod CCitadel_Modifier_SettingSunThinker {
-    }
+    pub mod CCitadel_Modifier_SettingSunThinker {}
     // Parent: CCitadelModifierVData
     // Field count: 1
     pub mod CModifierHighAlertBuffVData {
@@ -4386,16 +4286,13 @@ pub mod client_dll {
     }
     // Parent: C_CitadelBaseAbility
     // Field count: 0
-    pub mod CCitadel_Ability_VandalSurge {
-    }
+    pub mod CCitadel_Ability_VandalSurge {}
     // Parent: CCitadel_Modifier_BaseEventProc
     // Field count: 0
-    pub mod CCitadel_Modifier_DisarmProcWatcher {
-    }
+    pub mod CCitadel_Modifier_DisarmProcWatcher {}
     // Parent: CCitadelModifier
     // Field count: 0
-    pub mod CCitadel_Modifier_RevealTarget {
-    }
+    pub mod CCitadel_Modifier_RevealTarget {}
     // Parent: C_BaseEntity
     // Field count: 2
     pub mod CPathAccompany {
@@ -4405,34 +4302,34 @@ pub mod client_dll {
     // Parent: C_BaseCombatCharacter
     // Field count: 28
     pub mod C_BasePlayerPawn {
-        pub const m_pWeaponServices: usize = 0xD28; // CPlayer_WeaponServices*
-        pub const m_pItemServices: usize = 0xD30; // CPlayer_ItemServices*
-        pub const m_pAutoaimServices: usize = 0xD38; // CPlayer_AutoaimServices*
-        pub const m_pObserverServices: usize = 0xD40; // CPlayer_ObserverServices*
-        pub const m_pWaterServices: usize = 0xD48; // CPlayer_WaterServices*
-        pub const m_pUseServices: usize = 0xD50; // CPlayer_UseServices*
-        pub const m_pFlashlightServices: usize = 0xD58; // CPlayer_FlashlightServices*
-        pub const m_pCameraServices: usize = 0xD60; // CPlayer_CameraServices*
-        pub const m_pMovementServices: usize = 0xD68; // CPlayer_MovementServices*
-        pub const m_ServerViewAngleChanges: usize = 0xD78; // C_UtlVectorEmbeddedNetworkVar<ViewAngleServerChange_t>
-        pub const v_angle: usize = 0xDE0; // QAngle
-        pub const v_anglePrevious: usize = 0xDEC; // QAngle
-        pub const m_iHideHUD: usize = 0xDF8; // uint32
-        pub const m_skybox3d: usize = 0xE00; // sky3dparams_t
-        pub const m_flDeathTime: usize = 0xE90; // GameTime_t
-        pub const m_vecPredictionError: usize = 0xE94; // Vector
-        pub const m_flPredictionErrorTime: usize = 0xEA0; // GameTime_t
-        pub const m_vecLastCameraSetupLocalOrigin: usize = 0xEA4; // Vector
-        pub const m_flLastCameraSetupTime: usize = 0xEB0; // GameTime_t
-        pub const m_flFOVSensitivityAdjust: usize = 0xEB4; // float32
-        pub const m_flMouseSensitivity: usize = 0xEB8; // float32
-        pub const m_vOldOrigin: usize = 0xEBC; // Vector
-        pub const m_flOldSimulationTime: usize = 0xEC8; // float32
-        pub const m_nLastExecutedCommandNumber: usize = 0xECC; // int32
-        pub const m_nLastExecutedCommandTick: usize = 0xED0; // int32
-        pub const m_hController: usize = 0xED4; // CHandle<CBasePlayerController>
-        pub const m_hDefaultController: usize = 0xED8; // CHandle<CBasePlayerController>
-        pub const m_bIsSwappingToPredictableController: usize = 0xEDC; // bool
+        pub const m_pWeaponServices: usize = 0xD20; // CPlayer_WeaponServices*
+        pub const m_pItemServices: usize = 0xD28; // CPlayer_ItemServices*
+        pub const m_pAutoaimServices: usize = 0xD30; // CPlayer_AutoaimServices*
+        pub const m_pObserverServices: usize = 0xD38; // CPlayer_ObserverServices*
+        pub const m_pWaterServices: usize = 0xD40; // CPlayer_WaterServices*
+        pub const m_pUseServices: usize = 0xD48; // CPlayer_UseServices*
+        pub const m_pFlashlightServices: usize = 0xD50; // CPlayer_FlashlightServices*
+        pub const m_pCameraServices: usize = 0xD58; // CPlayer_CameraServices*
+        pub const m_pMovementServices: usize = 0xD60; // CPlayer_MovementServices*
+        pub const m_ServerViewAngleChanges: usize = 0xD70; // C_UtlVectorEmbeddedNetworkVar<ViewAngleServerChange_t>
+        pub const v_angle: usize = 0xDD8; // QAngle
+        pub const v_anglePrevious: usize = 0xDE4; // QAngle
+        pub const m_iHideHUD: usize = 0xDF0; // uint32
+        pub const m_skybox3d: usize = 0xDF8; // sky3dparams_t
+        pub const m_flDeathTime: usize = 0xE88; // GameTime_t
+        pub const m_vecPredictionError: usize = 0xE8C; // Vector
+        pub const m_flPredictionErrorTime: usize = 0xE98; // GameTime_t
+        pub const m_vecLastCameraSetupLocalOrigin: usize = 0xE9C; // Vector
+        pub const m_flLastCameraSetupTime: usize = 0xEA8; // GameTime_t
+        pub const m_flFOVSensitivityAdjust: usize = 0xEAC; // float32
+        pub const m_flMouseSensitivity: usize = 0xEB0; // float32
+        pub const m_vOldOrigin: usize = 0xEB4; // Vector
+        pub const m_flOldSimulationTime: usize = 0xEC0; // float32
+        pub const m_nLastExecutedCommandNumber: usize = 0xEC4; // int32
+        pub const m_nLastExecutedCommandTick: usize = 0xEC8; // int32
+        pub const m_hController: usize = 0xECC; // CHandle<CBasePlayerController>
+        pub const m_hDefaultController: usize = 0xED0; // CHandle<CBasePlayerController>
+        pub const m_bIsSwappingToPredictableController: usize = 0xED4; // bool
     }
     // Parent: CCitadelModifierAuraVData
     // Field count: 1
@@ -4463,8 +4360,7 @@ pub mod client_dll {
     }
     // Parent: C_CitadelBaseAbility
     // Field count: 0
-    pub mod CCitadel_Ability_HornetSting {
-    }
+    pub mod CCitadel_Ability_HornetSting {}
     // Parent: CCitadelModifierVData
     // Field count: 3
     pub mod CCitadel_Modifier_MutedVData {
@@ -4479,8 +4375,7 @@ pub mod client_dll {
     }
     // Parent: C_BaseEntity
     // Field count: 0
-    pub mod CLogicalEntity {
-    }
+    pub mod CLogicalEntity {}
     // Parent: None
     // Field count: 24
     pub mod CAnimGraphNetworkedVariables {
@@ -4556,19 +4451,20 @@ pub mod client_dll {
     }
     // Parent: CCitadelModifierVData
     // Field count: 0
-    pub mod CCitadel_Modifier_Cadence_SilenceContraptionsDebuffVData {
-    }
+    pub mod CCitadel_Modifier_Cadence_SilenceContraptionsDebuffVData {}
     // Parent: C_CitadelBaseAbility
     // Field count: 0
-    pub mod CCitadel_Ability_Trappers_Bolo {
-    }
+    pub mod CCitadel_Ability_Trappers_Bolo {}
     // Parent: CCitadelModifier
     // Field count: 0
-    pub mod CCitadel_Modifier_Nano_PredatoryStatueTarget {
-    }
+    pub mod CCitadel_Modifier_Nano_PredatoryStatueTarget {}
     // Parent: CCitadel_Modifier_BaseEventProc
     // Field count: 0
-    pub mod CCitadel_Modifier_SlowingBullets_Proc {
+    pub mod CCitadel_Modifier_SlowingBullets_Proc {}
+    // Parent: CBaseFilter
+    // Field count: 1
+    pub mod CFilterModifier {
+        pub const m_iFilterModifier: usize = 0x5C0; // CUtlSymbolLarge
     }
     // Parent: C_BaseEntity
     // Field count: 16
@@ -4597,8 +4493,7 @@ pub mod client_dll {
     }
     // Parent: C_CitadelBaseAbility
     // Field count: 0
-    pub mod CCitadel_Ability_GenericPerson_4 {
-    }
+    pub mod CCitadel_Ability_GenericPerson_4 {}
     // Parent: CitadelAbilityVData
     // Field count: 3
     pub mod CAbilityWreckerScrapBlastVData {
@@ -4615,8 +4510,7 @@ pub mod client_dll {
     }
     // Parent: CCitadelModifier
     // Field count: 0
-    pub mod CCitadel_Modifier_Stimpak_regen {
-    }
+    pub mod CCitadel_Modifier_Stimpak_regen {}
     // Parent: CCitadelModifier
     // Field count: 4
     pub mod CCitadel_Modifier_BlastPush {
@@ -4627,12 +4521,10 @@ pub mod client_dll {
     }
     // Parent: CScaleFunctionBase
     // Field count: 0
-    pub mod CScaleFunctionAbilityProperty_WeaponDamage {
-    }
+    pub mod CScaleFunctionAbilityProperty_WeaponDamage {}
     // Parent: CEntityComponent
     // Field count: 0
-    pub mod CCitadelPlayerClipComponent {
-    }
+    pub mod CCitadelPlayerClipComponent {}
     // Parent: CCitadelModifierAuraVData
     // Field count: 1
     pub mod CItemAOESilenceAuraVData {
@@ -4640,8 +4532,7 @@ pub mod client_dll {
     }
     // Parent: CCitadelModifier
     // Field count: 0
-    pub mod CCitadel_Modifier_Disruptive_Charge {
-    }
+    pub mod CCitadel_Modifier_Disruptive_Charge {}
     // Parent: CCitadelModifierVData
     // Field count: 3
     pub mod CCitadel_Modifier_TargetPracticeDebuffVData {
@@ -4665,8 +4556,7 @@ pub mod client_dll {
     }
     // Parent: CCitadel_Modifier_BaseEventProc
     // Field count: 0
-    pub mod CCitadel_Modifier_LifestrikeGauntlets {
-    }
+    pub mod CCitadel_Modifier_LifestrikeGauntlets {}
     // Parent: CCitadelModifierVData
     // Field count: 3
     pub mod CModifier_CheatDeathImmunityVData {
@@ -4682,8 +4572,10 @@ pub mod client_dll {
     }
     // Parent: C_CitadelProjectile
     // Field count: 0
-    pub mod CCitadel_Projectile_Pillar {
-    }
+    pub mod CCitadel_Projectile_Pillar {}
+    // Parent: C_CitadelBaseAbility
+    // Field count: 0
+    pub mod CCitadel_Ability_Viper_PetrifyBola {}
     // Parent: CCitadelBaseShivAbility
     // Field count: 1
     pub mod CCitadel_Ability_Shiv_Defer_Damage {
@@ -4705,12 +4597,10 @@ pub mod client_dll {
     }
     // Parent: C_NPC_TrooperBoss
     // Field count: 0
-    pub mod C_NPC_TrooperBarrackBoss {
-    }
+    pub mod C_NPC_TrooperBarrackBoss {}
     // Parent: C_CitadelBaseAbility
     // Field count: 0
-    pub mod CCitadel_Ability_MageWalk {
-    }
+    pub mod CCitadel_Ability_MageWalk {}
     // Parent: C_CitadelBaseAbility
     // Field count: 6
     pub mod CCitadel_Ability_ViscousWeapon_Alt {
@@ -4729,31 +4619,30 @@ pub mod client_dll {
     // Parent: C_BaseCombatCharacter
     // Field count: 20
     pub mod C_PortraitWorldUnit {
-        pub const m_bSuppressIntroEffects: usize = 0xD28; // bool
-        pub const m_bIsAlternateLoadout: usize = 0xD29; // bool
-        pub const m_bSpawnBackgroundModels: usize = 0xD2A; // bool
-        pub const m_bDeferredPortrait: usize = 0xD2B; // bool
-        pub const m_bShowParticleAssetModifiers: usize = 0xD2C; // bool
-        pub const m_bIgnorePortraitInfo: usize = 0xD2D; // bool
-        pub const m_bFlyingCourier: usize = 0xD2E; // bool
-        pub const m_nEffigyStatusEffect: usize = 0xD30; // int32
-        pub const m_effigySequenceName: usize = 0xD38; // CUtlSymbolLarge
-        pub const m_flStartingAnimationCycle: usize = 0xD40; // float32
-        pub const m_flRareLoadoutAnimChance: usize = 0xD44; // float32
-        pub const m_environment: usize = 0xD58; // CitadelPortraitEnvironmentType_t
-        pub const m_nStartupBehavior: usize = 0xD5C; // StartupBehavior_t
-        pub const m_cameraName: usize = 0xED0; // CUtlSymbolLarge
-        pub const m_nPortraitParticle: usize = 0xF08; // ParticleIndex_t
-        pub const m_nAmbientParticle: usize = 0xF0C; // ParticleIndex_t
-        pub const m_nCourierType: usize = 0xF10; // int32
-        pub const m_heroID: usize = 0xF14; // HeroID_t
-        pub const m_heroAnimGraphEnumName: usize = 0xF18; // CUtlSymbolLarge
-        pub const m_heroShopAnimGraphEnumName: usize = 0xF20; // CUtlSymbolLarge
+        pub const m_bSuppressIntroEffects: usize = 0xD20; // bool
+        pub const m_bIsAlternateLoadout: usize = 0xD21; // bool
+        pub const m_bSpawnBackgroundModels: usize = 0xD22; // bool
+        pub const m_bDeferredPortrait: usize = 0xD23; // bool
+        pub const m_bShowParticleAssetModifiers: usize = 0xD24; // bool
+        pub const m_bIgnorePortraitInfo: usize = 0xD25; // bool
+        pub const m_bFlyingCourier: usize = 0xD26; // bool
+        pub const m_nEffigyStatusEffect: usize = 0xD28; // int32
+        pub const m_effigySequenceName: usize = 0xD30; // CUtlSymbolLarge
+        pub const m_flStartingAnimationCycle: usize = 0xD38; // float32
+        pub const m_flRareLoadoutAnimChance: usize = 0xD3C; // float32
+        pub const m_environment: usize = 0xD50; // CitadelPortraitEnvironmentType_t
+        pub const m_nStartupBehavior: usize = 0xD54; // StartupBehavior_t
+        pub const m_cameraName: usize = 0xEC8; // CUtlSymbolLarge
+        pub const m_nPortraitParticle: usize = 0xF00; // ParticleIndex_t
+        pub const m_nAmbientParticle: usize = 0xF04; // ParticleIndex_t
+        pub const m_nCourierType: usize = 0xF08; // int32
+        pub const m_heroID: usize = 0xF0C; // HeroID_t
+        pub const m_heroAnimGraphEnumName: usize = 0xF10; // CUtlSymbolLarge
+        pub const m_heroShopAnimGraphEnumName: usize = 0xF18; // CUtlSymbolLarge
     }
     // Parent: C_EconEntity
     // Field count: 0
-    pub mod C_EconWearable {
-    }
+    pub mod C_EconWearable {}
     // Parent: C_BaseModelEntity
     // Field count: 4
     pub mod CCitadelBulletTimeWarp {
@@ -4770,12 +4659,10 @@ pub mod client_dll {
     }
     // Parent: CCitadel_Modifier_BaseEventProc
     // Field count: 0
-    pub mod CCitadel_Modifier_AfterburnWatcher {
-    }
+    pub mod CCitadel_Modifier_AfterburnWatcher {}
     // Parent: CCitadelModifier
     // Field count: 0
-    pub mod CCitadel_Modifier_TriggerTowerRegen {
-    }
+    pub mod CCitadel_Modifier_TriggerTowerRegen {}
     // Parent: CCitadelModifier
     // Field count: 1
     pub mod CCitadel_Modifier_Item_HealthNova {
@@ -4796,12 +4683,10 @@ pub mod client_dll {
     }
     // Parent: CCitadel_Item
     // Field count: 0
-    pub mod CCitadel_ArmorUpgrade_AbilityLifeSteal {
-    }
+    pub mod CCitadel_ArmorUpgrade_AbilityLifeSteal {}
     // Parent: CCitadel_Item_TrackingProjectileApplyModifier
     // Field count: 0
-    pub mod CCitadel_Item_RejuvTrackingProjectile {
-    }
+    pub mod CCitadel_Item_RejuvTrackingProjectile {}
     // Parent: CCitadelModifierVData
     // Field count: 5
     pub mod CCitadel_Modifier_ItemPickupPunchableVData {
@@ -4813,12 +4698,10 @@ pub mod client_dll {
     }
     // Parent: C_BaseModelEntity
     // Field count: 0
-    pub mod C_BaseToggle {
-    }
+    pub mod C_BaseToggle {}
     // Parent: CCitadelModifier
     // Field count: 0
-    pub mod CCitadel_Modifier_Astro_Rifle_Debuff {
-    }
+    pub mod CCitadel_Modifier_Astro_Rifle_Debuff {}
     // Parent: CCitadel_Modifier_Stunned
     // Field count: 4
     pub mod CCitadel_Modifier_LashGrappleEnemy_Debuff {
@@ -4829,10 +4712,9 @@ pub mod client_dll {
     }
     // Parent: CCitadelModifier
     // Field count: 0
-    pub mod CModifier_Healbane_Debuff {
-    }
+    pub mod CModifier_Healbane_Debuff {}
     // Parent: CCitadelModifierVData
-    // Field count: 7
+    // Field count: 9
     pub mod CCitadel_Modifier_RespawnCreditVData {
         pub const m_eRespawnMechanic: usize = 0x608; // ERejuvenatorRespawnMechanic
         pub const m_flRespawnDelay: usize = 0x60C; // float32
@@ -4841,11 +4723,12 @@ pub mod client_dll {
         pub const m_flBonusHealth: usize = 0x618; // float32
         pub const m_flBonusMoveSpeedMeterPerSecond: usize = 0x61C; // float32
         pub const m_sExpireSound: usize = 0x620; // CSoundEventName
+        pub const m_iMaxMessages: usize = 0x630; // int32
+        pub const m_flMessageInterval: usize = 0x634; // float32
     }
     // Parent: CCitadel_Item
     // Field count: 0
-    pub mod CItem_FleetfootBoots {
-    }
+    pub mod CItem_FleetfootBoots {}
     // Parent: CCitadel_Modifier_Silenced
     // Field count: 2
     pub mod CCitadel_Modifier_Bubble {
@@ -4882,12 +4765,10 @@ pub mod client_dll {
     }
     // Parent: C_CitadelBaseAbility
     // Field count: 0
-    pub mod CCitadel_Ability_Viper_Ability04 {
-    }
+    pub mod CCitadel_Ability_Viper_Ability04 {}
     // Parent: CCitadelModifier
     // Field count: 0
-    pub mod CCitadel_Modifier_WreckerSalvage {
-    }
+    pub mod CCitadel_Modifier_WreckerSalvage {}
     // Parent: CCitadelModifierVData
     // Field count: 9
     pub mod CCitadel_Modifier_TargetPracticeEnemyVData {
@@ -4916,10 +4797,15 @@ pub mod client_dll {
     pub mod CCitadel_Modifier_Galvanic_Storm_EffectVData {
         pub const m_BuffChainParticle: usize = 0x708; // CResourceNameTyped<CWeakHandle<InfoForResourceTypeIParticleSystemDefinition>>
     }
+    // Parent: CCitadelModifierVData
+    // Field count: 2
+    pub mod CCitadel_Modifier_NearbyEnemyResistVData {
+        pub const m_flNearbyEnemyResistRange: usize = 0x608; // float32
+        pub const m_flResistValues: usize = 0x610; // CUtlVector<float32>
+    }
     // Parent: C_BaseModelEntity
     // Field count: 0
-    pub mod C_ModelPointEntity {
-    }
+    pub mod C_ModelPointEntity {}
     // Parent: C_BaseEntity
     // Field count: 7
     pub mod CPointOrient {
@@ -4933,8 +4819,7 @@ pub mod client_dll {
     }
     // Parent: CCitadelModifier
     // Field count: 0
-    pub mod CModifier_WarpStone_Caster {
-    }
+    pub mod CModifier_WarpStone_Caster {}
     // Parent: CCitadelModifierVData
     // Field count: 5
     pub mod CCitadel_Modifier_Succor_MoveVData {
@@ -4947,64 +4832,61 @@ pub mod client_dll {
     // Parent: CCitadelPlayerPawnBase
     // Field count: 45
     pub mod C_CitadelPlayerPawn {
-        pub const m_angEyeAngles: usize = 0xF58; // QAngle
-        pub const m_angClientCamera: usize = 0xF70; // QAngle
-        pub const m_eZipLineLaneColor: usize = 0xF7C; // CMsgLaneColor
-        pub const m_nLevel: usize = 0xF80; // int32
-        pub const m_nCurrencies: usize = 0xF84; // int32[4]
-        pub const m_nSpentCurrencies: usize = 0xF94; // int32[4]
-        pub const m_flLastSpawnTime: usize = 0xFA4; // GameTime_t
-        pub const m_flRespawnTime: usize = 0xFA8; // GameTime_t
-        pub const m_bInRegenerationZone: usize = 0xFAC; // bool
-        pub const m_bInItemShopZone: usize = 0xFAD; // bool
-        pub const m_timeRevealedOnMinimapByNPC: usize = 0xFB0; // GameTime_t
-        pub const m_vecFullSellPriceItems: usize = 0xFB8; // C_NetworkUtlVectorBase<CUtlStringToken>
-        pub const m_vecFullSellPriceAbilityUpgrades: usize = 0xFD0; // C_NetworkUtlVectorBase<FullSellPriceAbilityUpgrades_t>
-        pub const m_bNetworkDisconnected: usize = 0xFE8; // bool
-        pub const m_bHasIncomingThreats: usize = 0xFE9; // bool
-        pub const m_bLearningAbility: usize = 0xFEA; // bool
-        pub const m_nFlashStartTick: usize = 0xFEC; // int32
-        pub const m_nFlashMaxStartTick: usize = 0xFF0; // int32
-        pub const m_nFlashFadeStartTick: usize = 0xFF4; // int32
-        pub const m_nFlashEndTick: usize = 0xFF8; // int32
-        pub const m_nFlashMaxAlpha: usize = 0xFFC; // int8
-        pub const m_nDeducedLane: usize = 0x1000; // int32
-        pub const m_nSuccessiveDucks: usize = 0x1004; // int8
-        pub const m_flLastDuckTime: usize = 0x1008; // GameTime_t
-        pub const m_bDismissedReportCard: usize = 0x100C; // bool
-        pub const m_flCurrentHealingAmount: usize = 0x1010; // float32
-        pub const m_angLockedEyeAngles: usize = 0x1014; // QAngle
-        pub const m_CCitadelAbilityComponent: usize = 0x1020; // CCitadelAbilityComponent
-        pub const m_CCitadelHeroComponent: usize = 0x11C0; // CCitadelHeroComponent
-        pub const m_flRichPresenceUpdateInterval: usize = 0x1288; // float32
-        pub const m_bAnimGraphMovementClipped: usize = 0x1380; // bool
-        pub const m_bAnimGraphMovementDisableGravity: usize = 0x1381; // bool
-        pub const m_bAnimGraphMovementDirectAirControl: usize = 0x1382; // bool
-        pub const m_bLastMoveWasAnimGraph: usize = 0x1383; // bool
-        pub const m_flPredTimeSlowedStart: usize = 0x1384; // GameTime_t
-        pub const m_flPredTimeSlowedEnd: usize = 0x1388; // GameTime_t
-        pub const m_flPredSlowSpeed: usize = 0x138C; // float32
-        pub const m_flTimeSlowedStart: usize = 0x1390; // GameTime_t[4]
-        pub const m_flTimeSlowedEnd: usize = 0x13A0; // GameTime_t[4]
-        pub const m_flSlowSpeed: usize = 0x13B0; // float32[4]
-        pub const m_flSprintAnimSuppressEndTime: usize = 0x13C0; // GameTime_t
-        pub const m_iCurSlowSlot: usize = 0x13C4; // int32
-        pub const m_vShootTestOffsetStanding: usize = 0x13C8; // Vector
-        pub const m_vShootTestOffsetCrouching: usize = 0x13D4; // Vector
-        pub const m_leanStartTime: usize = 0x13E0; // GameTime_t
+        pub const m_angEyeAngles: usize = 0xF50; // QAngle
+        pub const m_angClientCamera: usize = 0xF68; // QAngle
+        pub const m_eZipLineLaneColor: usize = 0xF74; // CMsgLaneColor
+        pub const m_nLevel: usize = 0xF78; // int32
+        pub const m_nCurrencies: usize = 0xF7C; // int32[4]
+        pub const m_nSpentCurrencies: usize = 0xF8C; // int32[4]
+        pub const m_flLastSpawnTime: usize = 0xF9C; // GameTime_t
+        pub const m_flRespawnTime: usize = 0xFA0; // GameTime_t
+        pub const m_bInRegenerationZone: usize = 0xFA4; // bool
+        pub const m_bInItemShopZone: usize = 0xFA5; // bool
+        pub const m_timeRevealedOnMinimapByNPC: usize = 0xFA8; // GameTime_t
+        pub const m_vecFullSellPriceItems: usize = 0xFB0; // C_NetworkUtlVectorBase<CUtlStringToken>
+        pub const m_vecFullSellPriceAbilityUpgrades: usize = 0xFC8; // C_NetworkUtlVectorBase<FullSellPriceAbilityUpgrades_t>
+        pub const m_bNetworkDisconnected: usize = 0xFE0; // bool
+        pub const m_bHasIncomingThreats: usize = 0xFE1; // bool
+        pub const m_bLearningAbility: usize = 0xFE2; // bool
+        pub const m_nFlashStartTick: usize = 0xFE4; // int32
+        pub const m_nFlashMaxStartTick: usize = 0xFE8; // int32
+        pub const m_nFlashFadeStartTick: usize = 0xFEC; // int32
+        pub const m_nFlashEndTick: usize = 0xFF0; // int32
+        pub const m_nFlashMaxAlpha: usize = 0xFF4; // int8
+        pub const m_nDeducedLane: usize = 0xFF8; // int32
+        pub const m_nSuccessiveDucks: usize = 0xFFC; // int8
+        pub const m_flLastDuckTime: usize = 0x1000; // GameTime_t
+        pub const m_bDismissedReportCard: usize = 0x1004; // bool
+        pub const m_flCurrentHealingAmount: usize = 0x1008; // float32
+        pub const m_angLockedEyeAngles: usize = 0x100C; // QAngle
+        pub const m_CCitadelAbilityComponent: usize = 0x1018; // CCitadelAbilityComponent
+        pub const m_CCitadelHeroComponent: usize = 0x11B8; // CCitadelHeroComponent
+        pub const m_flRichPresenceUpdateInterval: usize = 0x1280; // float32
+        pub const m_bAnimGraphMovementClipped: usize = 0x1378; // bool
+        pub const m_bAnimGraphMovementDisableGravity: usize = 0x1379; // bool
+        pub const m_bAnimGraphMovementDirectAirControl: usize = 0x137A; // bool
+        pub const m_bLastMoveWasAnimGraph: usize = 0x137B; // bool
+        pub const m_flPredTimeSlowedStart: usize = 0x137C; // GameTime_t
+        pub const m_flPredTimeSlowedEnd: usize = 0x1380; // GameTime_t
+        pub const m_flPredSlowSpeed: usize = 0x1384; // float32
+        pub const m_flTimeSlowedStart: usize = 0x1388; // GameTime_t[4]
+        pub const m_flTimeSlowedEnd: usize = 0x1398; // GameTime_t[4]
+        pub const m_flSlowSpeed: usize = 0x13A8; // float32[4]
+        pub const m_flSprintAnimSuppressEndTime: usize = 0x13B8; // GameTime_t
+        pub const m_iCurSlowSlot: usize = 0x13BC; // int32
+        pub const m_vShootTestOffsetStanding: usize = 0x13C0; // Vector
+        pub const m_vShootTestOffsetCrouching: usize = 0x13CC; // Vector
+        pub const m_leanStartTime: usize = 0x13D8; // GameTime_t
     }
     // Parent: CCitadelModifier
     // Field count: 0
-    pub mod CCitadel_Modifier_Trapper_StealSpiritDebuff {
-    }
+    pub mod CCitadel_Modifier_Trapper_StealSpiritDebuff {}
     // Parent: CCitadel_Ability_ZipLine
     // Field count: 0
-    pub mod CCitadel_Ability_TrooperZipLine {
-    }
+    pub mod CCitadel_Ability_TrooperZipLine {}
     // Parent: CCitadelModifier
     // Field count: 0
-    pub mod CCitadel_Modifier_Upgrade_Headhunter_HeadshotBuff {
-    }
+    pub mod CCitadel_Modifier_Upgrade_Headhunter_HeadshotBuff {}
     // Parent: CCitadel_Modifier_BaseEventProcVData
     // Field count: 4
     pub mod CCitadel_Modifier_DetentionAmmoVData {
@@ -5015,8 +4897,7 @@ pub mod client_dll {
     }
     // Parent: CScaleFunctionBase
     // Field count: 0
-    pub mod CScaleFunctionAbilityPropertySingleStat {
-    }
+    pub mod CScaleFunctionAbilityPropertySingleStat {}
     // Parent: C_BaseFire
     // Field count: 13
     pub mod C_FireSmoke {
@@ -5036,12 +4917,10 @@ pub mod client_dll {
     }
     // Parent: C_Sprite
     // Field count: 0
-    pub mod C_FireFromAboveSprite {
-    }
+    pub mod C_FireFromAboveSprite {}
     // Parent: CCitadel_Item
     // Field count: 0
-    pub mod CCitadel_UtilityUpgrade_AOESmokeBomb {
-    }
+    pub mod CCitadel_UtilityUpgrade_AOESmokeBomb {}
     // Parent: C_BaseEntity
     // Field count: 24
     pub mod C_EnvCombinedLightProbeVolume {
@@ -5077,20 +4956,16 @@ pub mod client_dll {
     }
     // Parent: C_CitadelBaseAbility
     // Field count: 0
-    pub mod CCitadel_Ability_SleepDagger {
-    }
+    pub mod CCitadel_Ability_SleepDagger {}
     // Parent: CCitadelModifier
     // Field count: 0
-    pub mod CCitadel_Modifier_FlameDash {
-    }
+    pub mod CCitadel_Modifier_FlameDash {}
     // Parent: CScaleFunctionBase
     // Field count: 0
-    pub mod CScaleFunctionAbilityProperty_KineticCarbine {
-    }
+    pub mod CScaleFunctionAbilityProperty_KineticCarbine {}
     // Parent: C_SoundOpvarSetPointBase
     // Field count: 0
-    pub mod C_SoundOpvarSetOBBWindEntity {
-    }
+    pub mod C_SoundOpvarSetOBBWindEntity {}
     // Parent: None
     // Field count: 4
     pub mod ActiveModelConfig_t {
@@ -5112,24 +4987,19 @@ pub mod client_dll {
     }
     // Parent: C_CitadelBaseAbility
     // Field count: 0
-    pub mod CCitadel_Ability_SummonGangster {
-    }
+    pub mod CCitadel_Ability_SummonGangster {}
     // Parent: CCitadelModifier
     // Field count: 0
-    pub mod CCitadel_Modifier_Bull_Leap_Boosting {
-    }
+    pub mod CCitadel_Modifier_Bull_Leap_Boosting {}
     // Parent: C_CitadelBaseAbility
     // Field count: 0
-    pub mod CCitadel_Ability_ZipLine_Boost {
-    }
+    pub mod CCitadel_Ability_ZipLine_Boost {}
     // Parent: CCitadelModifier
     // Field count: 0
-    pub mod CCitadel_Modifier_CheaterCurse {
-    }
+    pub mod CCitadel_Modifier_CheaterCurse {}
     // Parent: CCitadelModifierAura
     // Field count: 0
-    pub mod CCitadel_Modifier_Thumper_2_Aura {
-    }
+    pub mod CCitadel_Modifier_Thumper_2_Aura {}
     // Parent: CCitadelModifierVData
     // Field count: 1
     pub mod CModifierIntimidatedVData {
@@ -5148,8 +5018,7 @@ pub mod client_dll {
     }
     // Parent: C_DynamicProp
     // Field count: 0
-    pub mod C_DynamicPropAlias_dynamic_prop {
-    }
+    pub mod C_DynamicPropAlias_dynamic_prop {}
     // Parent: CCitadelModifierVData
     // Field count: 1
     pub mod CModifierVData_SetMoveType {
@@ -5162,8 +5031,7 @@ pub mod client_dll {
     }
     // Parent: CCitadelModifier
     // Field count: 0
-    pub mod CCitadel_Modifier_LightningBullet {
-    }
+    pub mod CCitadel_Modifier_LightningBullet {}
     // Parent: CCitadel_UtilityUpgrade_RocketBootsVData
     // Field count: 7
     pub mod CCitadel_UtilityUpgrade_RocketBoosterVData {
@@ -5262,20 +5130,19 @@ pub mod client_dll {
     }
     // Parent: C_CitadelBaseAbility
     // Field count: 0
-    pub mod CCitadel_Ability_Bomber_Ability02 {
-    }
+    pub mod CCitadel_Ability_Bomber_Ability02 {}
     // Parent: CCitadelModifier
     // Field count: 0
-    pub mod CCitadel_Modifier_HealthSwap {
-    }
+    pub mod CCitadel_Modifier_HealthSwap {}
     // Parent: CCitadelBaseAbilityServerOnly
     // Field count: 0
-    pub mod CTier3BossAbility {
-    }
+    pub mod CTier3BossAbility {}
     // Parent: CCitadelModifier
     // Field count: 0
-    pub mod CCitadel_Modifier_Base {
-    }
+    pub mod CCitadel_Modifier_Skirmish_Respawn_Reduction {}
+    // Parent: CCitadelModifier
+    // Field count: 0
+    pub mod CCitadel_Modifier_Base {}
     // Parent: CCitadel_Item
     // Field count: 1
     pub mod CCitadel_WeaponUpgrade_BurstFire {
@@ -5283,8 +5150,7 @@ pub mod client_dll {
     }
     // Parent: CCitadel_Item
     // Field count: 0
-    pub mod CCitadel_ArmorUpgrade_HealOnLevel {
-    }
+    pub mod CCitadel_ArmorUpgrade_HealOnLevel {}
     // Parent: C_PointCamera
     // Field count: 1
     pub mod C_PointCameraVFOV {
@@ -5298,12 +5164,10 @@ pub mod client_dll {
     }
     // Parent: CCitadelModifier
     // Field count: 0
-    pub mod CModifier_Synth_Barrage_Caster {
-    }
+    pub mod CModifier_Synth_Barrage_Caster {}
     // Parent: C_CitadelBaseAbility
     // Field count: 0
-    pub mod CAbility_Synth_Pulse {
-    }
+    pub mod CAbility_Synth_Pulse {}
     // Parent: CCitadel_Modifier_StunnedVData
     // Field count: 3
     pub mod CCitadel_Modifier_VacuumAuraTargetModifierVData {
@@ -5313,23 +5177,20 @@ pub mod client_dll {
     }
     // Parent: CCitadelModifier
     // Field count: 0
-    pub mod CCitadel_Modifier_Chrono_KineticCarbine_Slow {
-    }
+    pub mod CCitadel_Modifier_Chrono_KineticCarbine_Slow {}
     // Parent: CCitadelModifier
     // Field count: 0
-    pub mod CCitadel_Modifier_PowerJump {
-    }
+    pub mod CCitadel_Modifier_PowerJump {}
     // Parent: CCitadel_Modifier_BaseEventProc
     // Field count: 0
-    pub mod CModifier_Upgrade_ArcaneMedallion {
-    }
+    pub mod CModifier_Upgrade_ArcaneMedallion {}
     // Parent: C_BaseTrigger
     // Field count: 1
     pub mod C_CitadelTeleportTrigger {
-        pub const m_vExitOrigin: usize = 0x868; // Vector
+        pub const m_vExitOrigin: usize = 0x9A0; // Vector
     }
     // Parent: C_BaseModelEntity
-    // Field count: 73
+    // Field count: 74
     pub mod C_BarnLight {
         pub const m_bEnabled: usize = 0x860; // bool
         pub const m_nColorMode: usize = 0x864; // int32
@@ -5363,6 +5224,7 @@ pub mod client_dll {
         pub const m_nShadowMapSize: usize = 0x9D4; // int32
         pub const m_nShadowPriority: usize = 0x9D8; // int32
         pub const m_bContactShadow: usize = 0x9DC; // bool
+        pub const m_bForceShadowsEnabled: usize = 0x9DD; // bool
         pub const m_nBounceLight: usize = 0x9E0; // int32
         pub const m_flBounceScale: usize = 0x9E4; // float32
         pub const m_flMinRoughness: usize = 0x9E8; // float32
@@ -5431,16 +5293,18 @@ pub mod client_dll {
         pub const m_AoEPlayerParticle: usize = 0x1580; // CResourceNameTyped<CWeakHandle<InfoForResourceTypeIParticleSystemDefinition>>
         pub const m_AoEParticle: usize = 0x1660; // CResourceNameTyped<CWeakHandle<InfoForResourceTypeIParticleSystemDefinition>>
     }
+    // Parent: CCitadelModifierVData
+    // Field count: 0
+    pub mod CModifier_Upgrade_ArcaneSurge_AbilityWatcher_VData {}
     // Parent: CCitadelAnimatingModelEntity
     // Field count: 2
     pub mod CCitadel_MobileResupply {
-        pub const m_hAbility: usize = 0xB10; // CHandle<C_CitadelBaseAbility>
-        pub const m_bFloating: usize = 0xB14; // bool
+        pub const m_hAbility: usize = 0xB08; // CHandle<C_CitadelBaseAbility>
+        pub const m_bFloating: usize = 0xB0C; // bool
     }
     // Parent: CCitadel_Modifier_BaseEventProc
     // Field count: 0
-    pub mod CCitadel_Modifier_HauntWatcher {
-    }
+    pub mod CCitadel_Modifier_HauntWatcher {}
     // Parent: CCitadelModifierVData
     // Field count: 1
     pub mod CCitadel_Modifier_Wraith_RapidFireVData {
@@ -5448,17 +5312,15 @@ pub mod client_dll {
     }
     // Parent: CCitadelModifier
     // Field count: 0
-    pub mod CModifier_HornetLeap {
-    }
+    pub mod CModifier_HornetLeap {}
     // Parent: CCitadel_Modifier_BaseEventProcVData
-    // Field count: 6
+    // Field count: 5
     pub mod CCitadel_Modifier_SilenceProcWatcherVData {
         pub const m_BuildUpModifier: usize = 0x638; // CEmbeddedSubclass<CCitadel_Modifier_Base_Buildup>
-        pub const m_SilenceProcModifier: usize = 0x648; // CEmbeddedSubclass<CCitadelModifier>
-        pub const m_SilenceActiveModifier: usize = 0x658; // CEmbeddedSubclass<CCitadelModifier>
-        pub const m_ImmunityModifier: usize = 0x668; // CEmbeddedSubclass<CCitadelModifier>
-        pub const m_sInstantProcIfCasterHasModifier: usize = 0x678; // CUtlString
-        pub const m_TracerParticle: usize = 0x680; // CResourceNameTyped<CWeakHandle<InfoForResourceTypeIParticleSystemDefinition>>
+        pub const m_DebuffModifier: usize = 0x648; // CEmbeddedSubclass<CCitadelModifier>
+        pub const m_ImmunityModifier: usize = 0x658; // CEmbeddedSubclass<CCitadelModifier>
+        pub const m_sInstantProcIfCasterHasModifier: usize = 0x668; // CUtlString
+        pub const m_TracerParticle: usize = 0x670; // CResourceNameTyped<CWeakHandle<InfoForResourceTypeIParticleSystemDefinition>>
     }
     // Parent: CEntitySubclassVDataBase
     // Field count: 81
@@ -5473,23 +5335,23 @@ pub mod client_dll {
         pub const m_nAbillityUnlocksCost: usize = 0x38; // int32
         pub const m_iUpdateTime: usize = 0x40; // uint64
         pub const m_AbilityBehaviorsBits: usize = 0x4C; // CBitVecEnum<EAbilityBehavior_t>
-        pub const m_eAbilityTargetingLocation: usize = 0x54; // EAbilityTargetingLocation_t
-        pub const m_eAbilityTargetingShape: usize = 0x58; // EAbilityTargetingShape_t
-        pub const m_flTargetingConeAngle: usize = 0x5C; // float32
-        pub const m_flTargetingConeHalfWidth: usize = 0x60; // float32
-        pub const m_bIncludeExtra2DCone: usize = 0x64; // bool
-        pub const m_eAbilityActivation: usize = 0x68; // EAbilityActivation_t
+        pub const m_eAbilityTargetingLocation: usize = 0x58; // EAbilityTargetingLocation_t
+        pub const m_eAbilityTargetingShape: usize = 0x5C; // EAbilityTargetingShape_t
+        pub const m_flTargetingConeAngle: usize = 0x60; // float32
+        pub const m_flTargetingConeHalfWidth: usize = 0x64; // float32
+        pub const m_bIncludeExtra2DCone: usize = 0x68; // bool
+        pub const m_eAbilityActivation: usize = 0x6C; // EAbilityActivation_t
         pub const m_TriggerButtonPreReqButton: usize = 0x70; // InputBitMask_t
         pub const m_TriggerButtonOverride: usize = 0x78; // InputBitMask_t
         pub const m_eAbilitySpectatePriority: usize = 0x80; // EAbilitySpectatePriority
         pub const m_bitsInterruptingStates: usize = 0x84; // CBitVecEnum<EModifierState>
         pub const m_IncompatibleFilter: usize = 0x9C; // IncompatibleFilter_t
-        pub const m_nAbilityTargetTypes: usize = 0xAC; // CITADEL_UNIT_TARGET_TYPE
-        pub const m_nAbilityTargetFlags: usize = 0xB0; // CITADEL_UNIT_TARGET_FLAGS
-        pub const m_bitsPostCastEnabledStateMask: usize = 0xB4; // CBitVecEnum<EModifierState>
-        pub const m_TargetAbilityEffectsToApply: usize = 0xCC; // ECitadelTargetAbilityEffects
-        pub const m_bShowTargetingPreviewWhileChanneling: usize = 0xD0; // bool
-        pub const m_bShowTargetingPreviewWhileCasting: usize = 0xD1; // bool
+        pub const m_nAbilityTargetTypes: usize = 0xB0; // CITADEL_UNIT_TARGET_TYPE
+        pub const m_nAbilityTargetFlags: usize = 0xB4; // CITADEL_UNIT_TARGET_FLAGS
+        pub const m_bitsPostCastEnabledStateMask: usize = 0xB8; // CBitVecEnum<EModifierState>
+        pub const m_TargetAbilityEffectsToApply: usize = 0xD0; // ECitadelTargetAbilityEffects
+        pub const m_bShowTargetingPreviewWhileChanneling: usize = 0xD4; // bool
+        pub const m_bShowTargetingPreviewWhileCasting: usize = 0xD5; // bool
         pub const m_WeaponInfo: usize = 0xD8; // CCitadelWeaponInfo
         pub const m_projectileInfo: usize = 0x758; // ProjectileInfo_t
         pub const m_deploymentInfo: usize = 0xAD8; // DeploymentInfo_t
@@ -5547,12 +5409,10 @@ pub mod client_dll {
     }
     // Parent: CCitadelModifier
     // Field count: 0
-    pub mod CCitadel_Modifier_TrooperDisabledInvulnerabilityFX {
-    }
+    pub mod CCitadel_Modifier_TrooperDisabledInvulnerabilityFX {}
     // Parent: C_SoundOpvarSetPointEntity
     // Field count: 0
-    pub mod C_SoundOpvarSetAutoRoomEntity {
-    }
+    pub mod C_SoundOpvarSetAutoRoomEntity {}
     // Parent: CCitadel_UtilityUpgrade_RocketBoots
     // Field count: 7
     pub mod CCitadel_UtilityUpgrade_RocketBooster {
@@ -5566,35 +5426,34 @@ pub mod client_dll {
     }
     // Parent: CCitadel_Item
     // Field count: 0
-    pub mod CCitadel_Item_SelfBuffModifier {
-    }
+    pub mod CCitadel_Item_SelfBuffModifier {}
     // Parent: C_CitadelBaseAbility
     // Field count: 0
-    pub mod CCitadel_Ability_Cadence_Anthem {
-    }
+    pub mod CCitadel_Ability_Cadence_Anthem {}
     // Parent: CCitadelYamatoBaseVData
-    // Field count: 20
+    // Field count: 21
     pub mod CAbilityPowerSlashVData {
         pub const m_flAirDrag: usize = 0x1568; // float32
         pub const m_flMaxPowerPadding: usize = 0x156C; // float32
         pub const m_flEffectGroundTrace: usize = 0x1570; // float32
         pub const m_flWhizbyMaxRange: usize = 0x1574; // float32
         pub const m_flStartPosTestCapsuleLength: usize = 0x1578; // float32
-        pub const m_vecLongEffectOffset: usize = 0x157C; // Vector
-        pub const m_PowerSlashParticle: usize = 0x1588; // CResourceNameTyped<CWeakHandle<InfoForResourceTypeIParticleSystemDefinition>>
-        pub const m_PowerSlashFullParticle: usize = 0x1668; // CResourceNameTyped<CWeakHandle<InfoForResourceTypeIParticleSystemDefinition>>
-        pub const m_ImpactParticle: usize = 0x1748; // CResourceNameTyped<CWeakHandle<InfoForResourceTypeIParticleSystemDefinition>>
-        pub const m_CastParticle: usize = 0x1828; // CResourceNameTyped<CWeakHandle<InfoForResourceTypeIParticleSystemDefinition>>
-        pub const m_PowerUpParticle: usize = 0x1908; // CResourceNameTyped<CWeakHandle<InfoForResourceTypeIParticleSystemDefinition>>
-        pub const m_strStartSound: usize = 0x19E8; // CSoundEventName
-        pub const m_strHitConfirmSound: usize = 0x19F8; // CSoundEventName
-        pub const m_strPowerUp1Sounds: usize = 0x1A08; // CSoundEventName
-        pub const m_strPowerUp2Sounds: usize = 0x1A18; // CSoundEventName
-        pub const m_strPowerUp3Sounds: usize = 0x1A28; // CSoundEventName
-        pub const m_strWhizbySound: usize = 0x1A38; // CSoundEventName
-        pub const m_strSlashSound: usize = 0x1A48; // CSoundEventName
-        pub const m_strSlashFullSound: usize = 0x1A58; // CSoundEventName
-        pub const m_SlowModifier: usize = 0x1A68; // CEmbeddedSubclass<CBaseModifier>
+        pub const m_flCoverLOSBackDist: usize = 0x157C; // float32
+        pub const m_vecLongEffectOffset: usize = 0x1580; // Vector
+        pub const m_PowerSlashParticle: usize = 0x1590; // CResourceNameTyped<CWeakHandle<InfoForResourceTypeIParticleSystemDefinition>>
+        pub const m_PowerSlashFullParticle: usize = 0x1670; // CResourceNameTyped<CWeakHandle<InfoForResourceTypeIParticleSystemDefinition>>
+        pub const m_ImpactParticle: usize = 0x1750; // CResourceNameTyped<CWeakHandle<InfoForResourceTypeIParticleSystemDefinition>>
+        pub const m_CastParticle: usize = 0x1830; // CResourceNameTyped<CWeakHandle<InfoForResourceTypeIParticleSystemDefinition>>
+        pub const m_PowerUpParticle: usize = 0x1910; // CResourceNameTyped<CWeakHandle<InfoForResourceTypeIParticleSystemDefinition>>
+        pub const m_strStartSound: usize = 0x19F0; // CSoundEventName
+        pub const m_strHitConfirmSound: usize = 0x1A00; // CSoundEventName
+        pub const m_strPowerUp1Sounds: usize = 0x1A10; // CSoundEventName
+        pub const m_strPowerUp2Sounds: usize = 0x1A20; // CSoundEventName
+        pub const m_strPowerUp3Sounds: usize = 0x1A30; // CSoundEventName
+        pub const m_strWhizbySound: usize = 0x1A40; // CSoundEventName
+        pub const m_strSlashSound: usize = 0x1A50; // CSoundEventName
+        pub const m_strSlashFullSound: usize = 0x1A60; // CSoundEventName
+        pub const m_SlowModifier: usize = 0x1A70; // CEmbeddedSubclass<CBaseModifier>
     }
     // Parent: CitadelAbilityVData
     // Field count: 3
@@ -5615,32 +5474,29 @@ pub mod client_dll {
     }
     // Parent: C_AI_CitadelNPC
     // Field count: 0
-    pub mod C_NPC_PestilenceDrone {
-    }
+    pub mod C_NPC_PestilenceDrone {}
     // Parent: C_BaseFlex
     // Field count: 12
     pub mod C_EconEntity {
-        pub const m_AttributeManager: usize = 0xCB0; // CAttributeContainer
-        pub const m_bClientside: usize = 0xE08; // bool
-        pub const m_nDisableMode: usize = 0xE0C; // EconEntityParticleDisableMode_t
-        pub const m_bParticleSystemsCreated: usize = 0xE10; // bool
-        pub const m_bForceDestroyAttachedParticlesImmediately: usize = 0xE11; // bool
-        pub const m_vecAttachedParticles: usize = 0xE18; // CUtlVector<C_EconEntity::AttachedParticleInfo_t>
-        pub const m_hViewmodelAttachment: usize = 0xE30; // CHandle<CBaseAnimGraph>
-        pub const m_iOldTeam: usize = 0xE34; // int32
-        pub const m_bAttachmentDirty: usize = 0xE38; // bool
-        pub const m_iOldStyle: usize = 0xE39; // style_index_t
-        pub const m_hOldProvidee: usize = 0xE3C; // CHandle<C_BaseEntity>
-        pub const m_vecAttachedModels: usize = 0xE40; // CUtlVector<C_EconEntity::AttachedModelData_t>
+        pub const m_AttributeManager: usize = 0xCA8; // CAttributeContainer
+        pub const m_bClientside: usize = 0xE00; // bool
+        pub const m_nDisableMode: usize = 0xE04; // EconEntityParticleDisableMode_t
+        pub const m_bParticleSystemsCreated: usize = 0xE08; // bool
+        pub const m_bForceDestroyAttachedParticlesImmediately: usize = 0xE09; // bool
+        pub const m_vecAttachedParticles: usize = 0xE10; // CUtlVector<C_EconEntity::AttachedParticleInfo_t>
+        pub const m_hViewmodelAttachment: usize = 0xE28; // CHandle<CBaseAnimGraph>
+        pub const m_iOldTeam: usize = 0xE2C; // int32
+        pub const m_bAttachmentDirty: usize = 0xE30; // bool
+        pub const m_iOldStyle: usize = 0xE31; // style_index_t
+        pub const m_hOldProvidee: usize = 0xE34; // CHandle<C_BaseEntity>
+        pub const m_vecAttachedModels: usize = 0xE38; // CUtlVector<C_EconEntity::AttachedModelData_t>
     }
     // Parent: CCitadelModifierAuraVData
     // Field count: 0
-    pub mod CCitadel_Modifier_Tokamak_EnemySmokeAOE_VData {
-    }
+    pub mod CCitadel_Modifier_Tokamak_EnemySmokeAOE_VData {}
     // Parent: C_CitadelProjectile
     // Field count: 0
-    pub mod C_Citadel_Projectile_DustStorm {
-    }
+    pub mod C_Citadel_Projectile_DustStorm {}
     // Parent: CitadelAbilityVData
     // Field count: 3
     pub mod CCitadel_Ability_Trapper_PoisonJarVData {
@@ -5648,14 +5504,20 @@ pub mod client_dll {
         pub const m_AuraModifier: usize = 0x1640; // CEmbeddedSubclass<CCitadelModifier>
         pub const m_ExplodeSound: usize = 0x1650; // CSoundEventName
     }
+    // Parent: CitadelAbilityVData
+    // Field count: 4
+    pub mod CCitadel_Ability_Viper_PetrifyBolaVData {
+        pub const m_ExplodeParticle: usize = 0x1560; // CResourceNameTyped<CWeakHandle<InfoForResourceTypeIParticleSystemDefinition>>
+        pub const m_SlowModifier: usize = 0x1640; // CEmbeddedSubclass<CCitadelModifier>
+        pub const m_PetrifyModifier: usize = 0x1650; // CEmbeddedSubclass<CCitadelModifier>
+        pub const m_strBolaExplodeSound: usize = 0x1660; // CSoundEventName
+    }
     // Parent: CCitadel_Item
     // Field count: 0
-    pub mod CCitadel_WeaponUpgrade_SurgingPower {
-    }
+    pub mod CCitadel_WeaponUpgrade_SurgingPower {}
     // Parent: C_CitadelBaseAbility
     // Field count: 0
-    pub mod CCitadel_Ability_SmokeBomb {
-    }
+    pub mod CCitadel_Ability_SmokeBomb {}
     // Parent: C_CitadelBaseAbility
     // Field count: 1
     pub mod CCitadel_Ability_ChargedShot {
@@ -5663,8 +5525,7 @@ pub mod client_dll {
     }
     // Parent: CCitadelModifier
     // Field count: 0
-    pub mod CCitadel_Modifier_Tier2Boss_RocketDamage_AuraDebuff {
-    }
+    pub mod CCitadel_Modifier_Tier2Boss_RocketDamage_AuraDebuff {}
     // Parent: C_BarnLight
     // Field count: 1
     pub mod C_RectLight {
@@ -5688,12 +5549,10 @@ pub mod client_dll {
     }
     // Parent: CCitadel_Modifier_StatStealBase
     // Field count: 0
-    pub mod CCitadel_Modifier_Siphon_Bullets_Watcher {
-    }
+    pub mod CCitadel_Modifier_Siphon_Bullets_Watcher {}
     // Parent: CCitadelModifier
     // Field count: 0
-    pub mod CCitadel_Modifier_Glitch {
-    }
+    pub mod CCitadel_Modifier_Glitch {}
     // Parent: C_BaseEntity
     // Field count: 3
     pub mod CCitadelHeroLoader {
@@ -5708,12 +5567,10 @@ pub mod client_dll {
     }
     // Parent: CCitadel_Modifier_Disarmed
     // Field count: 0
-    pub mod CCitadel_Modifier_DisarmProc {
-    }
+    pub mod CCitadel_Modifier_DisarmProc {}
     // Parent: CCitadel_Item
     // Field count: 0
-    pub mod CCitadel_ArmorUpgrade_VexBarrier {
-    }
+    pub mod CCitadel_ArmorUpgrade_VexBarrier {}
     // Parent: C_BaseModelEntity
     // Field count: 24
     pub mod C_ParticleSystem {
@@ -5764,15 +5621,9 @@ pub mod client_dll {
     pub mod CCitadel_Modifier_Magic_Clarity_Buff {
         pub const m_bAbilityLocked: usize = 0xF8; // bool
     }
-    // Parent: CCitadelModifierVData
-    // Field count: 1
-    pub mod CCitadel_Modifier_BreakablePropExtraStaminaVData {
-        pub const m_nExtraStamina: usize = 0x608; // float32
-    }
     // Parent: CCitadelModifier
     // Field count: 0
-    pub mod CCitadel_Modifier_Thumper_3 {
-    }
+    pub mod CCitadel_Modifier_Thumper_3 {}
     // Parent: CCitadelModifierVData
     // Field count: 9
     pub mod CCitadel_Modifier_StickyBombAttachedVData {
@@ -5798,46 +5649,41 @@ pub mod client_dll {
     }
     // Parent: CCitadelModifier
     // Field count: 0
-    pub mod CCitadel_Modifier_SpeedBoost {
-    }
+    pub mod CCitadel_Modifier_SpeedBoost {}
     // Parent: CEnvSoundscapeTriggerable
     // Field count: 0
-    pub mod CEnvSoundscapeTriggerableAlias_snd_soundscape_triggerable {
-    }
+    pub mod CEnvSoundscapeTriggerableAlias_snd_soundscape_triggerable {}
     // Parent: CBaseLockonAbilityVData
-    // Field count: 14
+    // Field count: 15
     pub mod CAbilityLashUltimateVData {
         pub const m_TargetPreviewParticle: usize = 0x1580; // CResourceNameTyped<CWeakHandle<InfoForResourceTypeIParticleSystemDefinition>>
         pub const m_LaunchParticle: usize = 0x1660; // CResourceNameTyped<CWeakHandle<InfoForResourceTypeIParticleSystemDefinition>>
         pub const m_UltimateCastParticle: usize = 0x1740; // CResourceNameTyped<CWeakHandle<InfoForResourceTypeIParticleSystemDefinition>>
         pub const m_UltimateCastEnemyParticle: usize = 0x1820; // CResourceNameTyped<CWeakHandle<InfoForResourceTypeIParticleSystemDefinition>>
-        pub const m_strThrowEnemyAnimGraphParam: usize = 0x1900; // CGlobalSymbol
-        pub const m_GrappleEnemyModifier: usize = 0x1908; // CEmbeddedSubclass<CCitadel_Modifier_LashGrappleEnemy_Debuff>
-        pub const m_GrabSound: usize = 0x1918; // CSoundEventName
-        pub const m_MissSound: usize = 0x1928; // CSoundEventName
-        pub const m_ThrowSound: usize = 0x1938; // CSoundEventName
-        pub const m_flAirSpeedMax: usize = 0x1948; // float32
-        pub const m_flFallSpeedMax: usize = 0x194C; // float32
-        pub const m_flAirDrag: usize = 0x1950; // float32
-        pub const m_flMaxPitchRangeScale: usize = 0x1954; // float32
-        pub const m_flThrowAnimTossPoint: usize = 0x1958; // float32
+        pub const m_AllyIndicatorParticle: usize = 0x1900; // CResourceNameTyped<CWeakHandle<InfoForResourceTypeIParticleSystemDefinition>>
+        pub const m_strThrowEnemyAnimGraphParam: usize = 0x19E0; // CGlobalSymbol
+        pub const m_GrappleEnemyModifier: usize = 0x19E8; // CEmbeddedSubclass<CCitadel_Modifier_LashGrappleEnemy_Debuff>
+        pub const m_GrabSound: usize = 0x19F8; // CSoundEventName
+        pub const m_MissSound: usize = 0x1A08; // CSoundEventName
+        pub const m_ThrowSound: usize = 0x1A18; // CSoundEventName
+        pub const m_flAirSpeedMax: usize = 0x1A28; // float32
+        pub const m_flFallSpeedMax: usize = 0x1A2C; // float32
+        pub const m_flAirDrag: usize = 0x1A30; // float32
+        pub const m_flMaxPitchRangeScale: usize = 0x1A34; // float32
+        pub const m_flThrowAnimTossPoint: usize = 0x1A38; // float32
     }
     // Parent: C_CitadelBaseAbility
     // Field count: 0
-    pub mod CCitadel_Ability_Crackshot {
-    }
+    pub mod CCitadel_Ability_Crackshot {}
     // Parent: C_CitadelBaseAbility
     // Field count: 0
-    pub mod CCitadel_Ability_Bomber_Ability03 {
-    }
+    pub mod CCitadel_Ability_Bomber_Ability03 {}
     // Parent: CScaleFunctionBase
     // Field count: 0
-    pub mod CScaleFunctionAbilityProperty_NanoTechRoundsDamage {
-    }
+    pub mod CScaleFunctionAbilityProperty_NanoTechRoundsDamage {}
     // Parent: CCitadel_Item
     // Field count: 0
-    pub mod CCitadel_ArmorUpgrade_Stimpak {
-    }
+    pub mod CCitadel_ArmorUpgrade_Stimpak {}
     // Parent: CCitadel_Modifier_Stunned
     // Field count: 2
     pub mod CCitadel_Modifier_Knockback {
@@ -5845,22 +5691,33 @@ pub mod client_dll {
         pub const m_bKnockedBack: usize = 0xCC; // bool
     }
     // Parent: C_CitadelBaseAbility
-    // Field count: 9
+    // Field count: 10
     pub mod CAbility_Fathom_ReefdwellerHarpoon {
         pub const m_bHitTarget: usize = 0xCA0; // bool
-        pub const m_hRegenModifier: usize = 0xCA8; // CModifierHandleTyped<CCitadelModifier>
-        pub const m_vPrevPos: usize = 0xCC0; // Vector
-        pub const m_bIsVisibleOnMinimap: usize = 0xCCC; // bool
-        pub const m_bLatched: usize = 0xCCD; // bool
-        pub const m_vHarpoonTarget: usize = 0xCD0; // Vector
-        pub const m_flLatchedYaw: usize = 0xCDC; // float32
-        pub const m_flCloseEnoughStartTime: usize = 0xCE0; // GameTime_t
-        pub const m_flStuckStartTime: usize = 0xCE4; // GameTime_t
+        pub const m_vPrevPos: usize = 0xCA4; // Vector
+        pub const m_bBulletFlying: usize = 0xCB0; // bool
+        pub const m_bHasLatchedOnce: usize = 0xCB1; // bool
+        pub const m_bLatched: usize = 0xCB2; // bool
+        pub const m_vHarpoonTarget: usize = 0xCB4; // Vector
+        pub const m_flLatchedYaw: usize = 0xCC0; // float32
+        pub const m_flCloseEnoughStartTime: usize = 0xCC4; // GameTime_t
+        pub const m_flStuckStartTime: usize = 0xCC8; // GameTime_t
+        pub const m_flReelStartTime: usize = 0xCCC; // GameTime_t
     }
     // Parent: C_CitadelBaseAbility
     // Field count: 1
     pub mod CAbility_Synth_Grasp {
         pub const m_vecTetheredEnemies: usize = 0xCA0; // CUtlVector<CHandle<C_BaseEntity>>
+    }
+    // Parent: CitadelAbilityVData
+    // Field count: 6
+    pub mod CAbilityGarbageVData {
+        pub const m_GarbageAuraModifier: usize = 0x1560; // CEmbeddedSubclass<CCitadelModifier>
+        pub const m_ExplodeParticle: usize = 0x1570; // CResourceNameTyped<CWeakHandle<InfoForResourceTypeIParticleSystemDefinition>>
+        pub const m_flAirSpeedMax: usize = 0x1650; // float32
+        pub const m_flFallSpeedMax: usize = 0x1654; // float32
+        pub const m_flAirDrag: usize = 0x1658; // float32
+        pub const m_flMaxMovespeed: usize = 0x165C; // float32
     }
     // Parent: CPlayerPawnComponent
     // Field count: 6
@@ -5882,11 +5739,6 @@ pub mod client_dll {
     pub mod C_AssignedLaneParticle {
         pub const m_iLane: usize = 0x880; // int32
     }
-    // Parent: CCitadel_Modifier_Invis
-    // Field count: 1
-    pub mod CCitadel_Modifier_ReefdwellerHarpoon_Latched {
-        pub const m_flStartSpotted: usize = 0x268; // GameTime_t
-    }
     // Parent: CitadelAbilityVData
     // Field count: 1
     pub mod CAbilityThumper4VData {
@@ -5899,30 +5751,25 @@ pub mod client_dll {
     }
     // Parent: CCitadelModifier
     // Field count: 0
-    pub mod CCitadel_Modifier_ChargedBomb {
-    }
+    pub mod CCitadel_Modifier_ChargedBomb {}
     // Parent: CCitadelModifier
     // Field count: 0
-    pub mod CCitadel_Modifier_IncendiaryThinker {
-    }
+    pub mod CCitadel_Modifier_IncendiaryThinker {}
     // Parent: CPlayerPawnComponent
     // Field count: 0
-    pub mod CPlayer_WaterServices {
-    }
+    pub mod CPlayer_WaterServices {}
     // Parent: CCitadelAnimatingModelEntity
     // Field count: 2
     pub mod C_Citadel_Nano_Predatory_Statue {
-        pub const m_hAbility: usize = 0xB18; // CHandle<C_CitadelBaseAbility>
-        pub const m_flLifetime: usize = 0xB1C; // float32
+        pub const m_hAbility: usize = 0xB10; // CHandle<C_CitadelBaseAbility>
+        pub const m_flLifetime: usize = 0xB14; // float32
     }
     // Parent: CCitadel_Modifier_BaseEventProc
     // Field count: 0
-    pub mod CCitadel_Modifier_FearWatcher {
-    }
+    pub mod CCitadel_Modifier_FearWatcher {}
     // Parent: C_CitadelBaseAbility
     // Field count: 0
-    pub mod CCitadelBaseYamatoAbility {
-    }
+    pub mod CCitadelBaseYamatoAbility {}
     // Parent: CCitadel_Modifier_Stunned
     // Field count: 2
     pub mod CCitadel_Modifier_VandalOverflow {
@@ -5931,20 +5778,16 @@ pub mod client_dll {
     }
     // Parent: CCitadelModifier
     // Field count: 0
-    pub mod CCitadel_Modifier_SleepDagger_Drowsy {
-    }
+    pub mod CCitadel_Modifier_SleepDagger_Drowsy {}
     // Parent: CCitadel_Modifier_ShieldTracker_Base
     // Field count: 0
-    pub mod CCitadel_Modifier_ShieldTracker_Magic {
-    }
+    pub mod CCitadel_Modifier_ShieldTracker_Magic {}
     // Parent: CCitadelModifier
     // Field count: 0
-    pub mod CCitadel_Modifier_CanDamageTier3Phase2 {
-    }
+    pub mod CCitadel_Modifier_CanDamageTier3Phase2 {}
     // Parent: CCitadelBaseDashCastAbility
     // Field count: 0
-    pub mod CCitadel_Ability_Cadence_SilenceContraptions {
-    }
+    pub mod CCitadel_Ability_Cadence_SilenceContraptions {}
     // Parent: CitadelAbilityVData
     // Field count: 29
     pub mod CAbilityLashDownStrikeVData {
@@ -5983,10 +5826,14 @@ pub mod client_dll {
     pub mod CCitadel_Ability_ProjectMindVData {
         pub const m_ProjectMindModifier: usize = 0x1560; // CEmbeddedSubclass<CCitadelModifier>
     }
+    // Parent: CCitadelModifierVData
+    // Field count: 1
+    pub mod CCitadel_Modifier_SilenceProc_DebuffVData {
+        pub const m_SilenceModifier: usize = 0x608; // CEmbeddedSubclass<CCitadelModifier>
+    }
     // Parent: CCitadel_Modifier_BaseEventProc
     // Field count: 0
-    pub mod CCitadel_Modifier_AcolytesGlove {
-    }
+    pub mod CCitadel_Modifier_AcolytesGlove {}
     // Parent: CitadelItemVData
     // Field count: 3
     pub mod CCitadel_Item_BubbleVData {
@@ -6021,8 +5868,7 @@ pub mod client_dll {
     }
     // Parent: CCitadelModifier
     // Field count: 0
-    pub mod CModifier_Mirage_Traveler_FireRate {
-    }
+    pub mod CModifier_Mirage_Traveler_FireRate {}
     // Parent: CitadelAbilityVData
     // Field count: 6
     pub mod CAbilityCadenceGrandFinaleVData {
@@ -6052,8 +5898,7 @@ pub mod client_dll {
     }
     // Parent: CCitadelModifier
     // Field count: 0
-    pub mod CCitadel_Modifier_Infuser {
-    }
+    pub mod CCitadel_Modifier_Infuser {}
     // Parent: CCitadelBaseAbilityServerOnly
     // Field count: 1
     pub mod CCitadel_Ability_Tier2Boss_RocketBarrage {
@@ -6080,8 +5925,7 @@ pub mod client_dll {
     }
     // Parent: CCitadelModifier
     // Field count: 0
-    pub mod CModifier_Mirage_Tornado_HoldInPlace {
-    }
+    pub mod CModifier_Mirage_Tornado_HoldInPlace {}
     // Parent: CitadelAbilityVData
     // Field count: 2
     pub mod CAbilityLockDownVData {
@@ -6119,9 +5963,9 @@ pub mod client_dll {
     // Parent: C_BaseCombatCharacter
     // Field count: 3
     pub mod C_AI_BaseNPC {
-        pub const m_NPCState: usize = 0xD28; // NPC_STATE
-        pub const m_bFadeCorpse: usize = 0xD2C; // bool
-        pub const m_bImportantRagdoll: usize = 0xD2D; // bool
+        pub const m_NPCState: usize = 0xD20; // NPC_STATE
+        pub const m_bFadeCorpse: usize = 0xD24; // bool
+        pub const m_bImportantRagdoll: usize = 0xD25; // bool
     }
     // Parent: CCitadelModifier
     // Field count: 1
@@ -6130,12 +5974,10 @@ pub mod client_dll {
     }
     // Parent: C_CitadelBaseAbility
     // Field count: 0
-    pub mod CCitadel_Ability_ProjectMind {
-    }
+    pub mod CCitadel_Ability_ProjectMind {}
     // Parent: C_CitadelBaseAbility
     // Field count: 0
-    pub mod CCitadel_Ability_Bomber_ULT {
-    }
+    pub mod CCitadel_Ability_Bomber_ULT {}
     // Parent: CitadelItemVData
     // Field count: 2
     pub mod CCitadel_Upgrade_OverdriveClip_VData {
@@ -6157,8 +5999,7 @@ pub mod client_dll {
     }
     // Parent: CCitadelModifierAura
     // Field count: 0
-    pub mod CCitadel_Modifier_ThermalDetonator_Thinker {
-    }
+    pub mod CCitadel_Modifier_ThermalDetonator_Thinker {}
     // Parent: C_CitadelBaseAbility
     // Field count: 3
     pub mod CAbility_Synth_Barrage {
@@ -6175,8 +6016,7 @@ pub mod client_dll {
     }
     // Parent: CCitadel_Modifier_BaseBulletPreRollProc
     // Field count: 0
-    pub mod CCitadel_Modifier_MedicBullets {
-    }
+    pub mod CCitadel_Modifier_MedicBullets {}
     // Parent: CCitadelModifierVData
     // Field count: 8
     pub mod CCitadel_Modifier_BaseEventProcVData {
@@ -6208,30 +6048,28 @@ pub mod client_dll {
     }
     // Parent: CBaseModifierAura
     // Field count: 0
-    pub mod CCitadelModifierAura {
-    }
+    pub mod CCitadelModifierAura {}
     // Parent: C_FuncBrush
     // Field count: 0
-    pub mod C_CitadelSpawnBlocker {
-    }
+    pub mod C_CitadelSpawnBlocker {}
     // Parent: None
     // Field count: 1
     pub mod C_EconEntity__AttachedModelData_t {
         pub const m_iModelDisplayFlags: usize = 0x0; // int32
     }
     // Parent: C_CitadelBaseAbility
-    // Field count: 5
+    // Field count: 6
     pub mod CCitadel_Ability_TurretClone {
-        pub const m_flTurretExpireTime: usize = 0xD80; // GameTime_t
-        pub const m_bTeleported: usize = 0xD86; // bool
-        pub const m_bHasTurretReady: usize = 0xD87; // bool
-        pub const m_vecTurretPosition: usize = 0xD88; // Vector
-        pub const m_nFXIndex: usize = 0xD94; // ParticleIndex_t
+        pub const m_flTurretExpireTime: usize = 0xDB8; // GameTime_t
+        pub const m_bTeleported: usize = 0xDC0; // bool
+        pub const m_bHasTurretReady: usize = 0xDC1; // bool
+        pub const m_iCurrentSwapCount: usize = 0xDC4; // int32
+        pub const m_vecTurretPosition: usize = 0xDC8; // Vector
+        pub const m_nFXIndex: usize = 0xDD4; // ParticleIndex_t
     }
     // Parent: CCitadelModifier
     // Field count: 0
-    pub mod CModifier_Mirage_FireBeetles_Debuff {
-    }
+    pub mod CModifier_Mirage_FireBeetles_Debuff {}
     // Parent: CCitadelModifierVData
     // Field count: 2
     pub mod CModifierThumper_3VData {
@@ -6245,12 +6083,13 @@ pub mod client_dll {
     }
     // Parent: C_CitadelBaseAbility
     // Field count: 0
-    pub mod CCitadel_Ability_SleepBomb {
-    }
+    pub mod CCitadel_Ability_SleepBomb {}
+    // Parent: C_CitadelBaseAbility
+    // Field count: 0
+    pub mod CCitadel_Ability_Operative_Scattercharge {}
     // Parent: CCitadelModifierVData
     // Field count: 0
-    pub mod CCitadel_Modifier_Thumper_EnemyPulled_VData {
-    }
+    pub mod CCitadel_Modifier_Thumper_EnemyPulled_VData {}
     // Parent: C_CitadelBaseAbility
     // Field count: 4
     pub mod CCitadel_Ability_UltCombo {
@@ -6261,26 +6100,27 @@ pub mod client_dll {
     }
     // Parent: C_CitadelBaseAbility
     // Field count: 0
-    pub mod CCitadel_Ability_Rolling_FireBall {
-    }
+    pub mod CCitadel_Ability_Rolling_FireBall {}
     // Parent: CCitadelModifier
     // Field count: 0
-    pub mod CCitadel_Modifier_Forge_MiniTurret_InnateModifier {
-    }
+    pub mod CCitadel_Modifier_Forge_MiniTurret_InnateModifier {}
     // Parent: C_CitadelBaseAbility
     // Field count: 0
-    pub mod CCitadel_Ability_PowerSurge {
+    pub mod CCitadel_Ability_PowerSurge {}
+    // Parent: CCitadelModifier
+    // Field count: 2
+    pub mod CModifier_Upgrade_ArcaneSurge_AbilityWatcher {
+        pub const m_hBuffedAbility: usize = 0xC0; // CHandle<C_CitadelBaseAbility>
+        pub const m_bRecastingBuffedAbility: usize = 0xC4; // bool
     }
     // Parent: CCitadelModifier
     // Field count: 0
-    pub mod CCitadel_Modifier_DivinersKevlarBuff {
-    }
+    pub mod CCitadel_Modifier_DivinersKevlarBuff {}
     // Parent: CTier3BossAbility
     // Field count: 0
-    pub mod CCitadel_Ability_Tier3Boss_LaserBeam {
-    }
+    pub mod CCitadel_Ability_Tier3Boss_LaserBeam {}
     // Parent: CCitadelModifierVData
-    // Field count: 10
+    // Field count: 11
     pub mod CCitadel_Modifier_InvisVData {
         pub const m_InvisLoopParticle: usize = 0x608; // CResourceNameTyped<CWeakHandle<InfoForResourceTypeIParticleSystemDefinition>>
         pub const m_InvisDetectRadiusParticle: usize = 0x6E8; // CResourceNameTyped<CWeakHandle<InfoForResourceTypeIParticleSystemDefinition>>
@@ -6289,7 +6129,8 @@ pub mod client_dll {
         pub const m_strInvisRevealedSound: usize = 0x8B0; // CSoundEventName
         pub const m_bFadeInsteadOfRemoveOnBulletFire: usize = 0x8C0; // bool
         pub const m_bFadeInsteadOfRemoveOnAbilityUse: usize = 0x8C1; // bool
-        pub const m_bFadeToVisibleAtEndOfDuration: usize = 0x8C2; // bool
+        pub const m_bBreakOnItemUse: usize = 0x8C2; // bool
+        pub const m_bFadeToVisibleAtEndOfDuration: usize = 0x8C3; // bool
         pub const m_flMinCloak: usize = 0x8C4; // float32
         pub const m_flMaxCloak: usize = 0x8C8; // float32
     }
@@ -6339,8 +6180,7 @@ pub mod client_dll {
     }
     // Parent: C_CitadelBaseAbility
     // Field count: 0
-    pub mod CCitadel_Ability_CrowdControl {
-    }
+    pub mod CCitadel_Ability_CrowdControl {}
     // Parent: CCitadel_Modifier_Stunned
     // Field count: 2
     pub mod CCitadel_Modifier_VandalSurge {
@@ -6371,8 +6211,7 @@ pub mod client_dll {
     }
     // Parent: C_MultiplayRules
     // Field count: 0
-    pub mod C_TeamplayRules {
-    }
+    pub mod C_TeamplayRules {}
     // Parent: C_CitadelProjectile
     // Field count: 1
     pub mod C_CitadelBoomerangProjectile {
@@ -6380,16 +6219,13 @@ pub mod client_dll {
     }
     // Parent: CCitadel_Item
     // Field count: 0
-    pub mod CCitadel_Upgrade_StabilizingTripod {
-    }
+    pub mod CCitadel_Upgrade_StabilizingTripod {}
     // Parent: CCitadel_Item
     // Field count: 0
-    pub mod CCitadel_ArmorUpgrade_RegeneratingBulletShield {
-    }
+    pub mod CCitadel_ArmorUpgrade_RegeneratingBulletShield {}
     // Parent: CCitadelModifier
     // Field count: 0
-    pub mod CCitadel_Modifier_ItemPickupTimer {
-    }
+    pub mod CCitadel_Modifier_ItemPickupTimer {}
     // Parent: CCitadelModifier
     // Field count: 1
     pub mod CCitadel_Modifier_Mirage_SandPhantom_Passive_Victim {
@@ -6442,8 +6278,7 @@ pub mod client_dll {
     }
     // Parent: CitadelAbilityVData
     // Field count: 0
-    pub mod CAbilityTargetdummy1VData {
-    }
+    pub mod CAbilityTargetdummy1VData {}
     // Parent: CitadelAbilityVData
     // Field count: 6
     pub mod CAbilityRollingFireBallVData {
@@ -6463,12 +6298,10 @@ pub mod client_dll {
     }
     // Parent: C_CitadelBaseAbility
     // Field count: 0
-    pub mod CCitadel_Ability_VoidSphere {
-    }
+    pub mod CCitadel_Ability_VoidSphere {}
     // Parent: C_CitadelBaseAbility
     // Field count: 0
-    pub mod CCitadel_Ability_Bull_Heal {
-    }
+    pub mod CCitadel_Ability_Bull_Heal {}
     // Parent: CCitadelModifierVData
     // Field count: 1
     pub mod CCitadel_Modifier_WeaponPowerForHealthVData {
@@ -6476,12 +6309,10 @@ pub mod client_dll {
     }
     // Parent: CCitadelModifier
     // Field count: 0
-    pub mod CCitadel_Modifier_SuperNeutralChargeActive {
-    }
+    pub mod CCitadel_Modifier_SuperNeutralChargeActive {}
     // Parent: CCitadelModifier
     // Field count: 0
-    pub mod CCitadel_Modifier_InvisFading {
-    }
+    pub mod CCitadel_Modifier_InvisFading {}
     // Parent: CCitadelModifierAuraVData
     // Field count: 1
     pub mod CCitadel_Modifier_Rutger_Pulse_Aura_VData {
@@ -6489,12 +6320,10 @@ pub mod client_dll {
     }
     // Parent: C_CitadelProjectile
     // Field count: 0
-    pub mod C_CProjectile_Rutger_Rocket {
-    }
+    pub mod C_CProjectile_Rutger_Rocket {}
     // Parent: CCitadelModifier
     // Field count: 0
-    pub mod CCitadel_Modifier_ControlPointBlockerAuraTarget {
-    }
+    pub mod CCitadel_Modifier_ControlPointBlockerAuraTarget {}
     // Parent: C_PointEntity
     // Field count: 1
     pub mod CPointChildModifier {
@@ -6507,8 +6336,7 @@ pub mod client_dll {
     }
     // Parent: C_CitadelBaseAbility
     // Field count: 0
-    pub mod CCitadel_Ability_ShieldedSentry {
-    }
+    pub mod CCitadel_Ability_ShieldedSentry {}
     // Parent: CCitadelModifierVData
     // Field count: 1
     pub mod CCitadel_Modifier_AblativeCoatResistBuffVData {
@@ -6521,12 +6349,10 @@ pub mod client_dll {
     }
     // Parent: C_BaseEntity
     // Field count: 0
-    pub mod C_InfoLadderDismount {
-    }
+    pub mod C_InfoLadderDismount {}
     // Parent: CCitadel_Item
     // Field count: 0
-    pub mod CCitadel_Item_TechCleave {
-    }
+    pub mod CCitadel_Item_TechCleave {}
     // Parent: C_BaseModelEntity
     // Field count: 13
     pub mod CCitadelZipLineNode {
@@ -6582,8 +6408,7 @@ pub mod client_dll {
     }
     // Parent: CCitadelModifier
     // Field count: 0
-    pub mod CCitadel_Modifier_Surging_Power {
-    }
+    pub mod CCitadel_Modifier_Surging_Power {}
     // Parent: CCitadel_Modifier_BaseEventProcVData
     // Field count: 1
     pub mod CCitadel_Modifier_CQC_ProcVData {
@@ -6647,8 +6472,7 @@ pub mod client_dll {
     }
     // Parent: CCitadelModifier
     // Field count: 0
-    pub mod CCitadel_Modifier_Parry {
-    }
+    pub mod CCitadel_Modifier_Parry {}
     // Parent: CCitadelModifierVData
     // Field count: 2
     pub mod CItemAOESilenceModifierVData {
@@ -6678,8 +6502,7 @@ pub mod client_dll {
     }
     // Parent: CCitadel_Modifier_BaseEventProc
     // Field count: 0
-    pub mod CCitadel_Modifier_SuperAcolytesGlove {
-    }
+    pub mod CCitadel_Modifier_SuperAcolytesGlove {}
     // Parent: None
     // Field count: 8
     pub mod LockonTarget_t {
@@ -6764,12 +6587,10 @@ pub mod client_dll {
     }
     // Parent: CCitadelModifier
     // Field count: 0
-    pub mod CCitadel_Modifier_GooGrenade {
-    }
+    pub mod CCitadel_Modifier_GooGrenade {}
     // Parent: CCitadelModifier
     // Field count: 0
-    pub mod CCitadel_Modifier_IcePath_Buff {
-    }
+    pub mod CCitadel_Modifier_IcePath_Buff {}
     // Parent: CCitadelModifier
     // Field count: 7
     pub mod CCitadel_Modifier_ProjectMind {
@@ -6790,16 +6611,13 @@ pub mod client_dll {
     }
     // Parent: CTier3BossAbility
     // Field count: 0
-    pub mod CCitadel_Ability_Tier3Boss_DamagePulse {
-    }
+    pub mod CCitadel_Ability_Tier3Boss_DamagePulse {}
     // Parent: CCitadelModifier
     // Field count: 0
-    pub mod CCitadel_Modifier_Core_PushTarget {
-    }
+    pub mod CCitadel_Modifier_Core_PushTarget {}
     // Parent: None
     // Field count: 0
-    pub mod CEntityComponent {
-    }
+    pub mod CEntityComponent {}
     // Parent: IEconItemInterface
     // Field count: 16
     pub mod C_EconItemView {
@@ -6822,8 +6640,7 @@ pub mod client_dll {
     }
     // Parent: CCitadelModifierAuraVData
     // Field count: 0
-    pub mod CCitadelModifer_Viscous_Goo_Aura_VData {
-    }
+    pub mod CCitadelModifer_Viscous_Goo_Aura_VData {}
     // Parent: C_BaseEntity
     // Field count: 2
     pub mod C_HandleTest {
@@ -6851,7 +6668,7 @@ pub mod client_dll {
     // Parent: C_CitadelBaseAbility
     // Field count: 1
     pub mod CCitadel_Ability_StormCloud {
-        pub const m_bApplyingVerticalAirDrag: usize = 0xCA0; // bool
+        pub const m_flFloat: usize = 0xD10; // float32
     }
     // Parent: CCitadel_Modifier_BaseEventProcVData
     // Field count: 4
@@ -6866,10 +6683,20 @@ pub mod client_dll {
     pub mod C_EnvWindClientside {
         pub const m_EnvWindShared: usize = 0x568; // C_EnvWindShared
     }
+    // Parent: CBaseFilter
+    // Field count: 1
+    pub mod FilterDamageType {
+        pub const m_iDamageType: usize = 0x5C0; // int32
+    }
     // Parent: CCitadelModifierAura
     // Field count: 0
-    pub mod CCitadel_Modifier_Rutger_ForceField_Aura {
-    }
+    pub mod CCitadel_Modifier_Rutger_ForceField_Aura {}
+    // Parent: CCitadelModifier
+    // Field count: 0
+    pub mod CModifier_Operative_Blindside_EnemyDebuff {}
+    // Parent: CitadelAbilityVData
+    // Field count: 0
+    pub mod CCitadel_Ability_Operative_ScatterCharge_VData {}
     // Parent: C_CitadelBaseAbility
     // Field count: 2
     pub mod CCitadel_Ability_Chrono_PulseGrenade {
@@ -6883,8 +6710,7 @@ pub mod client_dll {
     }
     // Parent: CCitadelModifier
     // Field count: 0
-    pub mod CCitadel_Modifier_VeilWalkerWatcher {
-    }
+    pub mod CCitadel_Modifier_VeilWalkerWatcher {}
     // Parent: CCitadelModifierAuraVData
     // Field count: 3
     pub mod CModifierNikumanVData {
@@ -6897,14 +6723,20 @@ pub mod client_dll {
     pub mod C_PointClientUIWorldTextPanel {
         pub const m_messageText: usize = 0xAC0; // char[512]
     }
+    // Parent: CCitadel_Modifier_InvisVData
+    // Field count: 4
+    pub mod CCitadel_Modifier_LurkersAmbush_InvisVData {
+        pub const m_flMaxCameraAngleForSeeing: usize = 0x8D0; // float32
+        pub const m_flMaxDistanceForSeeing: usize = 0x8D4; // float32
+        pub const m_flInvisBias: usize = 0x8D8; // float32
+        pub const m_flSpottedMinTimeToStart: usize = 0x8DC; // float32
+    }
     // Parent: C_CitadelBaseAbility
     // Field count: 0
-    pub mod CCitadel_Ability_Thumper_4 {
-    }
+    pub mod CCitadel_Ability_Thumper_4 {}
     // Parent: CCitadelModifier
     // Field count: 0
-    pub mod CCitadel_Modifier_Cadence_SilenceContraptions {
-    }
+    pub mod CCitadel_Modifier_Cadence_SilenceContraptions {}
     // Parent: C_CitadelBaseAbility
     // Field count: 3
     pub mod CCitadel_Ability_Burrow {
@@ -6914,8 +6746,7 @@ pub mod client_dll {
     }
     // Parent: CCitadelModifier
     // Field count: 0
-    pub mod CModifier_Citadel_Bull_Leap_LandingBonuses {
-    }
+    pub mod CModifier_Citadel_Bull_Leap_LandingBonuses {}
     // Parent: CCitadel_Item_TrackingProjectileApplyModifierVData
     // Field count: 2
     pub mod CCitadel_Item_Disarm_VData {
@@ -6924,16 +6755,13 @@ pub mod client_dll {
     }
     // Parent: CScaleFunctionBase
     // Field count: 0
-    pub mod CScaleFunctionAbilityProperty_BaseWeaponDamage {
-    }
+    pub mod CScaleFunctionAbilityProperty_BaseWeaponDamage {}
     // Parent: CScaleFunctionBase
     // Field count: 0
-    pub mod CScaleFunctionAbilityProperty_TechDuration {
-    }
+    pub mod CScaleFunctionAbilityProperty_TechDuration {}
     // Parent: C_PointClientUIWorldPanel
     // Field count: 0
-    pub mod CUnitStatusOverlay {
-    }
+    pub mod CUnitStatusOverlay {}
     // Parent: CCitadel_Item
     // Field count: 1
     pub mod CCitadel_WeaponUpgrade_WeaponEater {
@@ -6941,8 +6769,7 @@ pub mod client_dll {
     }
     // Parent: CCitadelModifier
     // Field count: 0
-    pub mod CCitadel_Modifier_FireRateAura {
-    }
+    pub mod CCitadel_Modifier_FireRateAura {}
     // Parent: CCitadelModifier
     // Field count: 1
     pub mod CCitadel_Modifier_ComboBreakerHeal {
@@ -6950,8 +6777,7 @@ pub mod client_dll {
     }
     // Parent: CCitadelModifier
     // Field count: 0
-    pub mod CCitadel_Modifier_BonusDamagePercent {
-    }
+    pub mod CCitadel_Modifier_BonusDamagePercent {}
     // Parent: None
     // Field count: 5
     pub mod AbilityResource_t {
@@ -6968,8 +6794,7 @@ pub mod client_dll {
     }
     // Parent: CCitadel_Item
     // Field count: 0
-    pub mod CCitadel_ArmorUpgrade_BulletArmorReductionAura {
-    }
+    pub mod CCitadel_ArmorUpgrade_BulletArmorReductionAura {}
     // Parent: C_CitadelBaseAbility
     // Field count: 1
     pub mod CCitadel_Ability_Hornet_Snipe {
@@ -6977,8 +6802,7 @@ pub mod client_dll {
     }
     // Parent: CCitadelModifier
     // Field count: 0
-    pub mod CCitadel_Modifier_HornetMark {
-    }
+    pub mod CCitadel_Modifier_HornetMark {}
     // Parent: CCitadelModifierVData
     // Field count: 1
     pub mod CCitadel_Modifier_FlameDashBurnVData {
@@ -6986,8 +6810,7 @@ pub mod client_dll {
     }
     // Parent: CCitadelModifier
     // Field count: 0
-    pub mod CCitadel_Modifier_Near_Climbable_Rope {
-    }
+    pub mod CCitadel_Modifier_Near_Climbable_Rope {}
     // Parent: CCitadelModifierVData
     // Field count: 10
     pub mod CCitadel_Modifier_Backdoor_ProtectionVData {
@@ -7004,8 +6827,7 @@ pub mod client_dll {
     }
     // Parent: CCitadelModifierVData
     // Field count: 0
-    pub mod CCitadel_Modifier_RootVData {
-    }
+    pub mod CCitadel_Modifier_RootVData {}
     // Parent: CPlayerPawnComponent
     // Field count: 15
     pub mod CPlayer_MovementServices {
@@ -7041,8 +6863,7 @@ pub mod client_dll {
     }
     // Parent: CCitadelModifier
     // Field count: 0
-    pub mod CCitadel_Modifier_TangoTether_TetherReceiver {
-    }
+    pub mod CCitadel_Modifier_TangoTether_TetherReceiver {}
     // Parent: CCitadelModifierVData
     // Field count: 1
     pub mod CCitadel_Modifier_IncendiaryThinkerVData {
@@ -7050,8 +6871,7 @@ pub mod client_dll {
     }
     // Parent: CCitadelModifier
     // Field count: 0
-    pub mod CCitadel_Modifier_Tier3Boss_Base {
-    }
+    pub mod CCitadel_Modifier_Tier3Boss_Base {}
     // Parent: C_BaseEntity
     // Field count: 11
     pub mod CEnvSoundscape {
@@ -7147,8 +6967,7 @@ pub mod client_dll {
     }
     // Parent: CCitadelModifier
     // Field count: 0
-    pub mod CCitadel_Modifier_DummyUnit {
-    }
+    pub mod CCitadel_Modifier_DummyUnit {}
     // Parent: CEntityComponent
     // Field count: 14
     pub mod CCitadelAbilityComponent {
@@ -7180,12 +6999,10 @@ pub mod client_dll {
     }
     // Parent: CCitadelModifierAura
     // Field count: 0
-    pub mod CCitadelModifierAura_Cone {
-    }
+    pub mod CCitadelModifierAura_Cone {}
     // Parent: C_Sprite
     // Field count: 0
-    pub mod CSpriteOriented {
-    }
+    pub mod CSpriteOriented {}
     // Parent: CitadelAbilityVData
     // Field count: 3
     pub mod CAbilityTokamakBreachVData {
@@ -7200,8 +7017,7 @@ pub mod client_dll {
     }
     // Parent: CCitadelModifier
     // Field count: 0
-    pub mod CCitadel_Modifier_Cadence_GrandFinale_Buff {
-    }
+    pub mod CCitadel_Modifier_Cadence_GrandFinale_Buff {}
     // Parent: CCitadelModifier
     // Field count: 1
     pub mod CCitadel_Modifier_ThrownShiv_Damage_Debuff {
@@ -7228,8 +7044,7 @@ pub mod client_dll {
     }
     // Parent: CCitadel_Modifier_BaseEventProc
     // Field count: 0
-    pub mod CCitadel_Modifier_Tech_Defender_Shredders_Proc {
-    }
+    pub mod CCitadel_Modifier_Tech_Defender_Shredders_Proc {}
     // Parent: CCitadel_Modifier_Out_Of_Combat_Health_Regen
     // Field count: 1
     pub mod CCitadel_Modifier_Apex_Watcher {
@@ -7276,14 +7091,19 @@ pub mod client_dll {
     }
     // Parent: C_CitadelBaseAbility
     // Field count: 2
+    pub mod CCitadel_Ability_Operative_Blindside {
+        pub const m_vLaunchPosition: usize = 0xCA0; // Vector
+        pub const m_qLaunchAngle: usize = 0xCAC; // QAngle
+    }
+    // Parent: C_CitadelBaseAbility
+    // Field count: 2
     pub mod CCitadel_Ability_SettingSun {
         pub const m_TargetPreviews: usize = 0xCA0; // CUtlVector<ParticleIndex_t>
         pub const m_bWasSelected: usize = 0xD68; // bool
     }
     // Parent: CCitadelModifier
     // Field count: 0
-    pub mod CCitadel_Modifier_SilenceProc_Immunity {
-    }
+    pub mod CCitadel_Modifier_SilenceProc_Immunity {}
     // Parent: CitadelItemVData
     // Field count: 1
     pub mod CCitadel_ArmorUpgrade_RegenerativeArmorVData {
@@ -7304,55 +7124,55 @@ pub mod client_dll {
     // Parent: CAI_BaseNPCVData
     // Field count: 49
     pub mod CAI_CitadelNPCVData {
-        pub const m_sAG2VariationName: usize = 0x270; // CResourceNameTyped<CWeakHandle<InfoForResourceTypeCNmGraphVariation>>
-        pub const m_mapBoundAbilities: usize = 0x350; // CUtlOrderedMap<EAbilitySlots_t,CSubclassName<4>>
-        pub const m_flSightRangePlayers: usize = 0x378; // float32
-        pub const m_flSightRangeNPCs: usize = 0x37C; // float32
-        pub const m_MeleeAnimName: usize = 0x380; // CGlobalSymbol
-        pub const m_flMeleeAttemptRange: usize = 0x388; // float32
-        pub const m_flMeleeHitRange: usize = 0x38C; // float32
-        pub const m_MeleeAttackPoints: usize = 0x390; // CUtlVector<float32>
-        pub const m_flMaxHealthBarDrawDistance: usize = 0x3A8; // float32
-        pub const m_flWalkSpeed: usize = 0x3AC; // float32
-        pub const m_flRunSpeed: usize = 0x3B0; // float32
-        pub const m_flTurnRate: usize = 0x3B4; // float32
-        pub const m_flAcceleration: usize = 0x3B8; // float32
-        pub const m_flStepHeight: usize = 0x3BC; // float32
-        pub const m_navHull: usize = 0x3C0; // int8
-        pub const m_BeamStartSound: usize = 0x3C8; // CSoundEventName
-        pub const m_BeamStopSound: usize = 0x3D8; // CSoundEventName
-        pub const m_BeamPointStartLoopSound: usize = 0x3E8; // CSoundEventName
-        pub const m_BeamPointEndLoopSound: usize = 0x3F8; // CSoundEventName
-        pub const m_BeamPointClosestLoopSound: usize = 0x408; // CSoundEventName
-        pub const m_strAmbientLoopSound: usize = 0x418; // CSoundEventName
-        pub const m_DeathSound: usize = 0x428; // CSoundEventName
-        pub const m_strLastHitSound: usize = 0x438; // CSoundEventName
-        pub const m_bPlayLastHitSound: usize = 0x448; // bool
-        pub const m_MeleeHitSound: usize = 0x450; // CSoundEventName
-        pub const m_MeleeHitPlayerSound: usize = 0x460; // CSoundEventName
-        pub const m_sDefaultMaterialGroupName: usize = 0x470; // CUtlString
-        pub const m_sEnemyMaterialGroupName: usize = 0x478; // CUtlString
-        pub const m_sTeam1MaterialGroupName: usize = 0x480; // CUtlString
-        pub const m_sTeam2MaterialGroupName: usize = 0x488; // CUtlString
-        pub const m_MeleeSwingParticle: usize = 0x490; // CResourceNameTyped<CWeakHandle<InfoForResourceTypeIParticleSystemDefinition>>
-        pub const m_MeleeActivateParticle: usize = 0x570; // CResourceNameTyped<CWeakHandle<InfoForResourceTypeIParticleSystemDefinition>>
-        pub const m_flModelScale: usize = 0x650; // float32
-        pub const m_DeathParticle: usize = 0x658; // CResourceNameTyped<CWeakHandle<InfoForResourceTypeIParticleSystemDefinition>>
-        pub const m_HealthBarParticle: usize = 0x738; // CResourceNameTyped<CWeakHandle<InfoForResourceTypeIParticleSystemDefinition>>
-        pub const m_sHealthBarAttachment: usize = 0x818; // CUtlString
-        pub const m_HealthBarColorFriend: usize = 0x820; // Color
-        pub const m_HealthBarColorEnemy: usize = 0x824; // Color
-        pub const m_HealthBarColorTeam1: usize = 0x828; // Color
-        pub const m_HealthBarColorTeam2: usize = 0x82C; // Color
-        pub const m_HealthBarColorTeamNeutral: usize = 0x830; // Color
-        pub const m_flHealthBarOffset: usize = 0x834; // float32
-        pub const m_bSpawnBreakablesOnDeath: usize = 0x838; // bool
-        pub const m_flBreakableForceScale: usize = 0x83C; // float32
-        pub const m_flPhysicsImpulseMultiplier: usize = 0x840; // float32
-        pub const m_flBeamWeaponWidth: usize = 0x844; // float32
-        pub const m_flBeamTurnRate: usize = 0x848; // float32
-        pub const m_BeamWeaponParticle: usize = 0x850; // CResourceNameTyped<CWeakHandle<InfoForResourceTypeIParticleSystemDefinition>>
-        pub const m_WeaponInfo: usize = 0x930; // CCitadelWeaponInfo
+        pub const m_sAG2VariationName: usize = 0x398; // CResourceNameTyped<CWeakHandle<InfoForResourceTypeCNmGraphVariation>>
+        pub const m_mapBoundAbilities: usize = 0x478; // CUtlOrderedMap<EAbilitySlots_t,CSubclassName<4>>
+        pub const m_flSightRangePlayers: usize = 0x4A0; // float32
+        pub const m_flSightRangeNPCs: usize = 0x4A4; // float32
+        pub const m_MeleeAnimName: usize = 0x4A8; // CGlobalSymbol
+        pub const m_flMeleeAttemptRange: usize = 0x4B0; // float32
+        pub const m_flMeleeHitRange: usize = 0x4B4; // float32
+        pub const m_MeleeAttackPoints: usize = 0x4B8; // CUtlVector<float32>
+        pub const m_flMaxHealthBarDrawDistance: usize = 0x4D0; // float32
+        pub const m_flWalkSpeed: usize = 0x4D4; // float32
+        pub const m_flRunSpeed: usize = 0x4D8; // float32
+        pub const m_flTurnRate: usize = 0x4DC; // float32
+        pub const m_flAcceleration: usize = 0x4E0; // float32
+        pub const m_flStepHeight: usize = 0x4E4; // float32
+        pub const m_navHull: usize = 0x4E8; // int8
+        pub const m_BeamStartSound: usize = 0x4F0; // CSoundEventName
+        pub const m_BeamStopSound: usize = 0x500; // CSoundEventName
+        pub const m_BeamPointStartLoopSound: usize = 0x510; // CSoundEventName
+        pub const m_BeamPointEndLoopSound: usize = 0x520; // CSoundEventName
+        pub const m_BeamPointClosestLoopSound: usize = 0x530; // CSoundEventName
+        pub const m_strAmbientLoopSound: usize = 0x540; // CSoundEventName
+        pub const m_DeathSound: usize = 0x550; // CSoundEventName
+        pub const m_strLastHitSound: usize = 0x560; // CSoundEventName
+        pub const m_bPlayLastHitSound: usize = 0x570; // bool
+        pub const m_MeleeHitSound: usize = 0x578; // CSoundEventName
+        pub const m_MeleeHitPlayerSound: usize = 0x588; // CSoundEventName
+        pub const m_sDefaultMaterialGroupName: usize = 0x598; // CUtlString
+        pub const m_sEnemyMaterialGroupName: usize = 0x5A0; // CUtlString
+        pub const m_sTeam1MaterialGroupName: usize = 0x5A8; // CUtlString
+        pub const m_sTeam2MaterialGroupName: usize = 0x5B0; // CUtlString
+        pub const m_MeleeSwingParticle: usize = 0x5B8; // CResourceNameTyped<CWeakHandle<InfoForResourceTypeIParticleSystemDefinition>>
+        pub const m_MeleeActivateParticle: usize = 0x698; // CResourceNameTyped<CWeakHandle<InfoForResourceTypeIParticleSystemDefinition>>
+        pub const m_flModelScale: usize = 0x778; // float32
+        pub const m_DeathParticle: usize = 0x780; // CResourceNameTyped<CWeakHandle<InfoForResourceTypeIParticleSystemDefinition>>
+        pub const m_HealthBarParticle: usize = 0x860; // CResourceNameTyped<CWeakHandle<InfoForResourceTypeIParticleSystemDefinition>>
+        pub const m_sHealthBarAttachment: usize = 0x940; // CUtlString
+        pub const m_HealthBarColorFriend: usize = 0x948; // Color
+        pub const m_HealthBarColorEnemy: usize = 0x94C; // Color
+        pub const m_HealthBarColorTeam1: usize = 0x950; // Color
+        pub const m_HealthBarColorTeam2: usize = 0x954; // Color
+        pub const m_HealthBarColorTeamNeutral: usize = 0x958; // Color
+        pub const m_flHealthBarOffset: usize = 0x95C; // float32
+        pub const m_bSpawnBreakablesOnDeath: usize = 0x960; // bool
+        pub const m_flBreakableForceScale: usize = 0x964; // float32
+        pub const m_flPhysicsImpulseMultiplier: usize = 0x968; // float32
+        pub const m_flBeamWeaponWidth: usize = 0x96C; // float32
+        pub const m_flBeamTurnRate: usize = 0x970; // float32
+        pub const m_BeamWeaponParticle: usize = 0x978; // CResourceNameTyped<CWeakHandle<InfoForResourceTypeIParticleSystemDefinition>>
+        pub const m_WeaponInfo: usize = 0xA58; // CCitadelWeaponInfo
     }
     // Parent: CCitadelModifierAuraVData
     // Field count: 1
@@ -7392,7 +7212,7 @@ pub mod client_dll {
         pub const m_PlayerShieldParticle: usize = 0x6E8; // CResourceNameTyped<CWeakHandle<InfoForResourceTypeIParticleSystemDefinition>>
     }
     // Parent: CNPC_SimpleAnimatingAIVData
-    // Field count: 17
+    // Field count: 18
     pub mod CNPC_ShieldedSentryVData {
         pub const m_flZShootPostionOffset: usize = 0x108; // float32
         pub const m_LaserSightParticle: usize = 0x110; // CResourceNameTyped<CWeakHandle<InfoForResourceTypeIParticleSystemDefinition>>
@@ -7411,6 +7231,7 @@ pub mod client_dll {
         pub const m_flNotifyEventTime: usize = 0x350; // float32
         pub const m_flNearDeathDuration: usize = 0x354; // float32
         pub const m_flMinimapRevealTime: usize = 0x358; // float32
+        pub const m_flMinLifetime: usize = 0x35C; // float32
     }
     // Parent: CCitadelModifierVData
     // Field count: 2
@@ -7430,7 +7251,7 @@ pub mod client_dll {
         pub const m_strExpiredSound: usize = 0x1900; // CSoundEventName
         pub const m_strImmobilizeTargetSound: usize = 0x1910; // CSoundEventName
         pub const m_strArmingSound: usize = 0x1920; // CSoundEventName
-        pub const m_TrapModifier: usize = 0x1930; // CEmbeddedSubclass<CCitadelModifier>
+        pub const m_TetherModifier: usize = 0x1930; // CEmbeddedSubclass<CCitadelModifier>
         pub const m_DebuffModifier: usize = 0x1940; // CEmbeddedSubclass<CCitadelModifier>
         pub const m_SlowModifier: usize = 0x1950; // CEmbeddedSubclass<CCitadelModifier>
     }
@@ -7442,8 +7263,7 @@ pub mod client_dll {
     }
     // Parent: CCitadelModifier
     // Field count: 0
-    pub mod CCitadel_Modifier_Item_SmokeBomb_PreCast {
-    }
+    pub mod CCitadel_Modifier_Item_SmokeBomb_PreCast {}
     // Parent: CCitadel_Modifier_BaseEventProcVData
     // Field count: 2
     pub mod CCitadel_Modifier_MagicShock_ProcVData {
@@ -7502,16 +7322,16 @@ pub mod client_dll {
     }
     // Parent: CCitadel_Ability_TrooperGrenade
     // Field count: 0
-    pub mod CCitadel_Ability_TrooperNeutralGrenade {
-    }
+    pub mod CCitadel_Ability_TrooperNeutralGrenade {}
     // Parent: CCitadelModifier
     // Field count: 0
-    pub mod CCitadel_Modifier_PlayerPinged {
-    }
+    pub mod CCitadel_Modifier_Skirmish_Passive_Gold {}
+    // Parent: CCitadelModifier
+    // Field count: 0
+    pub mod CCitadel_Modifier_PlayerPinged {}
     // Parent: CCitadel_Item
     // Field count: 0
-    pub mod CCitadel_Item_TrackingProjectileApplyModifier {
-    }
+    pub mod CCitadel_Item_TrackingProjectileApplyModifier {}
     // Parent: CCitadelModifier
     // Field count: 1
     pub mod CCitadel_Modifier_Rutger_Pulse_Target {
@@ -7519,8 +7339,7 @@ pub mod client_dll {
     }
     // Parent: CitadelAbilityVData
     // Field count: 0
-    pub mod CAbilityGenericPerson3VData {
-    }
+    pub mod CAbilityGenericPerson3VData {}
     // Parent: CitadelAbilityVData
     // Field count: 3
     pub mod CAbilityPsychicLiftVData {
@@ -7536,16 +7355,10 @@ pub mod client_dll {
     }
     // Parent: CCitadelModifier
     // Field count: 0
-    pub mod CCitadel_Modifier_Discord_Enemy {
-    }
+    pub mod CCitadel_Modifier_Discord_Enemy {}
     // Parent: CCitadel_Modifier_BaseEventProc
     // Field count: 0
-    pub mod CCitadel_Modifier_BulletArmorShredder_Proc {
-    }
-    // Parent: CCitadelModifier
-    // Field count: 0
-    pub mod CCitadel_Modifier_Bullet_Shield {
-    }
+    pub mod CCitadel_Modifier_BulletArmorShredder_Proc {}
     // Parent: CCitadelModifierVData
     // Field count: 1
     pub mod CCitadel_Modifier_BonusDamagePercentVData {
@@ -7559,24 +7372,28 @@ pub mod client_dll {
     // Parent: C_BaseTrigger
     // Field count: 9
     pub mod C_ColorCorrectionVolume {
-        pub const m_LastEnterWeight: usize = 0x868; // float32
-        pub const m_LastEnterTime: usize = 0x86C; // float32
-        pub const m_LastExitWeight: usize = 0x870; // float32
-        pub const m_LastExitTime: usize = 0x874; // float32
-        pub const m_bEnabled: usize = 0x878; // bool
-        pub const m_MaxWeight: usize = 0x87C; // float32
-        pub const m_FadeDuration: usize = 0x880; // float32
-        pub const m_Weight: usize = 0x884; // float32
-        pub const m_lookupFilename: usize = 0x888; // char[512]
+        pub const m_LastEnterWeight: usize = 0x9A0; // float32
+        pub const m_LastEnterTime: usize = 0x9A4; // GameTime_t
+        pub const m_LastExitWeight: usize = 0x9A8; // float32
+        pub const m_LastExitTime: usize = 0x9AC; // GameTime_t
+        pub const m_bEnabled: usize = 0x9B0; // bool
+        pub const m_MaxWeight: usize = 0x9B4; // float32
+        pub const m_FadeDuration: usize = 0x9B8; // float32
+        pub const m_Weight: usize = 0x9BC; // float32
+        pub const m_lookupFilename: usize = 0x9C0; // char[512]
     }
     // Parent: C_BaseModelEntity
     // Field count: 0
-    pub mod C_PrecipitationBlocker {
+    pub mod C_PrecipitationBlocker {}
+    // Parent: CCitadel_Modifier_Intrinsic_Base
+    // Field count: 2
+    pub mod CModifier_Operative_Scattercharge_Projectile {
+        pub const m_vInitialCastPosition: usize = 0x130; // Vector
+        pub const m_iParticleEffect: usize = 0x13C; // ParticleIndex_t
     }
     // Parent: CCitadelModifier
     // Field count: 0
-    pub mod CCitadel_Modifier_Cadence_Gun_Spikes {
-    }
+    pub mod CCitadel_Modifier_Cadence_Gun_Spikes {}
     // Parent: C_CitadelBaseAbility
     // Field count: 7
     pub mod CCitadel_Ability_IceBeam {
@@ -7590,8 +7407,7 @@ pub mod client_dll {
     }
     // Parent: CCitadelModifier
     // Field count: 0
-    pub mod CCitadel_Modifier_Sleep {
-    }
+    pub mod CCitadel_Modifier_Sleep {}
     // Parent: CModifierVData
     // Field count: 25
     pub mod CCitadelModifierVData {
@@ -7636,8 +7452,7 @@ pub mod client_dll {
     }
     // Parent: CCitadelModifier
     // Field count: 0
-    pub mod CCitadel_Modifier_Bounce_Pad_Ally {
-    }
+    pub mod CCitadel_Modifier_Bounce_Pad_Ally {}
     // Parent: CCitadel_Modifier_BaseEventProcVData
     // Field count: 2
     pub mod CModifierAirRaidVData {
@@ -7651,8 +7466,7 @@ pub mod client_dll {
     }
     // Parent: CCitadelModifier
     // Field count: 0
-    pub mod CCitadel_Modifier_Passive_Cloak {
-    }
+    pub mod CCitadel_Modifier_Passive_Cloak {}
     // Parent: CitadelItemVData
     // Field count: 2
     pub mod CCitadel_Item_ComboBreakerVData {
@@ -7661,8 +7475,7 @@ pub mod client_dll {
     }
     // Parent: CCitadelModifier
     // Field count: 0
-    pub mod CCitadel_Modifier_HalloweenMask {
-    }
+    pub mod CCitadel_Modifier_HalloweenMask {}
     // Parent: CCitadelModifierVData
     // Field count: 6
     pub mod CCitadel_Modifier_SettingSunThinker_VData {
@@ -7675,8 +7488,7 @@ pub mod client_dll {
     }
     // Parent: CCitadel_Modifier_Base
     // Field count: 0
-    pub mod CCitadel_Modifier_Haunt_Damage {
-    }
+    pub mod CCitadel_Modifier_Haunt_Damage {}
     // Parent: CCitadelModifierVData
     // Field count: 12
     pub mod CCitadel_Modifier_PsychicDagger_MakeDaggers_VData {
@@ -7708,8 +7520,7 @@ pub mod client_dll {
     }
     // Parent: CCitadelModifier
     // Field count: 0
-    pub mod CCitadel_Modifier_AmmoScavenger {
-    }
+    pub mod CCitadel_Modifier_AmmoScavenger {}
     // Parent: CCitadelModifierVData
     // Field count: 2
     pub mod CCitadel_Modifier_Objective_RegenVData {
@@ -7718,16 +7529,13 @@ pub mod client_dll {
     }
     // Parent: CCitadel_Modifier_BaseEventProc
     // Field count: 0
-    pub mod CCitadel_Modifier_ApplyDebuff_Proc {
-    }
+    pub mod CCitadel_Modifier_ApplyDebuff_Proc {}
     // Parent: CBaseAnimGraph
     // Field count: 0
-    pub mod C_Citadel_PickupItemSpawner {
-    }
+    pub mod C_Citadel_PickupItemSpawner {}
     // Parent: CBaseAnimGraph
     // Field count: 0
-    pub mod CCitadel_HeroTestOrbSpawner {
-    }
+    pub mod CCitadel_HeroTestOrbSpawner {}
     // Parent: CCitadel_Item
     // Field count: 1
     pub mod CCitadel_Item_RescueBeam {
@@ -7740,8 +7548,7 @@ pub mod client_dll {
     }
     // Parent: CCitadelModifier
     // Field count: 0
-    pub mod CCitadel_Modifier_Chrono_TimeWall_Effect {
-    }
+    pub mod CCitadel_Modifier_Chrono_TimeWall_Effect {}
     // Parent: CitadelItemVData
     // Field count: 2
     pub mod CCitadel_WeaponUpgrade_SurgingPowerVData {
@@ -7755,8 +7562,7 @@ pub mod client_dll {
     }
     // Parent: CCitadel_Modifier_Intrinsic_Base
     // Field count: 0
-    pub mod CCitadel_Modifier_MagicClarityWatcher {
-    }
+    pub mod CCitadel_Modifier_MagicClarityWatcher {}
     // Parent: CCitadelModelEntity
     // Field count: 3
     pub mod C_Citadel_Shield {
@@ -7766,8 +7572,7 @@ pub mod client_dll {
     }
     // Parent: CCitadelModifier
     // Field count: 0
-    pub mod CCitadel_Modifier_Metal {
-    }
+    pub mod CCitadel_Modifier_Metal {}
     // Parent: CitadelAbilityVData
     // Field count: 1
     pub mod CAbilityGangActivityVData {
@@ -7785,8 +7590,7 @@ pub mod client_dll {
     }
     // Parent: C_CitadelBaseAbility
     // Field count: 0
-    pub mod CCitadel_Ability_Vandal_Ability03 {
-    }
+    pub mod CCitadel_Ability_Vandal_Ability03 {}
     // Parent: CCitadelModifierVData
     // Field count: 5
     pub mod CCitadel_Modifier_Burrow_VData {
@@ -7798,16 +7602,13 @@ pub mod client_dll {
     }
     // Parent: CCitadelModifier
     // Field count: 0
-    pub mod CModifier_BansheeSlugs_Headshot {
-    }
+    pub mod CModifier_BansheeSlugs_Headshot {}
     // Parent: CCitadelModifier
     // Field count: 0
-    pub mod CCitadel_Modifier_ReturnFire {
-    }
+    pub mod CCitadel_Modifier_ReturnFire {}
     // Parent: CCitadelModifier
     // Field count: 0
-    pub mod CCitadel_Modifier_BulletResistReductionStack {
-    }
+    pub mod CCitadel_Modifier_BulletResistReductionStack {}
     // Parent: CEntitySubclassVDataBase
     // Field count: 2
     pub mod CFuncFoliageVData {
@@ -7816,8 +7617,7 @@ pub mod client_dll {
     }
     // Parent: CCitadelModifier
     // Field count: 0
-    pub mod CCitadel_Modifier_Arcane_Eater_Debuff {
-    }
+    pub mod CCitadel_Modifier_Arcane_Eater_Debuff {}
     // Parent: CCitadel_Modifier_BaseEventProc
     // Field count: 2
     pub mod CCitadel_Modifier_BaseBulletPreRollProc {
@@ -7852,16 +7652,13 @@ pub mod client_dll {
     }
     // Parent: C_CitadelBaseAbility
     // Field count: 0
-    pub mod CCitadel_Ability_PsychicLift {
-    }
+    pub mod CCitadel_Ability_PsychicLift {}
     // Parent: CCitadelModifier
     // Field count: 0
-    pub mod CCitadel_Modifier_Burning {
-    }
+    pub mod CCitadel_Modifier_Burning {}
     // Parent: CCitadelModifier
     // Field count: 0
-    pub mod CCitadel_Modifier_InFountain {
-    }
+    pub mod CCitadel_Modifier_InFountain {}
     // Parent: C_BarnLight
     // Field count: 3
     pub mod C_OmniLight {
@@ -7869,22 +7666,21 @@ pub mod client_dll {
         pub const m_flOuterAngle: usize = 0xBAC; // float32
         pub const m_bShowLight: usize = 0xBB0; // bool
     }
+    // Parent: CCitadel_Modifier_ScalingPowerUp
+    // Field count: 0
+    pub mod CCitadel_Modifier_PowerUp_Survival {}
     // Parent: CCitadelModifier
     // Field count: 0
-    pub mod CCitadel_Modifier_Cadence_Crescendo_PostAOE {
-    }
+    pub mod CCitadel_Modifier_Cadence_Crescendo_PostAOE {}
     // Parent: CCitadelModifier
     // Field count: 0
-    pub mod CCitadel_Modifier_ChargedTackleActive {
-    }
+    pub mod CCitadel_Modifier_ChargedTackleActive {}
     // Parent: CCitadelModifier
     // Field count: 0
-    pub mod CCitadel_Modifier_MobileResupply {
-    }
+    pub mod CCitadel_Modifier_MobileResupply {}
     // Parent: CCitadel_Modifier_Base
     // Field count: 0
-    pub mod CCitadel_Modifier_MagicCarpet_Summon {
-    }
+    pub mod CCitadel_Modifier_MagicCarpet_Summon {}
     // Parent: CCitadelModifierVData
     // Field count: 2
     pub mod CCitadel_Modifier_RescueBeamVData {
@@ -7893,7 +7689,11 @@ pub mod client_dll {
     }
     // Parent: C_AI_CitadelNPC
     // Field count: 0
-    pub mod C_NPC_HornetDrone {
+    pub mod C_NPC_HornetDrone {}
+    // Parent: C_CitadelProjectile
+    // Field count: 1
+    pub mod CCitadel_Projectile_MagicBolt {
+        pub const bIsCloneProjectile: usize = 0x8E8; // bool
     }
     // Parent: CCitadelModifier
     // Field count: 6
@@ -7912,12 +7712,10 @@ pub mod client_dll {
     }
     // Parent: C_CitadelBaseAbility
     // Field count: 0
-    pub mod CCitadel_Ability_Cadence_Lullaby {
-    }
+    pub mod CCitadel_Ability_Cadence_Lullaby {}
     // Parent: C_CitadelBaseAbility
     // Field count: 0
-    pub mod CCitadel_Ability_GangActivity {
-    }
+    pub mod CCitadel_Ability_GangActivity {}
     // Parent: CitadelAbilityVData
     // Field count: 3
     pub mod CCitadel_Ability_ShieldedSentry_VData {
@@ -7927,12 +7725,10 @@ pub mod client_dll {
     }
     // Parent: CCitadelModifier
     // Field count: 0
-    pub mod CCitadel_Modifier_Hornet_Snipe {
-    }
+    pub mod CCitadel_Modifier_Hornet_Snipe {}
     // Parent: C_CitadelBaseAbility
     // Field count: 0
-    pub mod CCitadelBaseAbilityServerOnly {
-    }
+    pub mod CCitadelBaseAbilityServerOnly {}
     // Parent: CEntitySubclassVDataBase
     // Field count: 3
     pub mod CScaleFunctionVData {
@@ -7962,8 +7758,7 @@ pub mod client_dll {
     }
     // Parent: C_PointEntity
     // Field count: 0
-    pub mod CCitadelItemPickupRejuvHeroTestInfoSpawn {
-    }
+    pub mod CCitadelItemPickupRejuvHeroTestInfoSpawn {}
     // Parent: C_CitadelBaseAbility
     // Field count: 4
     pub mod CAbility_Synth_PlasmaFlux {
@@ -7971,6 +7766,14 @@ pub mod client_dll {
         pub const m_flProjectileLaunchTime: usize = 0xCB4; // GameTime_t
         pub const m_flProjectileExpireTime: usize = 0xCB8; // GameTime_t
         pub const m_hActiveProjectile: usize = 0xCBC; // CHandle<C_BaseEntity>
+    }
+    // Parent: CCitadelModifierVData
+    // Field count: 4
+    pub mod CCitadel_Modifier_Gunslinger_DemonCarbineVData {
+        pub const m_TracerParticle: usize = 0x608; // CResourceNameTyped<CWeakHandle<InfoForResourceTypeIParticleSystemDefinition>>
+        pub const m_FullyChargedParticle: usize = 0x6E8; // CResourceNameTyped<CWeakHandle<InfoForResourceTypeIParticleSystemDefinition>>
+        pub const m_strFullyCharged: usize = 0x7C8; // CSoundEventName
+        pub const m_strShotSound: usize = 0x7D8; // CSoundEventName
     }
     // Parent: CCitadel_Ability_PrimaryWeaponVData
     // Field count: 1
@@ -7992,8 +7795,7 @@ pub mod client_dll {
     }
     // Parent: CCitadelModifier
     // Field count: 0
-    pub mod CCitadel_Modifier_DeathTax {
-    }
+    pub mod CCitadel_Modifier_DeathTax {}
     // Parent: CCitadelModifierVData
     // Field count: 1
     pub mod CCitadel_Modifier_Low_Health_GlowVData {
@@ -8001,8 +7803,7 @@ pub mod client_dll {
     }
     // Parent: CCitadelModifier
     // Field count: 0
-    pub mod CCitadel_Modifier_ParriedStun {
-    }
+    pub mod CCitadel_Modifier_ParriedStun {}
     // Parent: CCitadelModifier
     // Field count: 1
     pub mod CCitadel_Modifier_HunterAuraTarget {
@@ -8010,8 +7811,7 @@ pub mod client_dll {
     }
     // Parent: CCitadel_Modifier_BaseEventProc
     // Field count: 0
-    pub mod CCitadel_Modifier_CQC_Proc {
-    }
+    pub mod CCitadel_Modifier_CQC_Proc {}
     // Parent: CitadelItemVData
     // Field count: 1
     pub mod CCitadel_ArmorUpgrade_SlowImmunityVData {
@@ -8035,7 +7835,11 @@ pub mod client_dll {
     }
     // Parent: CCitadel_Item
     // Field count: 0
-    pub mod CCitadel_ArmorUpgrade_DamageRecycler {
+    pub mod CCitadel_ArmorUpgrade_DamageRecycler {}
+    // Parent: CBaseFilter
+    // Field count: 1
+    pub mod CFilterClass {
+        pub const m_iFilterClass: usize = 0x5C0; // CUtlSymbolLarge
     }
     // Parent: CitadelAbilityVData
     // Field count: 6
@@ -8049,12 +7853,10 @@ pub mod client_dll {
     }
     // Parent: CitadelAbilityVData
     // Field count: 0
-    pub mod CAbilityTargetdummy2VData {
-    }
+    pub mod CAbilityTargetdummy2VData {}
     // Parent: CCitadelModifier
     // Field count: 0
-    pub mod CCitadel_Modifier_Wrecker_Ultimate {
-    }
+    pub mod CCitadel_Modifier_Wrecker_Ultimate {}
     // Parent: CCitadel_Modifier_BaseEventProcVData
     // Field count: 1
     pub mod CCitadel_Modifier_BulletArmorShredder_ProcVData {
@@ -8068,27 +7870,27 @@ pub mod client_dll {
     }
     // Parent: CCitadelModifierAura
     // Field count: 0
-    pub mod CCitadel_Modifier_ItemPickupAura {
-    }
+    pub mod CCitadel_Modifier_ItemPickupAura {}
     // Parent: CCitadelModifierAura
     // Field count: 0
-    pub mod CCitadel_Modifier_Thumper_PullAOE {
-    }
+    pub mod CCitadel_Modifier_Thumper_PullAOE {}
     // Parent: CCitadel_Item
     // Field count: 0
-    pub mod CCitadel_Item_Camouflage {
-    }
+    pub mod CCitadel_Item_Camouflage {}
     // Parent: CAI_NPC_TrooperVData
     // Field count: 7
     pub mod CNPC_TrooperBossVData {
-        pub const m_bMitigateDamageFromPlayers: usize = 0x1690; // bool
-        pub const m_flPlayerAutoAttackRange: usize = 0x1694; // float32
-        pub const m_flMinMeleeAttackTime: usize = 0x1698; // float32
-        pub const m_flInvulRange: usize = 0x169C; // float32
-        pub const m_sAngryStart: usize = 0x16A0; // CSoundEventName
-        pub const m_sAngryLoop: usize = 0x16B0; // CSoundEventName
-        pub const m_sAngryStop: usize = 0x16C0; // CSoundEventName
+        pub const m_bMitigateDamageFromPlayers: usize = 0x17B8; // bool
+        pub const m_flPlayerAutoAttackRange: usize = 0x17BC; // float32
+        pub const m_flMinMeleeAttackTime: usize = 0x17C0; // float32
+        pub const m_flInvulRange: usize = 0x17C4; // float32
+        pub const m_sAngryStart: usize = 0x17C8; // CSoundEventName
+        pub const m_sAngryLoop: usize = 0x17D8; // CSoundEventName
+        pub const m_sAngryStop: usize = 0x17E8; // CSoundEventName
     }
+    // Parent: CBaseFilter
+    // Field count: 0
+    pub mod CFilterLOS {}
     // Parent: None
     // Field count: 2
     pub mod C_EconItemAttribute {
@@ -8099,6 +7901,14 @@ pub mod client_dll {
     // Field count: 1
     pub mod CAbilityTokamakRadianceVData {
         pub const m_RadianceModifier: usize = 0x1560; // CEmbeddedSubclass<CCitadelModifier>
+    }
+    // Parent: CitadelAbilityVData
+    // Field count: 4
+    pub mod CCitadel_Ability_Gunslinger_DemonCarbineVData {
+        pub const m_flShotTimeScaleLingerDuration: usize = 0x1560; // float32
+        pub const m_ChargingModifier: usize = 0x1568; // CEmbeddedSubclass<CCitadelModifier>
+        pub const m_DebuffModifier: usize = 0x1578; // CEmbeddedSubclass<CCitadelModifier>
+        pub const m_cameraDemonCarbineShotFired: usize = 0x1588; // CitadelCameraOperationsSequence_t
     }
     // Parent: C_CitadelBaseAbility
     // Field count: 1
@@ -8114,10 +7924,6 @@ pub mod client_dll {
         pub const m_flThickness: usize = 0x30; // float32
         pub const m_SurfacePropStringToken: usize = 0x34; // CUtlStringToken
     }
-    // Parent: CCitadel_Modifier_Root
-    // Field count: 0
-    pub mod CCitadel_Modifier_ImmobilizeTrap_Immobilize {
-    }
     // Parent: None
     // Field count: 3
     pub mod EngineCountdownTimer {
@@ -8127,8 +7933,7 @@ pub mod client_dll {
     }
     // Parent: C_CitadelProjectile
     // Field count: 0
-    pub mod C_Projectile_Synth_Barrage {
-    }
+    pub mod C_Projectile_Synth_Barrage {}
     // Parent: CCitadelModifierAura_Cone
     // Field count: 2
     pub mod CCitadel_Modifier_Bull_Heal_Aura {
@@ -8137,16 +7942,13 @@ pub mod client_dll {
     }
     // Parent: CCitadelModifierVData
     // Field count: 0
-    pub mod CCitadel_Modifier_ShadowCloneVData {
-    }
+    pub mod CCitadel_Modifier_ShadowCloneVData {}
     // Parent: CCitadelModifier
     // Field count: 0
-    pub mod CCitadel_Modifier_Nano_Shadow_Debuff {
-    }
+    pub mod CCitadel_Modifier_Nano_Shadow_Debuff {}
     // Parent: C_CitadelBaseAbility
     // Field count: 0
-    pub mod CCitadel_Ability_WreckerScrapBlast {
-    }
+    pub mod CCitadel_Ability_WreckerScrapBlast {}
     // Parent: CitadelAbilityVData
     // Field count: 15
     pub mod CAbilityMeleeParryVData {
@@ -8169,7 +7971,12 @@ pub mod client_dll {
     // Parent: CBaseAnimGraph
     // Field count: 1
     pub mod C_Citadel_BreakableProp {
-        pub const m_nHitIndex: usize = 0xB08; // int32
+        pub const m_nHitIndex: usize = 0xB00; // int32
+    }
+    // Parent: CCitadel_Modifier_BaseBulletPreRollProc
+    // Field count: 1
+    pub mod CCitadel_Modifier_EmpowerBullet {
+        pub const m_BuffedShotId: usize = 0x1F8; // ShotID_t
     }
     // Parent: CCitadelBaseYamatoAbility
     // Field count: 21
@@ -8216,12 +8023,10 @@ pub mod client_dll {
     }
     // Parent: CCitadelModifier
     // Field count: 0
-    pub mod CCitadel_Modifier_Cadence_Crescendo_InAOE {
-    }
+    pub mod CCitadel_Modifier_Cadence_Crescendo_InAOE {}
     // Parent: CCitadelModifier
     // Field count: 0
-    pub mod CCitadel_Modifier_Viper_SlideBuff {
-    }
+    pub mod CCitadel_Modifier_Viper_SlideBuff {}
     // Parent: CCitadelModifierVData
     // Field count: 1
     pub mod CCitadel_Modifier_Astro_ShotgunBuffVData {
@@ -8245,8 +8050,7 @@ pub mod client_dll {
     }
     // Parent: CCitadel_Modifier_ChainLightningEffect
     // Field count: 0
-    pub mod CCitadel_Modifier_Galvanic_Storm_Effect {
-    }
+    pub mod CCitadel_Modifier_Galvanic_Storm_Effect {}
     // Parent: CitadelItemVData
     // Field count: 3
     pub mod CItemAOERootVData {
@@ -8273,8 +8077,7 @@ pub mod client_dll {
     }
     // Parent: C_CitadelBaseAbility
     // Field count: 0
-    pub mod CCitadelBaseShivAbility {
-    }
+    pub mod CCitadelBaseShivAbility {}
     // Parent: CCitadelModifierVData
     // Field count: 5
     pub mod CCitadel_Modifier_ReturnFireVData {
@@ -8301,8 +8104,7 @@ pub mod client_dll {
     }
     // Parent: C_CitadelProjectile
     // Field count: 0
-    pub mod C_Citadel_Projectile_SettingSun {
-    }
+    pub mod C_Citadel_Projectile_SettingSun {}
     // Parent: CCitadel_Modifier_SilencedVData
     // Field count: 3
     pub mod CCitadel_Modifier_BubbleVData {
@@ -8328,8 +8130,7 @@ pub mod client_dll {
     }
     // Parent: CCitadelModifier
     // Field count: 0
-    pub mod CCitadel_Modifier_HookSelf {
-    }
+    pub mod CCitadel_Modifier_HookSelf {}
     // Parent: CitadelAbilityVData
     // Field count: 3
     pub mod CCitadel_Ability_VoidSphereVData {
@@ -8339,19 +8140,17 @@ pub mod client_dll {
     }
     // Parent: CCitadelModifier
     // Field count: 0
-    pub mod CCitadel_Modifier_ExplosiveShots {
-    }
-    // Parent: CCitadel_Item
-    // Field count: 0
-    pub mod CCitadel_Upgrade_AerialAssault {
-    }
+    pub mod CCitadel_Modifier_ExplosiveShots {}
     // Parent: C_BaseTrigger
     // Field count: 3
     pub mod CCitadelCatapultTrigger {
-        pub const m_vLaunchTarget: usize = 0x868; // Vector
-        pub const m_flLaunchSpeed: usize = 0x874; // float32
-        pub const m_nameTarget: usize = 0x878; // CUtlSymbolLarge
+        pub const m_vLaunchTarget: usize = 0x9A0; // Vector
+        pub const m_flLaunchSpeed: usize = 0x9AC; // float32
+        pub const m_nameTarget: usize = 0x9B0; // CUtlSymbolLarge
     }
+    // Parent: CCitadel_Item
+    // Field count: 0
+    pub mod CCitadel_Upgrade_AerialAssault {}
     // Parent: C_BaseModelEntity
     // Field count: 9
     pub mod C_FuncLadder {
@@ -8373,8 +8172,7 @@ pub mod client_dll {
     }
     // Parent: CCitadelModifier
     // Field count: 0
-    pub mod CCitadel_Modifier_Synth_PlasmaFlux_WeaponDamage {
-    }
+    pub mod CCitadel_Modifier_Synth_PlasmaFlux_WeaponDamage {}
     // Parent: CCitadelModifierVData
     // Field count: 1
     pub mod CCitadel_Modifier_Cadence_SilenceContraptionsVData {
@@ -8387,8 +8185,7 @@ pub mod client_dll {
     }
     // Parent: CCitadel_Modifier_BaseEventProc
     // Field count: 0
-    pub mod CCitadel_Modifier_MeleeCharge {
-    }
+    pub mod CCitadel_Modifier_MeleeCharge {}
     // Parent: CCitadelModifierVData
     // Field count: 2
     pub mod CCitadel_Modifier_Fervor_Bonuses_VData {
@@ -8410,8 +8207,7 @@ pub mod client_dll {
     }
     // Parent: C_SoundOpvarSetAABBEntity
     // Field count: 0
-    pub mod C_SoundOpvarSetOBBEntity {
-    }
+    pub mod C_SoundOpvarSetOBBEntity {}
     // Parent: CPlayerPawnComponent
     // Field count: 4
     pub mod CPlayer_WeaponServices {
@@ -8449,28 +8245,29 @@ pub mod client_dll {
     }
     // Parent: CCitadelModifier
     // Field count: 0
-    pub mod CCitadel_Modifier_BulletFlurryWindup {
-    }
+    pub mod CCitadel_Modifier_BulletFlurryWindup {}
     // Parent: CBaseAnimGraph
     // Field count: 0
-    pub mod CCitadelAnimatingModelEntity {
+    pub mod CCitadelAnimatingModelEntity {}
+    // Parent: CitadelAbilityVData
+    // Field count: 3
+    pub mod CCitadel_Ability_Operative_Blindside_VData {
+        pub const m_EnemyDebuffModifier: usize = 0x1560; // CEmbeddedSubclass<CCitadelModifier>
+        pub const m_ExplodeParticle: usize = 0x1570; // CResourceNameTyped<CWeakHandle<InfoForResourceTypeIParticleSystemDefinition>>
+        pub const m_ExplosionSound: usize = 0x1650; // CSoundEventName
     }
     // Parent: CCitadelModifier
     // Field count: 0
-    pub mod CCitadel_Modifier_TargetPracticeDebuff {
-    }
+    pub mod CCitadel_Modifier_TargetPracticeDebuff {}
     // Parent: CCitadelModifier
     // Field count: 0
-    pub mod CCitadel_Modifier_Chrono_PulseGrenade_PulseArea {
-    }
+    pub mod CCitadel_Modifier_Chrono_PulseGrenade_PulseArea {}
+    // Parent: CCitadel_Modifier_BaseShield
+    // Field count: 0
+    pub mod CCitadel_Modifier_Wraith_ProjectMind_Shield {}
     // Parent: CCitadelModifier
     // Field count: 0
-    pub mod CCitadel_Modifier_Wraith_ProjectMind_Shield {
-    }
-    // Parent: CCitadelModifier
-    // Field count: 0
-    pub mod CCitadel_Modifier_FlameDashBurn {
-    }
+    pub mod CCitadel_Modifier_FlameDashBurn {}
     // Parent: CitadelAbilityVData
     // Field count: 3
     pub mod CCitadel_Ability_ZipLineBoost_VData {
@@ -8513,12 +8310,10 @@ pub mod client_dll {
     }
     // Parent: CCitadelModifierAura
     // Field count: 0
-    pub mod CCitadel_Modifier_HeldItemPickupAura {
-    }
+    pub mod CCitadel_Modifier_HeldItemPickupAura {}
     // Parent: C_CitadelProjectile
     // Field count: 0
-    pub mod CCitadel_Projectile_Petrify {
-    }
+    pub mod CCitadel_Projectile_Petrify {}
     // Parent: CCitadel_Item
     // Field count: 1
     pub mod CCitadel_Item_Bubble {
@@ -8567,8 +8362,7 @@ pub mod client_dll {
     }
     // Parent: C_CitadelBaseAbility
     // Field count: 0
-    pub mod CCitadel_Ability_ShieldGuy_Ability01 {
-    }
+    pub mod CCitadel_Ability_ShieldGuy_Ability01 {}
     // Parent: CitadelAbilityVData
     // Field count: 14
     pub mod CCitadel_Ability_Nano_Pounce_InstantVData {
@@ -8594,8 +8388,7 @@ pub mod client_dll {
     }
     // Parent: CCitadel_Ability_PrimaryWeapon
     // Field count: 0
-    pub mod CCitadel_Ability_PrimaryWeapon_BeamWeapon {
-    }
+    pub mod CCitadel_Ability_PrimaryWeapon_BeamWeapon {}
     // Parent: CCitadel_Modifier_BaseEventProcVData
     // Field count: 1
     pub mod CCitadel_Modifier_ArcaneEaterProcVData {
@@ -8603,8 +8396,7 @@ pub mod client_dll {
     }
     // Parent: CCitadelModifier
     // Field count: 0
-    pub mod CCitadel_Modifier_SuperNeutralChargePrepare {
-    }
+    pub mod CCitadel_Modifier_SuperNeutralChargePrepare {}
     // Parent: CCitadel_Modifier_BaseEventProcVData
     // Field count: 7
     pub mod CCitadel_Modifier_BaseBulletPreRollProcVData {
@@ -8618,8 +8410,7 @@ pub mod client_dll {
     }
     // Parent: C_CitadelProjectile
     // Field count: 0
-    pub mod C_Citadel_Projectile_WreckingBall {
-    }
+    pub mod C_Citadel_Projectile_WreckingBall {}
     // Parent: CCitadelModifierVData
     // Field count: 1
     pub mod CModifierTangoTetherTargetVData {
@@ -8638,8 +8429,7 @@ pub mod client_dll {
     }
     // Parent: CCitadel_Item
     // Field count: 0
-    pub mod CCitadel_Item_ActiveReload {
-    }
+    pub mod CCitadel_Item_ActiveReload {}
     // Parent: CCitadelModifierVData
     // Field count: 2
     pub mod CModifierTier3BossInvulnVData {
@@ -8665,12 +8455,10 @@ pub mod client_dll {
     }
     // Parent: C_CitadelBaseAbility
     // Field count: 0
-    pub mod CAbility_Rutger_RocketLauncher {
-    }
+    pub mod CAbility_Rutger_RocketLauncher {}
     // Parent: CCitadelModifier
     // Field count: 0
-    pub mod CCitadel_Modifier_ChargedTacklePrepare {
-    }
+    pub mod CCitadel_Modifier_ChargedTacklePrepare {}
     // Parent: CCitadelModifierVData
     // Field count: 1
     pub mod CCitadel_Modifier_QuickSilverBuffVData {
@@ -8678,8 +8466,7 @@ pub mod client_dll {
     }
     // Parent: CScaleFunctionBase
     // Field count: 0
-    pub mod CScaleFunctionAbilityPropertyBase {
-    }
+    pub mod CScaleFunctionAbilityPropertyBase {}
     // Parent: CPlayer_ObserverServices
     // Field count: 10
     pub mod CCitadelPlayer_ObserverServices {
@@ -8697,24 +8484,23 @@ pub mod client_dll {
     // Parent: CBaseAnimGraph
     // Field count: 13
     pub mod C_PointCommentaryNode {
-        pub const m_bActive: usize = 0xB10; // bool
-        pub const m_bWasActive: usize = 0xB11; // bool
-        pub const m_flEndTime: usize = 0xB14; // GameTime_t
-        pub const m_flStartTime: usize = 0xB18; // GameTime_t
-        pub const m_flStartTimeInCommentary: usize = 0xB1C; // float32
-        pub const m_iszCommentaryFile: usize = 0xB20; // CUtlSymbolLarge
-        pub const m_iszTitle: usize = 0xB28; // CUtlSymbolLarge
-        pub const m_iszSpeakers: usize = 0xB30; // CUtlSymbolLarge
-        pub const m_iNodeNumber: usize = 0xB38; // int32
-        pub const m_iNodeNumberMax: usize = 0xB3C; // int32
-        pub const m_bListenedTo: usize = 0xB40; // bool
-        pub const m_hViewPosition: usize = 0xB50; // CHandle<C_BaseEntity>
-        pub const m_bRestartAfterRestore: usize = 0xB54; // bool
+        pub const m_bActive: usize = 0xB08; // bool
+        pub const m_bWasActive: usize = 0xB09; // bool
+        pub const m_flEndTime: usize = 0xB0C; // GameTime_t
+        pub const m_flStartTime: usize = 0xB10; // GameTime_t
+        pub const m_flStartTimeInCommentary: usize = 0xB14; // float32
+        pub const m_iszCommentaryFile: usize = 0xB18; // CUtlSymbolLarge
+        pub const m_iszTitle: usize = 0xB20; // CUtlSymbolLarge
+        pub const m_iszSpeakers: usize = 0xB28; // CUtlSymbolLarge
+        pub const m_iNodeNumber: usize = 0xB30; // int32
+        pub const m_iNodeNumberMax: usize = 0xB34; // int32
+        pub const m_bListenedTo: usize = 0xB38; // bool
+        pub const m_hViewPosition: usize = 0xB48; // CHandle<C_BaseEntity>
+        pub const m_bRestartAfterRestore: usize = 0xB4C; // bool
     }
     // Parent: CCitadelModifier
     // Field count: 0
-    pub mod CCitadel_Modifier_Cadence_AnthemBuff {
-    }
+    pub mod CCitadel_Modifier_Cadence_AnthemBuff {}
     // Parent: CCitadelModifier
     // Field count: 8
     pub mod CCitadel_Modifier_StormCloud {
@@ -8735,24 +8521,26 @@ pub mod client_dll {
     }
     // Parent: CCitadel_Modifier_Burning
     // Field count: 0
-    pub mod CCitadel_Modifier_Afterburn_DOT {
+    pub mod CCitadel_Modifier_Afterburn_DOT {}
+    // Parent: C_CitadelBaseAbility
+    // Field count: 0
+    pub mod CCitadel_Ability_IncendiaryProjectile {}
+    // Parent: CCitadelModifier
+    // Field count: 0
+    pub mod CCitadel_Modifier_Disarmed {}
+    // Parent: CCitadelModifierVData
+    // Field count: 3
+    pub mod CCitadel_Modifier_ScalingPowerUpVData {
+        pub const m_vecModifierValues: usize = 0x608; // CUtlVector<ScalingPowerupDefinition_t>
+        pub const m_flTimeMin: usize = 0x620; // float32
+        pub const m_flTimeMax: usize = 0x624; // float32
     }
     // Parent: C_CitadelBaseAbility
     // Field count: 0
-    pub mod CCitadel_Ability_IncendiaryProjectile {
-    }
+    pub mod CCitadel_Ability_Thumper_2 {}
     // Parent: CCitadelModifier
     // Field count: 0
-    pub mod CCitadel_Modifier_Disarmed {
-    }
-    // Parent: C_CitadelBaseAbility
-    // Field count: 0
-    pub mod CCitadel_Ability_Thumper_2 {
-    }
-    // Parent: CCitadelModifier
-    // Field count: 0
-    pub mod CCitadel_Modifier_GangActivity_AbilitySwap {
-    }
+    pub mod CCitadel_Modifier_GangActivity_AbilitySwap {}
     // Parent: CCitadelModifier
     // Field count: 1
     pub mod CCitadel_Modifier_UltCombo_Self {
@@ -8760,8 +8548,7 @@ pub mod client_dll {
     }
     // Parent: CCitadelModifier
     // Field count: 0
-    pub mod CCitadel_Modifier_PoisonBullet_PoisonBuildup {
-    }
+    pub mod CCitadel_Modifier_PoisonBullet_PoisonBuildup {}
     // Parent: CCitadel_Modifier_BaseEventProcVData
     // Field count: 1
     pub mod CModifier_Upgrade_ArcaneMedallion_VData {
@@ -8783,12 +8570,8 @@ pub mod client_dll {
         pub const m_bDownAirDash: usize = 0xCDA; // bool
         pub const m_hJumpAbility: usize = 0xE90; // CHandle<CCitadel_Ability_Jump>
     }
-    // Parent: CCitadel_Modifier_Bullet_Shield
-    // Field count: 0
-    pub mod CCitadel_Modifier_Tech_Shield {
-    }
     // Parent: CEntitySubclassVDataBase
-    // Field count: 28
+    // Field count: 27
     pub mod CAI_BaseNPCVData {
         pub const m_sModelName: usize = 0x28; // CResourceNameTyped<CWeakHandle<InfoForResourceTypeCModel>>
         pub const m_hFootstepSounds: usize = 0x108; // CFootstepTableHandle
@@ -8804,20 +8587,19 @@ pub mod client_dll {
         pub const m_flLegDamageMultiplier: usize = 0x1A8; // CSkillFloat
         pub const m_nMaxAdditionalAmmoBalancingShots: usize = 0x1B8; // CSkillInt
         pub const m_bTakesDamage: usize = 0x1C8; // bool
-        pub const m_nRagdollHealth: usize = 0x1CC; // int32
-        pub const m_DestructiblePartsOverrideByPartName: usize = 0x1D0; // CUtlOrderedMap<CUtlString,CDestructiblePartsSystemData_PartRuntimeData>
-        pub const m_bAllowNonZUpMovement: usize = 0x1F8; // bool
-        pub const m_bUseDynamicCollisionHull: usize = 0x1F9; // bool
-        pub const m_bRequestCapsuleCollision: usize = 0x1FA; // bool
-        pub const m_flCapsuleRadiusOverride: usize = 0x1FC; // float32
-        pub const m_flCapsuleHeightOverride: usize = 0x200; // float32
-        pub const m_bAllowAnimgraphMotorMovementStates: usize = 0x204; // bool
-        pub const m_vecActionDesiredShared: usize = 0x208; // CUtlVector<CGlobalSymbol>
-        pub const m_sPlayerKilledNpcSound: usize = 0x220; // CSoundEventName
-        pub const m_sCustomDeathHandshake: usize = 0x230; // CGlobalSymbol
-        pub const m_flMovementMaxPathEndDirectionAngleDifferenceForStop: usize = 0x238; // float32
-        pub const m_flMovementPlantedTurnAngleThreshold: usize = 0x23C; // float32
-        pub const m_movementHeadingSettings: usize = 0x240; // AI_MovementHeadingSettings_t
+        pub const m_strDamagedEffect: usize = 0x1D0; // CResourceNameTyped<CWeakHandle<InfoForResourceTypeIParticleSystemDefinition>>
+        pub const m_nRagdollHealth: usize = 0x2B0; // int32
+        pub const m_DestructiblePartsOverrideByPartName: usize = 0x2B8; // CUtlOrderedMap<CUtlString,CDestructiblePartsSystemData_PartRuntimeData>
+        pub const m_bAllowNonZUpMovement: usize = 0x2E0; // bool
+        pub const m_bUseDynamicCollisionHull: usize = 0x2E1; // bool
+        pub const m_bRequestCapsuleCollision: usize = 0x2E2; // bool
+        pub const m_flCapsuleRadiusOverride: usize = 0x2E4; // float32
+        pub const m_flCapsuleHeightOverride: usize = 0x2E8; // float32
+        pub const m_bAllowAnimgraphMotorMovementStates: usize = 0x2EC; // bool
+        pub const m_vecActionDesiredShared: usize = 0x2F0; // CUtlVector<CGlobalSymbol>
+        pub const m_sPlayerKilledNpcSound: usize = 0x308; // CSoundEventName
+        pub const m_sCustomDeathHandshake: usize = 0x318; // CGlobalSymbol
+        pub const m_defaultAdditionalMovementSettings: usize = 0x320; // AI_AdditionalMovementSettings
     }
     // Parent: None
     // Field count: 5
@@ -8836,24 +8618,19 @@ pub mod client_dll {
     }
     // Parent: C_CitadelBaseAbility
     // Field count: 0
-    pub mod CCitadel_Ability_Trapper_Ability03 {
-    }
+    pub mod CCitadel_Ability_Trapper_Ability03 {}
     // Parent: CCitadelBaseYamatoAbility
     // Field count: 0
-    pub mod CCitadel_Ability_HealingSlash {
-    }
+    pub mod CCitadel_Ability_HealingSlash {}
     // Parent: CCitadelModifier
     // Field count: 0
-    pub mod CCitadel_Modifier_DebugIsVisibleToEnemyTeam {
-    }
+    pub mod CCitadel_Modifier_DebugIsVisibleToEnemyTeam {}
     // Parent: C_AI_CitadelNPC
     // Field count: 0
-    pub mod C_NPC_MortarSentry {
-    }
+    pub mod C_NPC_MortarSentry {}
     // Parent: C_AI_CitadelNPC
     // Field count: 0
-    pub mod C_NPC_FlyingDrone {
-    }
+    pub mod C_NPC_FlyingDrone {}
     // Parent: CCitadel_Item
     // Field count: 1
     pub mod CCitadel_Item_DivinersKevlar {
@@ -8869,8 +8646,7 @@ pub mod client_dll {
     }
     // Parent: CCitadelModifier
     // Field count: 0
-    pub mod CModifier_Synth_Pulse_Escape {
-    }
+    pub mod CModifier_Synth_Pulse_Escape {}
     // Parent: CitadelAbilityVData
     // Field count: 2
     pub mod CAbility_Rutger_RocketLauncher_VData {
@@ -8879,16 +8655,13 @@ pub mod client_dll {
     }
     // Parent: CCitadelModifier
     // Field count: 0
-    pub mod CCitadel_Modifier_Radiance {
-    }
+    pub mod CCitadel_Modifier_Radiance {}
     // Parent: C_CitadelBaseAbility
     // Field count: 0
-    pub mod CCitadel_Ability_TeleportToGangster {
-    }
+    pub mod CCitadel_Ability_TeleportToGangster {}
     // Parent: CCitadel_Ability_PrimaryWeapon
     // Field count: 0
-    pub mod CCitadel_Ability_ShivWeapon {
-    }
+    pub mod CCitadel_Ability_ShivWeapon {}
     // Parent: CitadelAbilityVData
     // Field count: 1
     pub mod CCitadel_Ability_PsychicDaggerVData {
@@ -8915,8 +8688,7 @@ pub mod client_dll {
     }
     // Parent: CCitadel_Ability_PrimaryWeapon
     // Field count: 0
-    pub mod CCitadel_Ability_PrimaryWeapon_Empty {
-    }
+    pub mod CCitadel_Ability_PrimaryWeapon_Empty {}
     // Parent: CitadelAbilityVData
     // Field count: 56
     pub mod CAbilitySlideVData {
@@ -8986,8 +8758,7 @@ pub mod client_dll {
     }
     // Parent: C_CitadelBaseAbility
     // Field count: 0
-    pub mod CCitadel_Ability_Targetdummy_4 {
-    }
+    pub mod CCitadel_Ability_Targetdummy_4 {}
     // Parent: CitadelAbilityVData
     // Field count: 2
     pub mod CAbilityTargetPracticeVData {
@@ -8996,16 +8767,13 @@ pub mod client_dll {
     }
     // Parent: C_CitadelBaseAbility
     // Field count: 0
-    pub mod CCitadel_Ability_Afterburn {
-    }
+    pub mod CCitadel_Ability_Afterburn {}
     // Parent: CCitadelModifier
     // Field count: 0
-    pub mod CCitadel_Modifier_MetalSkin {
-    }
+    pub mod CCitadel_Modifier_MetalSkin {}
     // Parent: CCitadel_Ability_TrooperGrenade
     // Field count: 0
-    pub mod CCitadel_Ability_TrooperBossGrenade {
-    }
+    pub mod CCitadel_Ability_TrooperBossGrenade {}
     // Parent: None
     // Field count: 1
     pub mod CModifierHandleBase {
@@ -9014,13 +8782,13 @@ pub mod client_dll {
     // Parent: C_AI_BaseNPC
     // Field count: 7
     pub mod C_AI_CitadelNPC {
-        pub const m_bBeamActive: usize = 0xD4C; // bool
-        pub const m_vEyeBeamTarget: usize = 0xD50; // Vector
-        pub const m_nPlayerTeamEvent: usize = 0x1210; // int32
-        pub const m_vecWeakPoints: usize = 0x1260; // C_UtlVectorEmbeddedNetworkVar<WeakPoint_t>
-        pub const m_bMinion: usize = 0x12C8; // bool
-        pub const m_hLookTarget: usize = 0x12CC; // CHandle<C_BaseEntity>
-        pub const m_CCitadelAbilityComponent: usize = 0x12D0; // CCitadelAbilityComponent
+        pub const m_bBeamActive: usize = 0xD44; // bool
+        pub const m_vEyeBeamTarget: usize = 0xD48; // Vector
+        pub const m_nPlayerTeamEvent: usize = 0x1208; // int32
+        pub const m_vecWeakPoints: usize = 0x1258; // C_UtlVectorEmbeddedNetworkVar<WeakPoint_t>
+        pub const m_bMinion: usize = 0x12C0; // bool
+        pub const m_hLookTarget: usize = 0x12C4; // CHandle<C_BaseEntity>
+        pub const m_CCitadelAbilityComponent: usize = 0x12C8; // CCitadelAbilityComponent
     }
     // Parent: C_Sprite
     // Field count: 2
@@ -9030,12 +8798,10 @@ pub mod client_dll {
     }
     // Parent: C_CitadelBaseAbility
     // Field count: 0
-    pub mod CCitadel_Ability_ShieldGuy_Ability02 {
-    }
+    pub mod CCitadel_Ability_ShieldGuy_Ability02 {}
     // Parent: CCitadelModifier
     // Field count: 0
-    pub mod CCitadel_Modifier_Killing_Blow_Glow {
-    }
+    pub mod CCitadel_Modifier_Killing_Blow_Glow {}
     // Parent: CitadelAbilityVData
     // Field count: 4
     pub mod CCitadel_Ability_Nano_ShadowVData {
@@ -9057,6 +8823,9 @@ pub mod client_dll {
     pub mod CCitadel_Upgrade_WeaponPowerForHealthVData {
         pub const m_BuffModifier: usize = 0x15A8; // CEmbeddedSubclass<CCitadelModifier>
     }
+    // Parent: CCitadelModifier
+    // Field count: 0
+    pub mod CModifier_Upgrade_ArcaneSurge {}
     // Parent: CCitadelModifierVData
     // Field count: 2
     pub mod CCitadel_Modifier_HollowPoint_ProcVData {
@@ -9065,8 +8834,7 @@ pub mod client_dll {
     }
     // Parent: CCitadelModifier
     // Field count: 0
-    pub mod CCitadel_Modifier_DamageOnHitGround {
-    }
+    pub mod CCitadel_Modifier_DamageOnHitGround {}
     // Parent: None
     // Field count: 2
     pub mod ItemImbuementPair_t {
@@ -9080,27 +8848,24 @@ pub mod client_dll {
     }
     // Parent: CitadelAbilityVData
     // Field count: 0
-    pub mod CAbilityTeleportToGangsterVData {
-    }
+    pub mod CAbilityTeleportToGangsterVData {}
     // Parent: CCitadelBaseAbilityServerOnly
     // Field count: 0
-    pub mod CCitadel_Ability_MedicHeal {
-    }
+    pub mod CCitadel_Ability_MedicHeal {}
     // Parent: CCitadelModifier
     // Field count: 0
-    pub mod CCitadel_Modifier_Intrinsic_Base {
-    }
+    pub mod CCitadel_Modifier_Intrinsic_Base {}
     // Parent: C_BaseTrigger
     // Field count: 8
     pub mod C_Precipitation {
-        pub const m_flDensity: usize = 0x868; // float32
-        pub const m_flParticleInnerDist: usize = 0x878; // float32
-        pub const m_pParticleDef: usize = 0x880; // char*
-        pub const m_tParticlePrecipTraceTimer: usize = 0x8A8; // TimedEvent[1]
-        pub const m_bActiveParticlePrecipEmitter: usize = 0x8B0; // bool[1]
-        pub const m_bParticlePrecipInitialized: usize = 0x8B1; // bool
-        pub const m_bHasSimulatedSinceLastSceneObjectUpdate: usize = 0x8B2; // bool
-        pub const m_nAvailableSheetSequencesMaxIndex: usize = 0x8B4; // int32
+        pub const m_flDensity: usize = 0x9A0; // float32
+        pub const m_flParticleInnerDist: usize = 0x9B0; // float32
+        pub const m_pParticleDef: usize = 0x9B8; // char*
+        pub const m_tParticlePrecipTraceTimer: usize = 0x9E0; // TimedEvent[1]
+        pub const m_bActiveParticlePrecipEmitter: usize = 0x9E8; // bool[1]
+        pub const m_bParticlePrecipInitialized: usize = 0x9E9; // bool
+        pub const m_bHasSimulatedSinceLastSceneObjectUpdate: usize = 0x9EA; // bool
+        pub const m_nAvailableSheetSequencesMaxIndex: usize = 0x9EC; // int32
     }
     // Parent: CitadelItemVData
     // Field count: 1
@@ -9120,8 +8885,7 @@ pub mod client_dll {
     }
     // Parent: C_CitadelProjectile
     // Field count: 0
-    pub mod C_TrackedProjectile_Synth_PlasmaFlux {
-    }
+    pub mod C_TrackedProjectile_Synth_PlasmaFlux {}
     // Parent: CBaseDashCastAbilityVData
     // Field count: 1
     pub mod CAbilityCadenceSilenceContraptionsVData {
@@ -9154,12 +8918,10 @@ pub mod client_dll {
     }
     // Parent: C_CitadelBaseAbility
     // Field count: 0
-    pub mod CCitadel_Ability_Astro_Rifle {
-    }
+    pub mod CCitadel_Ability_Astro_Rifle {}
     // Parent: CCitadelModifier
     // Field count: 0
-    pub mod CCitadel_Modifier_Decoy_Tracker {
-    }
+    pub mod CCitadel_Modifier_Decoy_Tracker {}
     // Parent: CitadelItemVData
     // Field count: 1
     pub mod CCitadel_ArmorUpgrade_ActiveBulletShieldVData {
@@ -9173,12 +8935,10 @@ pub mod client_dll {
     }
     // Parent: CCitadel_Modifier_Intrinsic_Base
     // Field count: 0
-    pub mod CCitadel_Modifier_OneVsOne {
-    }
+    pub mod CCitadel_Modifier_OneVsOne {}
     // Parent: CCitadelModifierAura
     // Field count: 0
-    pub mod CCitadel_Modifier_ControlPointCapturerAura {
-    }
+    pub mod CCitadel_Modifier_ControlPointCapturerAura {}
     // Parent: CCitadelModifier
     // Field count: 1
     pub mod CCitadel_Modifier_AccuracyTracker {
@@ -9186,16 +8946,13 @@ pub mod client_dll {
     }
     // Parent: C_CitadelBaseAbility
     // Field count: 0
-    pub mod CCitadel_Ability_GenericPerson_1 {
-    }
+    pub mod CCitadel_Ability_GenericPerson_1 {}
     // Parent: CitadelAbilityVData
     // Field count: 0
-    pub mod CAbilityGenericPerson1VData {
-    }
+    pub mod CAbilityGenericPerson1VData {}
     // Parent: CCitadel_Modifier_Base_Buildup
     // Field count: 0
-    pub mod CCitadel_Modifier_Viper_Venom {
-    }
+    pub mod CCitadel_Modifier_Viper_Venom {}
     // Parent: CCitadelModifier
     // Field count: 4
     pub mod CCitadel_Modifier_PerchedPredatorDrag {
@@ -9224,12 +8981,12 @@ pub mod client_dll {
         pub const m_SaviorModifier: usize = 0x15A8; // CEmbeddedSubclass<CCitadelModifier>
         pub const m_CastParticle: usize = 0x15B8; // CResourceNameTyped<CWeakHandle<InfoForResourceTypeIParticleSystemDefinition>>
     }
-    // Parent: CCitadelModifier
+    // Parent: CCitadel_Modifier_BaseBulletPreRollProc
     // Field count: 3
     pub mod CCitadel_Modifier_BulletFlurry {
-        pub const m_nEffectId: usize = 0x130; // ParticleIndex_t
-        pub const m_flNextSequenceChange: usize = 0x134; // GameTime_t
-        pub const m_nCurrentPose: usize = 0x138; // int32
+        pub const m_nEffectId: usize = 0x230; // ParticleIndex_t
+        pub const m_flNextSequenceChange: usize = 0x234; // GameTime_t
+        pub const m_nCurrentPose: usize = 0x238; // int32
     }
     // Parent: CCitadel_Modifier_BaseBulletPreRollProcVData
     // Field count: 2
@@ -9247,10 +9004,14 @@ pub mod client_dll {
         pub const m_vecFractionOfWheelSubmergedForWheelDrag: usize = 0x50; // CUtlVector<float32>
         pub const m_vecWheelDrag: usize = 0x68; // CUtlVector<float32>
     }
+    // Parent: CBaseFilter
+    // Field count: 1
+    pub mod CFilterAttributeInt {
+        pub const m_sAttributeName: usize = 0x5C0; // CUtlStringToken
+    }
     // Parent: CCitadel_Item
     // Field count: 0
-    pub mod CCitadel_Item_Aura_Base {
-    }
+    pub mod CCitadel_Item_Aura_Base {}
     // Parent: C_BaseModelEntity
     // Field count: 4
     pub mod C_BaseClientUIEntity {
@@ -9268,8 +9029,7 @@ pub mod client_dll {
     }
     // Parent: CCitadelModifier
     // Field count: 0
-    pub mod CCitadel_Modifier_Mirage_SandPhantom_Proc {
-    }
+    pub mod CCitadel_Modifier_Mirage_SandPhantom_Proc {}
     // Parent: CitadelAbilityVData
     // Field count: 2
     pub mod CAbilitySleepBombVData {
@@ -9278,12 +9038,10 @@ pub mod client_dll {
     }
     // Parent: C_CitadelBaseAbility
     // Field count: 0
-    pub mod CCitadel_Ability_RocketLauncher {
-    }
+    pub mod CCitadel_Ability_RocketLauncher {}
     // Parent: C_CitadelBaseAbility
     // Field count: 0
-    pub mod CCitadel_Ability_HighAlert {
-    }
+    pub mod CCitadel_Ability_HighAlert {}
     // Parent: CCitadelModifierVData
     // Field count: 8
     pub mod CCitadel_Modifier_Bebop_LaserBeamVData {
@@ -9298,8 +9056,7 @@ pub mod client_dll {
     }
     // Parent: CCitadelModifier
     // Field count: 0
-    pub mod CCitadel_Modifier_Wraith_RapidFire {
-    }
+    pub mod CCitadel_Modifier_Wraith_RapidFire {}
     // Parent: CCitadelModifier
     // Field count: 1
     pub mod CCitadel_Modifier_Bull_Heal_Target {
@@ -9313,9 +9070,9 @@ pub mod client_dll {
     // Parent: C_AI_CitadelNPC
     // Field count: 3
     pub mod C_NPC_Trooper {
-        pub const m_iLane: usize = 0x1470; // int32
-        pub const m_hTargetedEnemy: usize = 0x1474; // CHandle<C_BaseEntity>
-        pub const m_flHealingChargeParticlePct: usize = 0x1478; // float32
+        pub const m_iLane: usize = 0x1468; // int32
+        pub const m_hTargetedEnemy: usize = 0x146C; // CHandle<C_BaseEntity>
+        pub const m_flHealingChargeParticlePct: usize = 0x1470; // float32
     }
     // Parent: CCitadelModifierVData
     // Field count: 1
@@ -9324,8 +9081,7 @@ pub mod client_dll {
     }
     // Parent: CCitadelModifier
     // Field count: 0
-    pub mod CCitadel_Modifier_Astro_ShotgunBuff {
-    }
+    pub mod CCitadel_Modifier_Astro_ShotgunBuff {}
     // Parent: CitadelAbilityVData
     // Field count: 3
     pub mod CAbilityAstroRifleVData {
@@ -9343,10 +9099,12 @@ pub mod client_dll {
         pub const m_flStartHeight: usize = 0xF2C; // float32
     }
     // Parent: CCitadel_Modifier_StunnedVData
-    // Field count: 2
+    // Field count: 4
     pub mod CModifierPsychicLiftVData {
         pub const m_LiftParticle: usize = 0x6E8; // CResourceNameTyped<CWeakHandle<InfoForResourceTypeIParticleSystemDefinition>>
         pub const m_strStartSound: usize = 0x7C8; // CSoundEventName
+        pub const m_flOscillateFrequency: usize = 0x7D8; // float32
+        pub const m_flOscillateHeight: usize = 0x7DC; // float32
     }
     // Parent: CitadelAbilityVData
     // Field count: 6
@@ -9383,24 +9141,20 @@ pub mod client_dll {
     // Parent: CCitadelAnimatingModelEntity
     // Field count: 6
     pub mod C_CitadelItemPickup {
-        pub const m_eLootType: usize = 0xB18; // int32
-        pub const m_nCurrencyValue: usize = 0xB1C; // int32
-        pub const m_iszModelName: usize = 0xB20; // CUtlSymbolLarge
-        pub const m_flModelScale: usize = 0xB28; // float32
-        pub const m_hTargetPlayer: usize = 0xB2C; // CHandle<C_BaseEntity>
-        pub const m_flFallRate: usize = 0xB30; // float32
+        pub const m_eLootType: usize = 0xB10; // int32
+        pub const m_nCurrencyValue: usize = 0xB14; // int32
+        pub const m_iszModelName: usize = 0xB18; // CUtlSymbolLarge
+        pub const m_flModelScale: usize = 0xB20; // float32
+        pub const m_hTargetPlayer: usize = 0xB24; // CHandle<C_BaseEntity>
+        pub const m_flFallRate: usize = 0xB28; // float32
     }
     // Parent: CBaseAnimGraph
     // Field count: 4
     pub mod CBaseProp {
-        pub const m_bModelOverrodeBlockLOS: usize = 0xB08; // bool
-        pub const m_iShapeType: usize = 0xB0C; // int32
-        pub const m_bConformToCollisionBounds: usize = 0xB10; // bool
-        pub const m_mPreferredCatchTransform: usize = 0xB14; // matrix3x4_t
-    }
-    // Parent: CCitadelModifier
-    // Field count: 0
-    pub mod CCitadel_Modifier_BreakablePropSpeedPickup {
+        pub const m_bModelOverrodeBlockLOS: usize = 0xB00; // bool
+        pub const m_iShapeType: usize = 0xB04; // int32
+        pub const m_bConformToCollisionBounds: usize = 0xB08; // bool
+        pub const m_mPreferredCatchTransform: usize = 0xB0C; // matrix3x4_t
     }
     // Parent: CCitadel_Modifier_Intrinsic_Base
     // Field count: 2
@@ -9436,8 +9190,7 @@ pub mod client_dll {
     }
     // Parent: CCitadelModifier
     // Field count: 0
-    pub mod CCitadel_Modifier_MidBossAggroEnemy {
-    }
+    pub mod CCitadel_Modifier_MidBossAggroEnemy {}
     // Parent: None
     // Field count: 21
     pub mod CBaseModifier {
@@ -9463,6 +9216,11 @@ pub mod client_dll {
         pub const m_pVecTrackedObjects: usize = 0x80; // CUtlVector<IModifierTrackedObject*>*
         pub const m_hModifierListHandle: usize = 0x88; // ModifierRuntimeHandle_t
     }
+    // Parent: CBaseFilter
+    // Field count: 1
+    pub mod CFilterMassGreater {
+        pub const m_fFilterMass: usize = 0x5C0; // float32
+    }
     // Parent: CitadelAbilityVData
     // Field count: 1
     pub mod CCitadel_Ability_Fathom_ScaldingSpray_VData {
@@ -9470,12 +9228,10 @@ pub mod client_dll {
     }
     // Parent: CCitadelModifier
     // Field count: 0
-    pub mod CCitadel_Modifier_Guiding_Arrow {
-    }
+    pub mod CCitadel_Modifier_Guiding_Arrow {}
     // Parent: CCitadelModifier
     // Field count: 0
-    pub mod CCitadel_Modifier_QuickSilver_Buff {
-    }
+    pub mod CCitadel_Modifier_QuickSilver_Buff {}
     // Parent: C_BaseModelEntity
     // Field count: 1
     pub mod CItemXP {
@@ -9489,8 +9245,7 @@ pub mod client_dll {
     }
     // Parent: CitadelAbilityVData
     // Field count: 0
-    pub mod CAbilityRapidFireVData {
-    }
+    pub mod CAbilityRapidFireVData {}
     // Parent: CitadelAbilityVData
     // Field count: 4
     pub mod CAbilityRiotProtocolVData {
@@ -9509,16 +9264,15 @@ pub mod client_dll {
     }
     // Parent: C_BaseEntity
     // Field count: 0
-    pub mod C_CitadelMinimapBoundary {
-    }
+    pub mod C_CitadelMinimapBoundary {}
     // Parent: CCitadelAnimatingModelEntity
     // Field count: 5
     pub mod C_Citadel_Destroyable_Building {
-        pub const m_CCitadelAbilityComponent: usize = 0xB10; // CCitadelAbilityComponent
-        pub const m_vecWeakPoints: usize = 0xCB0; // C_UtlVectorEmbeddedNetworkVar<WeakPoint_t>
-        pub const m_bDestroyed: usize = 0xD18; // bool
-        pub const m_bActive: usize = 0xD19; // bool
-        pub const m_bFinal: usize = 0xD1A; // bool
+        pub const m_CCitadelAbilityComponent: usize = 0xB08; // CCitadelAbilityComponent
+        pub const m_vecWeakPoints: usize = 0xCA8; // C_UtlVectorEmbeddedNetworkVar<WeakPoint_t>
+        pub const m_bDestroyed: usize = 0xD10; // bool
+        pub const m_bActive: usize = 0xD11; // bool
+        pub const m_bFinal: usize = 0xD12; // bool
     }
     // Parent: CCitadel_Item
     // Field count: 1
@@ -9531,20 +9285,19 @@ pub mod client_dll {
         pub const fl_StoredDamage: usize = 0xCF0; // float32
     }
     // Parent: CLogicalEntity
-    // Field count: 12
+    // Field count: 11
     pub mod CPointTemplate {
         pub const m_iszWorldName: usize = 0x568; // CUtlSymbolLarge
         pub const m_iszSource2EntityLumpName: usize = 0x570; // CUtlSymbolLarge
         pub const m_iszEntityFilterName: usize = 0x578; // CUtlSymbolLarge
         pub const m_flTimeoutInterval: usize = 0x580; // float32
         pub const m_bAsynchronouslySpawnEntities: usize = 0x584; // bool
-        pub const m_pOutputOnSpawned: usize = 0x588; // CEntityIOOutput
-        pub const m_clientOnlyEntityBehavior: usize = 0x5B0; // PointTemplateClientOnlyEntityBehavior_t
-        pub const m_ownerSpawnGroupType: usize = 0x5B4; // PointTemplateOwnerSpawnGroupType_t
-        pub const m_createdSpawnGroupHandles: usize = 0x5B8; // CUtlVector<uint32>
-        pub const m_SpawnedEntityHandles: usize = 0x5D0; // CUtlVector<CEntityHandle>
-        pub const m_ScriptSpawnCallback: usize = 0x5E8; // HSCRIPT
-        pub const m_ScriptCallbackScope: usize = 0x5F0; // HSCRIPT
+        pub const m_clientOnlyEntityBehavior: usize = 0x588; // PointTemplateClientOnlyEntityBehavior_t
+        pub const m_ownerSpawnGroupType: usize = 0x58C; // PointTemplateOwnerSpawnGroupType_t
+        pub const m_createdSpawnGroupHandles: usize = 0x590; // CUtlVector<uint32>
+        pub const m_SpawnedEntityHandles: usize = 0x5A8; // CUtlVector<CEntityHandle>
+        pub const m_ScriptSpawnCallback: usize = 0x5C0; // HSCRIPT
+        pub const m_ScriptCallbackScope: usize = 0x5C8; // HSCRIPT
     }
     // Parent: CitadelAbilityVData
     // Field count: 1
@@ -9553,20 +9306,16 @@ pub mod client_dll {
     }
     // Parent: CCitadel_Modifier_Disarmed
     // Field count: 0
-    pub mod CCitadel_Modifier_ThrowSandDebuff {
-    }
+    pub mod CCitadel_Modifier_ThrowSandDebuff {}
     // Parent: CCitadelModifier
     // Field count: 0
-    pub mod CCitadel_Modifier_Decoy_Self_Buff {
-    }
+    pub mod CCitadel_Modifier_Decoy_Self_Buff {}
     // Parent: CCitadelModifierVData
     // Field count: 0
-    pub mod CCitadel_Modifier_HornetSnipeVData {
-    }
+    pub mod CCitadel_Modifier_HornetSnipeVData {}
     // Parent: C_CitadelBaseAbility
     // Field count: 0
-    pub mod CCitadel_Ability_WingBlast {
-    }
+    pub mod CCitadel_Ability_WingBlast {}
     // Parent: CitadelAbilityVData
     // Field count: 2
     pub mod CCitadel_Ability_LifeDrainVData {
@@ -9582,24 +9331,19 @@ pub mod client_dll {
     }
     // Parent: CCitadel_Modifier_BaseEventProc
     // Field count: 0
-    pub mod CCitadel_Modifier_Item_Bleeding_Bullets_Active {
-    }
+    pub mod CCitadel_Modifier_Item_Bleeding_Bullets_Active {}
     // Parent: CCitadel_Modifier_Silenced
     // Field count: 0
-    pub mod CCitadel_Modifier_ModDisruptor {
-    }
+    pub mod CCitadel_Modifier_ModDisruptor {}
     // Parent: CCitadel_Item
     // Field count: 0
-    pub mod CCitadel_ArmorUpgrade_CloakingDeviceActive {
-    }
+    pub mod CCitadel_ArmorUpgrade_CloakingDeviceActive {}
     // Parent: C_CitadelBaseAbility
     // Field count: 0
-    pub mod CCitadel_Ability_Fathom_ScaldingSpray {
-    }
+    pub mod CCitadel_Ability_Fathom_ScaldingSpray {}
     // Parent: C_CitadelBaseAbility
     // Field count: 0
-    pub mod CCitadel_Ability_Haze_StackingDamage {
-    }
+    pub mod CCitadel_Ability_Haze_StackingDamage {}
     // Parent: CitadelAbilityVData
     // Field count: 17
     pub mod CCitadel_Ability_Viscous_TelepunchVData {
@@ -9630,8 +9374,7 @@ pub mod client_dll {
     }
     // Parent: C_LightEntity
     // Field count: 0
-    pub mod C_LightCapsuleEntity {
-    }
+    pub mod C_LightCapsuleEntity {}
     // Parent: C_PointEntity
     // Field count: 5
     pub mod CInfoDynamicShadowHint {
@@ -9650,26 +9393,18 @@ pub mod client_dll {
         pub const m_bCanApplyTechAmp: usize = 0xCD8; // bool
         pub const m_bCanLifesteal: usize = 0xCD9; // bool
     }
-    // Parent: CCitadelModifier
-    // Field count: 0
-    pub mod CCitadel_Modifier_ConsumedProtectionRacket {
-    }
     // Parent: C_CitadelBaseAbility
     // Field count: 0
-    pub mod CCitadel_Ability_TargetPractice {
-    }
+    pub mod CCitadel_Ability_TargetPractice {}
     // Parent: None
     // Field count: 0
-    pub mod CTakeDamageInfoAPI {
-    }
+    pub mod CTakeDamageInfoAPI {}
     // Parent: None
     // Field count: 0
-    pub mod C_BaseEntityAPI {
-    }
+    pub mod C_BaseEntityAPI {}
     // Parent: CCitadel_Item
     // Field count: 0
-    pub mod CCitadel_ArmorUpgrade_HighImpactArmor {
-    }
+    pub mod CCitadel_ArmorUpgrade_HighImpactArmor {}
     // Parent: CitadelAbilityVData
     // Field count: 9
     pub mod CAbility_Synth_Pulse_VData {
@@ -9685,8 +9420,7 @@ pub mod client_dll {
     }
     // Parent: C_CitadelBaseAbility
     // Field count: 0
-    pub mod CCitadel_Ability_Thumper_3 {
-    }
+    pub mod CCitadel_Ability_Thumper_3 {}
     // Parent: CCitadelModifierVData
     // Field count: 1
     pub mod CCitadel_Modifier_RocketBarrageVolleyVData {
@@ -9694,8 +9428,7 @@ pub mod client_dll {
     }
     // Parent: CCitadelModifier
     // Field count: 0
-    pub mod CCitadel_Modifier_ZiplineKnockdownImmune {
-    }
+    pub mod CCitadel_Modifier_ZiplineKnockdownImmune {}
     // Parent: CCitadelModifierVData
     // Field count: 3
     pub mod CModifierContainmentVictimVData {
@@ -9705,8 +9438,7 @@ pub mod client_dll {
     }
     // Parent: CCitadelModifier
     // Field count: 0
-    pub mod CCitadel_Modifier_Slow {
-    }
+    pub mod CCitadel_Modifier_Slow {}
     // Parent: None
     // Field count: 10
     pub mod CGlowProperty {
@@ -9724,23 +9456,32 @@ pub mod client_dll {
     // Parent: C_BaseTrigger
     // Field count: 13
     pub mod C_TriggerPhysics {
-        pub const m_gravityScale: usize = 0x868; // float32
-        pub const m_linearLimit: usize = 0x86C; // float32
-        pub const m_linearDamping: usize = 0x870; // float32
-        pub const m_angularLimit: usize = 0x874; // float32
-        pub const m_angularDamping: usize = 0x878; // float32
-        pub const m_linearForce: usize = 0x87C; // float32
-        pub const m_flFrequency: usize = 0x880; // float32
-        pub const m_flDampingRatio: usize = 0x884; // float32
-        pub const m_vecLinearForcePointAt: usize = 0x888; // Vector
-        pub const m_bCollapseToForcePoint: usize = 0x894; // bool
-        pub const m_vecLinearForcePointAtWorld: usize = 0x898; // Vector
-        pub const m_vecLinearForceDirection: usize = 0x8A4; // Vector
-        pub const m_bConvertToDebrisWhenPossible: usize = 0x8B0; // bool
+        pub const m_gravityScale: usize = 0x9A0; // float32
+        pub const m_linearLimit: usize = 0x9A4; // float32
+        pub const m_linearDamping: usize = 0x9A8; // float32
+        pub const m_angularLimit: usize = 0x9AC; // float32
+        pub const m_angularDamping: usize = 0x9B0; // float32
+        pub const m_linearForce: usize = 0x9B4; // float32
+        pub const m_flFrequency: usize = 0x9B8; // float32
+        pub const m_flDampingRatio: usize = 0x9BC; // float32
+        pub const m_vecLinearForcePointAt: usize = 0x9C0; // Vector
+        pub const m_bCollapseToForcePoint: usize = 0x9CC; // bool
+        pub const m_vecLinearForcePointAtWorld: usize = 0x9D0; // Vector
+        pub const m_vecLinearForceDirection: usize = 0x9DC; // Vector
+        pub const m_bConvertToDebrisWhenPossible: usize = 0x9E8; // bool
     }
     // Parent: CCitadelModifier
     // Field count: 0
-    pub mod CCitadel_Modifier_Mirage_SandPhantom_ProcReady {
+    pub mod CCitadel_Modifier_Mirage_SandPhantom_ProcReady {}
+    // Parent: C_CitadelBaseAbility
+    // Field count: 6
+    pub mod CCitadel_Ability_Gunslinger_DemonCarbine {
+        pub const m_bWantsSlow: usize = 0xCA0; // bool
+        pub const m_flLatchedTimeScaleFracChangeTime: usize = 0xCA4; // GameTime_t
+        pub const m_flLatchedTimeScaleFrac: usize = 0xCA8; // float32
+        pub const m_flSpeedBoostEndTime: usize = 0xCAC; // GameTime_t
+        pub const m_flShotTimeScaleEndTime: usize = 0xCB0; // GameTime_t
+        pub const m_flStoredPowerPct: usize = 0xCB8; // float32
     }
     // Parent: CCitadelModifierVData
     // Field count: 8
@@ -9756,12 +9497,10 @@ pub mod client_dll {
     }
     // Parent: CCitadelModifier
     // Field count: 0
-    pub mod CCitadel_Modifier_TargetPracticeSelf {
-    }
+    pub mod CCitadel_Modifier_TargetPracticeSelf {}
     // Parent: CCitadel_Modifier_BaseEventProc
     // Field count: 0
-    pub mod CCitadel_Modifier_SilencerProcActive {
-    }
+    pub mod CCitadel_Modifier_SilencerProcActive {}
     // Parent: CitadelItemVData
     // Field count: 2
     pub mod CItem_RestorativeLocket_VData {
@@ -9776,12 +9515,10 @@ pub mod client_dll {
     }
     // Parent: C_LightEntity
     // Field count: 0
-    pub mod C_LightDirectionalEntity {
-    }
+    pub mod C_LightDirectionalEntity {}
     // Parent: CCitadelModifierAura
     // Field count: 0
-    pub mod CCitadel_Modifier_SleepBomb_Aura {
-    }
+    pub mod CCitadel_Modifier_SleepBomb_Aura {}
     // Parent: C_BaseEntity
     // Field count: 18
     pub mod C_EnvCubemap {
@@ -9811,8 +9548,7 @@ pub mod client_dll {
     }
     // Parent: C_CitadelBaseAbility
     // Field count: 0
-    pub mod CCitadel_Ability_Viper_DebuffDagger {
-    }
+    pub mod CCitadel_Ability_Viper_DebuffDagger {}
     // Parent: CitadelItemVData
     // Field count: 5
     pub mod CCitadel_Item_CheatDeathVData {
@@ -9830,16 +9566,18 @@ pub mod client_dll {
     }
     // Parent: CCitadel_Item
     // Field count: 0
-    pub mod CCitadel_Upgrade_WeaponPowerForHealth {
-    }
+    pub mod CCitadel_Upgrade_WeaponPowerForHealth {}
     // Parent: CCitadel_Ability_PrimaryWeapon
     // Field count: 0
-    pub mod CCitadel_Ability_PrimaryWeapon_Cadence {
+    pub mod CCitadel_Ability_PrimaryWeapon_Cadence {}
+    // Parent: CitadelAbilityVData
+    // Field count: 1
+    pub mod CAbilityEmpowerBulletVData {
+        pub const m_EmpowerBulletModifier: usize = 0x1560; // CEmbeddedSubclass<CCitadelModifier>
     }
     // Parent: CCitadelModifier
     // Field count: 0
-    pub mod CCitadel_Modifier_AirLift_Grab {
-    }
+    pub mod CCitadel_Modifier_AirLift_Grab {}
     // Parent: CCitadelModifier
     // Field count: 9
     pub mod CCitadel_Modifier_ChronoSwap_BubbleMove {
@@ -9855,17 +9593,16 @@ pub mod client_dll {
     }
     // Parent: CCitadel_Modifier_Base_Buildup
     // Field count: 0
-    pub mod CCitadel_Modifier_Silence_Buildup {
-    }
+    pub mod CCitadel_Modifier_Silence_Buildup {}
     // Parent: CBaseAnimGraph
     // Field count: 6
     pub mod C_Citadel_FissureWall {
-        pub const m_vStartPos: usize = 0xB08; // Vector
-        pub const m_vEndPos: usize = 0xB14; // Vector
-        pub const m_flStartEmitTime: usize = 0xB20; // GameTime_t
-        pub const m_flEndEmitTime: usize = 0xB24; // GameTime_t
-        pub const m_bSolid: usize = 0xB28; // bool
-        pub const m_nTouchCount: usize = 0xB2C; // int32
+        pub const m_vStartPos: usize = 0xB00; // Vector
+        pub const m_vEndPos: usize = 0xB0C; // Vector
+        pub const m_flStartEmitTime: usize = 0xB18; // GameTime_t
+        pub const m_flEndEmitTime: usize = 0xB1C; // GameTime_t
+        pub const m_bSolid: usize = 0xB20; // bool
+        pub const m_nTouchCount: usize = 0xB24; // int32
     }
     // Parent: CCitadelModifierVData
     // Field count: 12
@@ -9883,6 +9620,9 @@ pub mod client_dll {
         pub const m_ProcSound: usize = 0x8E8; // CSoundEventName
         pub const m_ExplodeSound: usize = 0x8F8; // CSoundEventName
     }
+    // Parent: C_CitadelBaseAbility
+    // Field count: 0
+    pub mod CCitadel_Ability_EmpowerBullet {}
     // Parent: CCitadelModifier
     // Field count: 1
     pub mod CCitadel_Modifier_ViscousBall {
@@ -9901,20 +9641,18 @@ pub mod client_dll {
     }
     // Parent: CCitadel_Modifier_BaseEventProc
     // Field count: 0
-    pub mod CCitadel_Modifier_Ricochet_Proc {
-    }
+    pub mod CCitadel_Modifier_Ricochet_Proc {}
     // Parent: CBaseAnimGraph
     // Field count: 4
     pub mod CPropAnimatingBreakable {
-        pub const m_stages: usize = 0xB08; // CBreakableStageHelper
-        pub const m_OnTakeDamage: usize = 0xB20; // CEntityIOOutput
-        pub const m_OnFinalBreak: usize = 0xB48; // CEntityIOOutput
-        pub const m_OnStageAdvanced: usize = 0xB70; // CEntityIOOutput
+        pub const m_stages: usize = 0xB00; // CBreakableStageHelper
+        pub const m_OnTakeDamage: usize = 0xB18; // CEntityIOOutput
+        pub const m_OnFinalBreak: usize = 0xB40; // CEntityIOOutput
+        pub const m_OnStageAdvanced: usize = 0xB68; // CEntityIOOutput
     }
     // Parent: CCitadelModifier
     // Field count: 0
-    pub mod CCitadel_Modifier_ShakedownPulse {
-    }
+    pub mod CCitadel_Modifier_ShakedownPulse {}
     // Parent: CitadelAbilityVData
     // Field count: 4
     pub mod CAbilityStickyBombVData {
@@ -9952,18 +9690,9 @@ pub mod client_dll {
         pub const m_flPreviousUpdateTickTime: usize = 0x5D0; // GameTime_t
         pub const m_vecPreviousTestPoint: usize = 0x5D4; // Vector
     }
-    // Parent: CCitadelModifierVData
-    // Field count: 4
-    pub mod CCitadel_Modifier_Fathom_ReefdwellerHarpoon_Move_VData {
-        pub const m_LatchedModifier: usize = 0x608; // CEmbeddedSubclass<CCitadelModifier>
-        pub const m_BeamParticle: usize = 0x618; // CResourceNameTyped<CWeakHandle<InfoForResourceTypeIParticleSystemDefinition>>
-        pub const m_HealParticle: usize = 0x6F8; // CResourceNameTyped<CWeakHandle<InfoForResourceTypeIParticleSystemDefinition>>
-        pub const m_DamageParticle: usize = 0x7D8; // CResourceNameTyped<CWeakHandle<InfoForResourceTypeIParticleSystemDefinition>>
-    }
     // Parent: CCitadelModifier
     // Field count: 0
-    pub mod CCitadel_Modifier_Spin {
-    }
+    pub mod CCitadel_Modifier_Spin {}
     // Parent: CCitadelModifierVData
     // Field count: 3
     pub mod CModifierQuarantineVData {
@@ -9973,26 +9702,20 @@ pub mod client_dll {
     }
     // Parent: CCitadelModifier
     // Field count: 0
-    pub mod CCitadel_Modifier_Neutral_Debuff_Pushback {
-    }
+    pub mod CCitadel_Modifier_Neutral_Debuff_Pushback {}
     // Parent: C_Citadel_BreakblePropPickup
     // Field count: 1
     pub mod C_Citadel_BreakblePropGoldPickup {
-        pub const m_iGoldReward: usize = 0xB38; // int32
+        pub const m_iGoldReward: usize = 0xB30; // int32
     }
     // Parent: CCitadel_Item
     // Field count: 1
     pub mod CCitadel_Item_Intensifying_Clip {
         pub const m_flSpinUpTime: usize = 0xCF0; // float32
     }
-    // Parent: CCitadelModifier
-    // Field count: 0
-    pub mod CCitadel_Modifier_BreakablePropFireRatePickup {
-    }
     // Parent: C_EnvCubemap
     // Field count: 0
-    pub mod C_EnvCubemapBox {
-    }
+    pub mod C_EnvCubemapBox {}
     // Parent: CEntitySubclassVDataBase
     // Field count: 2
     pub mod CCitadelViscousBallVData {
@@ -10008,14 +9731,13 @@ pub mod client_dll {
     // Parent: C_NPC_Trooper
     // Field count: 3
     pub mod C_NPC_TrooperBoss {
-        pub const m_CCitadelPlayerClipComponent: usize = 0x14B8; // CCitadelPlayerClipComponent
-        pub const m_flFadeOutStart: usize = 0x14E4; // GameTime_t
-        pub const m_flFadeOutEnd: usize = 0x14E8; // GameTime_t
+        pub const m_CCitadelPlayerClipComponent: usize = 0x14B0; // CCitadelPlayerClipComponent
+        pub const m_flFadeOutStart: usize = 0x14DC; // GameTime_t
+        pub const m_flFadeOutEnd: usize = 0x14E0; // GameTime_t
     }
     // Parent: C_CitadelBaseAbility
     // Field count: 0
-    pub mod CCitadel_Ability_ThrowSand {
-    }
+    pub mod CCitadel_Ability_ThrowSand {}
     // Parent: CitadelAbilityVData
     // Field count: 4
     pub mod CAbilityBouncePadVData {
@@ -10026,8 +9748,7 @@ pub mod client_dll {
     }
     // Parent: CCitadelModifier
     // Field count: 0
-    pub mod CCitadel_Modifier_RocketBarrageVolley {
-    }
+    pub mod CCitadel_Modifier_RocketBarrageVolley {}
     // Parent: C_CitadelBaseAbility
     // Field count: 6
     pub mod CCitadel_Ability_Melee_Base {
@@ -10040,12 +9761,10 @@ pub mod client_dll {
     }
     // Parent: CCitadel_Modifier_ChainLightningEffect
     // Field count: 0
-    pub mod CCitadel_Modifier_PowerSurge_ChainLightning {
-    }
+    pub mod CCitadel_Modifier_PowerSurge_ChainLightning {}
     // Parent: CCitadelModifier
     // Field count: 0
-    pub mod CCitadel_Modifier_FullSpectrumDamage {
-    }
+    pub mod CCitadel_Modifier_FullSpectrumDamage {}
     // Parent: C_BaseEntity
     // Field count: 5
     pub mod C_SoundOpvarSetPointBase {
@@ -10057,20 +9776,16 @@ pub mod client_dll {
     }
     // Parent: CCitadelModifierAura
     // Field count: 0
-    pub mod CCitadel_Modifier_TrapperPoisonJar_Aura {
-    }
+    pub mod CCitadel_Modifier_TrapperPoisonJar_Aura {}
     // Parent: CCitadel_Item
     // Field count: 0
-    pub mod CCitadel_Item_TechDamagePulse {
-    }
+    pub mod CCitadel_Item_TechDamagePulse {}
     // Parent: CCitadelModifier
     // Field count: 0
-    pub mod CCitadel_Modifier_Tier3BossInvuln {
-    }
+    pub mod CCitadel_Modifier_Tier3BossInvuln {}
     // Parent: C_Breakable
     // Field count: 0
-    pub mod C_PhysBox {
-    }
+    pub mod C_PhysBox {}
     // Parent: CCitadelModifierVData
     // Field count: 2
     pub mod CCitadel_Modifier_PristineEmblem_VData {
@@ -10079,19 +9794,22 @@ pub mod client_dll {
     }
     // Parent: None
     // Field count: 0
-    pub mod CPathSimpleAPI {
-    }
+    pub mod CPathSimpleAPI {}
     // Parent: C_BaseTrigger
     // Field count: 0
-    pub mod C_CitadelShopTunnelTrigger {
-    }
+    pub mod C_CitadelShopTunnelTrigger {}
     // Parent: CCitadel_Item
     // Field count: 0
-    pub mod CCitadel_Item_ModDisruptor {
-    }
+    pub mod CCitadel_Item_ModDisruptor {}
     // Parent: CCitadelModifierAura
     // Field count: 0
-    pub mod CCitadel_Modifier_FrenzyAura {
+    pub mod CCitadel_Modifier_FrenzyAura {}
+    // Parent: CLogicalEntity
+    // Field count: 3
+    pub mod CBaseFilter {
+        pub const m_bNegated: usize = 0x568; // bool
+        pub const m_OnPass: usize = 0x570; // CEntityIOOutput
+        pub const m_OnFail: usize = 0x598; // CEntityIOOutput
     }
     // Parent: CitadelAbilityVData
     // Field count: 15
@@ -10205,12 +9923,11 @@ pub mod client_dll {
     // Parent: CBaseAnimGraph
     // Field count: 1
     pub mod C_NPC_SimpleAnimatingAI {
-        pub const m_hEnemy: usize = 0xB08; // CHandle<C_BaseEntity>
+        pub const m_hEnemy: usize = 0xB00; // CHandle<C_BaseEntity>
     }
     // Parent: CCitadel_Item
     // Field count: 0
-    pub mod CCitadel_Item_Empty {
-    }
+    pub mod CCitadel_Item_Empty {}
     // Parent: CitadelAbilityVData
     // Field count: 8
     pub mod CCitadel_Ability_IcePathVData {
@@ -10233,39 +9950,35 @@ pub mod client_dll {
     }
     // Parent: CCitadelModifier
     // Field count: 0
-    pub mod CModifier_SiphonBullets_RestoreHealth {
-    }
+    pub mod CModifier_SiphonBullets_RestoreHealth {}
     // Parent: CCitadel_Modifier_BaseEventProc
     // Field count: 0
-    pub mod CCitadel_Modifier_EscalatingExposureProcWatcher {
-    }
+    pub mod CCitadel_Modifier_EscalatingExposureProcWatcher {}
     // Parent: CCitadelModifier
     // Field count: 0
-    pub mod CCitadel_Modifier_CanDamageMidBoss {
-    }
-    // Parent: CCitadel_Item
-    // Field count: 0
-    pub mod CCitadel_Item_SingleTargetStun {
-    }
+    pub mod CCitadel_Modifier_CanDamageMidBoss {}
     // Parent: C_BaseTrigger
     // Field count: 15
     pub mod CCitadelControlPointTrigger {
-        pub const m_flInitialRadius: usize = 0x868; // float32
-        pub const m_flEndRadius: usize = 0x86C; // float32
-        pub const m_flProgress: usize = 0x870; // float32
-        pub const m_flCaptureTime: usize = 0x874; // float32
-        pub const m_hUnlockPrereq: usize = 0x878; // CHandle<C_BaseEntity>
-        pub const m_bAvailable: usize = 0x87C; // bool
-        pub const m_bIsBeingCaptured: usize = 0x87D; // bool
-        pub const m_bIsBeingBlocked: usize = 0x87E; // bool
-        pub const m_flLastTouchedTime: usize = 0x888; // GameTime_t
-        pub const m_vecBeamTarget: usize = 0x88C; // Vector
-        pub const m_vecBeamStart: usize = 0x898; // Vector
-        pub const m_nFXProgressBeam: usize = 0x8A4; // ParticleIndex_t
-        pub const m_strUnlockPrereq: usize = 0x8A8; // CUtlSymbolLarge
-        pub const m_strBeamStart: usize = 0x8B0; // CUtlSymbolLarge
-        pub const m_strBeamTarget: usize = 0x8B8; // CUtlSymbolLarge
+        pub const m_flInitialRadius: usize = 0x9A0; // float32
+        pub const m_flEndRadius: usize = 0x9A4; // float32
+        pub const m_flProgress: usize = 0x9A8; // float32
+        pub const m_flCaptureTime: usize = 0x9AC; // float32
+        pub const m_hUnlockPrereq: usize = 0x9B0; // CHandle<C_BaseEntity>
+        pub const m_bAvailable: usize = 0x9B4; // bool
+        pub const m_bIsBeingCaptured: usize = 0x9B5; // bool
+        pub const m_bIsBeingBlocked: usize = 0x9B6; // bool
+        pub const m_flLastTouchedTime: usize = 0x9C0; // GameTime_t
+        pub const m_vecBeamTarget: usize = 0x9C4; // Vector
+        pub const m_vecBeamStart: usize = 0x9D0; // Vector
+        pub const m_nFXProgressBeam: usize = 0x9DC; // ParticleIndex_t
+        pub const m_strUnlockPrereq: usize = 0x9E0; // CUtlSymbolLarge
+        pub const m_strBeamStart: usize = 0x9E8; // CUtlSymbolLarge
+        pub const m_strBeamTarget: usize = 0x9F0; // CUtlSymbolLarge
     }
+    // Parent: CCitadel_Item
+    // Field count: 0
+    pub mod CCitadel_Item_SingleTargetStun {}
     // Parent: CCitadelModifierVData
     // Field count: 4
     pub mod CCitadel_Modifier_Nano_PredatoryStatueTargetVData {
@@ -10287,7 +10000,7 @@ pub mod client_dll {
         pub const m_flCollideRadius: usize = 0x6F8; // float32
     }
     // Parent: C_CitadelBaseAbility
-    // Field count: 39
+    // Field count: 40
     pub mod CCitadel_Ability_PrimaryWeapon {
         pub const m_flNextPrimaryAttack: usize = 0xCA0; // GameTime_t
         pub const m_iClip: usize = 0xCA4; // int32
@@ -10327,6 +10040,7 @@ pub mod client_dll {
         pub const m_flCurrentSpinRate: usize = 0xD38; // float32
         pub const m_fFireDuration: usize = 0xD40; // float32
         pub const m_bFireOnEmpty: usize = 0xD45; // bool
+        pub const m_bHasReleasedForSemiAuto: usize = 0xD46; // bool
         pub const m_flNextDisarmSound: usize = 0xD48; // GameTime_t
     }
     // Parent: CCitadelModifierVData
@@ -10340,8 +10054,7 @@ pub mod client_dll {
     }
     // Parent: CCitadelModifier
     // Field count: 0
-    pub mod CCitadel_Modifier_StompDebuff {
-    }
+    pub mod CCitadel_Modifier_StompDebuff {}
     // Parent: CCitadelModifierVData
     // Field count: 2
     pub mod CCitadel_Modifier_Surging_PowerVData {
@@ -10362,8 +10075,7 @@ pub mod client_dll {
     }
     // Parent: C_CitadelProjectile
     // Field count: 0
-    pub mod C_Projectile_Mirage_Tornado {
-    }
+    pub mod C_Projectile_Mirage_Tornado {}
     // Parent: CCitadelModifierVData
     // Field count: 7
     pub mod CModifierAirLiftGrabVData {
@@ -10383,8 +10095,7 @@ pub mod client_dll {
     }
     // Parent: CCitadelModifier
     // Field count: 0
-    pub mod CCitadel_Modifier_FissureWall {
-    }
+    pub mod CCitadel_Modifier_FissureWall {}
     // Parent: CitadelItemVData
     // Field count: 1
     pub mod CCitadel_WeaponUpgrade_InstantReloadVData {
@@ -10399,8 +10110,7 @@ pub mod client_dll {
     }
     // Parent: CCitadelModifier
     // Field count: 0
-    pub mod CCitadel_Modifier_PlayerDisconnected {
-    }
+    pub mod CCitadel_Modifier_PlayerDisconnected {}
     // Parent: C_BaseModelEntity
     // Field count: 4
     pub mod C_Citadel_Ice_Path_Shard_Physics {
@@ -10411,8 +10121,7 @@ pub mod client_dll {
     }
     // Parent: CCitadel_Item
     // Field count: 0
-    pub mod CCitadel_UtilityUpgrade_RocketBoots {
-    }
+    pub mod CCitadel_UtilityUpgrade_RocketBoots {}
     // Parent: CitadelAbilityVData
     // Field count: 7
     pub mod CAbilityPerchedPredatorVData {
@@ -10436,8 +10145,7 @@ pub mod client_dll {
     }
     // Parent: C_SoundOpvarSetPointEntity
     // Field count: 0
-    pub mod C_SoundOpvarSetPathCornerEntity {
-    }
+    pub mod C_SoundOpvarSetPathCornerEntity {}
     // Parent: CitadelAbilityVData
     // Field count: 3
     pub mod CBaseTriggerAbilityVData {
@@ -10469,12 +10177,10 @@ pub mod client_dll {
     }
     // Parent: CitadelAbilityVData
     // Field count: 0
-    pub mod CAbilityGenericPerson2VData {
-    }
+    pub mod CAbilityGenericPerson2VData {}
     // Parent: CCitadel_Modifier_Sleep
     // Field count: 0
-    pub mod CCitadel_Modifier_PoisonBullet_Poisoned {
-    }
+    pub mod CCitadel_Modifier_PoisonBullet_Poisoned {}
     // Parent: CCitadelModifierVData
     // Field count: 1
     pub mod CCitadel_Modifier_Afterburn_DOT_VData {
@@ -10497,14 +10203,15 @@ pub mod client_dll {
     pub mod CCitadel_ArmorUpgrade_DoubleJump {
         pub const m_nTickJumped: usize = 0xCB8; // int32
     }
+    // Parent: CCitadel_Item
+    // Field count: 0
+    pub mod CItemSilenceGlyph {}
     // Parent: CCitadelModifier
     // Field count: 0
-    pub mod CCitadel_Modifier_PayloadCarrier {
-    }
+    pub mod CCitadel_Modifier_PayloadCarrier {}
     // Parent: CCitadelModifier
     // Field count: 0
-    pub mod CCitadel_Modifier_Dust_Storm_Aura_Apply {
-    }
+    pub mod CCitadel_Modifier_Dust_Storm_Aura_Apply {}
     // Parent: CCitadelModifierVData
     // Field count: 1
     pub mod CModifierChargedTacklePrepareVData {
@@ -10519,8 +10226,7 @@ pub mod client_dll {
     }
     // Parent: CCitadelModifier
     // Field count: 0
-    pub mod CCitadel_Modifier_BerserkerDamageStack {
-    }
+    pub mod CCitadel_Modifier_BerserkerDamageStack {}
     // Parent: CCitadel_Modifier_BaseBulletPreRollProc
     // Field count: 1
     pub mod CCitadel_Modifier_ExplosiveBullets {
@@ -10536,24 +10242,10 @@ pub mod client_dll {
     }
     // Parent: CCitadel_Item
     // Field count: 0
-    pub mod CCitadel_ArmorUpgrade_MetalSkin {
-    }
-    // Parent: CCitadelModifier
-    // Field count: 8
-    pub mod CCitadel_Modifier_Fathom_ReefdwellerHarpoon_Move {
-        pub const m_vCasterToDest: usize = 0xC0; // Vector
-        pub const m_vStart: usize = 0xCC; // Vector
-        pub const m_vDest: usize = 0xD8; // Vector
-        pub const m_hOther: usize = 0xE4; // CHandle<C_BaseEntity>
-        pub const m_vLastSafePos: usize = 0xE8; // Vector
-        pub const m_nNumTicks: usize = 0xF4; // int32
-        pub const m_nTicksLeft: usize = 0xF8; // int32
-        pub const m_nBeamIndex: usize = 0xFC; // ParticleIndex_t
-    }
+    pub mod CCitadel_ArmorUpgrade_MetalSkin {}
     // Parent: CCitadelModifier
     // Field count: 0
-    pub mod CCitadel_Modifier_Fathom_ScaldingSpray_WeaponDamage {
-    }
+    pub mod CCitadel_Modifier_Fathom_ScaldingSpray_WeaponDamage {}
     // Parent: CitadelAbilityVData
     // Field count: 8
     pub mod CCitadel_Ability_Spinning_BladeVData {
@@ -10567,7 +10259,7 @@ pub mod client_dll {
         pub const m_strHitSound: usize = 0x1770; // CSoundEventName
     }
     // Parent: CitadelAbilityVData
-    // Field count: 34
+    // Field count: 36
     pub mod CCitadel_Ability_Tengu_AirLiftVData {
         pub const m_FlyingModifier: usize = 0x1560; // CEmbeddedSubclass<CCitadelModifier>
         pub const m_GrabModifier: usize = 0x1570; // CEmbeddedSubclass<CCitadelModifier>
@@ -10582,27 +10274,29 @@ pub mod client_dll {
         pub const m_flMaxFallSpeed: usize = 0x1794; // float32
         pub const m_flTargetAirSpeedFast: usize = 0x1798; // float32
         pub const m_flTargetAirSpeedBase: usize = 0x179C; // float32
-        pub const m_flAcceleration: usize = 0x17A0; // float32
-        pub const m_flDecceleration: usize = 0x17A4; // float32
-        pub const m_flAirSideSpeedPercent: usize = 0x17A8; // float32
-        pub const m_flBoostTime: usize = 0x17AC; // float32
-        pub const m_flBoostSpeedUp: usize = 0x17B0; // float32
-        pub const m_flMinFlyHeight: usize = 0x17B4; // float32
-        pub const m_flMaxFlyHeight: usize = 0x17B8; // float32
-        pub const m_flMaxPitchUp: usize = 0x17BC; // float32
-        pub const m_flMaxPitchDown: usize = 0x17C0; // float32
-        pub const m_flAllyDelayedBoostTime: usize = 0x17C4; // float32
-        pub const m_flChannelingAirDrag: usize = 0x17C8; // float32
-        pub const m_flChannelingMaxFallSpeed: usize = 0x17CC; // float32
-        pub const m_flBombReleaseSpeed: usize = 0x17D0; // float32
-        pub const m_flBombReleasePitch: usize = 0x17D4; // float32
-        pub const m_flBombDropReleaseOffset: usize = 0x17D8; // float32
-        pub const m_flHoldBombOffsetX: usize = 0x17DC; // float32
-        pub const m_flHoldBombOffsetY: usize = 0x17E0; // float32
-        pub const m_flHoldBombOffsetZ: usize = 0x17E4; // float32
-        pub const m_flAnglePitchBias: usize = 0x17E8; // float32
-        pub const m_flTrackAmount: usize = 0x17EC; // float32
-        pub const m_flMoveCollideSpeed: usize = 0x17F0; // float32
+        pub const m_flSprintMult: usize = 0x17A0; // float32
+        pub const m_flAcceleration: usize = 0x17A4; // float32
+        pub const m_flDecceleration: usize = 0x17A8; // float32
+        pub const m_flAirSideSpeedPercent: usize = 0x17AC; // float32
+        pub const m_flBoostTime: usize = 0x17B0; // float32
+        pub const m_flBoostSpeedUp: usize = 0x17B4; // float32
+        pub const m_flCrouchLaunchReduction: usize = 0x17B8; // float32
+        pub const m_flMinFlyHeight: usize = 0x17BC; // float32
+        pub const m_flMaxFlyHeight: usize = 0x17C0; // float32
+        pub const m_flMaxPitchUp: usize = 0x17C4; // float32
+        pub const m_flMaxPitchDown: usize = 0x17C8; // float32
+        pub const m_flAllyDelayedBoostTime: usize = 0x17CC; // float32
+        pub const m_flChannelingAirDrag: usize = 0x17D0; // float32
+        pub const m_flChannelingMaxFallSpeed: usize = 0x17D4; // float32
+        pub const m_flBombReleaseSpeed: usize = 0x17D8; // float32
+        pub const m_flBombReleasePitch: usize = 0x17DC; // float32
+        pub const m_flBombDropReleaseOffset: usize = 0x17E0; // float32
+        pub const m_flHoldBombOffsetX: usize = 0x17E4; // float32
+        pub const m_flHoldBombOffsetY: usize = 0x17E8; // float32
+        pub const m_flHoldBombOffsetZ: usize = 0x17EC; // float32
+        pub const m_flAnglePitchBias: usize = 0x17F0; // float32
+        pub const m_flTrackAmount: usize = 0x17F4; // float32
+        pub const m_flMoveCollideSpeed: usize = 0x17F8; // float32
     }
     // Parent: CCitadelModifierVData
     // Field count: 3
@@ -10613,8 +10307,7 @@ pub mod client_dll {
     }
     // Parent: CCitadelModifier
     // Field count: 0
-    pub mod CCitadel_Modifier_Stabilizing_Tripod_Self_Debuff {
-    }
+    pub mod CCitadel_Modifier_Stabilizing_Tripod_Self_Debuff {}
     // Parent: CCitadelModifier
     // Field count: 1
     pub mod CCitadel_Modifier_Hero_Clone {
@@ -10660,8 +10353,7 @@ pub mod client_dll {
     }
     // Parent: C_CitadelBaseAbility
     // Field count: 0
-    pub mod CCitadel_Ability_Targetdummy_Inherent {
-    }
+    pub mod CCitadel_Ability_Targetdummy_Inherent {}
     // Parent: CCitadelModifierVData
     // Field count: 1
     pub mod CCitadel_Modifier_Haunt_Damage_VData {
@@ -10675,16 +10367,13 @@ pub mod client_dll {
     }
     // Parent: CCitadelModifier
     // Field count: 0
-    pub mod CCitadel_Modifier_Bebop_Hook_BulletAmp {
-    }
+    pub mod CCitadel_Modifier_Bebop_Hook_BulletAmp {}
     // Parent: CCitadel_Modifier_StatStealBase
     // Field count: 0
-    pub mod CCitadel_Modifier_Arcane_Eater_Watcher {
-    }
+    pub mod CCitadel_Modifier_Arcane_Eater_Watcher {}
     // Parent: CTier3BossAbility
     // Field count: 0
-    pub mod CCitadel_Ability_Weapon_BossTier3 {
-    }
+    pub mod CCitadel_Ability_Weapon_BossTier3 {}
     // Parent: CCitadelModifierVData
     // Field count: 2
     pub mod CCitadel_Modifier_CheaterCurseVData {
@@ -10699,8 +10388,7 @@ pub mod client_dll {
     }
     // Parent: CCitadelModifier
     // Field count: 0
-    pub mod CModifier_Synth_Grasp_Caster {
-    }
+    pub mod CModifier_Synth_Grasp_Caster {}
     // Parent: C_CitadelBaseAbility
     // Field count: 1
     pub mod CCitadel_Ability_RiotProtocol {
@@ -10713,7 +10401,16 @@ pub mod client_dll {
     }
     // Parent: CCitadelModifier
     // Field count: 0
-    pub mod CCitadel_Modifier_Intimidated_Debuff {
+    pub mod CCitadel_Modifier_Intimidated_Debuff {}
+    // Parent: CCitadel_Modifier_StunnedVData
+    // Field count: 6
+    pub mod CCitadel_Modifier_UltCombo_TargetVData {
+        pub const m_flTargetPosDistance: usize = 0x6E8; // float32
+        pub const m_flTargetPosRange: usize = 0x6EC; // float32
+        pub const m_flPullSpeedMin: usize = 0x6F0; // float32
+        pub const m_flPullSpeedMax: usize = 0x6F4; // float32
+        pub const m_flPullDistanceMin: usize = 0x6F8; // float32
+        pub const m_flPullDistanceMax: usize = 0x6FC; // float32
     }
     // Parent: CCitadelModifierVData
     // Field count: 2
@@ -10738,8 +10435,7 @@ pub mod client_dll {
     }
     // Parent: CCitadel_Modifier_BaseEventProc
     // Field count: 0
-    pub mod CCitadel_Modifier_FullSpectrum {
-    }
+    pub mod CCitadel_Modifier_FullSpectrum {}
     // Parent: CCitadel_Modifier_Tier3Boss_Base
     // Field count: 18
     pub mod CCitadel_Modifier_Tier3Boss_LaserBeam {
@@ -10767,12 +10463,12 @@ pub mod client_dll {
     pub mod CModifierProperty {
         pub const __m_pChainEntity: usize = 0x8; // CNetworkVarChainer
         pub const m_hOwner: usize = 0x30; // CHandle<C_BaseEntity>
-        pub const m_nProviderVisitedFlags: usize = 0x198; // uint8
-        pub const m_bModifierStatesDirty: usize = 0x199; // bool
-        pub const m_bPredictedOwner: usize = 0x19A; // bool
-        pub const m_iLockRefCount: usize = 0x19B; // int8
-        pub const m_hHandle: usize = 0x19C; // ModifierPropRuntimeHandle_t
-        pub const m_nBroadcastEventListenerMask: usize = 0x1A0; // uint32
+        pub const m_nProviderVisitedFlags: usize = 0x19B; // uint8
+        pub const m_bModifierStatesDirty: usize = 0x19C; // bool
+        pub const m_bPredictedOwner: usize = 0x19D; // bool
+        pub const m_iLockRefCount: usize = 0x19E; // int8
+        pub const m_hHandle: usize = 0x1A0; // ModifierPropRuntimeHandle_t
+        pub const m_nBroadcastEventListenerMask: usize = 0x1A4; // uint32
         pub const m_vecProviders: usize = 0x1B0; // C_NetworkUtlVectorBase<CHandle<C_BaseEntity>>
         pub const m_nDisabledGroups: usize = 0x1C8; // uint32
         pub const m_bvEnabledStateMask: usize = 0x1CC; // uint32[6]
@@ -10782,18 +10478,17 @@ pub mod client_dll {
     // Parent: C_AI_CitadelNPC
     // Field count: 2
     pub mod C_NPC_NanoRollermine {
-        pub const m_flForwardSpeed: usize = 0x1488; // float32
-        pub const m_hOwnerPawn: usize = 0x148C; // CHandle<C_BaseEntity>
+        pub const m_flForwardSpeed: usize = 0x1480; // float32
+        pub const m_hOwnerPawn: usize = 0x1484; // CHandle<C_BaseEntity>
     }
     // Parent: C_AI_CitadelNPC
     // Field count: 1
     pub mod C_NPC_HeroCloneTrooper {
-        pub const m_hOwner: usize = 0x1470; // CHandle<C_BaseEntity>
+        pub const m_hOwner: usize = 0x1468; // CHandle<C_BaseEntity>
     }
     // Parent: CCitadelModifierAura
     // Field count: 0
-    pub mod CCitadel_Modifier_TenguUrn_Aura {
-    }
+    pub mod CCitadel_Modifier_TenguUrn_Aura {}
     // Parent: CCitadelModifier
     // Field count: 5
     pub mod CGameModifier_OverrideTargetIdentifier {
@@ -10805,8 +10500,7 @@ pub mod client_dll {
     }
     // Parent: CCitadelModifier
     // Field count: 0
-    pub mod CCitadel_Modifier_FealtyTarget {
-    }
+    pub mod CCitadel_Modifier_FealtyTarget {}
     // Parent: CitadelAbilityVData
     // Field count: 7
     pub mod CCitadel_Ability_RocketBarrageVData {
@@ -10820,8 +10514,7 @@ pub mod client_dll {
     }
     // Parent: CCitadelModifier
     // Field count: 0
-    pub mod CCitadel_Modifier_IncendiaryDebuff {
-    }
+    pub mod CCitadel_Modifier_IncendiaryDebuff {}
     // Parent: CEntitySubclassVDataBase
     // Field count: 44
     pub mod CCitadel_XPOrbVData {
@@ -10879,12 +10572,11 @@ pub mod client_dll {
     // Parent: C_PhysicsProp
     // Field count: 1
     pub mod C_ShatterGlassShardPhysics {
-        pub const m_ShardDesc: usize = 0xCA0; // shard_model_desc_t
+        pub const m_ShardDesc: usize = 0xC98; // shard_model_desc_t
     }
     // Parent: CitadelAbilityVData
     // Field count: 0
-    pub mod CAbilityTargetdummy3VData {
-    }
+    pub mod CAbilityTargetdummy3VData {}
     // Parent: C_CitadelBaseAbility
     // Field count: 7
     pub mod CCitadel_Ability_Tengu_StoneForm {
@@ -10898,8 +10590,7 @@ pub mod client_dll {
     }
     // Parent: CCitadelModifier
     // Field count: 0
-    pub mod CModifier_CheatDeathImmunity {
-    }
+    pub mod CModifier_CheatDeathImmunity {}
     // Parent: C_BaseModelEntity
     // Field count: 1
     pub mod C_LightEntity {
@@ -10925,8 +10616,7 @@ pub mod client_dll {
     }
     // Parent: CCitadelModifierVData
     // Field count: 0
-    pub mod CCitadel_Modifier_Cadence_SleepingVData {
-    }
+    pub mod CCitadel_Modifier_Cadence_SleepingVData {}
     // Parent: C_CitadelBaseAbility
     // Field count: 2
     pub mod CCitadel_Ability_IceGrenade {
@@ -10947,16 +10637,13 @@ pub mod client_dll {
     }
     // Parent: CCitadel_Modifier_BaseEventProc
     // Field count: 0
-    pub mod CCitadel_Modifier_SlowingTech_Proc {
-    }
+    pub mod CCitadel_Modifier_SlowingTech_Proc {}
     // Parent: CCitadelModifier
     // Field count: 0
-    pub mod CCitadel_Modifier_Quarantine {
-    }
+    pub mod CCitadel_Modifier_Quarantine {}
     // Parent: CCitadel_Modifier_ShieldTracker_Base
     // Field count: 0
-    pub mod CCitadel_Modifier_ShieldTracker_Bullet {
-    }
+    pub mod CCitadel_Modifier_ShieldTracker_Bullet {}
     // Parent: CCitadelModifier
     // Field count: 4
     pub mod CCitadel_Modifier_Base_Buildup {
@@ -10983,6 +10670,9 @@ pub mod client_dll {
         pub const m_RetargetParticle: usize = 0x1650; // CResourceNameTyped<CWeakHandle<InfoForResourceTypeIParticleSystemDefinition>>
         pub const m_strRedirect: usize = 0x1730; // CSoundEventName
     }
+    // Parent: CCitadelModifier
+    // Field count: 0
+    pub mod CCitadel_Modifier_ReefdwellerHarpoon_DetachBuff {}
     // Parent: CitadelAbilityVData
     // Field count: 1
     pub mod CAbilityRocketLauncherVData {
@@ -10990,8 +10680,7 @@ pub mod client_dll {
     }
     // Parent: CCitadelModifier
     // Field count: 0
-    pub mod CCitadel_Modifier_Warden_CrowdControl_Debuff {
-    }
+    pub mod CCitadel_Modifier_Warden_CrowdControl_Debuff {}
     // Parent: C_CitadelBaseAbility
     // Field count: 2
     pub mod CCitadel_Ability_FlameDash {
@@ -11005,8 +10694,7 @@ pub mod client_dll {
     }
     // Parent: CCitadel_Modifier_BaseEventProc
     // Field count: 0
-    pub mod CCitadel_Modifier_Inhibitor_Proc {
-    }
+    pub mod CCitadel_Modifier_Inhibitor_Proc {}
     // Parent: CitadelAbilityVData
     // Field count: 24
     pub mod CCitadel_Ability_Climb_RopeVData {
@@ -11070,13 +10758,6 @@ pub mod client_dll {
         pub const m_nLaserParticleIndex: usize = 0x8E8; // ParticleIndex_t
         pub const m_vecSmoothedVelocity: usize = 0x8EC; // Vector
     }
-    // Parent: CCitadelModifierVData
-    // Field count: 3
-    pub mod CCitadel_Modifier_BreakablePropClipSizePickupVData {
-        pub const m_flClipSize: usize = 0x608; // float32
-        pub const m_nClipCount: usize = 0x60C; // int32
-        pub const m_flFireRate: usize = 0x610; // float32
-    }
     // Parent: CCitadel_Modifier_Invis
     // Field count: 1
     pub mod CCitadel_Modifier_Shadow_Step {
@@ -11108,7 +10789,8 @@ pub mod client_dll {
         pub const m_ZipLineEnemyKnockdownProtectionParticle: usize = 0x608; // CResourceNameTyped<CWeakHandle<InfoForResourceTypeIParticleSystemDefinition>>
         pub const m_ZipLineSelfKnockdownProtectionParticle: usize = 0x6E8; // CResourceNameTyped<CWeakHandle<InfoForResourceTypeIParticleSystemDefinition>>
         pub const m_ZipLineKnockdownProtectionStatusParticle: usize = 0x7C8; // CResourceNameTyped<CWeakHandle<InfoForResourceTypeIParticleSystemDefinition>>
-        pub const m_ZipLineKnockdownProtectionStatusEnemyParticle: usize = 0x8A8; // CResourceNameTyped<CWeakHandle<InfoForResourceTypeIParticleSystemDefinition>>
+        pub const m_ZipLineKnockdownProtectionStatusEnemyParticle: usize = 0x8A8;
+        // CResourceNameTyped<CWeakHandle<InfoForResourceTypeIParticleSystemDefinition>>
     }
     // Parent: CCitadelModifier
     // Field count: 1
@@ -11117,8 +10799,7 @@ pub mod client_dll {
     }
     // Parent: CitadelItemVData
     // Field count: 0
-    pub mod CCitadel_ArmorUpgrade_HealOnLevelVData {
-    }
+    pub mod CCitadel_ArmorUpgrade_HealOnLevelVData {}
     // Parent: CCitadelYamatoBaseVData
     // Field count: 29
     pub mod CCitadelAbilityFlyingStrikeVData {
@@ -11154,8 +10835,7 @@ pub mod client_dll {
     }
     // Parent: CCitadel_Modifier_Base
     // Field count: 0
-    pub mod CCitadel_Modifier_FlyingStrikeTarget {
-    }
+    pub mod CCitadel_Modifier_FlyingStrikeTarget {}
     // Parent: CitadelAbilityVData
     // Field count: 8
     pub mod CAbilityGooGrenadeVData {
@@ -11179,8 +10859,7 @@ pub mod client_dll {
     }
     // Parent: CCitadel_Modifier_Tier3Boss_Base
     // Field count: 0
-    pub mod CCitadel_Modifier_Tier3_DamagePulse {
-    }
+    pub mod CCitadel_Modifier_Tier3_DamagePulse {}
     // Parent: C_GameRulesProxy
     // Field count: 1
     pub mod C_CitadelGameRulesProxy {
@@ -11195,48 +10874,46 @@ pub mod client_dll {
     // Parent: C_NPC_SimpleAnimatingAI
     // Field count: 1
     pub mod C_NPC_BaseDefenseSentry {
-        pub const m_vecUnitStatusOffset: usize = 0xB10; // Vector
+        pub const m_vecUnitStatusOffset: usize = 0xB08; // Vector
     }
     // Parent: C_DynamicProp
     // Field count: 5
     pub mod C_Citadel_DynamicProp {
-        pub const m_nPlayerTeamEvent: usize = 0xDB8; // int32
-        pub const m_strDefaultSkin: usize = 0xDC0; // CUtlString
-        pub const m_strFriendlySkin: usize = 0xDC8; // CUtlString
-        pub const m_strEnemySkin: usize = 0xDD0; // CUtlString
-        pub const m_bIsWorld: usize = 0xDD8; // bool
+        pub const m_nPlayerTeamEvent: usize = 0xDB0; // int32
+        pub const m_strDefaultSkin: usize = 0xDB8; // CUtlString
+        pub const m_strFriendlySkin: usize = 0xDC0; // CUtlString
+        pub const m_strEnemySkin: usize = 0xDC8; // CUtlString
+        pub const m_bIsWorld: usize = 0xDD0; // bool
     }
     // Parent: CBaseAnimGraph
     // Field count: 19
     pub mod C_BaseFlex {
-        pub const m_flexWeight: usize = 0xB18; // C_NetworkUtlVectorBase<float32>
-        pub const m_vLookTargetPosition: usize = 0xB30; // Vector
-        pub const m_blinktoggle: usize = 0xB48; // bool
-        pub const m_nLastFlexUpdateFrameCount: usize = 0xBA8; // int32
-        pub const m_CachedViewTarget: usize = 0xBAC; // Vector
-        pub const m_nNextSceneEventId: usize = 0xBB8; // SceneEventId_t
-        pub const m_iBlink: usize = 0xBBC; // int32
-        pub const m_blinktime: usize = 0xBC0; // float32
-        pub const m_prevblinktoggle: usize = 0xBC4; // bool
-        pub const m_iJawOpen: usize = 0xBC8; // int32
-        pub const m_flJawOpenAmount: usize = 0xBCC; // float32
-        pub const m_flBlinkAmount: usize = 0xBD0; // float32
-        pub const m_iMouthAttachment: usize = 0xBD4; // AttachmentHandle_t
-        pub const m_iEyeAttachment: usize = 0xBD5; // AttachmentHandle_t
-        pub const m_bResetFlexWeightsOnModelChange: usize = 0xBD6; // bool
-        pub const m_nEyeOcclusionRendererBone: usize = 0xBF0; // int32
-        pub const m_mEyeOcclusionRendererCameraToBoneTransform: usize = 0xBF4; // matrix3x4_t
-        pub const m_vEyeOcclusionRendererHalfExtent: usize = 0xC24; // Vector
-        pub const m_PhonemeClasses: usize = 0xC40; // C_BaseFlex::Emphasized_Phoneme[3]
+        pub const m_flexWeight: usize = 0xB10; // C_NetworkUtlVectorBase<float32>
+        pub const m_vLookTargetPosition: usize = 0xB28; // Vector
+        pub const m_blinktoggle: usize = 0xB40; // bool
+        pub const m_nLastFlexUpdateFrameCount: usize = 0xBA0; // int32
+        pub const m_CachedViewTarget: usize = 0xBA4; // Vector
+        pub const m_nNextSceneEventId: usize = 0xBB0; // SceneEventId_t
+        pub const m_iBlink: usize = 0xBB4; // int32
+        pub const m_blinktime: usize = 0xBB8; // float32
+        pub const m_prevblinktoggle: usize = 0xBBC; // bool
+        pub const m_iJawOpen: usize = 0xBC0; // int32
+        pub const m_flJawOpenAmount: usize = 0xBC4; // float32
+        pub const m_flBlinkAmount: usize = 0xBC8; // float32
+        pub const m_iMouthAttachment: usize = 0xBCC; // AttachmentHandle_t
+        pub const m_iEyeAttachment: usize = 0xBCD; // AttachmentHandle_t
+        pub const m_bResetFlexWeightsOnModelChange: usize = 0xBCE; // bool
+        pub const m_nEyeOcclusionRendererBone: usize = 0xBE8; // int32
+        pub const m_mEyeOcclusionRendererCameraToBoneTransform: usize = 0xBEC; // matrix3x4_t
+        pub const m_vEyeOcclusionRendererHalfExtent: usize = 0xC1C; // Vector
+        pub const m_PhonemeClasses: usize = 0xC38; // C_BaseFlex::Emphasized_Phoneme[3]
     }
     // Parent: CCitadel_Item
     // Field count: 0
-    pub mod CCitadel_Item_DPS_Aura {
-    }
+    pub mod CCitadel_Item_DPS_Aura {}
     // Parent: CCitadelModifier
     // Field count: 0
-    pub mod CGameModifier_FireConCommand {
-    }
+    pub mod CGameModifier_FireConCommand {}
     // Parent: CCitadelModifierVData
     // Field count: 5
     pub mod CCitadel_Modifier_MageWalkVData {
@@ -11245,6 +10922,14 @@ pub mod client_dll {
         pub const m_TeleportTrailParticle: usize = 0x7C8; // CResourceNameTyped<CWeakHandle<InfoForResourceTypeIParticleSystemDefinition>>
         pub const m_flPreTeleportDuration: usize = 0x8A8; // float32
         pub const m_strAmbientLoopingLocalPlayerSound: usize = 0x8B0; // CSoundEventName
+    }
+    // Parent: CitadelAbilityVData
+    // Field count: 4
+    pub mod CAbility_Fathom_LurkersAmbush_VData {
+        pub const m_InvisModifier: usize = 0x1560; // CEmbeddedSubclass<CCitadel_Modifier_LurkersAmbush_Invis>
+        pub const m_RegenModifier: usize = 0x1570; // CEmbeddedSubclass<CCitadelModifier>
+        pub const m_ImmobilizeModifier: usize = 0x1580; // CEmbeddedSubclass<CCitadelModifier>
+        pub const m_strSwapStarted: usize = 0x1590; // CSoundEventName
     }
     // Parent: CitadelAbilityVData
     // Field count: 7
@@ -11259,8 +10944,7 @@ pub mod client_dll {
     }
     // Parent: CitadelAbilityVData
     // Field count: 0
-    pub mod CAbilityTargetdummy4VData {
-    }
+    pub mod CAbilityTargetdummy4VData {}
     // Parent: CCitadelModifierVData
     // Field count: 1
     pub mod CCitadel_Modifier_SleepDagger_Drowsy_VData {
@@ -11284,8 +10968,7 @@ pub mod client_dll {
     }
     // Parent: CCitadelModifierVData
     // Field count: 0
-    pub mod CCitadel_Modifier_SlowVData {
-    }
+    pub mod CCitadel_Modifier_SlowVData {}
     // Parent: C_BaseModelEntity
     // Field count: 12
     pub mod C_EnvSky {
@@ -11302,22 +10985,26 @@ pub mod client_dll {
         pub const m_flFogMaxEnd: usize = 0x890; // float32
         pub const m_bEnabled: usize = 0x894; // bool
     }
+    // Parent: CCitadelModifierAuraVData
+    // Field count: 4
+    pub mod CModifierGarbageAuraVData {
+        pub const m_FinishParticle: usize = 0x648; // CResourceNameTyped<CWeakHandle<InfoForResourceTypeIParticleSystemDefinition>>
+        pub const m_AlliedParticle: usize = 0x728; // CResourceNameTyped<CWeakHandle<InfoForResourceTypeIParticleSystemDefinition>>
+        pub const m_EnemyParticle: usize = 0x808; // CResourceNameTyped<CWeakHandle<InfoForResourceTypeIParticleSystemDefinition>>
+        pub const m_strAmbientLoopingLocalPlayerSound: usize = 0x8E8; // CSoundEventName
+    }
     // Parent: CCitadelModifierAura
     // Field count: 0
-    pub mod CCitadel_Item_Discord_Aura_Enemy {
-    }
+    pub mod CCitadel_Item_Discord_Aura_Enemy {}
     // Parent: CCitadelModifier
     // Field count: 0
-    pub mod CCitadel_Modifier_ItemPickupPunchable {
-    }
+    pub mod CCitadel_Modifier_ItemPickupPunchable {}
     // Parent: CCitadelModifier
     // Field count: 0
-    pub mod CCitadel_Modifier_Rutger_CheatDeath {
-    }
+    pub mod CCitadel_Modifier_Rutger_CheatDeath {}
     // Parent: C_CitadelBaseAbility
     // Field count: 0
-    pub mod CCitadel_Ability_Tokamak_Breach {
-    }
+    pub mod CCitadel_Ability_Tokamak_Breach {}
     // Parent: C_CitadelBaseAbility
     // Field count: 19
     pub mod CCitadel_Ability_Jump {
@@ -11343,12 +11030,10 @@ pub mod client_dll {
     }
     // Parent: C_PointEntity
     // Field count: 0
-    pub mod CInfoTarget {
-    }
+    pub mod CInfoTarget {}
     // Parent: CCitadel_Modifier_Intrinsic_Base
     // Field count: 0
-    pub mod CCitadel_Modifier_PredatorPrecision {
-    }
+    pub mod CCitadel_Modifier_PredatorPrecision {}
     // Parent: CitadelItemVData
     // Field count: 1
     pub mod CCitadel_TechUpgrade_SuperAcolyteGlovesVData {
@@ -11363,61 +11048,62 @@ pub mod client_dll {
     }
     // Parent: CScaleFunctionBase
     // Field count: 0
-    pub mod CScaleFunctionAbilityPropertyMultiStats {
-    }
+    pub mod CScaleFunctionAbilityPropertyMultiStats {}
     // Parent: C_BreakableProp
     // Field count: 23
     pub mod C_DynamicProp {
-        pub const m_bUseHitboxesForRenderBox: usize = 0xC90; // bool
-        pub const m_bUseAnimGraph: usize = 0xC91; // bool
-        pub const m_pOutputAnimBegun: usize = 0xC98; // CEntityIOOutput
-        pub const m_pOutputAnimOver: usize = 0xCC0; // CEntityIOOutput
-        pub const m_pOutputAnimLoopCycleOver: usize = 0xCE8; // CEntityIOOutput
-        pub const m_OnAnimReachedStart: usize = 0xD10; // CEntityIOOutput
-        pub const m_OnAnimReachedEnd: usize = 0xD38; // CEntityIOOutput
-        pub const m_iszIdleAnim: usize = 0xD60; // CUtlSymbolLarge
-        pub const m_nIdleAnimLoopMode: usize = 0xD68; // AnimLoopMode_t
-        pub const m_bRandomizeCycle: usize = 0xD6C; // bool
-        pub const m_bStartDisabled: usize = 0xD6D; // bool
-        pub const m_bFiredStartEndOutput: usize = 0xD6E; // bool
-        pub const m_bForceNpcExclude: usize = 0xD6F; // bool
-        pub const m_bCreateNonSolid: usize = 0xD70; // bool
-        pub const m_bIsOverrideProp: usize = 0xD71; // bool
-        pub const m_iInitialGlowState: usize = 0xD74; // int32
-        pub const m_nGlowRange: usize = 0xD78; // int32
-        pub const m_nGlowRangeMin: usize = 0xD7C; // int32
-        pub const m_glowColor: usize = 0xD80; // Color
-        pub const m_nGlowTeam: usize = 0xD84; // int32
-        pub const m_iCachedFrameCount: usize = 0xD88; // int32
-        pub const m_vecCachedRenderMins: usize = 0xD8C; // Vector
-        pub const m_vecCachedRenderMaxs: usize = 0xD98; // Vector
+        pub const m_bUseHitboxesForRenderBox: usize = 0xC88; // bool
+        pub const m_bUseAnimGraph: usize = 0xC89; // bool
+        pub const m_pOutputAnimBegun: usize = 0xC90; // CEntityIOOutput
+        pub const m_pOutputAnimOver: usize = 0xCB8; // CEntityIOOutput
+        pub const m_pOutputAnimLoopCycleOver: usize = 0xCE0; // CEntityIOOutput
+        pub const m_OnAnimReachedStart: usize = 0xD08; // CEntityIOOutput
+        pub const m_OnAnimReachedEnd: usize = 0xD30; // CEntityIOOutput
+        pub const m_iszIdleAnim: usize = 0xD58; // CUtlSymbolLarge
+        pub const m_nIdleAnimLoopMode: usize = 0xD60; // AnimLoopMode_t
+        pub const m_bRandomizeCycle: usize = 0xD64; // bool
+        pub const m_bStartDisabled: usize = 0xD65; // bool
+        pub const m_bFiredStartEndOutput: usize = 0xD66; // bool
+        pub const m_bForceNpcExclude: usize = 0xD67; // bool
+        pub const m_bCreateNonSolid: usize = 0xD68; // bool
+        pub const m_bIsOverrideProp: usize = 0xD69; // bool
+        pub const m_iInitialGlowState: usize = 0xD6C; // int32
+        pub const m_nGlowRange: usize = 0xD70; // int32
+        pub const m_nGlowRangeMin: usize = 0xD74; // int32
+        pub const m_glowColor: usize = 0xD78; // Color
+        pub const m_nGlowTeam: usize = 0xD7C; // int32
+        pub const m_iCachedFrameCount: usize = 0xD80; // int32
+        pub const m_vecCachedRenderMins: usize = 0xD84; // Vector
+        pub const m_vecCachedRenderMaxs: usize = 0xD90; // Vector
     }
+    // Parent: CCitadel_Item
+    // Field count: 0
+    pub mod CCitadel_WeaponUpgrade_SpellslingerHeadshots {}
     // Parent: CCitadel_Item
     // Field count: 1
     pub mod CCitadel_ArmorUpgrade_SpellShield {
         pub const fl_mSpellShieldBreakTime: usize = 0xCB8; // GameTime_t
     }
     // Parent: CitadelAbilityVData
-    // Field count: 4
+    // Field count: 5
     pub mod CCitadel_Ability_TurretClone_VData {
         pub const m_strTurretParticle: usize = 0x1560; // CResourceNameTyped<CWeakHandle<InfoForResourceTypeIParticleSystemDefinition>>
         pub const m_strSwapParticle: usize = 0x1640; // CResourceNameTyped<CWeakHandle<InfoForResourceTypeIParticleSystemDefinition>>
         pub const m_TurretSound: usize = 0x1720; // CSoundEventName
-        pub const m_cameraSequenceTeleport: usize = 0x1730; // CitadelCameraOperationsSequence_t
+        pub const m_BuffModifier: usize = 0x1730; // CEmbeddedSubclass<CCitadelModifier>
+        pub const m_cameraSequenceTeleport: usize = 0x1740; // CitadelCameraOperationsSequence_t
     }
     // Parent: C_CitadelBaseAbility
     // Field count: 0
-    pub mod CCitadel_Ability_VandalOverflow {
-    }
+    pub mod CCitadel_Ability_VandalOverflow {}
     // Parent: CitadelAbilityVData
-    // Field count: 6
+    // Field count: 5
     pub mod CAbilityChargedTackleVData {
         pub const m_ChargePreviewParticle: usize = 0x1560; // CResourceNameTyped<CWeakHandle<InfoForResourceTypeIParticleSystemDefinition>>
         pub const m_ChargePrepareModifier: usize = 0x1640; // CEmbeddedSubclass<CCitadelModifier>
         pub const m_ChargeActiveModifier: usize = 0x1650; // CEmbeddedSubclass<CCitadelModifier>
-        pub const m_BuffModifier: usize = 0x1660; // CEmbeddedSubclass<CCitadelModifier>
-        pub const m_DragModifier: usize = 0x1670; // CEmbeddedSubclass<CCitadelModifier>
-        pub const m_strHitSound: usize = 0x1680; // CSoundEventName
+        pub const m_DragModifier: usize = 0x1660; // CEmbeddedSubclass<CCitadelModifier>
+        pub const m_strHitSound: usize = 0x1670; // CSoundEventName
     }
     // Parent: CCitadelModifierVData
     // Field count: 3
@@ -11428,8 +11114,7 @@ pub mod client_dll {
     }
     // Parent: CCitadelModifier
     // Field count: 0
-    pub mod CCitadel_Modifier_Fervor {
-    }
+    pub mod CCitadel_Modifier_Fervor {}
     // Parent: CCitadelModifier
     // Field count: 2
     pub mod CCitadel_Modifier_AttachTarget {
@@ -11461,8 +11146,8 @@ pub mod client_dll {
     // Parent: C_AI_CitadelNPC
     // Field count: 2
     pub mod C_NPC_TrooperNeutral {
-        pub const m_bPlayingIdle: usize = 0x1470; // bool
-        pub const m_bShieldActive: usize = 0x1471; // bool
+        pub const m_bPlayingIdle: usize = 0x1468; // bool
+        pub const m_bShieldActive: usize = 0x1469; // bool
     }
     // Parent: CCitadel_Modifier_StunnedVData
     // Field count: 1
@@ -11479,8 +11164,11 @@ pub mod client_dll {
     // Parent: CBaseAnimGraph
     // Field count: 1
     pub mod C_ItemWeaponParts {
-        pub const m_hTouchedPlayeres: usize = 0xB28; // C_NetworkUtlVectorBase<CHandle<C_BasePlayerPawn>>
+        pub const m_hTouchedPlayeres: usize = 0xB20; // C_NetworkUtlVectorBase<CHandle<C_BasePlayerPawn>>
     }
+    // Parent: CCitadel_Modifier_Intrinsic_BaseVData
+    // Field count: 0
+    pub mod CModifier_Operative_Scattercharge_Projectile_VData {}
     // Parent: CitadelAbilityVData
     // Field count: 1
     pub mod CAbilityStackingDamageVData {
@@ -11494,12 +11182,10 @@ pub mod client_dll {
     }
     // Parent: C_NPC_Boss_Tier2
     // Field count: 0
-    pub mod C_NPC_Boss_Tier2_Sidelanes {
-    }
+    pub mod C_NPC_Boss_Tier2_Sidelanes {}
     // Parent: C_CitadelProjectile
     // Field count: 0
-    pub mod C_Citadel_Projectile_BloodBomb {
-    }
+    pub mod C_Citadel_Projectile_BloodBomb {}
     // Parent: CCitadelModifierAuraVData
     // Field count: 3
     pub mod CCitadel_Item_Discord_AuraVData_Enemy {
@@ -11535,15 +11221,14 @@ pub mod client_dll {
     }
     // Parent: CCitadel_Item
     // Field count: 0
-    pub mod CCitadel_Item_AOERoot {
-    }
+    pub mod CCitadel_Item_AOERoot {}
     // Parent: CNPC_TrooperBossVData
     // Field count: 4
     pub mod CNPC_TrooperBarrackBossVData {
-        pub const m_flBackDoorProtectionRange: usize = 0x16D0; // float32
-        pub const m_BackdoorProtectionModifier: usize = 0x16D8; // CEmbeddedSubclass<CCitadelModifier>
-        pub const m_BackdoorBulletResistModifier: usize = 0x16E8; // CEmbeddedSubclass<CCitadelModifier>
-        pub const m_ObjectiveRegen: usize = 0x16F8; // CEmbeddedSubclass<CCitadelModifier>
+        pub const m_flBackDoorProtectionRange: usize = 0x17F8; // float32
+        pub const m_BackdoorProtectionModifier: usize = 0x1800; // CEmbeddedSubclass<CCitadelModifier>
+        pub const m_BackdoorBulletResistModifier: usize = 0x1810; // CEmbeddedSubclass<CCitadelModifier>
+        pub const m_ObjectiveRegen: usize = 0x1820; // CEmbeddedSubclass<CCitadelModifier>
     }
     // Parent: CCitadelModifierVData
     // Field count: 2
@@ -11551,10 +11236,14 @@ pub mod client_dll {
         pub const m_EnemyHeroStasisEffect: usize = 0x608; // CResourceNameTyped<CWeakHandle<InfoForResourceTypeIParticleSystemDefinition>>
         pub const m_EnemyHeroGrabEffect: usize = 0x6E8; // CResourceNameTyped<CWeakHandle<InfoForResourceTypeIParticleSystemDefinition>>
     }
+    // Parent: CBaseFilter
+    // Field count: 1
+    pub mod CFilterModel {
+        pub const m_iFilterModel: usize = 0x5C0; // CUtlSymbolLarge
+    }
     // Parent: CCitadelModifier
     // Field count: 0
-    pub mod CModifier_Synth_Barrage_Amp {
-    }
+    pub mod CModifier_Synth_Barrage_Amp {}
     // Parent: CitadelAbilityVData
     // Field count: 12
     pub mod CAbilityHornetLeapVData {
@@ -11578,45 +11267,42 @@ pub mod client_dll {
     }
     // Parent: C_GameRules
     // Field count: 0
-    pub mod C_SingleplayRules {
-    }
+    pub mod C_SingleplayRules {}
     // Parent: CBaseAnimGraph
     // Field count: 25
     pub mod C_LocalTempEntity {
-        pub const flags: usize = 0xB08; // int32
-        pub const die: usize = 0xB0C; // GameTime_t
-        pub const m_flFrameMax: usize = 0xB10; // float32
-        pub const x: usize = 0xB14; // float32
-        pub const y: usize = 0xB18; // float32
-        pub const fadeSpeed: usize = 0xB1C; // float32
-        pub const bounceFactor: usize = 0xB20; // float32
-        pub const hitSound: usize = 0xB24; // int32
-        pub const priority: usize = 0xB28; // int32
-        pub const tentOffset: usize = 0xB2C; // Vector
-        pub const m_vecTempEntAngVelocity: usize = 0xB38; // QAngle
-        pub const tempent_renderamt: usize = 0xB44; // int32
-        pub const m_vecNormal: usize = 0xB48; // Vector
-        pub const m_flSpriteScale: usize = 0xB54; // float32
-        pub const m_nFlickerFrame: usize = 0xB58; // int32
-        pub const m_flFrameRate: usize = 0xB5C; // float32
-        pub const m_flFrame: usize = 0xB60; // float32
-        pub const m_pszImpactEffect: usize = 0xB68; // char*
-        pub const m_pszParticleEffect: usize = 0xB70; // char*
-        pub const m_bParticleCollision: usize = 0xB78; // bool
-        pub const m_iLastCollisionFrame: usize = 0xB7C; // int32
-        pub const m_vLastCollisionOrigin: usize = 0xB80; // Vector
-        pub const m_vecTempEntVelocity: usize = 0xB8C; // Vector
-        pub const m_vecPrevAbsOrigin: usize = 0xB98; // Vector
-        pub const m_vecTempEntAcceleration: usize = 0xBA4; // Vector
+        pub const flags: usize = 0xB00; // int32
+        pub const die: usize = 0xB04; // GameTime_t
+        pub const m_flFrameMax: usize = 0xB08; // float32
+        pub const x: usize = 0xB0C; // float32
+        pub const y: usize = 0xB10; // float32
+        pub const fadeSpeed: usize = 0xB14; // float32
+        pub const bounceFactor: usize = 0xB18; // float32
+        pub const hitSound: usize = 0xB1C; // int32
+        pub const priority: usize = 0xB20; // int32
+        pub const tentOffset: usize = 0xB24; // Vector
+        pub const m_vecTempEntAngVelocity: usize = 0xB30; // QAngle
+        pub const tempent_renderamt: usize = 0xB3C; // int32
+        pub const m_vecNormal: usize = 0xB40; // Vector
+        pub const m_flSpriteScale: usize = 0xB4C; // float32
+        pub const m_nFlickerFrame: usize = 0xB50; // int32
+        pub const m_flFrameRate: usize = 0xB54; // float32
+        pub const m_flFrame: usize = 0xB58; // float32
+        pub const m_pszImpactEffect: usize = 0xB60; // char*
+        pub const m_pszParticleEffect: usize = 0xB68; // char*
+        pub const m_bParticleCollision: usize = 0xB70; // bool
+        pub const m_iLastCollisionFrame: usize = 0xB74; // int32
+        pub const m_vLastCollisionOrigin: usize = 0xB78; // Vector
+        pub const m_vecTempEntVelocity: usize = 0xB84; // Vector
+        pub const m_vecPrevAbsOrigin: usize = 0xB90; // Vector
+        pub const m_vecTempEntAcceleration: usize = 0xB9C; // Vector
     }
     // Parent: CCitadelModifier
     // Field count: 0
-    pub mod CModifier_Thumper_Bullet_Watcher {
-    }
+    pub mod CModifier_Thumper_Bullet_Watcher {}
     // Parent: C_CitadelBaseAbility
     // Field count: 0
-    pub mod CCitadel_Ability_Protection_Racket {
-    }
+    pub mod CCitadel_Ability_Protection_Racket {}
     // Parent: CCitadelBaseYamatoAbility
     // Field count: 2
     pub mod CCitadel_Ability_InfinitySlash {
@@ -11625,8 +11311,7 @@ pub mod client_dll {
     }
     // Parent: CCitadelModifier
     // Field count: 0
-    pub mod CCitadelModifierProjectilePitchingLoopSoundThinker {
-    }
+    pub mod CCitadelModifierProjectilePitchingLoopSoundThinker {}
     // Parent: CEntitySubclassVDataBase
     // Field count: 8
     pub mod CCitadel_HeroTestOrbSpawnerVData {
@@ -11647,60 +11332,58 @@ pub mod client_dll {
     }
     // Parent: C_LightDirectionalEntity
     // Field count: 0
-    pub mod C_LightEnvironmentEntity {
-    }
+    pub mod C_LightEnvironmentEntity {}
     // Parent: CCitadelModifierAura
     // Field count: 0
-    pub mod CCitadel_Modifier_Tokamak_EnemySmokeAOE {
-    }
+    pub mod CCitadel_Modifier_Tokamak_EnemySmokeAOE {}
     // Parent: CCitadelPlayerController
     // Field count: 0
-    pub mod CCitadelPreviewPlayerController {
-    }
+    pub mod CCitadelPreviewPlayerController {}
     // Parent: CAI_CitadelNPCVData
-    // Field count: 41
+    // Field count: 42
     pub mod CNPC_Boss_Tier3VData {
-        pub const m_nPhase2Health: usize = 0xFB0; // int32
-        pub const m_flEyeZOffset: usize = 0xFB4; // float32
-        pub const m_flDefaultMoveSpeed: usize = 0xFB8; // float32
-        pub const m_flNoShieldMoveSpeed: usize = 0xFBC; // float32
-        pub const m_flDyingMoveSpeed: usize = 0xFC0; // float32
-        pub const m_flMovingToFinalPositionSpeed: usize = 0xFC4; // float32
-        pub const m_DeathSmallExplosionParticle: usize = 0xFC8; // CResourceNameTyped<CWeakHandle<InfoForResourceTypeIParticleSystemDefinition>>
-        pub const m_DeathLargeExplosionParticle: usize = 0x10A8; // CResourceNameTyped<CWeakHandle<InfoForResourceTypeIParticleSystemDefinition>>
-        pub const m_WeakpointBrokenExplosionParticle: usize = 0x1188; // CResourceNameTyped<CWeakHandle<InfoForResourceTypeIParticleSystemDefinition>>
-        pub const m_ChargeUpExplosionParticle: usize = 0x1268; // CResourceNameTyped<CWeakHandle<InfoForResourceTypeIParticleSystemDefinition>>
-        pub const m_strWIPModelName: usize = 0x1348; // CResourceNameTyped<CWeakHandle<InfoForResourceTypeCModel>>
-        pub const m_DyingSmallExplosion: usize = 0x1428; // CSoundEventName
-        pub const m_AvatarKilledSound: usize = 0x1438; // CSoundEventName
-        pub const m_AvatarBecomePatronSound: usize = 0x1448; // CSoundEventName
-        pub const m_PatronLandedSound: usize = 0x1458; // CSoundEventName
-        pub const m_PatronKilledSound: usize = 0x1468; // CSoundEventName
-        pub const m_LaserSound: usize = 0x1478; // CSoundEventName
-        pub const m_LaserBeamModifier: usize = 0x1488; // CEmbeddedSubclass<CBaseModifier>
-        pub const m_DyingModifier: usize = 0x1498; // CEmbeddedSubclass<CBaseModifier>
-        pub const m_VulnerableModifier: usize = 0x14A8; // CEmbeddedSubclass<CBaseModifier>
-        pub const m_Phase1Modifier: usize = 0x14B8; // CEmbeddedSubclass<CBaseModifier>
-        pub const m_Phase2Modifier: usize = 0x14C8; // CEmbeddedSubclass<CBaseModifier>
-        pub const m_BackdoorProtection: usize = 0x14D8; // CEmbeddedSubclass<CBaseModifier>
-        pub const m_ObjectiveRegen: usize = 0x14E8; // CEmbeddedSubclass<CBaseModifier>
-        pub const m_LaserChargingParticle: usize = 0x14F8; // CResourceNameTyped<CWeakHandle<InfoForResourceTypeIParticleSystemDefinition>>
-        pub const m_LaserBeamEffect: usize = 0x15D8; // CResourceNameTyped<CWeakHandle<InfoForResourceTypeIParticleSystemDefinition>>
-        pub const m_LaserPreviewEffect: usize = 0x16B8; // CResourceNameTyped<CWeakHandle<InfoForResourceTypeIParticleSystemDefinition>>
-        pub const m_LaserDamageEffect: usize = 0x1798; // CResourceNameTyped<CWeakHandle<InfoForResourceTypeIParticleSystemDefinition>>
-        pub const m_flLaserTargetingZOffset: usize = 0x1878; // float32
-        pub const m_flLaserTrackingSpeed: usize = 0x187C; // float32
-        pub const m_flLaserTrackingMaxSpeed: usize = 0x1880; // float32
-        pub const m_flLaserCastingTrackSpeed: usize = 0x1884; // float32
-        pub const m_flLaserCastingTrackMaxSpeed: usize = 0x1888; // float32
-        pub const m_flLaserDPSToPlayers: usize = 0x188C; // float32
-        pub const m_flLaserDPSToNPCs: usize = 0x1890; // float32
-        pub const m_flNoShieldLaserTrackingSpeed: usize = 0x1894; // float32
-        pub const m_flNoShieldLaserTrackingMaxSpeed: usize = 0x1898; // float32
-        pub const m_flNoShieldLaserCastingTrackSpeed: usize = 0x189C; // float32
-        pub const m_flNoShieldLaserCastingTrackMaxSpeed: usize = 0x18A0; // float32
-        pub const m_flNoShieldLaserDPSToPlayers: usize = 0x18A4; // float32
-        pub const m_flNoShieldLaserDPSToNPCs: usize = 0x18A8; // float32
+        pub const m_nPhase2Health: usize = 0x10D8; // int32
+        pub const m_flEyeZOffset: usize = 0x10DC; // float32
+        pub const m_flDefaultMoveSpeed: usize = 0x10E0; // float32
+        pub const m_flNoShieldMoveSpeed: usize = 0x10E4; // float32
+        pub const m_flDyingMoveSpeed: usize = 0x10E8; // float32
+        pub const m_flMovingToFinalPositionSpeed: usize = 0x10EC; // float32
+        pub const m_DeathSmallExplosionParticle: usize = 0x10F0; // CResourceNameTyped<CWeakHandle<InfoForResourceTypeIParticleSystemDefinition>>
+        pub const m_DeathLargeExplosionParticle: usize = 0x11D0; // CResourceNameTyped<CWeakHandle<InfoForResourceTypeIParticleSystemDefinition>>
+        pub const m_WeakpointBrokenExplosionParticle: usize = 0x12B0; // CResourceNameTyped<CWeakHandle<InfoForResourceTypeIParticleSystemDefinition>>
+        pub const m_ChargeUpExplosionParticle: usize = 0x1390; // CResourceNameTyped<CWeakHandle<InfoForResourceTypeIParticleSystemDefinition>>
+        pub const m_strWIPModelName: usize = 0x1470; // CResourceNameTyped<CWeakHandle<InfoForResourceTypeCModel>>
+        pub const m_DyingSmallExplosion: usize = 0x1550; // CSoundEventName
+        pub const m_AvatarKilledSound: usize = 0x1560; // CSoundEventName
+        pub const m_AvatarBecomePatronSound: usize = 0x1570; // CSoundEventName
+        pub const m_PatronLandedSound: usize = 0x1580; // CSoundEventName
+        pub const m_PatronKilledSound: usize = 0x1590; // CSoundEventName
+        pub const m_LaserSound: usize = 0x15A0; // CSoundEventName
+        pub const m_LaserBeamModifier: usize = 0x15B0; // CEmbeddedSubclass<CBaseModifier>
+        pub const m_DyingModifier: usize = 0x15C0; // CEmbeddedSubclass<CBaseModifier>
+        pub const m_VulnerableModifier: usize = 0x15D0; // CEmbeddedSubclass<CBaseModifier>
+        pub const m_Phase1Modifier: usize = 0x15E0; // CEmbeddedSubclass<CBaseModifier>
+        pub const m_Phase2Modifier: usize = 0x15F0; // CEmbeddedSubclass<CBaseModifier>
+        pub const m_BackdoorProtection: usize = 0x1600; // CEmbeddedSubclass<CBaseModifier>
+        pub const m_ObjectiveRegen: usize = 0x1610; // CEmbeddedSubclass<CBaseModifier>
+        pub const m_LaserChargingParticle: usize = 0x1620; // CResourceNameTyped<CWeakHandle<InfoForResourceTypeIParticleSystemDefinition>>
+        pub const m_LaserBeamEffect: usize = 0x1700; // CResourceNameTyped<CWeakHandle<InfoForResourceTypeIParticleSystemDefinition>>
+        pub const m_LaserPreviewEffect: usize = 0x17E0; // CResourceNameTyped<CWeakHandle<InfoForResourceTypeIParticleSystemDefinition>>
+        pub const m_LaserDamageEffect: usize = 0x18C0; // CResourceNameTyped<CWeakHandle<InfoForResourceTypeIParticleSystemDefinition>>
+        pub const m_flLaserTargetingZOffset: usize = 0x19A0; // float32
+        pub const m_flLaserTrackingSpeed: usize = 0x19A4; // float32
+        pub const m_flLaserTrackingMaxSpeed: usize = 0x19A8; // float32
+        pub const m_flLaserCastingTrackSpeed: usize = 0x19AC; // float32
+        pub const m_flLaserCastingTrackMaxSpeed: usize = 0x19B0; // float32
+        pub const m_flLaserDPSToPlayers: usize = 0x19B4; // float32
+        pub const m_flLaserDPSToNPCs: usize = 0x19B8; // float32
+        pub const m_flLaserDPSMaxHealth: usize = 0x19BC; // float32
+        pub const m_flNoShieldLaserTrackingSpeed: usize = 0x19C0; // float32
+        pub const m_flNoShieldLaserTrackingMaxSpeed: usize = 0x19C4; // float32
+        pub const m_flNoShieldLaserCastingTrackSpeed: usize = 0x19C8; // float32
+        pub const m_flNoShieldLaserCastingTrackMaxSpeed: usize = 0x19CC; // float32
+        pub const m_flNoShieldLaserDPSToPlayers: usize = 0x19D0; // float32
+        pub const m_flNoShieldLaserDPSToNPCs: usize = 0x19D4; // float32
     }
     // Parent: C_CitadelBaseAbility
     // Field count: 2
@@ -11751,12 +11434,10 @@ pub mod client_dll {
     }
     // Parent: C_CitadelBaseAbility
     // Field count: 0
-    pub mod CCitadel_Ability_ShieldGuy_Ability04 {
-    }
+    pub mod CCitadel_Ability_ShieldGuy_Ability04 {}
     // Parent: C_CitadelBaseAbility
     // Field count: 0
-    pub mod CCitadel_Ability_Nano_Shadow {
-    }
+    pub mod CCitadel_Ability_Nano_Shadow {}
     // Parent: CCitadelModifierVData
     // Field count: 1
     pub mod CCitadel_Modifier_Bull_Leap_BoostingVData {
@@ -11770,16 +11451,13 @@ pub mod client_dll {
     }
     // Parent: CCitadelModifier
     // Field count: 0
-    pub mod CCitadel_Modifier_TeamRelativeParticle {
-    }
+    pub mod CCitadel_Modifier_TeamRelativeParticle {}
     // Parent: CCitadelModifier
     // Field count: 0
-    pub mod CCitadel_Modifier_Rutger_CheatDeath_Activated {
-    }
+    pub mod CCitadel_Modifier_Rutger_CheatDeath_Activated {}
     // Parent: CCitadelModifier
     // Field count: 0
-    pub mod CCitadel_Modifier_Warden_HighAlert {
-    }
+    pub mod CCitadel_Modifier_Warden_HighAlert {}
     // Parent: CitadelAbilityVData
     // Field count: 24
     pub mod CAbilityGuidedArrowVData {
@@ -11815,18 +11493,18 @@ pub mod client_dll {
         pub const m_InAirModifier: usize = 0x1640; // CEmbeddedSubclass<CCitadelModifier>
         pub const m_PowerJumpModifier: usize = 0x1650; // CEmbeddedSubclass<CCitadelModifier>
     }
-    // Parent: CCitadel_Item
-    // Field count: 0
-    pub mod CCitadel_ArmorUpgrade_PersonalRejuvenator {
-    }
     // Parent: CCitadelModifier
     // Field count: 0
-    pub mod CCitadel_Modifier_PayloadPusherAuraTarget {
-    }
+    pub mod CCitadel_Modifier_NearbyEnemyResist {}
+    // Parent: CCitadel_Item
+    // Field count: 0
+    pub mod CCitadel_ArmorUpgrade_PersonalRejuvenator {}
+    // Parent: CCitadelModifier
+    // Field count: 0
+    pub mod CCitadel_Modifier_PayloadPusherAuraTarget {}
     // Parent: C_BaseModelEntity
     // Field count: 0
-    pub mod C_TriggerVolume {
-    }
+    pub mod C_TriggerVolume {}
     // Parent: C_FuncBrush
     // Field count: 3
     pub mod C_FuncElectrifiedVolume {
@@ -11836,8 +11514,7 @@ pub mod client_dll {
     }
     // Parent: C_CitadelBaseAbility
     // Field count: 0
-    pub mod CCitadel_Ability_Tokamak_Radiance {
-    }
+    pub mod CCitadel_Ability_Tokamak_Radiance {}
     // Parent: CCitadelModifierVData
     // Field count: 1
     pub mod CCitadelModifierCadenceGunSpikesVData {
@@ -11852,8 +11529,7 @@ pub mod client_dll {
     }
     // Parent: CCitadelModifierVData
     // Field count: 0
-    pub mod CCitadel_Modifier_Cadence_AnthemBuffVData {
-    }
+    pub mod CCitadel_Modifier_Cadence_AnthemBuffVData {}
     // Parent: CitadelAbilityVData
     // Field count: 1
     pub mod CCitadelYamatoBaseVData {
@@ -11883,8 +11559,7 @@ pub mod client_dll {
     }
     // Parent: CCitadelBaseAbilityServerOnly
     // Field count: 0
-    pub mod CCitadel_Ability_Weapon_BossTier2 {
-    }
+    pub mod CCitadel_Ability_Weapon_BossTier2 {}
     // Parent: CCitadelModifier
     // Field count: 7
     pub mod CCitadel_Modifier_Invis {
@@ -11898,28 +11573,22 @@ pub mod client_dll {
     }
     // Parent: CCitadelModifierVData
     // Field count: 0
-    pub mod CModifier_Mirage_SandPhantom_VData {
-    }
+    pub mod CModifier_Mirage_SandPhantom_VData {}
     // Parent: CCitadelModifier
     // Field count: 0
-    pub mod CCitadel_Modifier_Mirage_Tornado_Caster {
-    }
+    pub mod CCitadel_Modifier_Mirage_Tornado_Caster {}
     // Parent: CCitadel_Modifier_Sleep
     // Field count: 0
-    pub mod CCitadel_Modifier_SleepBomb_Asleep {
-    }
+    pub mod CCitadel_Modifier_SleepBomb_Asleep {}
     // Parent: CCitadelModifier
     // Field count: 0
-    pub mod CCitadel_Modifier_Lockdown_BulletResist {
-    }
+    pub mod CCitadel_Modifier_Lockdown_BulletResist {}
     // Parent: CCitadelModifier
     // Field count: 0
-    pub mod CCitadel_Modifier_WreckerUltimate_Invincible {
-    }
+    pub mod CCitadel_Modifier_WreckerUltimate_Invincible {}
     // Parent: C_CitadelBaseAbility
     // Field count: 0
-    pub mod CCitadel_Ability_Lash {
-    }
+    pub mod CCitadel_Ability_Lash {}
     // Parent: CitadelAbilityVData
     // Field count: 3
     pub mod CCitadel_Ability_BloodBombVData {
@@ -11927,10 +11596,12 @@ pub mod client_dll {
         pub const m_SpilledBloodModifier: usize = 0x1640; // CEmbeddedSubclass<CCitadelModifier>
         pub const m_strBloodSpillStatName: usize = 0x1650; // CUtlString
     }
+    // Parent: CCitadelModifier
+    // Field count: 0
+    pub mod CCitadel_Modifier_Upgrade_SpellslingerHeadshots_Buff {}
     // Parent: CCitadel_Modifier_BaseEventProc
     // Field count: 0
-    pub mod CCitadel_Modifier_LongRangeSlowingTech_Proc {
-    }
+    pub mod CCitadel_Modifier_LongRangeSlowingTech_Proc {}
     // Parent: C_BaseEntity
     // Field count: 2
     pub mod C_EnvDetailController {
@@ -12041,12 +11712,10 @@ pub mod client_dll {
     }
     // Parent: CCitadelModifier
     // Field count: 0
-    pub mod CCitadel_Modifier_Cadence_SilenceContraptionsDebuff {
-    }
+    pub mod CCitadel_Modifier_Cadence_SilenceContraptionsDebuff {}
     // Parent: C_CitadelBaseAbility
     // Field count: 0
-    pub mod CCitadel_Ability_Spinning_Blade {
-    }
+    pub mod CCitadel_Ability_Spinning_Blade {}
     // Parent: CCitadelModifierVData
     // Field count: 4
     pub mod CModifierAirLiftExplodeTargetVData {
@@ -12057,12 +11726,10 @@ pub mod client_dll {
     }
     // Parent: C_CitadelBaseAbility
     // Field count: 0
-    pub mod CCitadel_Ability_DeathTax {
-    }
+    pub mod CCitadel_Ability_DeathTax {}
     // Parent: C_CitadelBaseAbility
     // Field count: 0
-    pub mod CCitadel_Ability_StaticCharge {
-    }
+    pub mod CCitadel_Ability_StaticCharge {}
     // Parent: CitadelItemVData
     // Field count: 3
     pub mod CCitadel_ArmorUpgrade_DebuffReducerVData {
@@ -12072,8 +11739,7 @@ pub mod client_dll {
     }
     // Parent: CScaleFunctionBase
     // Field count: 0
-    pub mod CScaleFunctionAbilityProperty_TechDamage {
-    }
+    pub mod CScaleFunctionAbilityProperty_TechDamage {}
     // Parent: None
     // Field count: 11
     pub mod CEntityIdentity {
@@ -12092,50 +11758,50 @@ pub mod client_dll {
     // Parent: CCitadelAnimatingModelEntity
     // Field count: 6
     pub mod C_Citadel_Bounce_Pad {
-        pub const m_flUpFactor: usize = 0xB10; // float32
-        pub const m_flBounceVelocity: usize = 0xB14; // float32
-        pub const m_flBarrelBounceVelocity: usize = 0xB18; // float32
-        pub const m_flBarrelUpFactor: usize = 0xB1C; // float32
-        pub const m_bSpeedOnLand: usize = 0xB20; // bool
-        pub const m_bHasBouncedPlayerBefore: usize = 0xB21; // bool
+        pub const m_flUpFactor: usize = 0xB08; // float32
+        pub const m_flBounceVelocity: usize = 0xB0C; // float32
+        pub const m_flBarrelBounceVelocity: usize = 0xB10; // float32
+        pub const m_flBarrelUpFactor: usize = 0xB14; // float32
+        pub const m_bSpeedOnLand: usize = 0xB18; // bool
+        pub const m_bHasBouncedPlayerBefore: usize = 0xB19; // bool
     }
     // Parent: C_BreakableProp
     // Field count: 1
     pub mod C_PhysicsProp {
-        pub const m_bAwake: usize = 0xC90; // bool
+        pub const m_bAwake: usize = 0xC88; // bool
     }
     // Parent: CBaseProp
     // Field count: 29
     pub mod C_BreakableProp {
-        pub const m_CPropDataComponent: usize = 0xB48; // CPropDataComponent
-        pub const m_OnBreak: usize = 0xB88; // CEntityIOOutput
-        pub const m_OnHealthChanged: usize = 0xBB0; // CEntityOutputTemplate<float32>
-        pub const m_OnTakeDamage: usize = 0xBD8; // CEntityIOOutput
-        pub const m_impactEnergyScale: usize = 0xC00; // float32
-        pub const m_iMinHealthDmg: usize = 0xC04; // int32
-        pub const m_flPressureDelay: usize = 0xC08; // float32
-        pub const m_flDefBurstScale: usize = 0xC0C; // float32
-        pub const m_vDefBurstOffset: usize = 0xC10; // Vector
-        pub const m_hBreaker: usize = 0xC1C; // CHandle<C_BaseEntity>
-        pub const m_PerformanceMode: usize = 0xC20; // PerformanceMode_t
-        pub const m_flPreventDamageBeforeTime: usize = 0xC24; // GameTime_t
-        pub const m_BreakableContentsType: usize = 0xC28; // BreakableContentsType_t
-        pub const m_strBreakableContentsPropGroupOverride: usize = 0xC30; // CUtlString
-        pub const m_strBreakableContentsParticleOverride: usize = 0xC38; // CUtlString
-        pub const m_bHasBreakPiecesOrCommands: usize = 0xC40; // bool
-        pub const m_explodeDamage: usize = 0xC44; // float32
-        pub const m_explodeRadius: usize = 0xC48; // float32
-        pub const m_explosionDelay: usize = 0xC50; // float32
-        pub const m_explosionBuildupSound: usize = 0xC58; // CUtlSymbolLarge
-        pub const m_explosionCustomEffect: usize = 0xC60; // CUtlSymbolLarge
-        pub const m_explosionCustomSound: usize = 0xC68; // CUtlSymbolLarge
-        pub const m_explosionModifier: usize = 0xC70; // CUtlSymbolLarge
-        pub const m_hPhysicsAttacker: usize = 0xC78; // CHandle<C_BasePlayerPawn>
-        pub const m_flLastPhysicsInfluenceTime: usize = 0xC7C; // GameTime_t
-        pub const m_flDefaultFadeScale: usize = 0xC80; // float32
-        pub const m_hLastAttacker: usize = 0xC84; // CHandle<C_BaseEntity>
-        pub const m_hFlareEnt: usize = 0xC88; // CHandle<C_BaseEntity>
-        pub const m_noGhostCollision: usize = 0xC8C; // bool
+        pub const m_CPropDataComponent: usize = 0xB40; // CPropDataComponent
+        pub const m_OnBreak: usize = 0xB80; // CEntityIOOutput
+        pub const m_OnHealthChanged: usize = 0xBA8; // CEntityOutputTemplate<float32>
+        pub const m_OnTakeDamage: usize = 0xBD0; // CEntityIOOutput
+        pub const m_impactEnergyScale: usize = 0xBF8; // float32
+        pub const m_iMinHealthDmg: usize = 0xBFC; // int32
+        pub const m_flPressureDelay: usize = 0xC00; // float32
+        pub const m_flDefBurstScale: usize = 0xC04; // float32
+        pub const m_vDefBurstOffset: usize = 0xC08; // Vector
+        pub const m_hBreaker: usize = 0xC14; // CHandle<C_BaseEntity>
+        pub const m_PerformanceMode: usize = 0xC18; // PerformanceMode_t
+        pub const m_flPreventDamageBeforeTime: usize = 0xC1C; // GameTime_t
+        pub const m_BreakableContentsType: usize = 0xC20; // BreakableContentsType_t
+        pub const m_strBreakableContentsPropGroupOverride: usize = 0xC28; // CUtlString
+        pub const m_strBreakableContentsParticleOverride: usize = 0xC30; // CUtlString
+        pub const m_bHasBreakPiecesOrCommands: usize = 0xC38; // bool
+        pub const m_explodeDamage: usize = 0xC3C; // float32
+        pub const m_explodeRadius: usize = 0xC40; // float32
+        pub const m_explosionDelay: usize = 0xC48; // float32
+        pub const m_explosionBuildupSound: usize = 0xC50; // CUtlSymbolLarge
+        pub const m_explosionCustomEffect: usize = 0xC58; // CUtlSymbolLarge
+        pub const m_explosionCustomSound: usize = 0xC60; // CUtlSymbolLarge
+        pub const m_explosionModifier: usize = 0xC68; // CUtlSymbolLarge
+        pub const m_hPhysicsAttacker: usize = 0xC70; // CHandle<C_BasePlayerPawn>
+        pub const m_flLastPhysicsInfluenceTime: usize = 0xC74; // GameTime_t
+        pub const m_flDefaultFadeScale: usize = 0xC78; // float32
+        pub const m_hLastAttacker: usize = 0xC7C; // CHandle<C_BaseEntity>
+        pub const m_hFlareEnt: usize = 0xC80; // CHandle<C_BaseEntity>
+        pub const m_noGhostCollision: usize = 0xC84; // bool
     }
     // Parent: CCitadelBaseLockonAbility
     // Field count: 4
@@ -12160,12 +11826,10 @@ pub mod client_dll {
     }
     // Parent: CitadelAbilityVData
     // Field count: 0
-    pub mod CAbilityThumper1VData {
-    }
+    pub mod CAbilityThumper1VData {}
     // Parent: CCitadelModifier
     // Field count: 0
-    pub mod CCitadel_Modifier_Uppercut_Buff {
-    }
+    pub mod CCitadel_Modifier_Uppercut_Buff {}
     // Parent: CitadelAbilityVData
     // Field count: 37
     pub mod CAbilityViscousBowlingVData {
@@ -12209,8 +11873,7 @@ pub mod client_dll {
     }
     // Parent: CCitadelModifier
     // Field count: 0
-    pub mod CCitadel_Modifier_Nearby_Enemy_Boost {
-    }
+    pub mod CCitadel_Modifier_Nearby_Enemy_Boost {}
     // Parent: CCitadelModifierVData
     // Field count: 6
     pub mod CCitadel_Modifier_Base_BuildupVData {
@@ -12224,13 +11887,12 @@ pub mod client_dll {
     // Parent: C_CitadelItemPickup
     // Field count: 2
     pub mod CCitadelItemPickupRejuv {
-        pub const m_CCitadelAbilityComponent: usize = 0xB40; // CCitadelAbilityComponent
-        pub const m_bPickedUp: usize = 0xCE0; // bool
+        pub const m_CCitadelAbilityComponent: usize = 0xB38; // CCitadelAbilityComponent
+        pub const m_bPickedUp: usize = 0xCD8; // bool
     }
     // Parent: C_BaseToggle
     // Field count: 0
-    pub mod C_FuncMoveLinear {
-    }
+    pub mod C_FuncMoveLinear {}
     // Parent: C_BaseModelEntity
     // Field count: 24
     pub mod C_Beam {
@@ -12268,12 +11930,17 @@ pub mod client_dll {
     }
     // Parent: CBaseAnimGraph
     // Field count: 0
-    pub mod C_ItemAmmo {
+    pub mod C_ItemAmmo {}
+    // Parent: CCitadelModifier
+    // Field count: 3
+    pub mod CCitadel_Modifier_Gunslinger_DemonCarbine {
+        pub const m_nBulletCount: usize = 0xC0; // int32
+        pub const m_flElapsedPct: usize = 0xC4; // float32
+        pub const m_nFullyChargedParticle: usize = 0xC8; // ParticleIndex_t
     }
     // Parent: CCitadelModifier
     // Field count: 0
-    pub mod CCitadel_Modifier_LashGrappleTarget {
-    }
+    pub mod CCitadel_Modifier_LashGrappleTarget {}
     // Parent: CCitadelModifier
     // Field count: 1
     pub mod CCitadel_Modifier_Snipe_Glow {
@@ -12281,12 +11948,10 @@ pub mod client_dll {
     }
     // Parent: CCitadel_Modifier_BaseEventProc
     // Field count: 0
-    pub mod CCitadel_Modifier_TechOverflowProcWatcher {
-    }
+    pub mod CCitadel_Modifier_TechOverflowProcWatcher {}
     // Parent: C_CitadelBaseAbility
     // Field count: 0
-    pub mod CCitadel_Ability_Tokamak_HeatSinks {
-    }
+    pub mod CCitadel_Ability_Tokamak_HeatSinks {}
     // Parent: C_CitadelBaseAbility
     // Field count: 6
     pub mod CCitadel_Ability_Tengu_AirLift {
@@ -12299,8 +11964,7 @@ pub mod client_dll {
     }
     // Parent: C_CitadelBaseAbility
     // Field count: 0
-    pub mod CCitadel_Ability_Nikuman {
-    }
+    pub mod CCitadel_Ability_Nikuman {}
     // Parent: CitadelAbilityVData
     // Field count: 2
     pub mod CAbilityChronoSwapVData {
@@ -12350,23 +12014,20 @@ pub mod client_dll {
         pub const m_FervorParticle: usize = 0x608; // CResourceNameTyped<CWeakHandle<InfoForResourceTypeIParticleSystemDefinition>>
         pub const m_BonusesModifier: usize = 0x6E8; // CEmbeddedSubclass<CCitadelModifier>
     }
-    // Parent: CCitadel_Modifier_BaseShield
-    // Field count: 0
-    pub mod CCitadel_Modifier_RegeneratingBulletShield {
-    }
     // Parent: CCitadelModifier
     // Field count: 1
     pub mod CCitadel_Modifier_WeaponPowerForHealth {
         pub const m_flHealthDrained: usize = 0xC0; // float32
     }
+    // Parent: CCitadel_Modifier_BaseShield
+    // Field count: 0
+    pub mod CCitadel_Modifier_RegeneratingBulletShield {}
     // Parent: C_DynamicProp
     // Field count: 0
-    pub mod C_DynamicPropAlias_prop_dynamic_override {
-    }
+    pub mod C_DynamicPropAlias_prop_dynamic_override {}
     // Parent: CCitadel_Item_Bubble
     // Field count: 0
-    pub mod CCitadel_Item_Stasis_Bomb {
-    }
+    pub mod CCitadel_Item_Stasis_Bomb {}
     // Parent: C_PointEntity
     // Field count: 9
     pub mod C_EnvScreenOverlay {
@@ -12447,20 +12108,18 @@ pub mod client_dll {
     // Parent: CBaseAnimGraph
     // Field count: 5
     pub mod CCitadel_GrandFinaleStage {
-        pub const m_vStartPos: usize = 0xB08; // Vector
-        pub const m_vEndPos: usize = 0xB14; // Vector
-        pub const m_flStartEmitTime: usize = 0xB20; // GameTime_t
-        pub const m_flEndEmitTime: usize = 0xB24; // GameTime_t
-        pub const m_nTouchCount: usize = 0xB28; // int32
+        pub const m_vStartPos: usize = 0xB00; // Vector
+        pub const m_vEndPos: usize = 0xB0C; // Vector
+        pub const m_flStartEmitTime: usize = 0xB18; // GameTime_t
+        pub const m_flEndEmitTime: usize = 0xB1C; // GameTime_t
+        pub const m_nTouchCount: usize = 0xB20; // int32
     }
     // Parent: CCitadelModifierAura
     // Field count: 0
-    pub mod CCitadel_Modifier_VacuumAura {
-    }
+    pub mod CCitadel_Modifier_VacuumAura {}
     // Parent: CCitadelModifierAura
     // Field count: 0
-    pub mod CCitadelModifierAura_Default {
-    }
+    pub mod CCitadelModifierAura_Default {}
     // Parent: C_ModelPointEntity
     // Field count: 17
     pub mod C_PointWorldText {
@@ -12484,12 +12143,10 @@ pub mod client_dll {
     }
     // Parent: C_BaseEntity
     // Field count: 0
-    pub mod C_CitadelPortraitWorldCallbackHandler {
-    }
+    pub mod C_CitadelPortraitWorldCallbackHandler {}
     // Parent: C_CitadelBaseAbility
     // Field count: 0
-    pub mod CCitadel_Ability_Wraith_RapidFire {
-    }
+    pub mod CCitadel_Ability_Wraith_RapidFire {}
     // Parent: CCitadelModifierVData
     // Field count: 2
     pub mod CCitadel_Modifier_ShieldImpactVData {
@@ -12504,8 +12161,7 @@ pub mod client_dll {
     }
     // Parent: CCitadel_Item
     // Field count: 0
-    pub mod CCitadel_Item_Charge_Mastery {
-    }
+    pub mod CCitadel_Item_Charge_Mastery {}
     // Parent: C_CitadelBaseAbility
     // Field count: 10
     pub mod CCitadel_Ability_Nano_Pounce_Instant {
@@ -12533,14 +12189,14 @@ pub mod client_dll {
     // Parent: CAI_CitadelNPCVData
     // Field count: 8
     pub mod CNPC_MidBossVData {
-        pub const m_iStartingHealth: usize = 0xFB0; // int32
-        pub const m_iHealthGainPerMinute: usize = 0xFB4; // int32
-        pub const m_flAggroTime: usize = 0xFB8; // float32
-        pub const m_DyingSmallExplosion: usize = 0xFC0; // CResourceNameTyped<CWeakHandle<InfoForResourceTypeIParticleSystemDefinition>>
-        pub const m_DyingFinalExplosion: usize = 0x10A0; // CResourceNameTyped<CWeakHandle<InfoForResourceTypeIParticleSystemDefinition>>
-        pub const m_flDyingDuration: usize = 0x1180; // float32
-        pub const m_KnockbackAura: usize = 0x1188; // CEmbeddedSubclass<CCitadelModifier>
-        pub const m_AggroEnemy: usize = 0x1198; // CEmbeddedSubclass<CCitadelModifier>
+        pub const m_iStartingHealth: usize = 0x10D8; // int32
+        pub const m_iHealthGainPerMinute: usize = 0x10DC; // int32
+        pub const m_flAggroTime: usize = 0x10E0; // float32
+        pub const m_DyingSmallExplosion: usize = 0x10E8; // CResourceNameTyped<CWeakHandle<InfoForResourceTypeIParticleSystemDefinition>>
+        pub const m_DyingFinalExplosion: usize = 0x11C8; // CResourceNameTyped<CWeakHandle<InfoForResourceTypeIParticleSystemDefinition>>
+        pub const m_flDyingDuration: usize = 0x12A8; // float32
+        pub const m_KnockbackAura: usize = 0x12B0; // CEmbeddedSubclass<CCitadelModifier>
+        pub const m_AggroEnemy: usize = 0x12C0; // CEmbeddedSubclass<CCitadelModifier>
     }
     // Parent: CCitadelModifierAuraVData
     // Field count: 1
@@ -12549,12 +12205,10 @@ pub mod client_dll {
     }
     // Parent: CCitadelModifierAura
     // Field count: 0
-    pub mod CCitadel_Modifier_Nikuman {
-    }
+    pub mod CCitadel_Modifier_Nikuman {}
     // Parent: CCitadel_Item
     // Field count: 0
-    pub mod CCitadel_TechUpgrade_Infuser {
-    }
+    pub mod CCitadel_TechUpgrade_Infuser {}
     // Parent: CitadelAbilityVData
     // Field count: 11
     pub mod CCitadel_Ability_Tengu_StoneFormVData {
@@ -12582,12 +12236,10 @@ pub mod client_dll {
     }
     // Parent: CCitadel_Ability_PrimaryWeapon
     // Field count: 0
-    pub mod CCitadel_Ability_Shotgun_Astro {
-    }
+    pub mod CCitadel_Ability_Shotgun_Astro {}
     // Parent: CCitadelModifier
     // Field count: 0
-    pub mod CCitadel_Modifier_Astro_Rifle_Self {
-    }
+    pub mod CCitadel_Modifier_Astro_Rifle_Self {}
     // Parent: CCitadelModifierVData
     // Field count: 4
     pub mod CCitadel_Modifier_DragEnemyVData {
@@ -12598,8 +12250,7 @@ pub mod client_dll {
     }
     // Parent: CCitadel_Modifier_BaseEventProc
     // Field count: 0
-    pub mod CCitadel_Modifier_SilenceProcWatcher {
-    }
+    pub mod CCitadel_Modifier_SilenceProcWatcher {}
     // Parent: C_CitadelBaseAbility
     // Field count: 1
     pub mod CCitadel_Item {
@@ -12652,10 +12303,6 @@ pub mod client_dll {
         pub const m_StackModifier: usize = 0x618; // CEmbeddedSubclass<CCitadelModifier>
     }
     // Parent: CCitadelModifier
-    // Field count: 0
-    pub mod CCitadel_Modifier_Bullet_Shield_Pulse {
-    }
-    // Parent: CCitadelModifier
     // Field count: 2
     pub mod CCitadel_Modifier_Delayed_Stun {
         pub const m_hRingEffect: usize = 0xC0; // ParticleIndex_t
@@ -12672,34 +12319,37 @@ pub mod client_dll {
     // Parent: C_DynamicProp
     // Field count: 8
     pub mod C_BasePropDoor {
-        pub const m_eDoorState: usize = 0xDB8; // DoorState_t
-        pub const m_modelChanged: usize = 0xDBC; // bool
-        pub const m_bLocked: usize = 0xDBD; // bool
-        pub const m_bNoNPCs: usize = 0xDBE; // bool
-        pub const m_closedPosition: usize = 0xDC0; // Vector
-        pub const m_closedAngles: usize = 0xDCC; // QAngle
-        pub const m_hMaster: usize = 0xDD8; // CHandle<C_BasePropDoor>
-        pub const m_vWhereToSetLightingOrigin: usize = 0xDDC; // Vector
+        pub const m_eDoorState: usize = 0xDB0; // DoorState_t
+        pub const m_modelChanged: usize = 0xDB4; // bool
+        pub const m_bLocked: usize = 0xDB5; // bool
+        pub const m_bNoNPCs: usize = 0xDB6; // bool
+        pub const m_closedPosition: usize = 0xDB8; // Vector
+        pub const m_closedAngles: usize = 0xDC4; // QAngle
+        pub const m_hMaster: usize = 0xDD0; // CHandle<C_BasePropDoor>
+        pub const m_vWhereToSetLightingOrigin: usize = 0xDD4; // Vector
     }
     // Parent: C_PointEntity
     // Field count: 0
-    pub mod C_PointEntityAlias_info_target_portrait_root {
-    }
+    pub mod C_PointEntityAlias_info_target_portrait_root {}
+    // Parent: CCitadelModifierAura
+    // Field count: 0
+    pub mod CCitadel_Modifier_GarbageAura {}
     // Parent: CCitadel_Item
     // Field count: 0
-    pub mod CCitadel_Item_PhantomStrike {
-    }
+    pub mod CCitadel_Item_PhantomStrike {}
     // Parent: CCitadel_Ability_PrimaryWeapon
     // Field count: 0
-    pub mod CCitadel_Ability_Shotgun_Astro_Backwards {
-    }
+    pub mod CCitadel_Ability_Shotgun_Astro_Backwards {}
     // Parent: C_CitadelBaseAbility
     // Field count: 0
-    pub mod CCitadel_Ability_PoisonBullets {
-    }
+    pub mod CCitadel_Ability_PoisonBullets {}
     // Parent: C_CitadelBaseAbility
     // Field count: 0
-    pub mod CCitadel_Ability_SelfVacuum {
+    pub mod CCitadel_Ability_SelfVacuum {}
+    // Parent: CCitadelModifierVData
+    // Field count: 1
+    pub mod CModifier_Upgrade_ArcaneSurge_WeaponBuff_VData {
+        pub const m_TriggeredSound: usize = 0x608; // CSoundEventName
     }
     // Parent: CCitadelModifier
     // Field count: 7
@@ -12714,16 +12364,13 @@ pub mod client_dll {
     }
     // Parent: C_AI_CitadelNPC
     // Field count: 0
-    pub mod C_NPC_MidBoss {
-    }
+    pub mod C_NPC_MidBoss {}
     // Parent: CBaseAnimGraph
     // Field count: 0
-    pub mod CCitadelItemMetal {
-    }
+    pub mod CCitadelItemMetal {}
     // Parent: C_CitadelProjectile
     // Field count: 0
-    pub mod C_Projectile_Rolling_FireBall {
-    }
+    pub mod C_Projectile_Rolling_FireBall {}
     // Parent: CCitadel_Modifier_Stunned
     // Field count: 4
     pub mod CCitadel_Modifier_VacuumAuraTarget {
@@ -12750,26 +12397,26 @@ pub mod client_dll {
     }
     // Parent: CCitadelModifier
     // Field count: 0
-    pub mod CCitadel_Modifier_ActiveDisarm_SpiritSteal {
-    }
+    pub mod CCitadel_Modifier_ActiveDisarm_SpiritSteal {}
+    // Parent: CCitadel_Modifier_BaseEventProc
+    // Field count: 0
+    pub mod CCitadel_Modifier_SpiritSnatch {}
     // Parent: C_BreakableProp
     // Field count: 6
     pub mod C_PhysPropClientside {
-        pub const m_flTouchDelta: usize = 0xC90; // GameTime_t
-        pub const m_fDeathTime: usize = 0xC94; // GameTime_t
-        pub const m_inertiaScale: usize = 0xC98; // float32
-        pub const m_vecDamagePosition: usize = 0xC9C; // Vector
-        pub const m_vecDamageDirection: usize = 0xCA8; // Vector
-        pub const m_nDamageType: usize = 0xCB4; // DamageTypes_t
+        pub const m_flTouchDelta: usize = 0xC88; // GameTime_t
+        pub const m_fDeathTime: usize = 0xC8C; // GameTime_t
+        pub const m_inertiaScale: usize = 0xC90; // float32
+        pub const m_vecDamagePosition: usize = 0xC94; // Vector
+        pub const m_vecDamageDirection: usize = 0xCA0; // Vector
+        pub const m_nDamageType: usize = 0xCAC; // DamageTypes_t
     }
     // Parent: C_CitadelProjectile
     // Field count: 0
-    pub mod C_Projectile_Perched_Predator {
-    }
+    pub mod C_Projectile_Perched_Predator {}
     // Parent: CCitadelModifier
     // Field count: 0
-    pub mod CModifier_Mirage_FireBeetles_Buff {
-    }
+    pub mod CModifier_Mirage_FireBeetles_Buff {}
     // Parent: C_CitadelBaseAbility
     // Field count: 4
     pub mod CCitadel_Ability_Viscous_Telepunch {
@@ -12804,14 +12451,18 @@ pub mod client_dll {
     }
     // Parent: CCitadelModifier
     // Field count: 0
-    pub mod CCitadel_Modifier_ServerOnly {
-    }
+    pub mod CCitadel_Modifier_ServerOnly {}
     // Parent: C_CitadelBaseAbility
     // Field count: 3
     pub mod CCitadelBaseDashCastAbility {
         pub const m_hAbilityToTrigger: usize = 0xCA0; // CHandle<C_CitadelBaseAbility>
         pub const m_flDashCastStartTime: usize = 0xCA4; // GameTime_t
         pub const m_vDashCastDir: usize = 0xCA8; // Vector
+    }
+    // Parent: CBaseFilter
+    // Field count: 1
+    pub mod CFilterProximity {
+        pub const m_flRadius: usize = 0x5C0; // float32
     }
     // Parent: C_BaseEntity
     // Field count: 4
@@ -12830,8 +12481,7 @@ pub mod client_dll {
     }
     // Parent: CCitadelModifier
     // Field count: 0
-    pub mod CModifier_Mirage_FireScarabs_HealthLoss {
-    }
+    pub mod CModifier_Mirage_FireScarabs_HealthLoss {}
     // Parent: CCitadelModifierVData
     // Field count: 3
     pub mod CCitadel_Modifier_ShivDashVData {
@@ -12855,8 +12505,7 @@ pub mod client_dll {
     }
     // Parent: CCitadel_Modifier_BaseBulletPreRollProc
     // Field count: 0
-    pub mod CCitadel_Modifier_CritShot {
-    }
+    pub mod CCitadel_Modifier_CritShot {}
     // Parent: CCitadelModifierVData
     // Field count: 2
     pub mod CCitadel_Modifier_Savior_VData {
@@ -12865,7 +12514,13 @@ pub mod client_dll {
     }
     // Parent: CCitadelModifierAura
     // Field count: 0
-    pub mod CCitadel_Modifier_Cadence_AnthemAOE {
+    pub mod CCitadel_Modifier_Cadence_AnthemAOE {}
+    // Parent: CCitadel_Modifier_StunnedVData
+    // Field count: 3
+    pub mod CCitadel_Modifier_GarbageAuraTargetModifierVData {
+        pub const m_flOuterSpeedScale: usize = 0x6E8; // float32
+        pub const m_flSpeedScaleBias: usize = 0x6EC; // float32
+        pub const m_TargetLoopingSound: usize = 0x6F0; // CSoundEventName
     }
     // Parent: CitadelAbilityVData
     // Field count: 16
@@ -12887,14 +12542,22 @@ pub mod client_dll {
         pub const m_flBaseProjectileSpeed: usize = 0x192C; // float32
         pub const m_flMaxProjectileSpeed: usize = 0x1930; // float32
     }
-    // Parent: CCitadelModifier
-    // Field count: 0
-    pub mod CCitadel_Modifier_Savior {
+    // Parent: CitadelItemVData
+    // Field count: 1
+    pub mod CCitadel_WeaponUpgrade_SpellslingerHeadshots_VData {
+        pub const m_HeadshotBuffModifier: usize = 0x15A8; // CEmbeddedSubclass<CCitadelModifier>
     }
     // Parent: CCitadelModifier
     // Field count: 0
-    pub mod CCitadel_Modifier_Objective_Regen {
+    pub mod CCitadel_Modifier_Savior {}
+    // Parent: CCitadelModifier
+    // Field count: 1
+    pub mod CCitadel_Modifier_Damage_Taken_Reduction_Handicap {
+        pub const m_flValue: usize = 0xC0; // float32
     }
+    // Parent: CCitadelModifier
+    // Field count: 0
+    pub mod CCitadel_Modifier_Objective_Regen {}
     // Parent: CCitadelModifierVData
     // Field count: 1
     pub mod CCitadel_Modifier_BulletResistReductionStackVData {
@@ -12902,12 +12565,10 @@ pub mod client_dll {
     }
     // Parent: CPlayerPawnComponent
     // Field count: 0
-    pub mod CPlayer_ItemServices {
-    }
+    pub mod CPlayer_ItemServices {}
     // Parent: CCitadel_Item
     // Field count: 0
-    pub mod CCitadel_ArmorUpgrade_ActiveBulletShield {
-    }
+    pub mod CCitadel_ArmorUpgrade_ActiveBulletShield {}
     // Parent: C_CitadelBaseAbility
     // Field count: 3
     pub mod CCitadelBaseLockonAbility {
@@ -12917,8 +12578,7 @@ pub mod client_dll {
     }
     // Parent: C_CitadelBaseAbility
     // Field count: 0
-    pub mod CAbility_Rutger_CheatDeath {
-    }
+    pub mod CAbility_Rutger_CheatDeath {}
     // Parent: CCitadelModifierVData
     // Field count: 2
     pub mod CCitadel_Modifier_BoucePadVData {
@@ -12936,12 +12596,15 @@ pub mod client_dll {
     }
     // Parent: C_CitadelBaseAbility
     // Field count: 0
-    pub mod CCitadel_Ability_PassiveBeefy {
-    }
+    pub mod CCitadel_Ability_PassiveBeefy {}
     // Parent: CitadelAbilityVData
-    // Field count: 1
+    // Field count: 5
     pub mod CAbilityStormCloudVData {
         pub const m_StormCloudModifier: usize = 0x1560; // CEmbeddedSubclass<CBaseModifier>
+        pub const m_flOscillateFrequency: usize = 0x1570; // float32
+        pub const m_flOscillateSpeed: usize = 0x1574; // float32
+        pub const m_flOscillateSpeedStart: usize = 0x1578; // float32
+        pub const m_flOscillateStartOffset: usize = 0x157C; // float32
     }
     // Parent: CCitadelModifier
     // Field count: 1
@@ -12956,8 +12619,7 @@ pub mod client_dll {
     }
     // Parent: C_BaseModelEntity
     // Field count: 0
-    pub mod C_FuncBrush {
-    }
+    pub mod C_FuncBrush {}
     // Parent: C_BaseEntity
     // Field count: 8
     pub mod CInfoWorldLayer {
@@ -12989,8 +12651,7 @@ pub mod client_dll {
     }
     // Parent: CCitadelModifier
     // Field count: 0
-    pub mod CCitadel_Modifier_NearDeathFX {
-    }
+    pub mod CCitadel_Modifier_NearDeathFX {}
     // Parent: CCitadelModifierVData
     // Field count: 3
     pub mod CCitadel_Modifier_ZiplineSpeedVData {
@@ -13000,19 +12661,17 @@ pub mod client_dll {
     }
     // Parent: C_BaseCombatCharacter
     // Field count: 0
-    pub mod C_NetTestBaseCombatCharacter {
-    }
+    pub mod C_NetTestBaseCombatCharacter {}
     // Parent: C_AI_CitadelNPC
     // Field count: 0
-    pub mod C_Citadel_PestilenceDroneDispenser {
-    }
+    pub mod C_Citadel_PestilenceDroneDispenser {}
     // Parent: CBaseAnimGraph
     // Field count: 4
     pub mod C_Citadel_BreakblePropPickup {
-        pub const m_bActive: usize = 0xB08; // bool
-        pub const m_sPickupName: usize = 0xB10; // CUtlString
-        pub const m_nNameOffset: usize = 0xB18; // int32
-        pub const m_sAmbientNoise: usize = 0xB20; // CUtlString
+        pub const m_bActive: usize = 0xB00; // bool
+        pub const m_sPickupName: usize = 0xB08; // CUtlString
+        pub const m_nNameOffset: usize = 0xB10; // int32
+        pub const m_sAmbientNoise: usize = 0xB18; // CUtlString
     }
     // Parent: CCitadelModifierVData
     // Field count: 2
@@ -13022,8 +12681,7 @@ pub mod client_dll {
     }
     // Parent: C_CitadelBaseAbility
     // Field count: 0
-    pub mod CCitadel_Ability_GangActivity_Cancel {
-    }
+    pub mod CCitadel_Ability_GangActivity_Cancel {}
     // Parent: CitadelAbilityVData
     // Field count: 2
     pub mod CCitadel_Ability_Shakedown_TargetVData {
@@ -13056,21 +12714,18 @@ pub mod client_dll {
     }
     // Parent: C_AI_CitadelNPC
     // Field count: 0
-    pub mod C_NPC_CarpetBombDrone {
-    }
+    pub mod C_NPC_CarpetBombDrone {}
     // Parent: C_CitadelItemPickup
     // Field count: 0
-    pub mod CCitadelItemPickupIdol {
-    }
+    pub mod CCitadelItemPickupIdol {}
     // Parent: C_Citadel_BreakblePropPickup
     // Field count: 0
-    pub mod C_Citadel_BreakblePropModifierPickup {
-    }
+    pub mod C_Citadel_BreakblePropModifierPickup {}
     // Parent: CBaseAnimGraph
     // Field count: 2
     pub mod C_PhysMagnet {
-        pub const m_aAttachedObjectsFromServer: usize = 0xB08; // CUtlVector<int32>
-        pub const m_aAttachedObjects: usize = 0xB20; // CUtlVector<CHandle<C_BaseEntity>>
+        pub const m_aAttachedObjectsFromServer: usize = 0xB00; // CUtlVector<int32>
+        pub const m_aAttachedObjects: usize = 0xB18; // CUtlVector<CHandle<C_BaseEntity>>
     }
     // Parent: CitadelAbilityVData
     // Field count: 6
@@ -13084,8 +12739,7 @@ pub mod client_dll {
     }
     // Parent: CCitadelModifier
     // Field count: 0
-    pub mod CCitadel_Modifier_AirLiftExplodingAlly {
-    }
+    pub mod CCitadel_Modifier_AirLiftExplodingAlly {}
     // Parent: C_CitadelBaseAbility
     // Field count: 2
     pub mod CCitadel_Ability_Wrecker_Ultimate {
@@ -13113,12 +12767,10 @@ pub mod client_dll {
     }
     // Parent: CCitadelModifier
     // Field count: 0
-    pub mod CCitadel_Modifier_ChainLightningEffect {
-    }
+    pub mod CCitadel_Modifier_ChainLightningEffect {}
     // Parent: CCitadelModifier
     // Field count: 0
-    pub mod CCitadel_Modifier_VexBarrier_Shield {
-    }
+    pub mod CCitadel_Modifier_VexBarrier_Shield {}
     // Parent: None
     // Field count: 4
     pub mod CEntityInstance {
@@ -13129,48 +12781,49 @@ pub mod client_dll {
     }
     // Parent: CCitadel_Item
     // Field count: 0
-    pub mod CCitadel_ArmorUpgrade_Frenzy {
-    }
+    pub mod CCitadel_ArmorUpgrade_Frenzy {}
     // Parent: C_PointClientUIWorldPanel
     // Field count: 1
     pub mod C_InWorldKeyBindPanel {
         pub const m_hPlayer: usize = 0xAC0; // CHandle<C_CitadelPlayerPawn>
     }
     // Parent: CBasePlayerController
-    // Field count: 27
+    // Field count: 30
     pub mod CCitadelPlayerController {
-        pub const m_ePlayState: usize = 0x700; // EPlayerPlayState
-        pub const m_iGuidedBotMatchLastHits: usize = 0x704; // int32
-        pub const m_iGuidedBotMatchOrbsSecured: usize = 0x708; // int32
-        pub const m_iGuidedBotMatchOrbsDenied: usize = 0x70C; // int32
-        pub const m_iGuidedBotMatchDamageToGuardians: usize = 0x710; // int32
-        pub const m_iGuidedBotMatchDamageToPlayers: usize = 0x714; // int32
-        pub const m_iGuidedBotMatchDamageTaken: usize = 0x718; // int32
-        pub const m_iGuidedBotMatchNetWorth: usize = 0x71C; // int32
-        pub const m_iGuidedBotMatchModsPurchased: usize = 0x720; // int32
-        pub const m_iGuidedBotMatchAbilityUpgrades: usize = 0x724; // int32
-        pub const m_flGuideBotMatchLastTaskNagVO: usize = 0x728; // float32
-        pub const m_flGuideBotLastTimeTaskCompleted: usize = 0x72C; // float32
-        pub const m_eGuidedBotMatchObjective: usize = 0x730; // EGuidedBotMatchObjective
-        pub const m_nCurrentRank: usize = 0x734; // int32
-        pub const m_nAssignedLane: usize = 0x738; // int8
-        pub const m_nOriginalLaneAssignment: usize = 0x739; // int8
-        pub const m_bIsKingPanda: usize = 0x73A; // bool
-        pub const m_bBotDisconnectTakeover: usize = 0x73B; // bool
-        pub const m_bInTeamChat: usize = 0x73C; // bool
-        pub const m_bInPartyChat: usize = 0x73D; // bool
-        pub const m_unHeroBuildID: usize = 0x740; // HeroBuildID_t
-        pub const m_hHeroPawn: usize = 0x744; // CHandle<C_CitadelPlayerPawn>
-        pub const m_PlayerDataGlobal: usize = 0x780; // PlayerDataGlobal_t
-        pub const m_nDeathReplayAvailable: usize = 0x9A0; // int8
-        pub const m_unLobbyPlayerSlot: usize = 0x9A1; // CitadelLobbyPlayerSlot_t
-        pub const m_bHasCheckedFriendName: usize = 0x9A2; // bool
-        pub const m_sFriendName: usize = 0x9A8; // CUtlString
+        pub const m_ePlayState: usize = 0x720; // EPlayerPlayState
+        pub const m_iGuidedBotMatchLastHits: usize = 0x724; // int32
+        pub const m_iGuidedBotMatchOrbsSecured: usize = 0x728; // int32
+        pub const m_iGuidedBotMatchOrbsDenied: usize = 0x72C; // int32
+        pub const m_iGuidedBotMatchDamageToGuardians: usize = 0x730; // int32
+        pub const m_iGuidedBotMatchDamageToPlayers: usize = 0x734; // int32
+        pub const m_iGuidedBotMatchDamageTaken: usize = 0x738; // int32
+        pub const m_iGuidedBotMatchNetWorth: usize = 0x73C; // int32
+        pub const m_iGuidedBotMatchModsPurchased: usize = 0x740; // int32
+        pub const m_iGuidedBotMatchAbilityUpgrades: usize = 0x744; // int32
+        pub const m_flGuideBotMatchLastTaskNagVO: usize = 0x748; // float32
+        pub const m_flGuideBotLastTimeTaskCompleted: usize = 0x74C; // float32
+        pub const m_eGuidedBotMatchObjective: usize = 0x750; // EGuidedBotMatchObjective
+        pub const m_nCurrentRank: usize = 0x754; // int32
+        pub const m_nAssignedLane: usize = 0x758; // int8
+        pub const m_nOriginalLaneAssignment: usize = 0x759; // int8
+        pub const m_bIsKingPanda: usize = 0x75A; // bool
+        pub const m_bBotDisconnectTakeover: usize = 0x75B; // bool
+        pub const m_bInTeamChat: usize = 0x75C; // bool
+        pub const m_bInPartyChat: usize = 0x75D; // bool
+        pub const m_unHeroBuildID: usize = 0x760; // HeroBuildID_t
+        pub const m_bLaneSwapLocked: usize = 0x764; // bool
+        pub const m_vecLaneSwapRequests: usize = 0x768; // C_NetworkUtlVectorBase<CHandle<C_BaseEntity>>
+        pub const m_vecLaneSwapRejects: usize = 0x780; // C_NetworkUtlVectorBase<CHandle<C_BaseEntity>>
+        pub const m_hHeroPawn: usize = 0x798; // CHandle<C_CitadelPlayerPawn>
+        pub const m_PlayerDataGlobal: usize = 0x7D0; // PlayerDataGlobal_t
+        pub const m_nDeathReplayAvailable: usize = 0x9F0; // int8
+        pub const m_unLobbyPlayerSlot: usize = 0x9F1; // CitadelLobbyPlayerSlot_t
+        pub const m_bHasCheckedFriendName: usize = 0x9F2; // bool
+        pub const m_sFriendName: usize = 0x9F8; // CUtlString
     }
     // Parent: C_CitadelBaseAbility
     // Field count: 0
-    pub mod CCitadel_Ability_GenericPerson_2 {
-    }
+    pub mod CCitadel_Ability_GenericPerson_2 {}
     // Parent: C_CitadelBaseAbility
     // Field count: 1
     pub mod CCitadel_Ability_Ghost_BloodShards {
@@ -13178,28 +12831,28 @@ pub mod client_dll {
     }
     // Parent: CCitadelModifierVData
     // Field count: 0
-    pub mod CCitadel_Modifier_Intrinsic_BaseVData {
-    }
+    pub mod CCitadel_Modifier_Intrinsic_BaseVData {}
     // Parent: C_CitadelProjectile
     // Field count: 0
-    pub mod CCitadel_Projectile_Cyclone {
-    }
+    pub mod CCitadel_Projectile_Cyclone {}
     // Parent: CCitadelModifierAura
     // Field count: 0
-    pub mod CCitadelModifier_Viscous_Goo_Aura {
+    pub mod CCitadelModifier_Viscous_Goo_Aura {}
+    // Parent: CitadelAbilityVData
+    // Field count: 2
+    pub mod CCitadel_Ability_Gunslinger_SpreadingFireVData {
+        pub const m_ImpactParticle: usize = 0x1560; // CResourceNameTyped<CWeakHandle<InfoForResourceTypeIParticleSystemDefinition>>
+        pub const m_FireDebuffModifier: usize = 0x1640; // CEmbeddedSubclass<CCitadelModifier>
     }
     // Parent: CCitadelModifier
     // Field count: 0
-    pub mod CCitadel_Modifier_Intimidated {
-    }
+    pub mod CCitadel_Modifier_Intimidated {}
     // Parent: CCitadelModifier
     // Field count: 0
-    pub mod CCitadel_Modifier_TargetPracticeEnemy {
-    }
+    pub mod CCitadel_Modifier_TargetPracticeEnemy {}
     // Parent: C_BaseEntity
     // Field count: 0
-    pub mod C_PortraitWorldCallbackHandler {
-    }
+    pub mod C_PortraitWorldCallbackHandler {}
     // Parent: CCitadelModifierVData
     // Field count: 1
     pub mod CModifierPowerGeneratorVData {
@@ -13240,12 +12893,10 @@ pub mod client_dll {
     }
     // Parent: CCitadelModifier
     // Field count: 0
-    pub mod CCitadel_Modifier_Synth_Blitz {
-    }
+    pub mod CCitadel_Modifier_Synth_Blitz {}
     // Parent: CCitadelModifier
     // Field count: 0
-    pub mod CCitadel_Modifier_Urn_Debuff {
-    }
+    pub mod CCitadel_Modifier_Urn_Debuff {}
     // Parent: CitadelAbilityVData
     // Field count: 3
     pub mod CAbilityChargedShotVData {
@@ -13255,28 +12906,22 @@ pub mod client_dll {
     }
     // Parent: CCitadelModifier
     // Field count: 0
-    pub mod CCitadel_Modifier_Aerial_Assault {
-    }
+    pub mod CCitadel_Modifier_Aerial_Assault {}
     // Parent: CCitadelModifierAura
     // Field count: 0
-    pub mod CCitadel_Modifier_Dust_Storm_Aura {
-    }
+    pub mod CCitadel_Modifier_Dust_Storm_Aura {}
     // Parent: C_CitadelProjectile
     // Field count: 0
-    pub mod C_CitadelHornetStingProjectile {
-    }
+    pub mod C_CitadelHornetStingProjectile {}
     // Parent: CCitadel_Item
     // Field count: 0
-    pub mod CCitadel_Item_CheatDeath {
-    }
+    pub mod CCitadel_Item_CheatDeath {}
     // Parent: CCitadelModifier
     // Field count: 0
-    pub mod CCitadel_Modifier_Fear {
-    }
+    pub mod CCitadel_Modifier_Fear {}
     // Parent: CCitadelModifier
     // Field count: 0
-    pub mod CCitadel_Modifier_AirLift_Explode_Target {
-    }
+    pub mod CCitadel_Modifier_AirLift_Explode_Target {}
     // Parent: CitadelAbilityVData
     // Field count: 11
     pub mod CAbilityHookVData {
@@ -13344,8 +12989,7 @@ pub mod client_dll {
     }
     // Parent: C_Citadel_BreakblePropPickup
     // Field count: 0
-    pub mod C_Citadel_BreakblePropHealthPickup {
-    }
+    pub mod C_Citadel_BreakblePropHealthPickup {}
     // Parent: CCitadelModifierVData
     // Field count: 1
     pub mod CModifierVData_SetModelScale {
@@ -13359,8 +13003,7 @@ pub mod client_dll {
     }
     // Parent: C_CitadelBaseAbility
     // Field count: 0
-    pub mod CAbility_Rutger_ForceField {
-    }
+    pub mod CAbility_Rutger_ForceField {}
     // Parent: C_CitadelBaseAbility
     // Field count: 15
     pub mod CCitadel_Ability_Slide {
@@ -13383,18 +13026,12 @@ pub mod client_dll {
     // Parent: C_AI_CitadelNPC
     // Field count: 6
     pub mod C_NPC_Boss_Tier3 {
-        pub const m_iLane: usize = 0x1470; // int32
-        pub const m_angTargeting1: usize = 0x1478; // QAngle
-        pub const m_angTargeting2: usize = 0x1490; // QAngle
-        pub const m_nElectricBeamCasts: usize = 0x14A8; // int32
-        pub const m_eAliveState: usize = 0x14AC; // ETier3State_t
-        pub const m_ePhase: usize = 0x14B0; // ETier3Phase_t
-    }
-    // Parent: CCitadelModifierVData
-    // Field count: 2
-    pub mod CCitadel_Modifier_BreakablePropExtraGoldPickupVData {
-        pub const m_iBaseExtraGoldBounty: usize = 0x608; // int32
-        pub const m_iPerMinuteExtraGoldBounty: usize = 0x60C; // int32
+        pub const m_iLane: usize = 0x1468; // int32
+        pub const m_angTargeting1: usize = 0x1470; // QAngle
+        pub const m_angTargeting2: usize = 0x1488; // QAngle
+        pub const m_nElectricBeamCasts: usize = 0x14A0; // int32
+        pub const m_eAliveState: usize = 0x14A4; // ETier3State_t
+        pub const m_ePhase: usize = 0x14A8; // ETier3Phase_t
     }
     // Parent: CCitadelModifier
     // Field count: 8
@@ -13415,8 +13052,7 @@ pub mod client_dll {
     }
     // Parent: CCitadelModifier
     // Field count: 0
-    pub mod CCitadel_Modifier_SpellShield_Buff {
-    }
+    pub mod CCitadel_Modifier_SpellShield_Buff {}
     // Parent: CCitadel_Modifier_Intrinsic_BaseVData
     // Field count: 1
     pub mod CCitadel_Modifier_MagicStormWatcherVData {
@@ -13439,12 +13075,10 @@ pub mod client_dll {
     }
     // Parent: CCitadelModifierAura
     // Field count: 0
-    pub mod CCitadel_Modifier_FlameDashGroundAura {
-    }
+    pub mod CCitadel_Modifier_FlameDashGroundAura {}
     // Parent: C_BaseModelEntity
     // Field count: 0
-    pub mod C_Breakable {
-    }
+    pub mod C_Breakable {}
     // Parent: CCitadel_Ability_Melee_Base
     // Field count: 1
     pub mod CCitadel_Ability_Uppercut {
@@ -13457,16 +13091,13 @@ pub mod client_dll {
     }
     // Parent: C_BaseEntity
     // Field count: 0
-    pub mod C_TintController {
-    }
+    pub mod C_TintController {}
     // Parent: CPlayerPawnComponent
     // Field count: 0
-    pub mod CPlayer_AutoaimServices {
-    }
+    pub mod CPlayer_AutoaimServices {}
     // Parent: C_CitadelProjectile
     // Field count: 0
-    pub mod CCitadel_Projectile_SpiderProjectile {
-    }
+    pub mod CCitadel_Projectile_SpiderProjectile {}
     // Parent: CCitadel_Modifier_StunnedVData
     // Field count: 4
     pub mod CCitadel_Modifier_PillarVData {
@@ -13477,12 +13108,10 @@ pub mod client_dll {
     }
     // Parent: CCitadelModifier
     // Field count: 0
-    pub mod CCitadel_Modifier_WingBlastApply {
-    }
+    pub mod CCitadel_Modifier_WingBlastApply {}
     // Parent: CCitadelModifier
     // Field count: 0
-    pub mod CCitadel_Modifier_ImmobilizeTrap_Debuff {
-    }
+    pub mod CCitadel_Modifier_ImmobilizeTrap_Debuff {}
     // Parent: CCitadelModifierAura_Cone
     // Field count: 3
     pub mod CCitadel_Modifier_Fathom_ScaldingSpray_Aura {
@@ -13492,8 +13121,7 @@ pub mod client_dll {
     }
     // Parent: CCitadel_WeaponUpgrade_HeadshotBooster
     // Field count: 0
-    pub mod CCitadel_WeaponUpgrade_Headhunter {
-    }
+    pub mod CCitadel_WeaponUpgrade_Headhunter {}
     // Parent: C_BaseModelEntity
     // Field count: 24
     pub mod C_Sprite {
@@ -13589,8 +13217,7 @@ pub mod client_dll {
     }
     // Parent: CCitadelModifierAura
     // Field count: 0
-    pub mod CCitadel_Modifier_Tier2Boss_RocketDamage_Aura {
-    }
+    pub mod CCitadel_Modifier_Tier2Boss_RocketDamage_Aura {}
     // Parent: CCitadelModifierVData
     // Field count: 1
     pub mod CCitadel_Modifier_Rutger_Pulse_VData {
@@ -13611,12 +13238,10 @@ pub mod client_dll {
     }
     // Parent: CCitadelModifier
     // Field count: 0
-    pub mod CCitadel_Modifier_Nano_Pounce_Self {
-    }
+    pub mod CCitadel_Modifier_Nano_Pounce_Self {}
     // Parent: C_CitadelBaseAbility
     // Field count: 0
-    pub mod CCitadel_Ability_MobileResupply {
-    }
+    pub mod CCitadel_Ability_MobileResupply {}
     // Parent: CitadelAbilityVData
     // Field count: 14
     pub mod CAbilityHornetSnipeVData {
@@ -13637,8 +13262,7 @@ pub mod client_dll {
     }
     // Parent: CCitadelModifier
     // Field count: 0
-    pub mod CCitadel_Modifier_AblativeCoatResistBuff {
-    }
+    pub mod CCitadel_Modifier_AblativeCoatResistBuff {}
     // Parent: CCitadelModifierVData
     // Field count: 1
     pub mod CModifierVitalitySuppressorVData {
@@ -13646,28 +13270,22 @@ pub mod client_dll {
     }
     // Parent: C_AI_CitadelNPC
     // Field count: 0
-    pub mod C_CitadelPlayerBotNPCBrain {
-    }
-    // Parent: C_DynamicProp
-    // Field count: 0
-    pub mod C_AnimGraph2TestProp {
-    }
+    pub mod C_CitadelPlayerBotNPCBrain {}
     // Parent: CBaseAnimGraph
     // Field count: 8
     pub mod C_RagdollProp {
-        pub const m_ragPos: usize = 0xB10; // C_NetworkUtlVectorBase<Vector>
-        pub const m_ragAngles: usize = 0xB28; // C_NetworkUtlVectorBase<QAngle>
-        pub const m_flBlendWeight: usize = 0xB40; // float32
-        pub const m_hRagdollSource: usize = 0xB44; // CHandle<C_BaseEntity>
-        pub const m_iEyeAttachment: usize = 0xB48; // AttachmentHandle_t
-        pub const m_flBlendWeightCurrent: usize = 0xB4C; // float32
-        pub const m_parentPhysicsBoneIndices: usize = 0xB50; // CUtlVector<int32>
-        pub const m_worldSpaceBoneComputationOrder: usize = 0xB68; // CUtlVector<int32>
+        pub const m_ragPos: usize = 0xB08; // C_NetworkUtlVectorBase<Vector>
+        pub const m_ragAngles: usize = 0xB20; // C_NetworkUtlVectorBase<QAngle>
+        pub const m_flBlendWeight: usize = 0xB38; // float32
+        pub const m_hRagdollSource: usize = 0xB3C; // CHandle<C_BaseEntity>
+        pub const m_iEyeAttachment: usize = 0xB40; // AttachmentHandle_t
+        pub const m_flBlendWeightCurrent: usize = 0xB44; // float32
+        pub const m_parentPhysicsBoneIndices: usize = 0xB48; // CUtlVector<int32>
+        pub const m_worldSpaceBoneComputationOrder: usize = 0xB60; // CUtlVector<int32>
     }
     // Parent: CCitadel_Item
     // Field count: 0
-    pub mod CCitadel_WeaponUpgrade_BansheeSlugs {
-    }
+    pub mod CCitadel_WeaponUpgrade_BansheeSlugs {}
     // Parent: CitadelAbilityVData
     // Field count: 9
     pub mod CBaseDashCastAbilityVData {
@@ -13683,12 +13301,10 @@ pub mod client_dll {
     }
     // Parent: CCitadelModifier
     // Field count: 0
-    pub mod CModifier_Mirage_Traveler_MovementSpeed {
-    }
+    pub mod CModifier_Mirage_Traveler_MovementSpeed {}
     // Parent: CCitadelModifierVData
     // Field count: 0
-    pub mod CModifier_Synth_Barrage_Amp_VData {
-    }
+    pub mod CModifier_Synth_Barrage_Amp_VData {}
     // Parent: CitadelAbilityVData
     // Field count: 2
     pub mod CCitadel_Ability_Gravity_Lasso_VData {
@@ -13710,14 +13326,15 @@ pub mod client_dll {
         pub const m_CastHealParticle: usize = 0x1688; // CResourceNameTyped<CWeakHandle<InfoForResourceTypeIParticleSystemDefinition>>
         pub const m_HealingPulseTrackerModifier: usize = 0x1768; // CEmbeddedSubclass<CCitadelModifier>
     }
-    // Parent: CCitadel_Modifier_RegeneratingTechShield
+    // Parent: CCitadel_Modifier_BaseShield
     // Field count: 0
-    pub mod CCitadel_Modifier_GalvanicStormTechShield {
-    }
+    pub mod CCitadel_Modifier_GalvanicStormTechShield {}
+    // Parent: CCitadel_Modifier_RegeneratingBulletShield
+    // Field count: 0
+    pub mod CCitadel_Modifier_TempBulletShield {}
     // Parent: CCitadelModifier
     // Field count: 0
-    pub mod CCitadel_Modifier_Root {
-    }
+    pub mod CCitadel_Modifier_Root {}
     // Parent: C_BaseEntity
     // Field count: 1
     pub mod C_HeroPreview {
@@ -13732,8 +13349,7 @@ pub mod client_dll {
     }
     // Parent: CCitadel_Item
     // Field count: 0
-    pub mod CCitadel_ArmorUpgrade_Colossus {
-    }
+    pub mod CCitadel_ArmorUpgrade_Colossus {}
     // Parent: CCitadel_Ability_BaseHeldItemVData
     // Field count: 15
     pub mod CCitadel_Ability_GoldenIdolVData {
@@ -13764,11 +13380,12 @@ pub mod client_dll {
     pub mod CCitadel_Modifier_Thumper_Ability_2 {
         pub const m_vLastPosition: usize = 0xC0; // Vector
     }
-    // Parent: CCitadelModifierVData
-    // Field count: 2
+    // Parent: CCitadel_Modifier_BaseBulletPreRollProcVData
+    // Field count: 3
     pub mod CCitadel_Modifier_BulletFlurryVData {
-        pub const m_ImpactParticle: usize = 0x608; // CResourceNameTyped<CWeakHandle<InfoForResourceTypeIParticleSystemDefinition>>
-        pub const m_strAttackerHitSound: usize = 0x6E8; // CSoundEventName
+        pub const m_ImpactParticle: usize = 0x738; // CResourceNameTyped<CWeakHandle<InfoForResourceTypeIParticleSystemDefinition>>
+        pub const m_ExplodeParticle: usize = 0x818; // CResourceNameTyped<CWeakHandle<InfoForResourceTypeIParticleSystemDefinition>>
+        pub const m_strAttackerHitSound: usize = 0x8F8; // CSoundEventName
     }
     // Parent: C_CitadelBaseAbility
     // Field count: 1

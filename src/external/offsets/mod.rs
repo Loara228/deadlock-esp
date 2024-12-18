@@ -7,8 +7,6 @@ pub mod client {
     pub static mut dwCCitadelCameraManager: usize = 0x0;
     pub static mut dwGlobalVars: usize = 0x0;
     pub static mut dwGameRules: usize = 0x0;
-    pub static mut dwGameEntitySystem: usize = 0x0;
-    pub static mut dwGameTraceManager: usize = 0x0;
     pub static mut highestEntityIndex: usize = 0x2100;
 }
 

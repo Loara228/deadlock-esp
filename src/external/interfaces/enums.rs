@@ -24,19 +24,19 @@ impl TargetBone {
             return match hero {
                 Hero::None => 0,
                 Hero::Infernus => 29,
-                Hero::Seven => 12, // GIGAWATT //
+                Hero::Seven => 13, // GIGAWATT //
                 Hero::Vindicta => 6, // HORNET //
                 Hero::LadyGeist => 10, // GHOST //
-                Hero::Abrams => 6, // ATLAS //
+                Hero::Abrams => 44, // ATLAS //
                 Hero::Wraith => 6,
                 Hero::McGinnis => 6, // ENGINEER/FORGE //
                 Hero::Paradox => 7, // CHRONO //
                 Hero::Dynamo => 12,
                 Hero::Kelvin => 11,
-                Hero::Haze => 6,
-                Hero::Holliday => 11, // ASTRO //
+                Hero::Haze => 12,
+                Hero::Holliday => 12, // ASTRO //
                 Hero::Bebop => 5,
-                Hero::Calico => 12, // NANO
+                Hero::Calico => 55, // NANO
                 Hero::GreyTalon => 16,
                 Hero::MoAndKrill => 9, // DIGGER //
                 Hero::Shiv => 12,
@@ -46,19 +46,20 @@ impl TargetBone {
                 Hero::Yamato => 33,
                 Hero::Lash => 11,
                 Hero::Viscous => 6,
-                Hero::Wrecker => 6, 
+                Hero::Wrecker => 7, 
                 Hero::Pocket => 12, // SYNTH //
-                Hero::Mirage => 7,
+                Hero::Mirage => 6,
                 Hero::Fathom => 11, // SLORK //
                 Hero::Dummy => 17,
-                Hero::Magician => 11, 
-                Hero::Trapper => 11, 
+                Hero::Magician => 12, 
+                Hero::Trapper => 12, 
+                Hero::Raven => 34,
             }
         }
         else if *self == TargetBone::Pelvis {
             return match hero {
                 Hero::None => 0,
-                Hero::Infernus => 7,
+                Hero::Infernus => 36,
                 Hero::Seven => 7,
                 Hero::Vindicta => 1,
                 Hero::LadyGeist => 5,
@@ -68,26 +69,27 @@ impl TargetBone {
                 Hero::Paradox => 2,
                 Hero::Dynamo => 7,
                 Hero::Kelvin => 6,
-                Hero::Haze => 1,
-                Hero::Holliday => 15, 
-                Hero::Bebop => 14,
-                Hero::Calico => 15, 
+                Hero::Haze => 7,
+                Hero::Holliday => 32, 
+                Hero::Bebop => 0,
+                Hero::Calico => 7, 
                 Hero::GreyTalon => 7,
                 Hero::MoAndKrill => 4,
                 Hero::Shiv => 7,
                 Hero::Ivy => 7,
-                Hero::Viper => 15, 
+                Hero::Viper => 7, 
                 Hero::Warden => 5,
                 Hero::Yamato => 6,
                 Hero::Lash => 6,
                 Hero::Viscous => 1,
-                Hero::Wrecker => 19, 
+                Hero::Wrecker => 2, 
                 Hero::Pocket =>  7,
                 Hero::Mirage => 2,
-                Hero::Fathom => 15, 
+                Hero::Fathom => 27, 
                 Hero::Dummy => 6,
-                Hero::Magician => 17, 
-                Hero::Trapper => 15,
+                Hero::Magician => 7, 
+                Hero::Trapper => 7,
+                Hero::Raven => 1,
             }
         }
         else if *self == TargetBone::Chest { // SPINE_3
@@ -96,33 +98,34 @@ impl TargetBone {
                 Hero::Infernus => 11,
                 Hero::Seven => 11,
                 Hero::Vindicta => 5,
-                Hero::LadyGeist => 9,
+                Hero::LadyGeist => 8,
                 Hero::Abrams => 5,
                 Hero::Wraith => 5,
                 Hero::McGinnis => 5,
                 Hero::Paradox => 6,
-                Hero::Dynamo => 7,
+                Hero::Dynamo => 46,
                 Hero::Kelvin => 10,
-                Hero::Haze => 5,
-                Hero::Holliday => 2, 
+                Hero::Haze => 11,
+                Hero::Holliday => 11, 
                 Hero::Bebop => 4,
-                Hero::Calico => 2,
+                Hero::Calico => 11,
                 Hero::GreyTalon => 15,
                 Hero::MoAndKrill => 8, // 23
                 Hero::Shiv => 11,
                 Hero::Ivy => 11,
-                Hero::Viper => 2, 
+                Hero::Viper => 9, 
                 Hero::Warden => 9,
                 Hero::Yamato => 18,
                 Hero::Lash => 10,
-                Hero::Viscous => 5,
-                Hero::Wrecker => 2,
+                Hero::Viscous => 4,
+                Hero::Wrecker => 6,
                 Hero::Pocket =>  11,
-                Hero::Mirage => 6,
-                Hero::Fathom => 2, 
+                Hero::Mirage => 5,
+                Hero::Fathom => 11, 
                 Hero::Dummy => 10,
-                Hero::Magician => 2, 
-                Hero::Trapper => 2,
+                Hero::Magician => 21, 
+                Hero::Trapper => 11,
+                Hero::Raven => 8,
             }
         }
         0
@@ -164,8 +167,8 @@ pub enum Hero
     Fathom = 53,
     Dummy = 55,
     Magician = 60,
-    Trapper = 61
-  
+    Trapper = 61,
+    Raven = 62
 }
 
 impl std::fmt::Display for Hero {
@@ -197,26 +200,27 @@ impl Hero
             Hero::Paradox => Some(8),
             Hero::Dynamo => Some(13),
             Hero::Kelvin => Some(12),
-            Hero::Haze => Some(7),
-            Hero::Holliday => Some(6), // -1
+            Hero::Haze => Some(14),
+            Hero::Holliday => Some(13), // -1
             Hero::Bebop => Some(6),
-            Hero::Calico => Some(12),
+            Hero::Calico => Some(13),
             Hero::GreyTalon => Some(17),
             Hero::MoAndKrill => Some(25), // 10
             Hero::Shiv => Some(13),
             Hero::Ivy => Some(13),
-            Hero::Viper => Some(6),
+            Hero::Viper => Some(13),
             Hero::Warden => Some(11),
-            Hero::Yamato => Some(33),
+            Hero::Yamato => Some(34),
             Hero::Lash => Some(12),
             Hero::Viscous => Some(7),
-            Hero::Wrecker => Some(7), //-1
+            Hero::Wrecker => Some(8), //-1
             Hero::Pocket => Some(13),
-            Hero::Mirage => Some(8),
-            Hero::Fathom => Some(12),
+            Hero::Mirage => Some(7),
+            Hero::Fathom => Some(13),
             Hero::Dummy => Some(34),
-            Hero::Magician => Some(12),
-            Hero::Trapper => Some(12),
+            Hero::Magician => Some(13),
+            Hero::Trapper => Some(13),
+            Hero::Raven => Some(7),
             _ => None
         }
     }
@@ -235,7 +239,7 @@ impl Hero
             Hero::Dynamo => egui::include_image!("../../../icons/Dynamo.png"),
             Hero::Kelvin => egui::include_image!("../../../icons/Kelvin.png"),
             Hero::Haze => egui::include_image!("../../../icons/Haze.png"),
-            // Hero::Holliday => egui::include_image!("../../../icons/None.png"),
+            Hero::Holliday => egui::include_image!("../../../icons/None.png"),
             Hero::Bebop => egui::include_image!("../../../icons/Bebop.png"),
             Hero::GreyTalon => egui::include_image!("../../../icons/GreyTalon.png"),
             Hero::MoAndKrill => egui::include_image!("../../../icons/MoAndKrill.png"),
@@ -245,15 +249,16 @@ impl Hero
             Hero::Yamato => egui::include_image!("../../../icons/Yamato.png"),
             Hero::Lash => egui::include_image!("../../../icons/Lash.png"),
             Hero::Viscous => egui::include_image!("../../../icons/Viscous.png"),
-            // Hero::Wrecker => egui::include_image!("../../../icons/None.png"),
+            Hero::Wrecker => egui::include_image!("../../../icons/None.png"),
             Hero::Pocket => egui::include_image!("../../../icons/Pocket.png"),
             Hero::Mirage => egui::include_image!("../../../icons/Mirage.png"),
             Hero::Dummy => egui::include_image!("../../../icons/None.png"),
-            // Hero::Calico => egui::include_image!("../../../icons/None.png"),
-            // Hero::Fathom => egui::include_image!("../../../icons/None.png"),
-            // Hero::Magician => egui::include_image!("../../../icons/None.png"),
-            // Hero::Trapper => egui::include_image!("../../../icons/None.png"),
-            // Hero::Viper => egui::include_image!("../../../icons/None.png"),
+            Hero::Calico => egui::include_image!("../../../icons/None.png"),
+            Hero::Fathom => egui::include_image!("../../../icons/None.png"),
+            Hero::Magician => egui::include_image!("../../../icons/None.png"),
+            Hero::Trapper => egui::include_image!("../../../icons/None.png"),
+            Hero::Viper => egui::include_image!("../../../icons/None.png"),
+            Hero::Raven => egui::include_image!("../../../icons/None.png"),
             _ => egui::include_image!("../../../icons/None.png")
         };
     }
@@ -296,6 +301,7 @@ impl TryFrom<i32> for Hero
             58 => Ok(Hero::Viper),
             60 => Ok(Hero::Magician),
             61 => Ok(Hero::Trapper),
+            62 => Ok(Hero::Raven),
             _ => {
                 // log::error!("Unknown hero id: {}", value);
                 Err(())

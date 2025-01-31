@@ -9,6 +9,8 @@
 
 Report your problem: https://github.com/Loara228/deadlock-esp/issues/new<br>
 Offset changes: https://github.com/Loara228/deadlock-esp/issues/18
+> Some things won't work without updating the offsets yourself <br>
+> Некоторые вещи не будут работать без самостоятельного обновления смещений
 
 ## How to use
 

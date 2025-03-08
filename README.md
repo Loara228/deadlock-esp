@@ -3,6 +3,12 @@
       deadlock-esp
 </h1>
 
+> [!Important]
+> НЕ РАБОТАЕТ!!!<br>
+> ОБНОВЛЕНИЙ НЕ БУДЕТ
+
+<!--
+
 > [!WARNING]
 > The use of cheat programs is strictly prohibited by Gaben. This may result in your account being banned!<br>
 > If you care about your account, then do not use any cheats, including this one
@@ -54,6 +60,8 @@ cargo build --release
 ![](images/calibrate.png)![](preview)
 
 <hr>
+-->
+
 
 <details>
 <summary>Функционал</summary>
